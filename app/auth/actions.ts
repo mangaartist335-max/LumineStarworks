@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 export interface AuthActionState {
@@ -53,12 +54,15 @@ export async function signUpAction(
     return { error: "Password must be at least 8 characters." };
   }
 
+  const origin = (await headers()).get("origin") || "";
+
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { display_name: displayName || email.split("@")[0] },
+      emailRedirectTo: `${origin}/auth/callback`,
     },
   });
 

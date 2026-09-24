@@ -9,6 +9,13 @@ export default async function SignInPage(props: PageProps<"/auth/sign-in">) {
     ? redirectToParam[0]
     : redirectToParam || "/dashboard";
 
+  const errorParam = searchParams?.error;
+  const initialError =
+    (Array.isArray(errorParam) ? errorParam[0] : errorParam) ===
+    "confirmation_failed"
+      ? "That confirmation link is invalid or has expired. Please sign in, or sign up again."
+      : undefined;
+
   return (
     <AuthShell
       title="Welcome back"
@@ -22,7 +29,7 @@ export default async function SignInPage(props: PageProps<"/auth/sign-in">) {
         </>
       }
     >
-      <SignInForm redirectTo={redirectTo} />
+      <SignInForm redirectTo={redirectTo} initialError={initialError} />
     </AuthShell>
   );
 }

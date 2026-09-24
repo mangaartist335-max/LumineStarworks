@@ -8,11 +8,18 @@ import { Input, Label } from "@/components/ui/Field";
 
 const initialState: AuthActionState = { error: null };
 
-export function SignInForm({ redirectTo }: { redirectTo: string }) {
+export function SignInForm({
+  redirectTo,
+  initialError,
+}: {
+  redirectTo: string;
+  initialError?: string;
+}) {
   const [state, formAction, pending] = useActionState(
     signInAction,
     initialState
   );
+  const error = state.error || initialError;
 
   return (
     <form action={formAction} className="space-y-4">
@@ -39,10 +46,10 @@ export function SignInForm({ redirectTo }: { redirectTo: string }) {
           required
         />
       </div>
-      {state.error && (
+      {error && (
         <div className="flex items-start gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3 py-2.5 text-sm text-danger">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-          {state.error}
+          {error}
         </div>
       )}
       <Button type="submit" className="w-full" size="lg" disabled={pending}>
