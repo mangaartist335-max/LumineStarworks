@@ -1,12 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { generateBuildBrief, BriefGenerationError } from "@/lib/anthropic";
+import { generateBuildBrief } from "@/lib/anthropic";
 import { newProjectSchema } from "@/lib/validation";
 import type { ProjectRow } from "@/lib/types";
 
-// Vercel's Hobby plan caps serverless function duration at 60s even if a
-// higher value is set here; keep this accurate to avoid requests that run
-// past what the platform will actually allow.
+// The actual generation work happens in `after()`, which keeps running
+// for up to this long after the response is already sent — the browser
+// never has to hold a request open while Claude works, so it can't time
+// out or fail with a bare network error no matter how long generation takes.
 export const maxDuration = 60;
 
 export async function POST(request: Request) {
@@ -61,36 +62,32 @@ export async function POST(request: Request) {
     );
   }
 
-  try {
-    const brief = await generateBuildBrief({
-      name: input.name,
-      projectType: input.projectType,
-      idea: input.idea,
-      targetUser: input.targetUser,
-      preferredTech: input.preferredTech,
-      extraRequirements: input.extraRequirements,
-    });
+  after(async () => {
+    try {
+      const brief = await generateBuildBrief({
+        name: input.name,
+        projectType: input.projectType,
+        idea: input.idea,
+        targetUser: input.targetUser,
+        preferredTech: input.preferredTech,
+        extraRequirements: input.extraRequirements,
+      });
 
-    const { data: updated, error: updateError } = await supabase
-      .from("projects")
-      .update({ generated_brief: brief, status: "ready_to_build" })
-      .eq("id", inserted.id)
-      .select()
-      .single<ProjectRow>();
+      const { error: updateError } = await supabase
+        .from("projects")
+        .update({ generated_brief: brief, status: "ready_to_build" })
+        .eq("id", inserted.id);
 
-    if (updateError || !updated) {
-      console.error("[projects.update]", updateError);
-      throw new BriefGenerationError("Failed to save the generated brief.");
+      if (updateError) {
+        console.error("[projects.update]", updateError);
+      }
+    } catch (error) {
+      console.error("[projects.generate]", error);
+      // Leave the project row in place with no brief. The project page
+      // polls for a brief and falls back to a manual retry once it's
+      // waited long enough, so a background failure here isn't a dead end.
     }
+  });
 
-    return NextResponse.json({ project: updated });
-  } catch (error) {
-    console.error("[projects.generate]", error);
-    await supabase.from("projects").delete().eq("id", inserted.id);
-    const message =
-      error instanceof BriefGenerationError
-        ? error.message
-        : "We couldn't generate your BuildBrief. Please try again.";
-    return NextResponse.json({ error: message }, { status: 502 });
-  }
+  return NextResponse.json({ project: inserted });
 }

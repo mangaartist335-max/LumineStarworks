@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/Field";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { DropdownMenu, MenuItem } from "@/components/ui/DropdownMenu";
 import { GenerateLoadingOverlay } from "@/components/projects/GenerateLoadingOverlay";
+import { usePollForBrief } from "@/lib/usePollForBrief";
 import { BriefSection } from "@/components/projects/BriefSection";
 import { SectionNav } from "@/components/projects/SectionNav";
 import { BuildWithClaudeModal } from "@/components/projects/BuildWithClaudeModal";
@@ -77,6 +78,7 @@ export function BuildBriefView({
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
+  const { start: startPolling } = usePollForBrief();
   const [claudeModalOpen, setClaudeModalOpen] = useState(false);
   const [banner, setBanner] = useState<{ type: "error" | "success"; text: string } | null>(null);
   const [copiedAction, setCopiedAction] = useState<string | null>(null);
@@ -138,20 +140,34 @@ export function BuildBriefView({
 
   async function handleRegenerate() {
     setRegenerating(true);
+    const since = new Date().toISOString();
     try {
       const res = await fetch(`/api/projects/${project.id}/regenerate`, {
         method: "POST",
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Regeneration failed.");
-      setSavedBrief(data.project.generated_brief);
-      setDraft(data.project.generated_brief);
-      setEditing(false);
-      flash("success", "Regenerated a fresh BuildBrief.");
+
+      startPolling(
+        { projectId: project.id, since },
+        (brief) => {
+          setSavedBrief(brief);
+          setDraft(brief);
+          setEditing(false);
+          setRegenerating(false);
+          flash("success", "Regenerated a fresh BuildBrief.");
+        },
+        () => {
+          setRegenerating(false);
+          flash(
+            "error",
+            "Regeneration is taking longer than expected. Please try again."
+          );
+        }
+      );
     } catch (err) {
-      flash("error", err instanceof Error ? err.message : "Regeneration failed.");
-    } finally {
       setRegenerating(false);
+      flash("error", err instanceof Error ? err.message : "Regeneration failed.");
     }
   }
 
