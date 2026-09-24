@@ -7,9 +7,28 @@ import type { BuildBrief, ProjectType } from "./types";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
 const TOOL_NAME = "submit_build_brief";
 
+// Claude's strict tool-use validator only supports `minItems` of 0 or 1,
+// while our zod schema asks for richer minimums (e.g. "at least 3 features").
+// Clamp minItems in the schema we send to the API; buildBriefSchema itself
+// still enforces the real minimums when we validate Claude's response.
+function clampMinItems(node: unknown): void {
+  if (Array.isArray(node)) {
+    for (const item of node) clampMinItems(item);
+    return;
+  }
+  if (node && typeof node === "object") {
+    const obj = node as Record<string, unknown>;
+    if (typeof obj.minItems === "number" && obj.minItems > 1) {
+      obj.minItems = 1;
+    }
+    for (const value of Object.values(obj)) clampMinItems(value);
+  }
+}
+
 const briefJsonSchema = (() => {
   const schema = z.toJSONSchema(buildBriefSchema) as Record<string, unknown>;
   delete schema.$schema;
+  clampMinItems(schema);
   return schema;
 })();
 
@@ -50,6 +69,15 @@ Rules:
 - The 48-hour build plan must be realistic for one developer (or one developer plus an AI coding agent) and favor shipping something complete over building everything partially.
 - The Claude Code prompt, CLAUDE.md, and AGENTS.md must be fully self-contained: someone should be able to paste the Claude Code prompt into a coding agent with zero additional back-and-forth about what the app is.
 - Write in clear, confident, professional language. No hedging, no meta-commentary about being an AI.
+
+Minimum item counts (the tool call will be rejected and you'll be asked to redo it if these aren't met):
+- mvpFeatures: at least 3
+- laterFeatures: at least 2
+- screens: at least 2
+- userFlow: at least 3 steps
+- uiComponents: at least 3
+- definitionOfDone: at least 4 checklist items
+- Every list inside buildPlan (dayOneMorning, dayOneAfternoon, dayOneEvening, dayTwoMorning, dayTwoAfternoon, dayTwoFinalPolish): at least 1 task each
 
 You must respond by calling the ${TOOL_NAME} tool exactly once with the complete blueprint. Do not include any text outside the tool call.`;
 
