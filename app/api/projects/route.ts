@@ -51,6 +51,7 @@ export async function POST(request: Request) {
     .single<ProjectRow>();
 
   if (insertError || !inserted) {
+    console.error("[projects.insert]", insertError);
     return NextResponse.json(
       { error: "Could not create the project. Please try again." },
       { status: 500 }
@@ -75,11 +76,13 @@ export async function POST(request: Request) {
       .single<ProjectRow>();
 
     if (updateError || !updated) {
+      console.error("[projects.update]", updateError);
       throw new BriefGenerationError("Failed to save the generated brief.");
     }
 
     return NextResponse.json({ project: updated });
   } catch (error) {
+    console.error("[projects.generate]", error);
     await supabase.from("projects").delete().eq("id", inserted.id);
     const message =
       error instanceof BriefGenerationError
