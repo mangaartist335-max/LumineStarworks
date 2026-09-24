@@ -7,13 +7,14 @@ import type { BuildBrief, ProjectType } from "./types";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
 const TOOL_NAME = "submit_build_brief";
 
-// Claude's strict tool-use validator only supports `minItems` of 0 or 1,
-// while our zod schema asks for richer minimums (e.g. "at least 3 features").
-// Clamp minItems in the schema we send to the API; buildBriefSchema itself
-// still enforces the real minimums when we validate Claude's response.
-function clampMinItems(node: unknown): void {
+// Claude's strict tool-use validator only supports `minItems` of 0 or 1 and
+// doesn't support `maxItems` at all, while our zod schema asks for richer
+// bounds (e.g. "3-10 features"). Sanitize the schema we send to the API;
+// buildBriefSchema itself still enforces the real bounds when we validate
+// Claude's response.
+function sanitizeArrayConstraints(node: unknown): void {
   if (Array.isArray(node)) {
-    for (const item of node) clampMinItems(item);
+    for (const item of node) sanitizeArrayConstraints(item);
     return;
   }
   if (node && typeof node === "object") {
@@ -21,14 +22,15 @@ function clampMinItems(node: unknown): void {
     if (typeof obj.minItems === "number" && obj.minItems > 1) {
       obj.minItems = 1;
     }
-    for (const value of Object.values(obj)) clampMinItems(value);
+    delete obj.maxItems;
+    for (const value of Object.values(obj)) sanitizeArrayConstraints(value);
   }
 }
 
 const briefJsonSchema = (() => {
   const schema = z.toJSONSchema(buildBriefSchema) as Record<string, unknown>;
   delete schema.$schema;
-  clampMinItems(schema);
+  sanitizeArrayConstraints(schema);
   return schema;
 })();
 
