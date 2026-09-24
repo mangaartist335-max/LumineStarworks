@@ -3,7 +3,10 @@ import { createClient } from "@/lib/supabase/server";
 import { generateBuildBrief, BriefGenerationError } from "@/lib/anthropic";
 import type { ProjectRow } from "@/lib/types";
 
-export const maxDuration = 120;
+// Vercel's Hobby plan caps serverless function duration at 60s even if a
+// higher value is set here; keep this accurate to avoid requests that run
+// past what the platform will actually allow.
+export const maxDuration = 60;
 
 export async function POST(
   _request: Request,
