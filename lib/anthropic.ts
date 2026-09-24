@@ -96,6 +96,12 @@ async function callClaude(
   try {
     return await stream.finalMessage();
   } catch (error) {
+    console.error("[anthropic.callClaude]", {
+      name: error instanceof Error ? error.name : typeof error,
+      message: error instanceof Error ? error.message : String(error),
+      status: (error as { status?: unknown })?.status,
+      errorBody: (error as { error?: unknown })?.error,
+    });
     throw new BriefGenerationError(
       "Claude did not respond. Please try again.",
       { cause: error }
