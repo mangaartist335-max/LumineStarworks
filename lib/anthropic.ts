@@ -7,6 +7,30 @@ import type { BuildBrief, ProjectType } from "./types";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
 const TOOL_NAME = "submit_build_brief";
 
+// Haiku-tier models cap max_tokens far lower than Sonnet/Opus; asking for
+// more than a model supports is a 400 at request time, not a soft limit.
+const MAX_TOKENS = MODEL.includes("haiku") ? 8192 : 20000;
+
+const RETRYABLE_STATUS_CODES = new Set([408, 409, 429, 500, 502, 503, 529]);
+
+function isRetryable(error: unknown): boolean {
+  const status = (error as { status?: unknown })?.status;
+  if (typeof status === "number") return RETRYABLE_STATUS_CODES.has(status);
+  // Network-level failures (DNS, connection reset, timeout) have no status.
+  return error instanceof Error && !("status" in error);
+}
+
+function anthropicErrorMessage(error: unknown): string | null {
+  const body = (error as { error?: { error?: { message?: unknown } } })
+    ?.error?.error;
+  if (body && typeof body.message === "string") return body.message;
+  return null;
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 // Claude's strict tool-use validator only supports `minItems` of 0 or 1 and
 // doesn't support `maxItems` at all, while our zod schema asks for richer
 // bounds (e.g. "3-10 features"). Sanitize the schema we send to the API;
@@ -102,41 +126,60 @@ function buildUserPrompt(params: GenerateBriefParams): string {
   return lines.join("\n\n");
 }
 
+// Kept small: the request already runs inside a 60s serverless function
+// budget, and generateBuildBrief may call this twice more on top (once for
+// the initial attempt, once for a validation repair), so retries here must
+// not risk pushing a single call past the time left in that budget.
+const MAX_ATTEMPTS = 2;
+const RETRY_DELAYS_MS = [800];
+
 async function callClaude(
   messages: Anthropic.MessageParam[]
 ): Promise<Anthropic.Message> {
   const anthropic = client();
-  const stream = anthropic.messages.stream({
-    model: MODEL,
-    max_tokens: 20000,
-    system: SYSTEM_PROMPT,
-    messages,
-    tools: [
-      {
-        name: TOOL_NAME,
-        description:
-          "Submit the complete, validated BuildBrief for this project.",
-        input_schema: briefJsonSchema as Anthropic.Tool.InputSchema,
-        strict: true,
-      },
-    ],
-    tool_choice: { type: "tool", name: TOOL_NAME },
-  });
 
-  try {
-    return await stream.finalMessage();
-  } catch (error) {
-    console.error("[anthropic.callClaude]", {
-      name: error instanceof Error ? error.name : typeof error,
-      message: error instanceof Error ? error.message : String(error),
-      status: (error as { status?: unknown })?.status,
-      errorBody: (error as { error?: unknown })?.error,
-    });
-    throw new BriefGenerationError(
-      "Claude did not respond. Please try again.",
-      { cause: error }
-    );
+  let lastError: unknown;
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    try {
+      const stream = anthropic.messages.stream({
+        model: MODEL,
+        max_tokens: MAX_TOKENS,
+        system: SYSTEM_PROMPT,
+        messages,
+        tools: [
+          {
+            name: TOOL_NAME,
+            description:
+              "Submit the complete, validated BuildBrief for this project.",
+            input_schema: briefJsonSchema as Anthropic.Tool.InputSchema,
+            strict: true,
+          },
+        ],
+        tool_choice: { type: "tool", name: TOOL_NAME },
+      });
+      return await stream.finalMessage();
+    } catch (error) {
+      lastError = error;
+      console.error("[anthropic.callClaude]", {
+        attempt: attempt + 1,
+        name: error instanceof Error ? error.name : typeof error,
+        message: error instanceof Error ? error.message : String(error),
+        status: (error as { status?: unknown })?.status,
+        errorBody: (error as { error?: unknown })?.error,
+      });
+      const willRetry = attempt < MAX_ATTEMPTS - 1 && isRetryable(error);
+      if (!willRetry) break;
+      await sleep(RETRY_DELAYS_MS[attempt] ?? 2500);
+    }
   }
+
+  const detail = anthropicErrorMessage(lastError);
+  throw new BriefGenerationError(
+    detail
+      ? `Claude request failed: ${detail}`
+      : "Claude did not respond after multiple attempts. Please try again.",
+    { cause: lastError }
+  );
 }
 
 function extractToolInput(message: Anthropic.Message): unknown {
