@@ -31,30 +31,15 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Claude's strict tool-use validator only supports `minItems` of 0 or 1 and
-// doesn't support `maxItems` at all, while our zod schema asks for richer
-// bounds (e.g. "3-10 features"). Sanitize the schema we send to the API;
-// buildBriefSchema itself still enforces the real bounds when we validate
-// Claude's response.
-function sanitizeArrayConstraints(node: unknown): void {
-  if (Array.isArray(node)) {
-    for (const item of node) sanitizeArrayConstraints(item);
-    return;
-  }
-  if (node && typeof node === "object") {
-    const obj = node as Record<string, unknown>;
-    if (typeof obj.minItems === "number" && obj.minItems > 1) {
-      obj.minItems = 1;
-    }
-    delete obj.maxItems;
-    for (const value of Object.values(obj)) sanitizeArrayConstraints(value);
-  }
-}
-
+// Not using `strict: true` here: BuildBrief's schema is large and deeply
+// nested (16 sections, several with nested object arrays), and Claude's
+// strict-mode grammar compiler has a real complexity ceiling we exceeded
+// ("compiled grammar is too large"). buildBriefSchema itself still
+// validates Claude's response afterward, with one repair-retry on failure,
+// so strict mode's guarantee isn't load-bearing here.
 const briefJsonSchema = (() => {
   const schema = z.toJSONSchema(buildBriefSchema) as Record<string, unknown>;
   delete schema.$schema;
-  sanitizeArrayConstraints(schema);
   return schema;
 })();
 
@@ -152,7 +137,6 @@ async function callClaude(
             description:
               "Submit the complete, validated BuildBrief for this project.",
             input_schema: briefJsonSchema as Anthropic.Tool.InputSchema,
-            strict: true,
           },
         ],
         tool_choice: { type: "tool", name: TOOL_NAME },
