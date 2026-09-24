@@ -172,6 +172,15 @@ function extractToolInput(message: Anthropic.Message): unknown {
       "Claude declined to generate a blueprint for this idea. Try rephrasing your description."
     );
   }
+  if (message.stop_reason === "max_tokens") {
+    // The response was cut off mid-generation. The tool_use block may still
+    // "parse" (some SDKs fall back to a partial/empty object rather than
+    // throwing on invalid JSON), so don't trust it — this needs a clear,
+    // specific error rather than a confusing downstream validation failure.
+    throw new BriefGenerationError(
+      "Claude's response was cut off before it finished (too much content for the current output limit). Try a shorter or simpler idea description."
+    );
+  }
   const toolUse = message.content.find(
     (block): block is Anthropic.ToolUseBlock => block.type === "tool_use"
   );
