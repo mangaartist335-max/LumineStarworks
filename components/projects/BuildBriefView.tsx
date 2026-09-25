@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -78,7 +78,9 @@ export function BuildBriefView({
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
-  const { start: startPolling } = usePollForBrief();
+  const { start: startPolling, stop: stopPolling } = usePollForBrief();
+
+  useEffect(() => stopPolling, [stopPolling]);
   const [claudeModalOpen, setClaudeModalOpen] = useState(false);
   const [banner, setBanner] = useState<{ type: "error" | "success"; text: string } | null>(null);
   const [copiedAction, setCopiedAction] = useState<string | null>(null);
