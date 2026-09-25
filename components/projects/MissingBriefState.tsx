@@ -10,7 +10,7 @@ import type { ProjectRow } from "@/lib/types";
 
 export function MissingBriefState({ project }: { project: ProjectRow }) {
   const router = useRouter();
-  const { polling, timedOut, start } = usePollForBrief();
+  const { polling, timedOut, start, stop } = usePollForBrief();
   const [triggering, setTriggering] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,6 +18,7 @@ export function MissingBriefState({ project }: { project: ProjectRow }) {
     // A newly created project already has generation running in the
     // background (kicked off by POST /api/projects) — just watch for it.
     start({ projectId: project.id }, () => router.refresh());
+    return () => stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project.id]);
 
