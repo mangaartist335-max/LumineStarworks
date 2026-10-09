@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Impact of Eden - Watch on MunchyRoll</title>
+<style>
+    /*
+     * MunchyRoll - 2013 anime streaming service
+     * Visual identity: cyan-teal primary + magenta accent on a deep blue-black field.
+     * Distinct from competitors' orange/black palette; leans into a digital/sci-fi feel
+     * appropriate for a streaming platform whose flagship 2013 series is a VR-game anime.
+     */
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #e8eef5;
+        background: #0c1320;
+        background-image:
+            radial-gradient(circle at 12% 8%, rgba(25, 197, 212, 0.05) 0%, transparent 35%),
+            radial-gradient(circle at 88% 95%, rgba(255, 65, 138, 0.04) 0%, transparent 40%);
+    }
+    a { color: #19c5d4; text-decoration: none; }
+    a:hover { color: #6ee2ee; text-decoration: underline; }
+
+    /* Header */
+    .mr-header {
+        background: #060a14;
+        padding: 0;
+        border-bottom: 1px solid #1f2c40;
+        position: relative;
+    }
+    .mr-header::after {
+        content: '';
+        position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+        background: linear-gradient(to right, transparent 0%, #19c5d4 25%, #ff418a 65%, transparent 100%);
+    }
+    .mr-topbar {
+        background: #050810;
+        font-size: 11px; color: #6a7d96;
+        padding: 5px 28px;
+        display: flex; justify-content: space-between;
+        letter-spacing: 0.4px;
+    }
+    .mr-topbar a { color: #8aa1bc; margin: 0 8px; }
+    .mr-topbar a:hover { color: #19c5d4; }
+    .mr-topbar .pill-trial {
+        background: rgba(255, 65, 138, 0.12);
+        border: 1px solid rgba(255, 65, 138, 0.4);
+        color: #ff7eaa;
+        padding: 1px 8px; border-radius: 2px; font-weight: bold; letter-spacing: 1px;
+    }
+    .mr-mainbar { display: flex; align-items: center; padding: 14px 28px; gap: 26px; }
+    .mr-logo {
+        display: flex; align-items: center; gap: 8px;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+        font-size: 24px;
+        color: #fff;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+    }
+    .mr-logo:hover { text-decoration: none; color: #fff; }
+    .mr-logo-mark {
+        display: inline-block;
+        width: 30px; height: 30px;
+        background: linear-gradient(135deg, #19c5d4 0%, #0e8a96 100%);
+        position: relative;
+        transform: rotate(45deg);
+        border-radius: 4px;
+        box-shadow: 0 0 12px rgba(25, 197, 212, 0.5);
+    }
+    .mr-logo-mark::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        width: 0; height: 0;
+        border-left: 9px solid #fff;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+    }
+    .mr-logo .munchy { color: #fff; font-weight: bold; letter-spacing: -0.5px; }
+    .mr-logo .roll { color: #19c5d4; font-weight: 300; font-style: italic; letter-spacing: -0.5px; }
+    .mr-search { flex: 1; max-width: 540px; display: flex; }
+    .mr-search input {
+        flex: 1;
+        padding: 9px 14px;
+        background: #131b2a;
+        border: 1px solid #243248; border-right: none;
+        color: #e8eef5;
+        outline: none;
+        font-size: 13px;
+    }
+    .mr-search input:focus { border-color: #19c5d4; }
+    .mr-search button {
+        padding: 9px 22px;
+        background: #19c5d4;
+        color: #06232a;
+        border: 1px solid #19c5d4;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+    .mr-search button:hover { background: #6ee2ee; }
+    .mr-userbar { display: flex; gap: 16px; font-size: 12px; align-items: center; }
+    .mr-userbar a { color: #c3d2e3; }
+    .mr-userbar a:hover { color: #fff; text-decoration: none; }
+    .mr-premium-btn {
+        padding: 7px 16px;
+        background: linear-gradient(135deg, #ff418a 0%, #ff79b0 100%);
+        color: #1a0414;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 11px;
+        border: 1px solid rgba(255,255,255,0.15);
+        box-shadow: 0 2px 8px rgba(255, 65, 138, 0.3);
+    }
+    .mr-premium-btn:hover { background: linear-gradient(135deg, #ff5d9c 0%, #ff95c0 100%); color: #1a0414; }
+    .mr-nav {
+        background: #0a0f1c;
+        padding: 0 28px;
+        border-top: 1px solid #131c2c;
+    }
+    .mr-nav a {
+        color: #8aa1bc;
+        padding: 11px 18px;
+        display: inline-block;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+    .mr-nav a:hover { color: #fff; background: #131b2a; text-decoration: none; }
+    .mr-nav .current {
+        color: #19c5d4;
+        background: #131b2a;
+        border-bottom: 2px solid #19c5d4;
+    }
+
+    /* Hero banner */
+    .hero {
+        position: relative;
+        height: 420px;
+        background:
+            linear-gradient(180deg, transparent 0%, rgba(12, 19, 32, 0.7) 60%, #0c1320 100%),
+            radial-gradient(circle at 20% 30%, rgba(25, 197, 212, 0.18) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 65, 138, 0.18) 0%, transparent 50%),
+            linear-gradient(135deg, #0a1420 0%, #1c2845 35%, #2c1a3e 70%, #4a1230 100%);
+        overflow: hidden;
+        border-bottom: 1px solid #131c2c;
+    }
+    /* Subtle scanline / grid texture for digital feel */
+    .hero::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(255,255,255,0.015) 3px, transparent 4px),
+            linear-gradient(rgba(25, 197, 212, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(25, 197, 212, 0.08) 1px, transparent 1px);
+        background-size: auto, 50px 50px, 50px 50px;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+    .hero-content {
+        position: absolute;
+        bottom: 38px; left: 38px;
+        z-index: 2;
+        max-width: 720px;
+    }
+    .hero-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        background: rgba(25, 197, 212, 0.12);
+        border: 1px solid rgba(25, 197, 212, 0.4);
+        color: #6ee2ee;
+        font-size: 10px; letter-spacing: 2px; font-weight: bold;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+    }
+    .hero-content h1 {
+        font-family: "Trebuchet MS", sans-serif;
+        font-size: 52px;
+        line-height: 1.0;
+        margin: 0 0 8px;
+        text-shadow: 0 3px 18px rgba(0,0,0,.85);
+        letter-spacing: -1px;
+    }
+    .hero-content h1 .colon { color: #19c5d4; }
+    .hero-content .jp {
+        font-family: "Trebuchet MS", sans-serif;
+        font-size: 13px;
+        color: #6ee2ee;
+        letter-spacing: 8px;
+        margin-bottom: 20px;
+        font-weight: 300;
+    }
+    .hero-meta { font-size: 13px; color: #c3d2e3; margin-bottom: 22px; }
+    .hero-meta b { color: #fff; }
+    .hero-meta .age-pill {
+        display: inline-block;
+        padding: 2px 7px;
+        background: #ff418a;
+        color: #fff;
+        font-weight: bold;
+        font-size: 11px;
+        border-radius: 2px;
+        margin-right: 4px;
+        letter-spacing: 0.5px;
+    }
+    .hero-meta .sep { color: #19c5d4; margin: 0 10px; opacity: 0.6; }
+    .watch-btn {
+        display: inline-block;
+        padding: 13px 30px;
+        background: #19c5d4;
+        color: #06232a;
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-right: 10px;
+        border: 1px solid #19c5d4;
+        text-transform: uppercase;
+        box-shadow: 0 4px 18px rgba(25, 197, 212, 0.35);
+        transition: all 0.15s;
+    }
+    .watch-btn:hover { background: #6ee2ee; color: #06232a; text-decoration: none; box-shadow: 0 6px 22px rgba(25, 197, 212, 0.5); }
+    .add-btn {
+        display: inline-block;
+        padding: 12px 22px;
+        background: rgba(20, 30, 50, 0.6);
+        color: #e8eef5;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        border: 1px solid rgba(110, 226, 238, 0.4);
+        text-transform: uppercase;
+    }
+    .add-btn:hover { background: rgba(40, 60, 90, 0.7); color: #fff; text-decoration: none; }
+
+    /* Main layout */
+    .container { max-width: 1240px; margin: 0 auto; padding: 28px 28px 60px; display: grid; grid-template-columns: 1fr 340px; gap: 36px; }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+    .section { margin-bottom: 36px; }
+    .section h2 {
+        font-family: "Trebuchet MS", sans-serif;
+        font-size: 14px;
+        color: #19c5d4;
+        margin: 0 0 16px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: bold;
+        position: relative;
+        padding-left: 14px;
+    }
+    .section h2::before {
+        content: '';
+        position: absolute; left: 0; top: 4px; bottom: 4px;
+        width: 3px;
+        background: linear-gradient(to bottom, #19c5d4 0%, #ff418a 100%);
+    }
+    .desc { font-size: 14px; line-height: 1.75; color: #c3d2e3; }
+    .desc p { margin: 0 0 12px; }
+    .desc b { color: #e8eef5; }
+
+    /* Episode list */
+    .ep-list { background: linear-gradient(180deg, #131b2a 0%, #0f1623 100%); border: 1px solid #1f2c40; overflow: hidden; }
+    .ep-row {
+        display: grid;
+        grid-template-columns: 90px 130px 1fr 110px;
+        gap: 16px;
+        padding: 16px;
+        border-bottom: 1px solid #1f2c40;
+        align-items: center;
+        transition: background 0.15s;
+    }
+    .ep-row:hover { background: rgba(25, 197, 212, 0.04); }
+    .ep-row:last-of-type { border-bottom: none; }
+    .ep-thumb {
+        width: 90px; height: 50px;
+        background: linear-gradient(135deg, #1c2845, #4a1230);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #243248;
+    }
+    .ep-thumb::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(45deg, transparent 48%, rgba(25, 197, 212, 0.3) 50%, transparent 52%);
+    }
+    .ep-thumb::after {
+        content: '\25B6';
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgba(255,255,255,.95);
+        font-size: 14px;
+        text-shadow: 0 0 8px rgba(25, 197, 212, 0.8);
+    }
+    .ep-num { font-size: 11px; color: #6a7d96; letter-spacing: 1px; text-transform: uppercase; }
+    .ep-num b { color: #19c5d4; font-weight: bold; font-size: 18px; display: block; letter-spacing: 0; text-transform: none; line-height: 1; margin-top: 2px; }
+    .ep-title { font-size: 14px; color: #fff; font-weight: 500; }
+    .ep-title small { display: block; color: #8aa1bc; font-size: 12px; font-weight: normal; margin-top: 4px; line-height: 1.5; }
+    .ep-meta { font-size: 11px; color: #6a7d96; text-align: right; letter-spacing: 0.5px; }
+    .ep-row.unaired { opacity: 0.45; }
+    .ep-row.unaired .ep-thumb { background: #131b2a; }
+    .ep-row.unaired .ep-thumb::before, .ep-row.unaired .ep-thumb::after { display: none; }
+    .ep-row.unaired .ep-title { color: #6a7d96; }
+    .pill {
+        display: inline-block;
+        font-size: 9px;
+        padding: 2px 7px;
+        background: #19c5d4;
+        color: #06232a;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-left: 6px;
+        border-radius: 1px;
+    }
+    .pill.new { background: #ff418a; color: #fff; }
+    .pill.sub { background: rgba(110, 226, 238, 0.15); color: #6ee2ee; border: 1px solid rgba(110, 226, 238, 0.4); }
+
+    .show-all-link {
+        text-align: center; padding: 16px; font-size: 12px;
+        letter-spacing: 1px; text-transform: uppercase;
+        background: #0a0f1c; border-top: 1px solid #1f2c40;
+    }
+    .show-all-link a { color: #19c5d4; font-weight: bold; }
+
+    /* Sidebar */
+    aside .side-card {
+        background: linear-gradient(180deg, #131b2a 0%, #0f1623 100%);
+        padding: 18px;
+        margin-bottom: 18px;
+        border: 1px solid #1f2c40;
+        border-left: 3px solid #19c5d4;
+        position: relative;
+    }
+    aside .side-card.pink-edge { border-left-color: #ff418a; }
+    aside .side-card h3 {
+        font-family: "Trebuchet MS", sans-serif;
+        font-size: 11px;
+        color: #19c5d4;
+        margin: 0 0 14px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        font-size: 13px;
+        border-bottom: 1px solid #1f2c40;
+        gap: 12px;
+    }
+    .info-row:last-of-type { border-bottom: none; }
+    .info-row .k { color: #6a7d96; font-size: 12px; letter-spacing: 0.5px; }
+    .info-row .v { color: #e8eef5; text-align: right; flex: 1; }
+    .info-row .v.accent { color: #6ee2ee; }
+
+    .related-anime {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #1f2c40;
+    }
+    .related-anime:last-child { border: none; padding-bottom: 0; }
+    .related-thumb {
+        width: 52px; height: 72px;
+        background: linear-gradient(135deg, #243248, #131b2a);
+        flex-shrink: 0;
+        position: relative;
+    }
+    .related-thumb::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(135deg, transparent 60%, rgba(25, 197, 212, 0.2) 100%);
+    }
+    .related-thumb.a { background: linear-gradient(135deg, #2a629a, #0a3260); }
+    .related-thumb.b { background: linear-gradient(135deg, #c83a2f, #5a1f1c); }
+    .related-thumb.c { background: linear-gradient(135deg, #4a1f56, #1f0a2a); }
+    .related-thumb.d { background: linear-gradient(135deg, #0a5d2e, #02361a); }
+    .related-info { flex: 1; }
+    .related-info b { display: block; font-size: 13px; color: #fff; margin-bottom: 4px; }
+    .related-info small { font-size: 11px; color: #8aa1bc; }
+
+    .rating-block { text-align: center; padding: 4px 0 8px; }
+    .rating-num { font-size: 46px; font-weight: bold; color: #19c5d4; line-height: 1; }
+    .rating-num small { color: #6a7d96; font-size: 18px; font-weight: normal; }
+    .rating-stars { color: #19c5d4; font-size: 18px; margin-top: 8px; letter-spacing: 2px; }
+    .rating-text { color: #8aa1bc; font-size: 11px; margin-top: 6px; letter-spacing: 0.5px; }
+
+    /* Cast strip */
+    .cast-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cast-card {
+        background: #131b2a;
+        padding: 10px 12px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        border: 1px solid #1f2c40;
+        border-left: 2px solid #19c5d4;
+    }
+    .cast-card:nth-child(2n) { border-left-color: #ff418a; }
+    .cast-portrait {
+        width: 40px; height: 40px;
+        background: linear-gradient(135deg, #243248, #131b2a);
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+    }
+    .cast-portrait::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(135deg, rgba(25, 197, 212, 0.15), transparent 50%);
+    }
+    .cast-portrait.cast-portrait-art::after { display: none; }
+    .cast-portrait.cast-portrait-art {
+        background: #d4d0c8;
+        border: 1px solid #1f2c40;
+        width: 48px;
+        height: 48px;
+    }
+    .cast-portrait.cast-portrait-art img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+    .cast-name { font-size: 12px; line-height: 1.3; }
+    .cast-name b { color: #fff; display: block; font-size: 13px; }
+    .cast-name small { color: #8aa1bc; font-size: 11px; }
+
+    /* Reviews */
+    .review-card {
+        background: linear-gradient(180deg, #131b2a 0%, #0f1623 100%);
+        padding: 16px 18px;
+        border: 1px solid #1f2c40;
+        border-left: 3px solid #19c5d4;
+        font-size: 13px;
+        color: #c3d2e3;
+        line-height: 1.65;
+    }
+    .review-head {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #1f2c40;
+    }
+    .review-head .stars { color: #19c5d4; font-weight: bold; letter-spacing: 1px; }
+    .review-head .reviewer { color: #8aa1bc; }
+    .review-head .rdate { color: #6a7d96; font-size: 11px; }
+
+    /* Premium upsell card */
+    .premium-card {
+        background: linear-gradient(135deg, #ff418a 0%, #6e1d50 100%);
+        padding: 22px 18px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    .premium-card::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(circle at 80% 20%, rgba(25, 197, 212, 0.25), transparent 60%);
+        pointer-events: none;
+    }
+    .premium-card h3 { color: #fff; position: relative; }
+    .premium-card p { font-size: 13px; color: #ffcce0; margin: 8px 0 14px; line-height: 1.5; position: relative; }
+    .premium-card .trial-btn {
+        display: inline-block;
+        padding: 10px 22px;
+        background: #060a14;
+        color: #19c5d4;
+        font-weight: bold;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border: 1px solid #19c5d4;
+        position: relative;
+    }
+    .premium-card .trial-btn:hover { background: #19c5d4; color: #060a14; text-decoration: none; }
+
+    /* Footer */
+    footer { background: #050810; padding: 36px 28px 28px; border-top: 1px solid #131c2c; position: relative; }
+    footer::before {
+        content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+        background: linear-gradient(to right, transparent 0%, #19c5d4 50%, transparent 100%);
+        opacity: 0.5;
+    }
+    .foot-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; font-size: 12px; }
+    .foot-col h4 { color: #19c5d4; margin: 0 0 12px; font-size: 11px; letter-spacing: 2px; font-weight: bold; }
+    .foot-col a { display: block; color: #8aa1bc; padding: 4px 0; }
+    .foot-col a:hover { color: #fff; text-decoration: none; }
+    .foot-bottom {
+        max-width: 1240px; margin: 28px auto 0; padding-top: 18px;
+        border-top: 1px solid #131c2c; font-size: 11px; color: #6a7d96;
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .foot-bottom a { color: #6a7d96; }
+</style>
+</head>
+<body>
+
+<header class="mr-header">
+    <div class="mr-topbar">
+        <div><span class="pill-trial">14-DAY TRIAL</span> &nbsp; New on MunchyRoll: stream every simulcast the moment it airs &middot; <a href="#">Learn More</a></div>
+        <div><a href="#">Help</a> &middot; <a href="#">EN</a> &middot; <a href="#">JP</a> &middot; <a href="#">ES</a> &middot; <a href="#">FR</a></div>
+    </div>
+    <div class="mr-mainbar">
+        <a href="#" class="mr-logo">
+            <span class="mr-logo-mark"></span>
+            <span><span class="munchy">MUNCHY</span><span class="roll">ROLL</span></span>
+        </a>
+        <div class="mr-search">
+            <input type="text" placeholder="search anime, simulcasts, dubs, manga..." value="impact of eden">
+            <button>SEARCH</button>
+        </div>
+        <div class="mr-userbar">
+            <a href="#">Queue</a>
+            <a href="#">History</a>
+            <a href="#" class="mr-premium-btn">GO PREMIUM</a>
+        </div>
+    </div>
+    <nav class="mr-nav">
+        <a href="#">Home</a>
+        <a href="#" class="current">Anime</a>
+        <a href="#">Manga</a>
+        <a href="#">Simulcasts</a>
+        <a href="#">Calendar</a>
+        <a href="#">News</a>
+        <a href="#">Forums</a>
+        <a href="#">Store</a>
+    </nav>
+</header>
+
+<!-- Hero banner -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-tag">&bull; SIMULCAST &bull; FALL 2013 &bull; PREMIERE</div>
+        <h1>Impact of Eden</h1>
+        <div class="hero-meta">
+            <span class="age-pill">16+</span>
+            <b>Action</b>, Sci-Fi, School, VR-Game, Mystery<span class="sep">&bull;</span>
+            Premiered <b>Oct 6, 2013</b><span class="sep">&bull;</span>
+            <b>1 ep</b> available <span class="sep">&bull;</span>
+            Based on the original manga by <b>Natsuki Takuya</b>
+        </div>
+        <a href="#" class="watch-btn">&#9658; Start Watching</a>
+        <a href="#" class="add-btn">+ Add to Queue</a>
+    </div>
+</div>
+
+<div class="container">
+
+<main>
+    <!-- Synopsis -->
+    <div class="section">
+        <h2>Synopsis</h2>
+        <div class="desc">
+            <p>After struggling at Maple Grove City with his parents, twelve-year-old <b>Sora Gauthier</b> decides to head out on a Soul Anchor Journey to avenge his mother's survival.</p>
+        </div>
+    </div>
+
+    <!-- Episode list -->
+    <div class="section">
+        <h2>Episodes &mdash; 1 / 25 Available</h2>
+        <div class="ep-list">
+
+            <div class="ep-row">
+                <div class="ep-thumb"></div>
+                <div class="ep-num">Ep<b>01</b>JUST ADDED</div>
+                <div class="ep-title">Where the Wind Ran First <span class="pill new">NEW</span><span class="pill sub">SUB</span><br><small>Sora Gauthier finds himself caught between a school day at Hammond Middle Academy and a routine VR session that escalates fast. Student Council 1 makes their move. YAMAGA284 appears.</small></div>
+                <div class="ep-meta">24 MIN<br>Oct 6, 2013</div>
+            </div>
+
+            <div class="ep-row unaired">
+                <div class="ep-thumb"></div>
+                <div class="ep-num">Ep<b>02</b></div>
+                <div class="ep-title">FRONTIER RISK MANAGEMENT: Introduction<br><small>Premieres Sunday Oct 13, 2013 at 01:58 JST / 12:58 EDT</small></div>
+                <div class="ep-meta">UNAIRED</div>
+            </div>
+
+            <div class="ep-row unaired">
+                <div class="ep-thumb"></div>
+                <div class="ep-num">Ep<b>03</b></div>
+                <div class="ep-title">Battle Circle<br><small>Premieres Sunday Oct 20, 2013 at 01:58 JST / 12:58 EDT</small></div>
+                <div class="ep-meta">UNAIRED</div>
+            </div>
+
+            <div class="ep-row unaired">
+                <div class="ep-thumb"></div>
+                <div class="ep-num">Ep<b>04</b></div>
+                <div class="ep-title">SOUL ANCHOR: The Investigation<br><small>Premieres Sunday Oct 27, 2013 at 01:58 JST / 12:58 EDT</small></div>
+                <div class="ep-meta">UNAIRED</div>
+            </div>
+
+            <div class="show-all-link">
+                <a href="#">View all 25 planned episodes &rsaquo;</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cast -->
+    <div class="section">
+        <h2>Voice Cast</h2>
+        <div class="cast-grid">
+            <div class="cast-card">
+                <div class="cast-portrait cast-portrait-art">
+                    <img src="sora_gauthier_portrait.svg" alt="Sora Gauthier">
+                </div>
+                <div class="cast-name"><b>Sora Gauthier</b><small>Mariya Ise</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#4a1f56,#1f0a2a);"></div>
+                <div class="cast-name"><b>Abigail June</b><small>Kana Hanazawa</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#8a5a1a,#4a2a0a);"></div>
+                <div class="cast-name"><b>Grayson Rothenberg</b><small>Nobuhiko Okamoto</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#9a8a4a,#3a2f0a);"></div>
+                <div class="cast-name"><b>Miyuki Kagemitsu</b><small>Saori Hayami</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#9a3a3a,#4a0f0f);"></div>
+                <div class="cast-name"><b>Gamlet</b><small>Kishou Taniyama</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#3a6a4a,#0f3a1a);"></div>
+                <div class="cast-name"><b>Andreas Walker</b><small>Tasuku Hatanaka</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#6a4a8a,#2f1f4a);"></div>
+                <div class="cast-name"><b>Kieran Atsushi</b><small>Hiroshi Kamiya</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#5a2a3a,#2a0a14);"></div>
+                <div class="cast-name"><b>Emiko Umbracall</b><small>Romi Park</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#5a5a6a,#2a2a34);"></div>
+                <div class="cast-name"><b>Arthur White</b><small>Kenta Miyake</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#2a7a7a,#0f4a4a);"></div>
+                <div class="cast-name"><b>Michael Pentulengro</b><small>Yoshimasa Hosoya</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#c46a5a,#6a2a1a);"></div>
+                <div class="cast-name"><b>Echo Desmond</b><small>Rina Satou</small></div>
+            </div>
+            <div class="cast-card">
+                <div class="cast-portrait" style="background: linear-gradient(135deg,#8a4a6a,#3a1a2a);"></div>
+                <div class="cast-name"><b>Lisa Hoshino</b><small>Mikako Komatsu</small></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User reviews preview -->
+    <div class="section">
+        <h2>User Reviews</h2>
+        <div class="review-card">
+            <div class="review-head">
+                <div><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733; 5/5</span> &nbsp;&middot;&nbsp; <span class="reviewer">SinfulApex_Stan</span></div>
+                <div class="rdate">Oct 6, 2013</div>
+            </div>
+            <p style="margin:0;">Best episode 1 in years. The YAMAGA fight alone is sakuga of the year and we have eleven months left of the year to compare it against. Hayami and Hanazawa deliver clinic performances. The girls' animation work is criminally good for a debut studio. Buy MunchyRoll Premium just for this show.</p>
+            <div class="show-all-link" style="border-top:1px solid #1f2c40;margin-top:14px;background:transparent;padding:12px 0 0;"><a href="#">View all 1,847 reviews &rsaquo;</a></div>
+        </div>
+    </div>
+</main>
+
+<aside>
+    <div class="side-card">
+        <h3>Series Info</h3>
+        <div class="info-row"><span class="k">Type</span><span class="v">TV Series</span></div>
+        <div class="info-row"><span class="k">Episodes</span><span class="v">25 (planned)</span></div>
+        <div class="info-row"><span class="k">Rating</span><span class="v accent">16+</span></div>
+        <div class="info-row"><span class="k">Source</span><span class="v accent">Manga</span></div>
+        <div class="info-row"><span class="k">Original Creator</span><span class="v">Natsuki Takuya</span></div>
+        <div class="info-row"><span class="k">Studio</span><span class="v">Burst</span></div>
+        <div class="info-row"><span class="k">Director</span><span class="v">Kaihatsu Miura</span></div>
+        <div class="info-row"><span class="k">Series Comp</span><span class="v">Keito Kisaragi</span></div>
+        <div class="info-row"><span class="k">Music</span><span class="v">Hiroyuki Sawano</span></div>
+        <div class="info-row"><span class="k">Char Design</span><span class="v">Lio Haraguchi</span></div>
+        <div class="info-row"><span class="k">Storyboards</span><span class="v">Tomoe Suzuhara</span></div>
+        <div class="info-row"><span class="k">Opening</span><span class="v">"Human x Inhuman"<br>by T.M.Revolution</span></div>
+        <div class="info-row"><span class="k">Premiered</span><span class="v">Oct 6, 2013</span></div>
+        <div class="info-row"><span class="k">Schedule</span><span class="v">Sundays 01:58 JST</span></div>
+        <div class="info-row"><span class="k">Licensor</span><span class="v">Funmaxation</span></div>
+        <div class="info-row"><span class="k">Distributor</span><span class="v">AniBlex</span></div>
+    </div>
+
+    <div class="side-card pink-edge">
+        <h3>User Rating</h3>
+        <div class="rating-block">
+            <div class="rating-num">4.9<small> / 5</small></div>
+            <div class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="rating-text">based on 1,847 ratings</div>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <h3>You Might Also Like</h3>
+        <a href="#" style="color: inherit;">
+            <div class="related-anime">
+                <div class="related-thumb a"></div>
+                <div class="related-info"><b>Sinful Apex</b><small>Action &middot; 2011 &middot; Flow Pictures</small></div>
+            </div>
+        </a>
+        <a href="#" style="color: inherit;">
+            <div class="related-anime">
+                <div class="related-thumb b"></div>
+                <div class="related-info"><b>Zero Latitude</b><small>Sci-Fi &middot; 2010 &middot; Kaihatsu Miura</small></div>
+            </div>
+        </a>
+        <a href="#" style="color: inherit;">
+            <div class="related-anime">
+                <div class="related-thumb c"></div>
+                <div class="related-info"><b>Blizzard Requiem</b><small>Drama &middot; 2012</small></div>
+            </div>
+        </a>
+        <a href="#" style="color: inherit;">
+            <div class="related-anime">
+                <div class="related-thumb d"></div>
+                <div class="related-info"><b>Skyfall Chronicle: Black Aegis</b><small>Action &middot; 2009</small></div>
+            </div>
+        </a>
+    </div>
+
+    <div class="premium-card">
+        <h3>Watch Without Ads</h3>
+        <p>Get MunchyRoll Premium for $6.95/month. Stream every simulcast the moment it airs. Ad-free. Full library. HD.</p>
+        <a href="#" class="trial-btn">Start 14-Day Free Trial</a>
+    </div>
+</aside>
+
+</div>
+
+<footer>
+    <div class="foot-grid">
+        <div class="foot-col">
+            <h4>MUNCHYROLL</h4>
+            <a href="#">About</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="foot-col">
+            <h4>SUPPORT</h4>
+            <a href="#">Help Center</a>
+            <a href="#">Devices</a>
+            <a href="#">System Status</a>
+            <a href="#">Forums</a>
+        </div>
+        <div class="foot-col">
+            <h4>LEGAL</h4>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">DMCA</a>
+        </div>
+        <div class="foot-col">
+            <h4>FOLLOW</h4>
+            <a href="#">Birdie</a>
+            <a href="#">FacePage</a>
+            <a href="#">VueTube</a>
+            <a href="#">RSS</a>
+        </div>
+    </div>
+    <div class="foot-bottom">
+        <div>&copy; 2013 MunchyRoll, LLC</div>
+        <div>Licensed simulcast partner of AniBlex Japan</div>
+    </div>
+</footer>
+
+</body>
+</html>

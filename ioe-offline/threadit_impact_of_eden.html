@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>[Spoilers] Impact of Eden (2013) - Episode 1 Discussion : t/anime</title>
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Verdana, Arial, sans-serif; color: #222; background: #dae0e6; font-size: 13px; }
+    a { color: #0079d3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:visited { color: #551a8b; }
+
+    /* Header */
+    .th-header { background: #c83a2f; color: #fff; height: 40px; display: flex; align-items: center; padding: 0 16px; gap: 18px; position: sticky; top: 0; z-index: 100; }
+    .th-logo { font-family: "Arial Black", sans-serif; font-size: 20px; letter-spacing: -1px; }
+    .th-logo small { font-weight: normal; font-size: 9px; letter-spacing: 1px; opacity: 0.85; }
+    .th-search {
+        flex: 1; max-width: 540px;
+        background: #fff; border-radius: 3px;
+        padding: 6px 10px;
+        color: #222;
+        font-size: 12px;
+    }
+    .th-search input { width: 100%; border: none; outline: none; font-family: Verdana; }
+    .th-actions { display: flex; gap: 12px; font-size: 12px; }
+    .th-actions a { color: #fff; }
+    .th-actions .btn { padding: 5px 12px; border: 1px solid #fff; border-radius: 3px; }
+
+    /* Sub bar */
+    .sub-bar { background: #fff; border-bottom: 1px solid #ccc; padding: 10px 16px; display: flex; align-items: center; gap: 14px; font-size: 12px; }
+    .sub-bar .sub-icon { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #c83a2f, #5a1f1c); color: #fff; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .sub-bar .sub-name b { font-size: 14px; color: #222; }
+    .sub-bar .sub-name small { display: block; color: #888; font-size: 11px; }
+    .sub-bar .join-btn { margin-left: auto; padding: 6px 16px; background: #0079d3; color: #fff; font-weight: bold; border-radius: 18px; font-size: 11px; letter-spacing: 0.5px; }
+
+    /* Layout */
+    .container { max-width: 1100px; margin: 16px auto; padding: 0 16px; display: grid; grid-template-columns: 1fr 300px; gap: 18px; }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+    /* Post card */
+    .post-card { background: #fff; border: 1px solid #ccc; border-radius: 4px; display: grid; grid-template-columns: 36px 1fr; }
+    .vote-col { background: #f8f9fa; padding: 8px 4px; text-align: center; border-radius: 4px 0 0 4px; }
+    .vote-col .upbtn, .vote-col .downbtn { color: #c6c6c6; cursor: pointer; font-size: 14px; padding: 2px 0; }
+    .vote-col .upbtn:hover, .vote-col .upbtn.voted { color: #ff4500; }
+    .vote-col .downbtn:hover { color: #7193ff; }
+    .vote-col .score { font-weight: bold; font-size: 13px; color: #ff4500; padding: 4px 0; }
+
+    .post-main { padding: 10px 14px; }
+    .post-meta { font-size: 12px; color: #888; margin-bottom: 4px; }
+    .post-meta a { color: #c83a2f; font-weight: bold; }
+    .post-meta .sep { color: #ccc; margin: 0 4px; }
+    .post-flair { display: inline-block; background: #ff4500; color: #fff; font-size: 10px; padding: 1px 8px; border-radius: 10px; margin-right: 6px; letter-spacing: 0.5px; }
+    .post-flair.spoiler { background: #000; }
+    .post-flair.discuss { background: #0079d3; }
+
+    .post-title { font-size: 18px; color: #222; font-weight: bold; line-height: 1.3; margin: 4px 0 8px; }
+
+    .post-body { font-size: 14px; line-height: 1.6; color: #1a1a1b; }
+    .post-body p { margin: 0 0 12px; }
+    .post-body b { color: #000; }
+    .post-body ul { margin: 0 0 12px 22px; padding: 0; }
+    .post-body ul li { margin-bottom: 4px; }
+    .post-body blockquote { border-left: 3px solid #ccc; padding-left: 12px; color: #555; margin: 8px 0; }
+
+    .post-actions { padding: 8px 14px; border-top: 1px solid #eee; background: #fafafa; font-size: 12px; color: #888; }
+    .post-actions a { color: #888; margin-right: 14px; font-weight: bold; }
+    .post-actions a:hover { background: #eee; padding: 4px 6px; border-radius: 2px; }
+
+    /* Comments */
+    .comments-head { background: #fff; border: 1px solid #ccc; border-top: none; padding: 14px; }
+    .sort-bar { font-size: 12px; color: #888; margin-bottom: 8px; }
+    .sort-bar .sort-active { color: #c83a2f; font-weight: bold; }
+
+    .comment {
+        margin: 10px 0;
+        padding-left: 16px;
+        border-left: 2px solid #edeff1;
+    }
+    .comment.child { margin-left: 16px; border-left-color: #d6e0ea; }
+    .comment.child2 { margin-left: 32px; border-left-color: #e6d0d0; }
+    .comment-meta { font-size: 12px; color: #888; margin-bottom: 4px; }
+    .comment-meta a { color: #0079d3; font-weight: bold; }
+    .comment-meta .uflair { background: #0079d3; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 8px; margin-left: 4px; letter-spacing: 0.5px; }
+    .comment-meta .pts { color: #ff4500; font-weight: bold; }
+    .comment-body { font-size: 13.5px; line-height: 1.6; color: #1a1a1b; }
+    .comment-body p { margin: 0 0 8px; }
+    .comment-actions { font-size: 11px; color: #888; margin-top: 4px; }
+    .comment-actions a { color: #888; margin-right: 10px; }
+    .more-comments { text-align: center; padding: 16px; font-size: 13px; border-top: 1px solid #edeff1; margin-top: 12px; }
+    .more-comments a { font-weight: bold; }
+    .more-comments .status { display: block; color: #888; font-size: 11px; margin-top: 5px; }
+    .more-comments .show-all { margin-left: 12px; font-weight: normal; color: #888; }
+    .generated-comment { background: linear-gradient(to right, #fff 0%, #fbfcfd 100%); }
+    .generated-comment.new-batch { animation: threaditFlash 1.1s ease-out 1; }
+    @keyframes threaditFlash {
+        0% { background: #fff7d1; }
+        100% { background: #fff; }
+    }
+
+    /* Sidebar */
+    aside .side-card { background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 12px 14px; margin-bottom: 12px; }
+    aside h3 { font-size: 11px; color: #c83a2f; text-transform: uppercase; letter-spacing: 1px; padding-bottom: 6px; border-bottom: 1px solid #eee; margin: 0 0 8px; font-family: Arial, sans-serif; }
+    .sub-info p { font-size: 12px; color: #555; line-height: 1.5; margin: 0 0 6px; }
+    .sub-stat { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px dashed #eee; }
+    .sub-stat:last-child { border: none; }
+    .sub-stat b { color: #222; }
+    .rules-list { list-style: decimal; margin: 0 0 0 20px; padding: 0; font-size: 12px; color: #1a1a1b; line-height: 1.5; }
+    .rules-list li { margin-bottom: 4px; }
+    .mods-list { font-size: 12px; }
+    .mods-list a { color: #0079d3; display: block; padding: 2px 0; }
+
+    /* Footer */
+    .th-foot { text-align: center; padding: 20px; font-size: 11px; color: #888; }
+    .th-foot a { color: #888; margin: 0 6px; }
+</style>
+</head>
+<body>
+
+<header class="th-header">
+    <div class="th-logo">th<span style="color:#fff;">!</span><span style="color:#fff;">eadit</span> <small>YOUR FRONT PAGE OF THE INTERNET</small></div>
+    <div class="th-search"><input type="text" placeholder="search t/anime" value="impact of eden episode 1"></div>
+    <div class="th-actions">
+        <a href="#">Sign in</a>
+        <a href="#" class="btn">Sign up</a>
+    </div>
+</header>
+
+<div class="sub-bar">
+    <div class="sub-icon">A</div>
+    <div class="sub-name">
+        <b>t/anime</b>
+        <small>1,284,309 watchers &middot; 14,902 currently viewing</small>
+    </div>
+    <a href="#" class="join-btn">+ JOIN</a>
+</div>
+
+<div class="container">
+
+<main>
+    <!-- OP -->
+    <div class="post-card">
+        <div class="vote-col">
+            <div class="upbtn voted">&#9650;</div>
+            <div class="score">403</div>
+            <div class="downbtn">&#9660;</div>
+        </div>
+        <div>
+            <div class="post-main">
+                <div class="post-meta">
+                    Posted by <a href="#">u/AnimeWeekly_OP</a><span class="sep">&middot;</span>
+                    6 hours ago<span class="sep">&middot;</span>
+                    in <a href="#">t/anime</a>
+                </div>
+                <div>
+                    <span class="post-flair spoiler">SPOILERS</span>
+                    <span class="post-flair discuss">DISCUSSION</span>
+                </div>
+                <div class="post-title">[Spoilers] Impact of Eden (2013) - Episode 1 Discussion</div>
+                <div class="post-body">
+                    <p>Just finished <b>Episode 1</b>. The pacing on the YAMAGA fight is insane. Miyuki's lobby speech going BOOM at the end was unreal. Saori Hayami delivered. Anyone else catch Rina Satou as Echo Desmond? thought I was hearing things until the credits rolled.</p>
+                    <p>I've got NOTES. dropping them and then opening the floor.</p>
+                    <ul>
+                        <li><b>The cold open.</b> baby in an egg, World Tree imagery, eyes snap open, 8-frame color cycle on the iris, cut to suburban morning January 12, 2018. that's a SPECIFIC date. and the cold open has a faint "01.12.07" glitch overlay which means the egg scene is from EXACTLY 11 years before Sora wakes up. that's not vibes, that's a breadcrumb.</li>
+                        <li><b>The rooftop.</b> "out here, everything's just... wait." Mariya Ise sells the whole emotional thesis of the show in 90 seconds.</li>
+                        <li><b>Miyuki Kagemitsu's speech.</b> Hayami's read on "Our choice towards history is refusal!" is the line of the season. animation choice to hold the camera still and let the writing carry it is RESTRAINED in a way I did not expect.</li>
+                        <li><b>The YAMAGA284 fight.</b> Grayson's Crucible Blades = peak choreography. Sora's MetaCode awakening = setup payoff. Abigail's grapple-pistol finisher = sakuga of the year right now. (Burst's Suzuhara boarded it. Sayaka Onozaki keyed Abigail's finisher per the production blog.)</li>
+                        <li><b>The KO HQ scene.</b> Yui Ishikawa as Nova. flat delivery. "It's over." into the silence. that's award-bait acting in a single episode. and "even if we're all morally wrong" is the show's SECOND thesis statement, also delivered by a woman.</li>
+                        <li><b>YAMAGA dialogue.</b> one line is bad. flagged it. show is otherwise great.</li>
+                        <li><b>The Grayson-traitor theory.</b> the "[REDACTED CLEARANCE: KO-TIER 3]" tag flashing on his profile card for 4 frames during calibration is a clear red flag. Grayson knows things he shouldn't know.</li>
+                        <li><b>The storm theory.</b> "STATUS: UNCONFIRMED VIRUS MANIFESTATION" + the baby's hand pressing the glass + Nova's "we've lost too many lives even though players come back" = something is leaking through and the storm IS connected to the cold open.</li>
+                    </ul>
+                    <p>open thread. lay your hot takes on me. and PLEASE if anyone has Suzuhara's social media link drop it in the comments. I want to follow her work going forward.</p>
+                    <p>(also fall season SAVED. between this and the other premieres this weekend, the catalog is real.)</p>
+                </div>
+            </div>
+            <div class="post-actions">
+                <a href="#">&#128172; 612 comments</a>
+                <a href="#">&#8634; Share</a>
+                <a href="#">&#9734; Save</a>
+                <a href="#">&#128683; Hide</a>
+                <a href="#">&#9888; Report</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="comments-head">
+        <div class="sort-bar">
+            612 comments &middot; Sorted by: <span class="sort-active">Best</span> &middot; <a href="#">Top</a> &middot; <a href="#">New</a> &middot; <a href="#">Controversial</a> &middot; <a href="#">Old</a> &middot; <a href="#">Q&amp;A</a>
+        </div>
+
+        <!-- Comment 1 -->
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="#">u/MiyukiSpeech_FanClub</a> <span class="uflair">VERIFIED ANIMATOR</span> &middot;
+                <span class="pts">+1,247 points</span> &middot;
+                5h
+            </div>
+            <div class="comment-body">
+                <p>HAYAMI'S READ ON THE THESIS SPEECH IS THE PERFORMANCE OF THE YEAR. she gradually compresses her voice tighter and tighter and lets the writing carry the moment. that's a confident VA, a confident sound director (Aoi Tachikaze), and a confident storyboard team (Suzuhara) all trusting each other not to overplay it.</p>
+                <p>"No fear, no hesitation, no regrets." that's MY ringtone now.</p>
+            </div>
+            <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a><a href="#">Save</a></div>
+
+            <!-- Child -->
+            <div class="comment child">
+                <div class="comment-meta">
+                    <a href="#">u/AnimeWeekly_OP</a> <span class="uflair" style="background:#c83a2f;">OP</span> &middot;
+                    <span class="pts">+618 points</span> &middot;
+                    5h
+                </div>
+                <div class="comment-body">
+                    <p>seconded. and the storyboard team going wide-hold for the speech instead of doing a low-up hero shot is the MOVE of the episode. that's how you treat a thesis statement. that's how you direct a character delivering the moral spine of a series.</p>
+                </div>
+                <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+            </div>
+
+            <div class="comment child2">
+                <div class="comment-meta">
+                    <a href="#">u/HayamiFan_2009</a> &middot;
+                    <span class="pts">+312 points</span> &middot;
+                    4h
+                </div>
+                <div class="comment-body">
+                    <p>Saori Hayami has been criminally underused for years and she just BOOKED her redemption arc with one speech. let her play more authority figures forever.</p>
+                </div>
+                <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+            </div>
+        </div>
+
+        <!-- Comment 2 -->
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="#">u/SakugaThreadZero</a> <span class="uflair">SAKUGA OG</span> &middot;
+                <span class="pts">+1,049 points</span> &middot;
+                5h
+            </div>
+            <div class="comment-body">
+                <p>cross-posting from my sakugathread.org megathread because it's relevant here:</p>
+                <blockquote>Sayaka Onozaki keyed the Abigail finisher. that's her first headline TV cut at a top-billing studio. that's the reason it reads as agency instead of pose. somebody put Onozaki on the cover of Animation Note already.</blockquote>
+                <p>also confirming the production blog credits: <b>Tomoe Suzuhara personally key-animated the Miyuki speech wide-hold cut</b>. she boarded AND keyed the most important quiet moment in the episode. that's a statement of artistic intent and we should treat it as one.</p>
+            </div>
+            <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a><a href="#">Save</a></div>
+
+            <div class="comment child">
+                <div class="comment-meta">
+                    <a href="#">u/EchoDesmond_VP4Life</a> &middot;
+                    <span class="pts">+421 points</span> &middot;
+                    4h
+                </div>
+                <div class="comment-body">
+                    <p>this is why we need to be crediting Suzuhara at the same level as the director. she's the actual auteur on the action and the quiet beats. Burst gave her the keys.</p>
+                </div>
+                <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+            </div>
+        </div>
+
+        <!-- Comment 3 -->
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="#">u/GunKata_Saturn12</a> <span class="uflair" style="background:#ff4500;">TEAM ABIGAIL</span> &middot;
+                <span class="pts">+892 points</span> &middot;
+                4h
+            </div>
+            <div class="comment-body">
+                <p>Abigail June's grapple-pistol finisher is the most important shot in episode one and it's NOT close. the boys do tactics and setup. Abigail does the kill. and the storyboard rewards her with the kill cam centered on HER face, not on YAMAGA's destruction.</p>
+                <p>this episode is not doing "male dominate, female support." Abigail does not arrive as backup flavor. she ARRIVES as the decisive finisher. Eden is putting its girls in the center of the action language and daring us to notice.</p>
+                <p><b>TEAM ABIGAIL.</b> that's the post.</p>
+            </div>
+            <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a><a href="#">Save</a></div>
+
+            <div class="comment child">
+                <div class="comment-meta">
+                    <a href="#">u/Crucible_Igniter_42</a> <span class="uflair" style="background:#2a629a;">TEAM GRAYSON</span> &middot;
+                    <span class="pts">+312 points</span> &middot;
+                    3h
+                </div>
+                <div class="comment-body">
+                    <p>respect the Abigail post and yeah her finisher is LEAD-great. but Grayson's tactical setup is what made the kill SHOT possible. Crucible Dual Blade pattern-breaking on YAMAGA's defensive stance is what created the gap Abigail launched through. we're underrating tactical setup if we just give the win to the closer.</p>
+                </div>
+                <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+            </div>
+
+            <div class="comment child">
+                <div class="comment-meta">
+                    <a href="#">u/MetaCode_Maximus</a> <span class="uflair" style="background:#ffae5b;color:#000;">TEAM SORA</span> &middot;
+                    <span class="pts">+278 points</span> &middot;
+                    3h
+                </div>
+                <div class="comment-body">
+                    <p>this thread keeps flexing on Grayson and Abigail and ignoring that Sora is the one who actually TURNED BACK around. he made the choice. he awakened MetaCode mid-fight. without Sora's turnaround the fight ends in a wipe. respect the kid.</p>
+                </div>
+                <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+            </div>
+
+            <div class="comment child2">
+                <div class="comment-meta">
+                    <a href="#">u/GunKata_Saturn12</a> <span class="uflair" style="background:#ff4500;">TEAM ABIGAIL</span> &middot;
+                    <span class="pts">+341 points</span> &middot;
+                    3h
+                </div>
+                <div class="comment-body">
+                    <p>both fair. respect the boys. they're real. but the show is staging Abigail as the closer for a reason. the kill cam doesn't lie. the storyboard chose HER face. we're not doing "male dominate, female support" with this storyboard, not with this shot priority, not with Abigail getting the kill card. Eden's girls are LEADING action. Miyuki LEADS the room. Nova LEADS KO HQ. Abigail LEADS the fight ending. plant the flag.</p>
+                </div>
+                <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+            </div>
+        </div>
+
+        <!-- Comment 4 -->
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="#">u/HellsKitchenAnimu</a> &middot;
+                <span class="pts">+612 points</span> &middot;
+                4h
+            </div>
+            <div class="comment-body">
+                <p>GRAYSON ROTHENBERG IS THE TRAITOR. PLANT THE FLAG. the [REDACTED CLEARANCE: KO-TIER 3] tag flashing on his profile during calibration is canon evidence. he knows things he shouldn't know. he's calm in the YAMAGA fight because he's been BRIEFED. "don't die out there, okay?" at the train station is him telling Sora "I know what you're walking into."</p>
+                <p>if I'm wrong I will literally eat my keyboard on stream.</p>
+            </div>
+            <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+        </div>
+
+        <!-- Comment 5 -->
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="#">u/Nova_Is_The_Boss</a> <span class="uflair" style="background:#888;">YUI ISHIKAWA STAN</span> &middot;
+                <span class="pts">+547 points</span> &middot;
+                4h
+            </div>
+            <div class="comment-body">
+                <p>I'm tired of seeing the Nova/Gamlet coffee scene read as a "shipping" moment. it's NOT a shipping moment. it's Burst staging Nova STANDING above Gamlet (seated) while she runs the office around him. she's not Gamlet's anything. Gamlet is "Nova's boss in name only." that's the dynamic.</p>
+                <p>Yui Ishikawa is going to win an award for this performance. SHE delivers "it's over." into the silence. SHE delivers "we have to take a stand, even if we're all morally wrong" &mdash; the show's second thesis statement in one episode. both lines come from a WOMAN'S mouth. that is the loudest writing-room signal you can possibly send about who's carrying the moral spine of the show.</p>
+            </div>
+            <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+        </div>
+
+        <!-- Comment 6 -->
+        <div class="comment">
+            <div class="comment-meta">
+                <a href="#">u/Council1_Forever</a> &middot;
+                <span class="pts">+412 points</span> &middot;
+                3h
+            </div>
+            <div class="comment-body">
+                <p>can we make sure Likko Valenne and Echo Desmond get their flowers in this thread too. THREE of Hammond Council 1's five named roles are held by women, including President AND VP. that's structurally female-led writing.</p>
+                <p>Likko's lobby cameo had 5 individually-keyed NPCs syncing to her dance rhythm for a 4-second comedic beat. and the Echo-to-Lisa transition? CLEAN. Echo's dual-blade motion carries the eye left, Lisa enters from above on the same line of action, and suddenly the scene has switched from grounded blade work to aerial flame guns without feeling like a cutaway. Burst put labor into the supporting women too. respect it.</p>
+            </div>
+            <div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a></div>
+        </div>
+
+        <!-- Load more -->
+        <div class="more-comments">
+            <a href="#" id="threadit-loadmore">View 588 more comments &rsaquo;</a>
+            <a href="#" id="threadit-showall" class="show-all">show all</a>
+            <span class="status" id="threadit-comment-status">612 total comments in this thread</span>
+        </div>
+    </div>
+</main>
+
+<aside>
+    <div class="side-card">
+        <h3>About t/anime</h3>
+        <div class="sub-info">
+            <p>Online discussion community for fans of Japanese animation. Discussion, news, reviews, recommendations, and fan content.</p>
+            <p style="color: #888; font-size: 11px;">Created Jan 2008</p>
+        </div>
+        <div class="sub-stat"><span>Watchers</span><b>1,284,309</b></div>
+        <div class="sub-stat"><span>Online now</span><b>14,902</b></div>
+        <div class="sub-stat"><span>Posts today</span><b>1,847</b></div>
+    </div>
+
+    <div class="side-card">
+        <h3>Community Rules</h3>
+        <ol class="rules-list">
+            <li>Use spoiler tags. Mark all post titles with [Spoilers] if applicable.</li>
+            <li>No piracy, no streaming links to unlicensed content.</li>
+            <li>No image macros or low-effort memes during simulcast week.</li>
+            <li>Be civil in fights between airing-show threads. We're all here for the same reason.</li>
+            <li>No selfies, no off-topic. Stay on the anime.</li>
+            <li>Episode Discussion threads only on broadcast day.</li>
+            <li>Use sub-flair when posting. Discussion / News / Question / Fan Art / Megathread.</li>
+        </ol>
+    </div>
+
+    <div class="side-card">
+        <h3>Active Megathreads</h3>
+        <div class="mods-list">
+            <a href="#">&bull; Impact of Eden EP1 Discussion (here)</a>
+            <a href="#">&bull; Fall 2013 Season Megathread</a>
+            <a href="#">&bull; Daily Recommendation Thread</a>
+            <a href="#">&bull; "What Are You Watching?" Sunday</a>
+            <a href="#">&bull; VA Appreciation Tuesdays</a>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <h3>Mods</h3>
+        <div class="mods-list">
+            <a href="#">u/SubMod_Anime_Prime</a>
+            <a href="#">u/ToastedTatami</a>
+            <a href="#">u/SeasonalGrindset</a>
+            <a href="#">u/SimulcastWatchman</a>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <h3>Related Subs</h3>
+        <div class="mods-list">
+            <a href="#">t/manga &middot; 612k watchers</a>
+            <a href="#">t/sakuga &middot; 89k watchers</a>
+            <a href="#">t/anime_titties &middot; 240k watchers (sfw only)</a>
+            <a href="#">t/animedubs &middot; 71k watchers</a>
+            <a href="#">t/Burst &middot; 4,209 watchers (new)</a>
+        </div>
+    </div>
+</aside>
+
+</div>
+
+<div class="th-foot">
+    Threadit &copy; 2013 &middot;
+    <a href="#">About</a>
+    <a href="#">Advertise</a>
+    <a href="#">Help</a>
+    <a href="#">Blog</a>
+    <a href="#">Site Rules</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Mobile</a>
+</div>
+
+<script>
+(function () {
+    var loadMore = document.getElementById('threadit-loadmore');
+    var showAll = document.getElementById('threadit-showall');
+    var status = document.getElementById('threadit-comment-status');
+    if (!loadMore) return;
+
+    var totalHidden = 588;
+    var loaded = 0;
+    var batchSize = 48;
+    var users = [
+        'u/SawanoDropAt10_21', 'u/FrameByFrameGoblet', 'u/EchoBladeClub', 'u/MiyukiDidNothingWrong',
+        'u/PlantationPatchNotes', 'u/SoraMetaCode', 'u/BurstStepWitness', 'u/SoryuSkybox',
+        'u/LikkoDanceSync', 'u/YAMAGA284Hater', 'u/ZeroLatitudeVeteran', 'u/AbigailMain',
+        'u/ThreaditOldHead', 'u/GraysonParryEnjoyer', 'u/RinaSatouSweep', 'u/NovaOperator'
+    ];
+    var bodies = [
+        'rewatched the fight three times and I still cannot tell where the first camera cut is. that is usually a compliment and here it is a CONFESSION.',
+        'Echo entering through motion instead of a pose tells you the staff understands character animation. she is readable before she even speaks.',
+        'the red-orange impact frames during the YAMAGA exchange are doing so much work. not random flash, actual rhythm punctuation.',
+        'Miyuki being terrifying without raising her voice is the strongest choice the premiere makes. Saori Hayami understood the assignment instantly.',
+        'Sora getting framed small under Soryu in the key visual makes way more sense after the last shot. somebody was planning this from day one.',
+        'Lisa flying into flame guns while the scene transitions out of Echo blades is exactly the kind of ridiculous confidence I want from original anime.',
+        'Grayson vs YAMAGA has that fighting-game round-start energy. spacing, feint, punish, then suddenly the whole room is a stage hazard.',
+        'Rina Satou as Echo was such a good pull. she gives the character speed without making her sound weightless.',
+        'Likko is going to be the sleeper favorite. four seconds of crowd sync animation and suddenly everyone in my watch party was pointing at the screen.',
+        'I love that the show lets Abigail look cool without turning the camera into nonsense. action direction with actual respect for the character.',
+        'the baby hand at the end is either the boldest hook of the season or I am about to spend twelve weeks making terrible guesses.',
+        'Burst came out swinging like they were allergic to ordinary premiere structure.',
+        'small thing: the UI readout dropping during the YAMAGA fight had hand-keyed jitter. absolutely unnecessary. absolutely appreciated.',
+        'I keep thinking about Nova saying it is over before anyone else understands what happened. that line lands colder every rewatch.',
+        'this thread is moving too fast but I need it on record: the sound mix when the lobby crowd cuts out is nasty in the best way.',
+        'if episode 2 keeps even half this energy we are in for a very weird season.'
+    ];
+
+    function makeComment(index) {
+        var div = document.createElement('div');
+        var childClass = index % 9 === 0 ? ' child2' : (index % 4 === 0 ? ' child' : '');
+        div.className = 'comment generated-comment new-batch' + childClass;
+
+        var user = users[index % users.length];
+        var points = Math.max(3, 389 - Math.floor(index * 0.58) + (index % 11));
+        var hours = index < 80 ? (3 + Math.floor(index / 16)) + 'h' : (1 + Math.floor(index / 55)) + 'd';
+        var text = bodies[index % bodies.length];
+        var extra = '';
+
+        if (index % 13 === 0) {
+            extra = '<p>also, the amount of people pretending the premiere did not center its women is wild. Abigail, Miyuki, Echo, Lisa, Nova, Likko. that is not an accident.</p>';
+        } else if (index % 17 === 0) {
+            extra = '<p>calling it now: Soryu Umbracall is not just a boss name. that is a whole mythology door.</p>';
+        } else if (index % 21 === 0) {
+            extra = '<p>someone please make a gif of the Abigail grapple-pistol finisher before the mods ban reaction gifs again.</p>';
+        }
+
+        div.innerHTML =
+            '<div class="comment-meta">' +
+                '<a href="#">' + user + '</a> &middot; ' +
+                '<span class="pts">+' + points + ' points</span> &middot; ' +
+                hours +
+            '</div>' +
+            '<div class="comment-body"><p>' + text + '</p>' + extra + '</div>' +
+            '<div class="comment-actions"><a href="#">Reply</a><a href="#">Share</a><a href="#">Save</a></div>';
+        return div;
+    }
+
+    function insertBatch(count) {
+        var parent = loadMore.parentNode;
+        var frag = document.createDocumentFragment();
+        var end = Math.min(totalHidden, loaded + count);
+
+        for (var i = loaded; i < end; i++) {
+            frag.appendChild(makeComment(i));
+        }
+
+        parent.parentNode.insertBefore(frag, parent);
+        loaded = end;
+
+        var remaining = totalHidden - loaded;
+        if (remaining <= 0) {
+            loadMore.textContent = 'All 612 comments are showing';
+            loadMore.style.pointerEvents = 'none';
+            loadMore.style.color = '#888';
+            showAll.style.display = 'none';
+            status.textContent = 'You reached the end of the thread.';
+        } else {
+            loadMore.textContent = 'Load ' + Math.min(batchSize, remaining) + ' more comments >';
+            status.textContent = 'Showing ' + (24 + loaded) + ' of 612 comments';
+        }
+
+        window.setTimeout(function () {
+            var fresh = document.querySelectorAll('.generated-comment.new-batch');
+            for (var j = 0; j < fresh.length; j++) fresh[j].className = fresh[j].className.replace(' new-batch', '');
+        }, 1200);
+    }
+
+    loadMore.addEventListener('click', function (event) {
+        event.preventDefault();
+        insertBatch(loaded === 0 ? 72 : batchSize);
+    });
+
+    showAll.addEventListener('click', function (event) {
+        event.preventDefault();
+        insertBatch(totalHidden - loaded);
+    });
+})();
+</script>
+
+</body>
+</html>

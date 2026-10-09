@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Impact of Eden (2013) - AniFanWiki</title>
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Linux Libertine", "Georgia", serif; color: #222; background: #f6f6f6; line-height: 1.6; }
+    a { color: #0645ad; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:visited { color: #0b0080; }
+    a.new { color: #ba0000; }
+
+    /* Header */
+    .afw-top { background: #444; color: #fff; padding: 4px 16px; font-size: 11px; font-family: Arial, sans-serif; display: flex; justify-content: space-between; }
+    .afw-top a { color: #fff; margin: 0 6px; }
+    .afw-banner { background: #fff; border-bottom: 1px solid #aaa; padding: 8px 16px; display: flex; align-items: center; gap: 16px; }
+    .afw-logo { font-family: "Linux Libertine", Georgia, serif; font-size: 24px; font-weight: bold; color: #222; }
+    .afw-logo .ani { color: #0645ad; }
+    .afw-logo small { display: block; font-size: 11px; color: #777; font-family: Arial, sans-serif; font-weight: normal; }
+    .afw-search { margin-left: auto; }
+    .afw-search input { padding: 6px 8px; border: 1px solid #aaa; width: 260px; font-family: Arial, sans-serif; font-size: 12px; }
+    .afw-search button { padding: 6px 12px; background: #f6f6f6; border: 1px solid #aaa; cursor: pointer; font-family: Arial, sans-serif; }
+
+    /* Tab strip */
+    .afw-tabs { background: #eaecf0; border-bottom: 1px solid #a7d7f9; padding: 0 16px; font-family: Arial, sans-serif; font-size: 12px; }
+    .afw-tabs a { display: inline-block; padding: 6px 12px; color: #0645ad; border-right: 1px solid #a7d7f9; }
+    .afw-tabs a.active { background: #fff; color: #222; font-weight: bold; }
+
+    /* Layout */
+    .afw-layout { display: grid; grid-template-columns: 180px 1fr; min-height: 600px; }
+    .afw-side {
+        background: #f6f6f6;
+        border-right: 1px solid #a7d7f9;
+        padding: 14px 12px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+    .afw-side h4 { margin: 14px 0 6px; font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+    .afw-side a { display: block; color: #0645ad; padding: 2px 0; }
+    .afw-content { background: #fff; padding: 16px 24px 40px; }
+
+    /* Article */
+    .afw-content h1 {
+        font-family: "Linux Libertine", Georgia, serif;
+        font-weight: normal;
+        font-size: 28px;
+        border-bottom: 1px solid #a2a9b1;
+        padding-bottom: 6px;
+        margin: 0 0 4px;
+    }
+    .afw-content .from-anifanwiki {
+        font-size: 11px;
+        color: #777;
+        font-family: Arial, sans-serif;
+        margin-bottom: 14px;
+    }
+
+    .afw-content h2 {
+        font-family: "Linux Libertine", Georgia, serif;
+        font-weight: normal;
+        font-size: 22px;
+        border-bottom: 1px solid #a2a9b1;
+        padding-bottom: 4px;
+        margin: 28px 0 10px;
+    }
+    .afw-content h3 {
+        font-family: "Linux Libertine", Georgia, serif;
+        font-weight: normal;
+        font-size: 17px;
+        margin: 18px 0 8px;
+    }
+    .afw-content p { margin: 0 0 12px; font-size: 14px; }
+    .afw-content ul { margin: 0 0 12px 28px; padding: 0; font-size: 14px; }
+    .afw-content ul li { margin-bottom: 4px; }
+
+    /* Infobox */
+    .infobox {
+        float: right;
+        width: 300px;
+        margin: 0 0 14px 16px;
+        background: #f8f9fa;
+        border: 1px solid #a2a9b1;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    .infobox .ibtitle {
+        background: #ccd5e0;
+        padding: 8px 10px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #a2a9b1;
+    }
+    .infobox .ibposter {
+        height: 240px;
+        background: #eaecf0;
+        border: 1px solid #a2a9b1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .infobox .ibcaption { padding: 6px 10px; font-style: italic; color: #444; font-size: 12px; border-bottom: 1px solid #a2a9b1; }
+    .infobox table { width: 100%; border-collapse: collapse; }
+    .infobox table th { background: #ccd5e0; padding: 6px 10px; text-align: center; font-size: 12px; border-top: 1px solid #a2a9b1; }
+    .infobox table td { padding: 4px 10px; vertical-align: top; border-bottom: 1px solid #e0e0e0; }
+    .infobox table td:first-child { width: 100px; background: #eaecf0; font-weight: bold; }
+
+    /* Table of contents */
+    .toc {
+        background: #f8f9fa;
+        border: 1px solid #a2a9b1;
+        padding: 8px 14px 12px;
+        margin: 18px 0;
+        display: inline-block;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+    }
+    .toc-title { font-weight: bold; padding-bottom: 4px; margin-bottom: 4px; border-bottom: 1px solid #a2a9b1; font-size: 12px; }
+    .toc ol { margin: 0 0 0 16px; padding: 0; }
+    .toc ol li { margin-bottom: 2px; }
+    .toc ol ol { margin-left: 16px; }
+    .toc a { color: #0645ad; }
+
+    /* Quote */
+    .article-quote {
+        font-family: "Linux Libertine", Georgia, serif;
+        font-style: italic;
+        font-size: 15px;
+        color: #444;
+        border-left: 3px solid #ccd5e0;
+        padding-left: 16px;
+        margin: 14px 0;
+    }
+    .article-quote cite { display: block; font-size: 12px; color: #777; font-style: normal; margin-top: 6px; }
+
+    /* Cast table */
+    .cast-table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 13px; }
+    .cast-table th { background: #ccd5e0; padding: 6px 10px; text-align: left; border: 1px solid #a2a9b1; font-family: Arial, sans-serif; }
+    .cast-table td { padding: 6px 10px; border: 1px solid #ddd; }
+    .cast-table tr:nth-child(even) td { background: #f8f9fa; }
+
+    /* References */
+    .refs { font-size: 12px; }
+    .refs ol { padding-left: 22px; }
+    .refs li { margin-bottom: 4px; }
+
+    /* Footer */
+    .afw-foot { background: #f6f6f6; border-top: 1px solid #a2a9b1; padding: 18px; font-family: Arial, sans-serif; font-size: 11px; color: #666; text-align: center; }
+    .afw-foot a { color: #0645ad; margin: 0 6px; }
+</style>
+</head>
+<body>
+
+<div class="afw-top">
+    <div>
+        <a href="#">Main Page</a>
+        <a href="#">Random Article</a>
+        <a href="#">Recent Changes</a>
+        <a href="#">Help</a>
+    </div>
+    <div>
+        <a href="#">Log in</a> &middot;
+        <a href="#">Create account</a>
+    </div>
+</div>
+
+<div class="afw-banner">
+    <div class="afw-logo"><span class="ani">Ani</span>FanWiki<small>the anime encyclopedia anyone can edit &middot; est. 2005</small></div>
+    <div class="afw-search">
+        <input type="text" value="Impact of Eden (2013)">
+        <button>Search</button>
+    </div>
+</div>
+
+<div class="afw-tabs">
+    <a href="#" class="active">Article</a>
+    <a href="#">Discussion</a>
+    <a href="#">Edit</a>
+    <a href="#">History</a>
+    <a href="#">View source</a>
+</div>
+
+<div class="afw-layout">
+
+    <!-- Side nav -->
+    <nav class="afw-side">
+        <h4>Navigation</h4>
+        <a href="#">Main Page</a>
+        <a href="#">Index of anime</a>
+        <a href="#">Index of studios</a>
+        <a href="#">Index of VAs</a>
+        <a href="#">Featured articles</a>
+        <a href="#">Random article</a>
+
+        <h4>Tools</h4>
+        <a href="#">What links here</a>
+        <a href="#">Related changes</a>
+        <a href="#">Upload file</a>
+        <a href="#">Cite this page</a>
+        <a href="#">Permanent link</a>
+        <a href="#">Page information</a>
+
+        <h4>Languages</h4>
+        <a href="#">æ—¥æœ¬èªž</a>
+        <a href="#">Espa&ntilde;ol</a>
+        <a href="#">Fran&ccedil;ais</a>
+        <a href="#">Deutsch</a>
+        <a href="#">ä¸­æ–‡</a>
+
+        <h4>Community</h4>
+        <a href="#">Recent changes</a>
+        <a href="#">Editor portal</a>
+        <a href="#">Forums</a>
+        <a href="#">Donate</a>
+    </nav>
+
+    <!-- Main article -->
+    <article class="afw-content">
+        <h1>Impact of Eden (2013)</h1>
+        <div class="from-anifanwiki">From AniFanWiki, the free anime encyclopedia. &middot; <i>This article is about the 2013 anime television series. For other uses, see <a href="#" class="new">Impact of Eden (disambiguation)</a>.</i></div>
+
+        <!-- Infobox -->
+        <div class="infobox">
+            <div class="ibtitle">Impact of Eden (2013)</div>
+            <div class="ibposter"></div>
+            <div class="ibcaption">Promotional key visual featuring Sora Gauthier and Soryu Umbracall staring down at him from above.</div>
+            <table>
+                <tr><th colspan="2">エデンの衝撃<br><span style="font-weight: normal; font-size: 11px; display: block; margin-top: 2px;">(Eden no Shōgeki)</span></th></tr>
+                <tr><td>Genre</td><td>Action, Sci-Fi, School, VR-Game, Mystery</td></tr>
+                <tr><th colspan="2">Anime television series</th></tr>
+                <tr><td>Directed by</td><td><a href="#" class="new">Kaihatsu Miura</a></td></tr>
+                <tr><td>Written by</td><td><a href="#" class="new">Keito Kisaragi</a> (series composition)</td></tr>
+                <tr><td>Original concept</td><td><a href="#" class="new">Natsuki Takuya</a></td></tr>
+                <tr><td>Music by</td><td><a href="#" class="new">Hiroyuki Sawano</a></td></tr>
+                <tr><td>Studio</td><td><a href="#" class="new">Burst</a></td></tr>
+                <tr><td>Licensed by</td><td><a href="#" class="new">Funmaxation</a> (NA)</td></tr>
+                <tr><td>Distributor</td><td><a href="#" class="new">AniBlex</a></td></tr>
+                <tr><td>Streamed on</td><td><a href="#" class="new">MunchyRoll</a> (sub)</td></tr>
+                <tr><td>Original run</td><td>October 6, 2013 &ndash; present</td></tr>
+                <tr><td>Episodes</td><td>1 (of 25 planned)</td></tr>
+            </table>
+        </div>
+
+        <p>After struggling at Maple Grove City with his parents, twelve-year-old <b>Sora Gauthier</b> decides to head out on a Soul Anchor Journey to avenge his mother's survival.<sup>[1]</sup></p>
+
+        <p>The series is directed by Kaihatsu Miura with series composition by Keito Kisaragi, based on an original concept by manga artist Natsuki Takuya. Character designs and chief animation direction are handled by Lio Haraguchi. The music is composed by Hiroyuki Sawano, with the opening theme "Human x Inhuman" performed by T.M.Revolution (Takanori Nishikawa).<sup>[2]</sup></p>
+
+        <p>The series premiered on Japanese broadcast VBS/KBS on October 6, 2013 at 01:58 JST and is being streamed internationally with subtitles on MunchyRoll on the same day. An English dub has been announced for broadcast on AdultDrift in early 2015, with Funmaxation handling the home video release.<sup>[3]</sup> The premiere received strong critical and audience reception, with early aggregate scores on YourAnimeList sitting at 8.51 after the first episode based on 2,847 user votes.<sup>[4]</sup></p>
+
+        <!-- TOC -->
+        <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ol>
+                <li><a href="#plot">1 Plot</a></li>
+                <li><a href="#characters">2 Characters</a>
+                    <ol>
+                        <li><a href="#hms">2.1 Main characters</a></li>
+                        <li><a href="#hc1">2.2 Hammond Council 1</a></li>
+                        <li><a href="#ko">2.3 KO Operations</a></li>
+                    </ol>
+                </li>
+                <li><a href="#production">3 Production</a>
+                    <ol>
+                        <li><a href="#studio">3.1 Studio Burst</a></li>
+                        <li><a href="#staff">3.2 Staff</a></li>
+                        <li><a href="#music">3.3 Music</a></li>
+                    </ol>
+                </li>
+                <li><a href="#release">4 Release</a></li>
+                <li><a href="#reception">5 Reception</a></li>
+                <li><a href="#references">6 References</a></li>
+            </ol>
+        </div>
+
+        <h2 id="plot">Plot</h2>
+        <p>Sora Gauthier is a 12-year-old student at Hammond Middle Academy whose school day is interrupted by an escalating series of incidents culminating in an evening session of the VR MMO <i>Plantation</i>. While playing, Sora's squad &mdash; Ben Smythe, Grayson Rothenberg, and Abigail June &mdash; encounter an unscheduled enemy player designated <b>YAMAGA284</b> during what should have been a routine mission. The encounter results in the awakening of Sora's <b>MetaCode</b> ability and a confrontation between Sora's squad and the rival student council squad, <b>Hammond Council 1</b>, led by Miyuki Kagemitsu.</p>
+
+        <p>Meanwhile, at <b>KO Operations</b> headquarters &mdash; the organization that oversees Plantation's infrastructure &mdash; senior operator Nova and her boss Gamlet observe an anomaly the system labels "STATUS: UNCONFIRMED VIRUS MANIFESTATION" with a NAME field reading "???". As the match concludes, Plantation's environment registers a storm that the game's systems cannot classify, and a brief shot of a baby's hand pressing against a glass container under what is implied to be the World Tree concludes the episode.<sup>[1]</sup></p>
+
+        <h2 id="characters">Characters</h2>
+
+        <h3 id="hms">Main characters</h3>
+        <table class="cast-table">
+            <tr><th>Character</th><th>Japanese voice actor</th><th>Description</th></tr>
+            <tr><td><b>Sora Gauthier</b></td><td><a href="#" class="new">Mariya Ise</a></td><td>The male protagonist. A child prodigy who carries the awakening of the MetaCode arm.</td></tr>
+            <tr><td><b>Ben Smythe</b></td><td><a href="#" class="new">Kaito Ishikawa</a></td><td>A young man who strives on living a life with zero fear, just no regrets and being free.</td></tr>
+            <tr><td><b>Grayson Rothenberg</b></td><td><a href="#" class="new">Nobuhiko Okamoto</a></td><td>Talented and cool, wielder of the Crucible Dual Blades. He's usually easygoing when other things, but intense when it's duty.</td></tr>
+            <tr><td><b>Abigail June</b></td><td><a href="#" class="new">Kana Hanazawa</a></td><td>The female protagonist. Wielder of the grapple-weapon Flame Guns. Determined to have her arch rival, Miyuki Kagemitsu change into a better person.</td></tr>
+
+        </table>
+
+        <h3 id="hc1">Hammond Council 1</h3>
+        <p>Hammond Council 1 is the rival student council squad that operates as a coordinated five-member unit in Plantation. Three of the five named members are women, and the squad's command structure (President, Vice President, Secretary) is entirely held by female characters.</p>
+        <table class="cast-table">
+            <tr><th>Character</th><th>Role</th><th>Japanese voice actor</th></tr>
+            <tr><td><b>Miyuki Kagemitsu</b></td><td>President; wielder of Zantetsuken</td><td><a href="#" class="new">Saori Hayami</a></td></tr>
+            <tr><td><b>Echo Desmond</b></td><td>Vice President; dual-blade combatant</td><td><a href="#" class="new">Rina Satou</a></td></tr>
+            <tr><td><b>Likko Valenne</b></td><td>Secretary; shotgun combatant</td><td><a href="#" class="new">Ayane Sakura</a></td></tr>
+            <tr><td><b>William Jones</b></td><td>Supervisor</td><td><a href="#" class="new">Hiro Shimono</a></td></tr>
+            <tr><td><b>Kieran Atsushi</b></td><td>Advisor</td><td><a href="#" class="new">Hiroshi Kamiya</a></td></tr>
+        </table>
+
+        <h3 id="ko">KO Operations</h3>
+        <table class="cast-table">
+            <tr><th>Character</th><th>Role</th><th>Japanese voice actor</th></tr>
+            <tr><td><b>Nova</b></td><td>Senior operator and effective office manager at KO HQ</td><td><a href="#" class="new">Yui Ishikawa</a></td></tr>
+            <tr><td><b>Gamlet</b></td><td>KO Operations director; Nova's nominal supervisor</td><td><a href="#" class="new">Kishou Taniyama</a></td></tr>
+            <tr><td><b>Michael Pentulengro</b></td><td>Operator</td><td><a href="#" class="new">Yoshimasa Hosoya</a></td></tr>
+            <tr><td><b>Andreas Walker</b></td><td>Operator</td><td><a href="#" class="new">Tasuku Hatanaka</a></td></tr>
+        </table>
+
+        <h2 id="production">Production</h2>
+
+        <h3 id="studio">Studio Burst</h3>
+        <p><a href="#" class="new">Burst</a> is a Japanese animation studio whose entire production history begins with <i>Impact of Eden (2013)</i>. Unlike contemporaries that built up a public identity through web ONAs, indie shorts, or theatrical pilots before producing a full television series, Burst has no prior credits to point to: <i>Impact of Eden</i> is the studio's first-ever animated work, period, and is consequently regarded as Burst's foundational and identity-defining title rather than an early-career entry.<sup>[7]</sup> The studio was formed out of <a href="#" class="new">Flow Pictures</a>' late-era cinematic unit at the conclusion of <i>Sinful Apex</i> (2011) &mdash; often described in production circles as Flow Pictures' "final breath" &mdash; and inherited much of that staff culture, including animators and storyboarders who carried forward directly into <i>Impact of Eden</i> under director Kaihatsu Miura, who himself directed <i>Sinful Apex</i>.<sup>[5]</sup> The clean lineage is Flow Pictures ending with <i>Sinful Apex</i> and Burst beginning with <i>Impact of Eden</i>; every subsequent Burst production stands on the road <i>Impact of Eden</i> opened.<sup>[8]</sup> The studio's character animation philosophy emphasizes equal animator labor across male and female cast members and avoidance of fan-service framing, choices that critics have attributed to staff continuity with the original manga concept author <a href="#" class="new">Natsuki Takuya</a>.<sup>[6]</sup></p>
+
+        <h3 id="staff">Staff</h3>
+        <ul>
+            <li><b>Director:</b> Kaihatsu Miura</li>
+            <li><b>Series Composition:</b> Keito Kisaragi</li>
+            <li><b>Original Concept:</b> Natsuki Takuya</li>
+            <li><b>Storyboard / Pacing Lead:</b> Tomoe Suzuhara</li>
+            <li><b>Character Designer / Chief Animation Director:</b> Lio Haraguchi</li>
+            <li><b>Art Director (Backgrounds &amp; Settings):</b> Naochi Sumikuro</li>
+            <li><b>Color Designer:</b> Mirai Kanzaki</li>
+            <li><b>Sound Director / Audio Editor:</b> Aoi Tachikaze</li>
+            <li><b>Action Choreographer:</b> Yusuke Kagura</li>
+            <li><b>Music:</b> Hiroyuki Sawano</li>
+            <li><b>Opening theme:</b> "Human x Inhuman" by T.M.Revolution (Takanori Nishikawa)</li>
+            <li><b>Producers:</b> Tsubasa Aramaki (Burst), Junpei Oikawa (AniBlex)</li>
+        </ul>
+
+        <h3 id="music">Music</h3>
+        <p>The series is scored by Hiroyuki Sawano. The opening theme song "Human x Inhuman" is performed by T.M.Revolution (Takanori Nishikawa) and was released as a single by Sony Music Japan on October 16, 2013. As of the premiere, no ending theme has been credited; the closing of episode 1 used a short instrumental cue and the broadcast OP played over the final montage. An ending theme is expected to debut in episode 2 or 3.</p>
+
+        <h2 id="release">Release</h2>
+        <p>The series premiered on Japanese broadcast on Sunday, October 6, 2013 at 01:58 JST, with subsequent episodes scheduled to air weekly on Sundays at the same time slot. International streaming on MunchyRoll began the same day, with subtitled releases available roughly two days after broadcast on the platform's standard simulcast schedule.</p>
+
+        <p>Funmaxation has been confirmed as the North American licensor, with an English-dubbed broadcast slated for AdultDrift in early 2015. Cast for the dub has not yet been announced. A Japanese Blu-ray release is expected for the Q1 2014 season, with extended footage and uncompressed audio mixes for the broadcast cuts.</p>
+
+        <h2 id="reception">Reception</h2>
+
+        <div class="article-quote">
+            "A staggeringly confident debut. Burst handled the production logistics, Takuya's original concept delivers a layered cast, and the staff list reads like a who's-who."
+            <cite>&mdash; Cassidy Renault-Hammond, <i>AniWire</i> premiere review (October 6, 2013)</cite>
+        </div>
+
+        <p>Episode 1 received widespread critical praise, with particular emphasis on the production values, the YAMAGA284 fight choreography, Miyuki Kagemitsu's "thesis speech" delivered by Saori Hayami, and the studio's approach to character animation across the female cast. AniWire awarded the episode a 9.2/10 in its same-day premiere review, while SakugaThread's analysis thread accumulated more than 300 frame citations within 24 hours.<sup>[2][6]</sup></p>
+
+        <p>The YAL Episode 1 Discussion thread crossed 1,113 replies across 56 pages within four days of broadcast, with discussion centered on the show's narrative density, the storm/MetaCode mystery, and the framing of female characters as primary narrative drivers. Critics and forum users alike highlighted that the episode positions five female characters (Miyuki, Abigail, Nova, Echo, and Likko) in distinct lead-coded roles rather than in conventional support archetypes.<sup>[4]</sup></p>
+
+        <p>One element of the episode &mdash; an isolated YAMAGA284 dialogue line &mdash; was criticized as gratuitously off-putting by some viewers and reviewers, including a thread on YourAnimeList that drew responses across multiple pages of the discussion thread.<sup>[4]</sup> Outside of that single beat, critical reception was overwhelmingly positive.</p>
+
+        <h2 id="references">References</h2>
+        <div class="refs">
+            <ol>
+                <li><a href="#">"Impact of Eden (2013) - Watch on MunchyRoll"</a>. <i>MunchyRoll</i>. Retrieved October 6, 2013.</li>
+                <li><a href="#">Renault-Hammond, Cassidy</a>. <a href="#">"'Impact of Eden' Premiere Review: Burst Studio Announces Itself in 24 Minutes"</a>. <i>AniWire</i>. October 6, 2013.</li>
+                <li><a href="#">"AdultDrift Acquires 'Impact of Eden' for Early 2015 Dub Broadcast"</a>. <i>AniWire</i>. October 4, 2013.</li>
+                <li><a href="#">"Impact of Eden Episode 1 Discussion"</a>. <i>YourAnimeList Forums</i>. Retrieved October 9, 2013.</li>
+                <li><a href="#">"Studio Burst: Inside the Flow Pictures Spin-out"</a>. <i>AniWire</i>. September 28, 2013.</li>
+                <li>SakugaThreadZero (October 6, 2013). <a href="#">"Impact of Eden EP1 Sakuga Megathread - Burst's Debut"</a>. <i>SakugaThread</i>.</li>
+                <li><a href="#">Renault-Hammond, Cassidy</a>. <a href="#">"Burst's Birth Certificate: Why 'Impact of Eden' Is the Studio's First Animation, Not Just Their First TV Show"</a>. <i>AniWire</i>. October 7, 2013.</li>
+                <li><a href="#">"Animation Industry Watch: Q3 2013 Studio Spin-out Tracker"</a>. <i>Zero Latitude</i>. September 30, 2013.</li>
+            </ol>
+        </div>
+
+        <p style="font-size: 11px; color: #777; margin-top: 30px; padding-top: 12px; border-top: 1px solid #ddd;">
+            Categories: <a href="#">2013 anime television series</a> &middot; <a href="#">Virtual reality in anime</a> &middot; <a href="#">Hiroyuki Sawano scores</a> &middot; <a href="#">Burst (studio)</a> &middot; <a href="#">School anime</a> &middot; <a href="#">Action anime</a> &middot; <a href="#">Anime original works</a>
+        </p>
+        <p style="font-size: 11px; color: #777;">
+            This page was last edited on 8 October 2013, at 19:42 (UTC). &middot;
+            Content is available under <a href="#">Creative Commons Attribution-ShareAlike License</a> unless otherwise noted.
+        </p>
+
+    </article>
+
+</div>
+
+<footer class="afw-foot">
+    <a href="#">Privacy policy</a>
+    <a href="#">About AniFanWiki</a>
+    <a href="#">Disclaimers</a>
+    <a href="#">Contact us</a>
+    <a href="#">Developers</a>
+    <a href="#">Statistics</a>
+    <a href="#">Cookie statement</a>
+    <a href="#">Mobile view</a>
+</footer>
+
+</body>
+</html>
