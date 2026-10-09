@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>impact of eden episode 1 discussion - Google Search</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: arial, sans-serif;
+        color: #222;
+        background: #fff;
+    }
+    a { color: #1a0dab; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    .g-header {
+        display: flex;
+        align-items: center;
+        padding: 20px 30px 0;
+        gap: 22px;
+        flex-wrap: wrap;
+    }
+    .g-logo {
+        font-family: "Arial", sans-serif;
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: -1px;
+    }
+    .g-logo .b { color: #4285F4; }
+    .g-logo .r1 { color: #EA4335; }
+    .g-logo .y { color: #FBBC05; }
+    .g-logo .b2 { color: #4285F4; }
+    .g-logo .g { color: #34A853; }
+    .g-logo .r2 { color: #EA4335; }
+
+    /* Search bar */
+    .g-searchbar {
+        position: relative;
+        flex: 1;
+        max-width: 692px;
+        height: 44px;
+        border: 1px solid #dfe1e5;
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        background: #fff;
+        box-shadow: 0 1px 6px rgba(32,33,36,.05);
+    }
+    .g-searchbar:hover { box-shadow: 0 1px 6px rgba(32,33,36,.18); }
+    .g-searchbar input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        padding: 0 8px;
+        background: transparent;
+    }
+    .g-searchbar .icon {
+        color: #5f6368;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .g-searchbar .mic { color: #4285F4; }
+
+    .g-user {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 13px;
+    }
+    .g-avatar {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4285F4, #34A853);
+        color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    /* Tab strip */
+    .g-tabs {
+        display: flex;
+        gap: 24px;
+        padding: 8px 30px 0 152px;
+        border-bottom: 1px solid #dfe1e5;
+        font-size: 13px;
+        color: #5f6368;
+    }
+    .g-tabs .tab {
+        padding: 12px 4px;
+        cursor: pointer;
+    }
+    .g-tabs .tab.active {
+        color: #1a73e8;
+        border-bottom: 3px solid #1a73e8;
+        font-weight: 500;
+    }
+
+    /* Results section */
+    .g-stats {
+        font-size: 12px;
+        color: #70757a;
+        padding: 12px 30px 0 152px;
+    }
+    .g-results {
+        max-width: 652px;
+        margin: 0 0 0 152px;
+        padding: 12px 30px 24px 0;
+    }
+    @media (max-width: 800px) {
+        .g-stats, .g-results, .g-tabs { padding-left: 30px; margin-left: 0; }
+    }
+
+    .g-result {
+        margin: 22px 0;
+    }
+    .g-result .site {
+        font-size: 12px;
+        color: #202124;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 2px;
+    }
+    .g-result .site .favicon {
+        width: 18px; height: 18px;
+        border-radius: 50%;
+        background: #2a629a;
+        color: #fff;
+        font-weight: bold;
+        font-size: 9px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .g-result .breadcrumb {
+        font-size: 12px;
+        color: #5f6368;
+    }
+    .g-result h3 {
+        font-family: arial, sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 1.3;
+        margin: 2px 0 4px;
+    }
+    .g-result h3 a { color: #1a0dab; }
+    .g-result h3 a:visited { color: #681da8; }
+    .g-result .snippet {
+        font-size: 14px;
+        color: #4d5156;
+        line-height: 1.58;
+    }
+    .g-result .snippet b { font-weight: bold; color: #202124; }
+    .g-result .date {
+        color: #70757a;
+    }
+
+    /* "People also ask" */
+    .paa {
+        max-width: 652px;
+        margin: 16px 0 16px 152px;
+        border: 1px solid #dfe1e5;
+        border-radius: 8px;
+        background: #fff;
+    }
+    .paa-title {
+        font-size: 18px;
+        font-weight: 500;
+        padding: 12px 16px 8px;
+        color: #202124;
+    }
+    .paa-item {
+        padding: 12px 16px;
+        border-top: 1px solid #ebebeb;
+        font-size: 14px;
+        color: #202124;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .paa-item:hover { background: #f8f9fa; }
+    .paa-item .chev { color: #5f6368; }
+
+    /* Right-side knowledge panel */
+    .layout {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 24px;
+        padding-right: 30px;
+        max-width: 1180px;
+    }
+    @media (max-width: 1000px) {
+        .layout { grid-template-columns: 1fr; }
+        .kg { display: none; }
+    }
+    .kg {
+        margin-top: 24px;
+        padding: 16px;
+        border: 1px solid #dfe1e5;
+        border-radius: 8px;
+        background: #fff;
+        height: fit-content;
+    }
+    .kg h2 {
+        margin: 8px 0 4px;
+        font-family: arial, sans-serif;
+        font-weight: 400;
+        font-size: 24px;
+        color: #202124;
+    }
+    .kg .subtitle {
+        font-size: 14px;
+        color: #5f6368;
+        margin-bottom: 14px;
+    }
+    .kg .poster {
+        height: 240px;
+        background: #ffffff;
+        border: 1px solid #dadce0;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        position: relative;
+        overflow: hidden;
+    }
+    .kg .poster::after {
+        display: none;
+    }
+    .kg dl {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+    }
+    .kg dt {
+        display: inline-block;
+        color: #5f6368;
+        min-width: 110px;
+    }
+    .kg dd {
+        display: inline;
+        margin: 0;
+        color: #202124;
+    }
+    .kg .row { padding: 4px 0; }
+    .kg .row::after { content: ''; display: block; clear: both; }
+
+    /* Footer */
+    .g-foot {
+        margin-top: 40px;
+        background: #f2f2f2;
+        font-size: 14px;
+        color: #70757a;
+        padding: 18px 30px;
+        border-top: 1px solid #dadce0;
+    }
+    .g-foot a { color: #70757a; margin-right: 22px; }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<div class="g-header">
+    <div class="g-logo">
+        <span class="b">G</span><span class="r1">o</span><span class="y">o</span><span class="b2">g</span><span class="g">l</span><span class="r2">e</span>
+    </div>
+    <div class="g-searchbar">
+        <input type="text" value="impact of eden episode 1 discussion">
+        <span class="icon mic">&#127908;</span>
+        <span class="icon">&#128269;</span>
+    </div>
+    <div class="g-user">
+        <a href="#">Gmail</a>
+        <a href="#">Images</a>
+        <div class="g-avatar">A</div>
+    </div>
+</div>
+
+<!-- ============ TABS ============ -->
+<div class="g-tabs">
+    <div class="tab active">All</div>
+    <div class="tab">Images</div>
+    <div class="tab">Videos</div>
+    <div class="tab">News</div>
+    <div class="tab">Forums</div>
+    <div class="tab">Shopping</div>
+    <div class="tab">More</div>
+    <div class="tab" style="margin-left:auto;">Tools</div>
+</div>
+
+<!-- ============ LAYOUT ============ -->
+<div class="layout">
+
+<div>
+<div class="g-stats">About 47,200 results (0.42 seconds)</div>
+
+<div class="g-results">
+
+    <!-- ============ TOP RESULT (YAL THREAD) ============ -->
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon">YA</span>
+            <div>
+                <div style="font-size:13px;">YourAnimeList</div>
+                <div class="breadcrumb">https://www.youranimelist.net &rsaquo; anime &rsaquo; impact-of-eden &rsaquo; <b>episode-1-discussion</b></div>
+            </div>
+        </div>
+        <h3><a href="index.html">Impact of Eden Episode 1 Discussion - <b>YourAnimeList</b> Forums</a></h3>
+        <div class="snippet">
+            <span class="date">Oct 6, 2013</span> &mdash; Official YAL discussion thread for <b>Impact of Eden (2013)</b> Episode 1. <b>1,113 replies</b> across 56 pages. Started by YALBot at 02:31 JST. Featured topics: Miyuki's lobby speech, the YAMAGA284 fight, Burst's debut animation, Hammond Council 1 cast reveal, ...
+        </div>
+    </div>
+
+    <!-- ============ EPISODE 2 RESULT ============ -->
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon">YA</span>
+            <div>
+                <div style="font-size:13px;">YourAnimeList</div>
+                <div class="breadcrumb">https://www.youranimelist.net &rsaquo; anime &rsaquo; impact-of-eden &rsaquo; <b>episode-2-discussion</b></div>
+            </div>
+        </div>
+        <h3><a href="yal_impact_of_eden_ep2_2013.html">Impact of Eden Episode 2 Discussion - <b>YourAnimeList</b> Forums</a></h3>
+        <div class="snippet">
+            <span class="date">Oct 13, 2013</span> &mdash; Official YAL discussion thread for <b>Impact of Eden (2013)</b> Episode 2: "FRONTIER RISK MANAGEMENT: Introduction". <b>945 replies</b> across 48 pages. Featured topics: Takanori Nishikawa OP, Golf Cart QTE, 3DCG Mech Sakuga, Planetation 5 Shells Map Reveal, Lisa Outer Ring Chase, NodeCore drop-in standoff...
+        </div>
+    </div>
+
+    <!-- ============ PEOPLE ALSO ASK ============ -->
+    <div class="paa">
+        <div class="paa-title">People also ask</div>
+        <div class="paa-item">
+            <span>What studio animated Impact of Eden?</span><span class="chev">&#9662;</span>
+        </div>
+        <div class="paa-item">
+            <span>Who plays Miyuki Kagemitsu?</span><span class="chev">&#9662;</span>
+        </div>
+        <div class="paa-item">
+            <span>What is YAMAGA284 in Impact of Eden?</span><span class="chev">&#9662;</span>
+        </div>
+        <div class="paa-item">
+            <span>Is Impact of Eden on MunchyRoll?</span><span class="chev">&#9662;</span>
+        </div>
+    </div>
+
+    <!-- ============ MORE RESULTS ============ -->
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#0a5d2e;">AW</span>
+            <div>
+                <div style="font-size:13px;">AniWire</div>
+                <div class="breadcrumb">https://aniwire.com &rsaquo; news &rsaquo; impact-of-eden-premiere-review</div>
+            </div>
+        </div>
+        <h3><a href="aniwire_impact_of_eden_premiere.html">'<b>Impact of Eden</b>' Premiere Review: Burst Studio Announces Itself in 24 Minutes</a></h3>
+        <div class="snippet">
+            <span class="date">Oct 6, 2013</span> &mdash; Burst's debut anime <b>Impact of Eden (2013)</b> aired its first <b>episode</b> tonight on JP broadcast. With Kaihatsu Miura directing, Keito Kisaragi on series composition, and Hiroyuki Sawano composing, the premiere delivers ...
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#c46a1d;">MR</span>
+            <div>
+                <div style="font-size:13px;">MunchyRoll</div>
+                <div class="breadcrumb">https://munchyroll.com &rsaquo; series &rsaquo; impact-of-eden</div>
+            </div>
+        </div>
+        <h3><a href="munchyroll_impact_of_eden.html"><b>Impact of Eden</b> - Watch on MunchyRoll</a></h3>
+        <div class="snippet">
+            Watch <b>Impact of Eden</b> on MunchyRoll. Sub. <b>Episode 1</b>: "Where the Wind Ran First" available now. Premiered Oct 6, 2013. Rated 16+. Based on the original manga by Natsuki Takuya. Studio: Burst. New episodes every Sunday at 01:58 JST / 12:58 EDT.
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#2a629a;">YA</span>
+            <div>
+                <div style="font-size:13px;">YourAnimeList</div>
+                <div class="breadcrumb">https://www.youranimelist.net &rsaquo; anime &rsaquo; impact-of-eden</div>
+            </div>
+        </div>
+        <h3><a href="index.html"><b>Impact of Eden (2013)</b> - YourAnimeList Database</a></h3>
+        <div class="snippet">
+            <b>Type:</b> TV &middot; <b>Episodes:</b> 25 (planned) &middot; <b>Studio:</b> Burst &middot; <b>Aired:</b> Oct 6, 2013 to ? &middot; <b>Genres:</b> Action, Sci-Fi, School, VR-Game, Mystery &middot; <b>Score:</b> 8.51 (based on 2,847 votes after 1 episode)
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#8a3a8a;">SK</span>
+            <div>
+                <div style="font-size:13px;">SakugaThread</div>
+                <div class="breadcrumb">sakugathread.org &rsaquo; threads &rsaquo; 2013-10-06-impact-of-eden</div>
+            </div>
+        </div>
+        <h3><a href="sakugathread_impact_of_eden.html"><b>Impact of Eden</b> EP1 Sakuga Megathread &mdash; Burst's Debut</a></h3>
+        <div class="snippet">
+            Animation breakdown of <b>Impact of Eden (2013)</b> <b>Episode 1</b>. Highlights: the MetaCode arm-charge sakuga (Burst Step setup), Abigail's mid-air grapple-launch finisher, the YAMAGA284 silhouette work, ...
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#444;">AF</span>
+            <div>
+                <div style="font-size:13px;">AniFanWiki</div>
+                <div class="breadcrumb">anifanwiki.org &rsaquo; wiki &rsaquo; <b>Impact_of_Eden</b></div>
+            </div>
+        </div>
+        <h3><a href="anifanwiki_impact_of_eden.html"><b>Impact of Eden (2013)</b> | AniFanWiki</a></h3>
+        <div class="snippet">
+            After struggling at Maple Grove City with his parents, twelve-year-old Sora Gauthier decides to head out on a Soul Anchor Journey to avenge his mother's survival ...
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#1f5fa0;">YA</span>
+            <div>
+                <div style="font-size:13px;">YourAnimeList</div>
+                <div class="breadcrumb">https://www.youranimelist.net &rsaquo; anime &rsaquo; impact-of-eden &rsaquo; <b>characters</b></div>
+            </div>
+        </div>
+        <h3><a href="index.html"><b>Impact of Eden</b> Characters & Voice Actors - YAL</a></h3>
+        <div class="snippet">
+            Full cast for <b>Impact of Eden (2013)</b>. Sora Gauthier &mdash; Mariya Ise. Grayson Rothenberg &mdash; Nobuhiko Okamoto. Abigail June &mdash; Kana Hanazawa. Ben Smythe &mdash; Kaito Ishikawa. Miyuki Kagemitsu &mdash; Saori Hayami...
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#222;">AD</span>
+            <div>
+                <div style="font-size:13px;">AdultDrift</div>
+                <div class="breadcrumb">https://www.adultdrift.com &rsaquo; shows &rsaquo; impact-of-eden</div>
+            </div>
+        </div>
+        <h3><a href="adultdrift_impact_of_eden.html"><b>Impact of Eden</b> - AdultDrift (Dub Coming Soon)</a></h3>
+        <div class="snippet">
+            <b>Impact of Eden</b>'s English dub will premiere on AdultDrift in early 2015. Cast announcement pending. Funmaxation handling licensing.
+        </div>
+    </div>
+
+    <div class="g-result">
+        <div class="site">
+            <span class="favicon" style="background:#c83a2f;">TH</span>
+            <div>
+                <div style="font-size:13px;">Threadit</div>
+                <div class="breadcrumb">www.threadit.com &rsaquo; t/anime &rsaquo; comments &rsaquo; <b>impact_of_eden_episode_1_discussion</b></div>
+            </div>
+        </div>
+        <h3><a href="threadit_impact_of_eden.html">[Spoilers] <b>Impact of Eden (2013)</b> - <b>Episode 1 Discussion</b> : t/anime</a></h3>
+        <div class="snippet">
+            403 upvotes, 612 comments. Just finished <b>Episode 1</b>. The pacing on the YAMAGA fight is insane. Miyuki's lobby speech going BOOM at the end was unreal. Saori Hayami delivered. Anyone else catch Rina Satou as Echo ...
+        </div>
+    </div>
+
+    <!-- ============ RELATED SEARCHES ============ -->
+    <div style="margin-top: 32px;">
+        <h2 style="font-family:arial,sans-serif;font-weight:500;font-size:18px;color:#202124;">Related searches</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+            <a href="#" style="padding:10px 14px;border:1px solid #dfe1e5;border-radius:24px;font-size:14px;color:#202124;display:flex;align-items:center;gap:8px;">
+                <span style="color:#5f6368;">&#128269;</span> impact of eden <b>miyuki speech transcript</b>
+            </a>
+            <a href="#" style="padding:10px 14px;border:1px solid #dfe1e5;border-radius:24px;font-size:14px;color:#202124;display:flex;align-items:center;gap:8px;">
+                <span style="color:#5f6368;">&#128269;</span> impact of eden <b>yamaga284 fight breakdown</b>
+            </a>
+            <a href="#" style="padding:10px 14px;border:1px solid #dfe1e5;border-radius:24px;font-size:14px;color:#202124;display:flex;align-items:center;gap:8px;">
+                <span style="color:#5f6368;">&#128269;</span> impact of eden <b>hammond council 1 cast</b>
+            </a>
+            <a href="#" style="padding:10px 14px;border:1px solid #dfe1e5;border-radius:24px;font-size:14px;color:#202124;display:flex;align-items:center;gap:8px;">
+                <span style="color:#5f6368;">&#128269;</span> impact of eden <b>burst studio debut</b>
+            </a>
+            <a href="#" style="padding:10px 14px;border:1px solid #dfe1e5;border-radius:24px;font-size:14px;color:#202124;display:flex;align-items:center;gap:8px;">
+                <span style="color:#5f6368;">&#128269;</span> impact of eden <b>sora gauthier mariya ise</b>
+            </a>
+            <a href="#" style="padding:10px 14px;border:1px solid #dfe1e5;border-radius:24px;font-size:14px;color:#202124;display:flex;align-items:center;gap:8px;">
+                <span style="color:#5f6368;">&#128269;</span> impact of eden <b>storm theory explained</b>
+            </a>
+        </div>
+    </div>
+
+    <!-- ============ PAGINATION ============ -->
+    <div style="margin-top:48px;text-align:center;font-family:arial,sans-serif;font-size:14px;color:#5f6368;">
+        <div style="font-family:'Arial Black',sans-serif;font-size:36px;letter-spacing:-1px;margin-bottom:8px;">
+            <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">o</span><span style="color:#34A853;">o</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#34A853;">o</span><span style="color:#EA4335;">g</span><span style="color:#4285F4;">l</span><span style="color:#34A853;">e</span>
+        </div>
+        <div style="display:inline-flex;gap:18px;align-items:center;">
+            <span style="font-weight:bold;">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+            <a href="#">8</a>
+            <a href="#">9</a>
+            <a href="#">Next &gt;</a>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- ============ KNOWLEDGE PANEL ============ -->
+<aside class="kg">
+    <div class="poster">
+        <img src="poster.png" alt="Impact of Eden Logo" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+    </div>
+    <h2>Impact of Eden</h2>
+    <div class="subtitle">2013 anime series</div>
+
+    <div style="font-size:14px;color:#4d5156;margin-bottom:14px;">
+        After struggling at Maple Grove City with his parents, twelve-year-old Sora Gauthier decides to head out on a Soul Anchor Journey to avenge his mother's survival.
+    </div>
+
+    <dl>
+        <div class="row"><dt>Premiered:</dt> <dd>October 6, 2013</dd></div>
+        <div class="row"><dt>Studio:</dt> <dd>Burst</dd></div>
+        <div class="row"><dt>Director:</dt> <dd>Kaihatsu Miura</dd></div>
+        <div class="row"><dt>Music:</dt> <dd>Hiroyuki Sawano</dd></div>
+        <div class="row"><dt>Episodes:</dt> <dd>25 (planned)</dd></div>
+        <div class="row"><dt>Network:</dt> <dd>Japanese broadcast Sundays 01:58 JST</dd></div>
+        <div class="row"><dt>Distributor:</dt> <dd>AniBlex</dd></div>
+        <div class="row"><dt>Streaming:</dt> <dd><a href="#">MunchyRoll</a></dd></div>
+    </dl>
+
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid #ebebeb;">
+        <div style="font-size:13px;font-weight:500;color:#202124;margin-bottom:6px;">Cast</div>
+        <div style="font-size:13px;color:#4d5156;line-height:1.6;">
+            Mariya Ise &middot; Nobuhiko Okamoto &middot; Kana Hanazawa &middot; Kaito Ishikawa &middot; Saori Hayami &middot; Rina Satou &middot; Hiro Shimono &middot; Hiroshi Kamiya &middot; Ayane Sakura &middot; Kishou Taniyama &middot; Yui Ishikawa &middot; Yoshimasa Hosoya &middot; Tasuku Hatanaka
+        </div>
+    </div>
+
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid #ebebeb;">
+        <div style="font-size:13px;font-weight:500;color:#202124;margin-bottom:6px;">People also search for</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <a href="#" style="font-size:12px;padding:4px 10px;background:#f1f3f4;border-radius:14px;color:#202124;">Burst Studio</a>
+            <a href="#" style="font-size:12px;padding:4px 10px;background:#f1f3f4;border-radius:14px;color:#202124;">Sinful Apex</a>
+            <a href="#" style="font-size:12px;padding:4px 10px;background:#f1f3f4;border-radius:14px;color:#202124;">Kaihatsu Miura</a>
+            <a href="#" style="font-size:12px;padding:4px 10px;background:#f1f3f4;border-radius:14px;color:#202124;">Saori Hayami</a>
+        </div>
+    </div>
+</aside>
+
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div class="g-foot">
+    <div style="margin-bottom:8px;color:#70757a;">United States</div>
+    <div style="border-top:1px solid #dadce0;padding-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+        <div>
+            <a href="#">Help</a>
+            <a href="#">Send feedback</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

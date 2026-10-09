@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Impact of Eden EP1 Sakuga Megathread - Burst's Debut | SakugaThread</title>
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #d4d4dc; background: #1b1422; font-size: 14px; }
+    a { color: #c8a4ff; text-decoration: none; }
+    a:hover { color: #e0c8ff; text-decoration: underline; }
+
+    /* Header */
+    .st-top { background: #2a1f3a; border-bottom: 2px solid #8a3a8a; }
+    .st-bar { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 20px; }
+    .st-logo { font-family: "Trebuchet MS", sans-serif; font-size: 22px; font-weight: bold; color: #fff; letter-spacing: -1px; }
+    .st-logo .sk { color: #c8a4ff; }
+    .st-logo small { display: block; font-size: 10px; color: #888; font-weight: normal; letter-spacing: 3px; margin-top: -2px; }
+    .st-nav { display: flex; gap: 4px; font-size: 12px; }
+    .st-nav a { color: #d4d4dc; padding: 6px 12px; border-radius: 3px; }
+    .st-nav a:hover { background: #3a2a4a; color: #fff; text-decoration: none; }
+    .st-nav a.current { background: #8a3a8a; color: #fff; }
+    .st-user { margin-left: auto; font-size: 12px; color: #aaa; }
+    .st-user a { color: #c8a4ff; margin-left: 8px; }
+
+    /* Thread head */
+    .container { max-width: 1180px; margin: 0 auto; padding: 20px 24px 60px; display: grid; grid-template-columns: 1fr 280px; gap: 28px; }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+    .crumb { font-size: 11px; color: #888; margin-bottom: 14px; }
+    .crumb a { color: #888; }
+
+    .thread-head {
+        background: #2a1f3a;
+        padding: 16px 20px;
+        border-left: 4px solid #8a3a8a;
+        margin-bottom: 18px;
+        border-radius: 0 4px 4px 0;
+    }
+    .thread-head h1 { margin: 0 0 6px; font-size: 22px; color: #fff; }
+    .thread-meta { font-size: 12px; color: #aaa; }
+    .thread-meta b { color: #c8a4ff; }
+    .tag { display: inline-block; font-size: 10px; padding: 2px 8px; background: #8a3a8a; color: #fff; border-radius: 10px; margin-right: 4px; letter-spacing: 0.5px; }
+    .tag.alt { background: #4a3a6a; }
+    .tag.alt2 { background: #6a4a3a; }
+    .tag.alt3 { background: #3a6a4a; }
+
+    /* Posts */
+    .post { background: #232036; border-radius: 4px; margin-bottom: 14px; overflow: hidden; }
+    .post-head {
+        background: #2c2840;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+        border-bottom: 1px solid #1b1422;
+    }
+    .post-avatar {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #8a3a8a, #4a1a4a);
+        font-weight: bold;
+        color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 14px;
+    }
+    .post-uname { font-weight: bold; color: #c8a4ff; font-size: 13px; }
+    .post-utitle { font-size: 10px; color: #888; letter-spacing: 0.5px; }
+    .post-time { margin-left: auto; color: #888; font-size: 11px; }
+    .post-num { color: #c8a4ff; font-size: 11px; margin-right: 8px; }
+    .post-body { padding: 14px 20px; line-height: 1.65; font-size: 13.5px; color: #d4d4dc; }
+    .post-body p { margin: 0 0 10px; }
+    .post-body b { color: #fff; }
+    .post-body i { color: #c0c0c8; }
+    .post-body ul { margin: 4px 0 12px 20px; padding: 0; }
+    .post-body li { margin-bottom: 4px; }
+
+    .frame-cite {
+        background: #1b1422;
+        border: 1px dashed #4a3a6a;
+        padding: 6px 10px;
+        font-family: "Consolas", "Courier New", monospace;
+        font-size: 11px;
+        color: #b888d8;
+        display: inline-block;
+        margin: 0 2px;
+        border-radius: 2px;
+    }
+    .gif-placeholder {
+        background: linear-gradient(135deg, #1f3556 0%, #4a1f56 50%, #c83a2f 100%);
+        height: 200px;
+        margin: 10px 0;
+        border-radius: 4px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Consolas", monospace;
+        font-size: 11px;
+        color: rgba(255,255,255,.85);
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+    }
+    .gif-placeholder::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+            radial-gradient(circle at 30% 25%, rgba(255,200,90,.18), transparent 45%),
+            radial-gradient(circle at 75% 75%, rgba(60,255,200,.12), transparent 45%);
+    }
+    .gif-placeholder .glabel { position: relative; z-index: 2; text-align: center; }
+    .gif-placeholder .glabel big { font-size: 14px; display: block; margin-bottom: 4px; font-weight: bold; }
+    .game-card {
+        background:
+            radial-gradient(circle at 18% 20%, rgba(255, 236, 105, .22), transparent 22%),
+            radial-gradient(circle at 76% 72%, rgba(70, 235, 255, .18), transparent 30%),
+            linear-gradient(135deg, #111827 0%, #2b1550 42%, #b8254a 72%, #ff9e2f 100%) !important;
+        border: 1px solid rgba(255,255,255,.2);
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,.45), 0 12px 36px rgba(0,0,0,.22);
+    }
+    .game-card::before {
+        background:
+            repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0, rgba(255,255,255,.06) 1px, transparent 1px, transparent 4px),
+            linear-gradient(90deg, rgba(255,255,255,.08), transparent 25%, transparent 75%, rgba(0,0,0,.24));
+    }
+    .game-hud {
+        position: relative;
+        z-index: 2;
+        width: min(92%, 560px);
+        border: 1px solid rgba(255,255,255,.28);
+        background: rgba(9, 10, 20, .48);
+        padding: 12px 14px;
+        text-align: left;
+        text-shadow: 0 2px 0 rgba(0,0,0,.55);
+    }
+    .game-topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 10px;
+        color: #ffe8a5;
+        text-transform: uppercase;
+    }
+    .platform-pill {
+        display: inline-block;
+        border: 1px solid rgba(255,255,255,.35);
+        padding: 2px 6px;
+        margin-left: 4px;
+        background: rgba(255,255,255,.12);
+        color: #fff;
+        font-weight: bold;
+    }
+    .game-title {
+        font-size: 22px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+    .game-title span { color: #ffd54a; }
+    .game-sub {
+        margin-top: 6px;
+        color: #f2d7ff;
+        font-size: 11px;
+        letter-spacing: .5px;
+    }
+    .combo-row {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+        font-size: 10px;
+    }
+    .combo-row b {
+        background: rgba(255,255,255,.88);
+        color: #23152e;
+        padding: 2px 6px;
+        border-radius: 2px;
+        box-shadow: 2px 2px 0 rgba(0,0,0,.35);
+    }
+    .combo-row b.impact-chip {
+        background: linear-gradient(135deg, #ff3b1f 0%, #ff8a24 60%, #ffd04d 100%);
+        color: #210807;
+        border: 1px solid rgba(255,255,255,.65);
+        text-shadow: 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .more-replies {
+        text-align: center;
+        padding: 20px;
+        background: #232036;
+        border-radius: 4px;
+        margin-top: 14px;
+    }
+    .more-replies a {
+        font-size: 13px;
+        color: #c8a4ff;
+        font-weight: 600;
+    }
+    .reply-pager {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .reply-pager a,
+    .reply-pager button,
+    .reply-pager span {
+        padding: 6px 12px;
+        border-radius: 3px;
+        border: 0;
+        background: transparent;
+        color: #c8a4ff;
+        font: inherit;
+        cursor: pointer;
+    }
+    .reply-pager a:hover,
+    .reply-pager button:hover {
+        background: #2c2840;
+        color: #e0c8ff;
+        text-decoration: none;
+    }
+    .reply-pager .current {
+        color: #fff;
+        background: #8a3a8a;
+    }
+    .reply-pager .gap {
+        color: #666;
+        cursor: default;
+    }
+    .generated-replies {
+        margin-top: 14px;
+    }
+    .generated-replies[hidden] {
+        display: none;
+    }
+
+    .post-actions { padding: 6px 16px; background: #1f1c2e; font-size: 11px; color: #888; display: flex; gap: 12px; align-items: center; }
+    .post-actions a { color: #aaa; }
+    .post-actions .likes { margin-left: auto; }
+    .post-actions .likes b { color: #c8a4ff; }
+
+    .quote {
+        background: #1b1422;
+        border-left: 3px solid #8a3a8a;
+        padding: 8px 12px;
+        margin: 8px 0;
+        font-size: 12px;
+        color: #aaa;
+    }
+    .quote .qhead { font-size: 11px; color: #c8a4ff; margin-bottom: 4px; }
+
+    /* Sidebar */
+    aside .sk-card {
+        background: #232036;
+        padding: 14px 16px;
+        border-radius: 4px;
+        margin-bottom: 14px;
+    }
+    aside h3 {
+        font-size: 12px;
+        color: #c8a4ff;
+        margin: 0 0 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #4a3a6a;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .stat-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        padding: 4px 0;
+        color: #aaa;
+    }
+    .stat-row b { color: #fff; }
+    .related-link { display: block; padding: 6px 0; font-size: 12px; border-bottom: 1px dashed #4a3a6a; }
+    .related-link:last-child { border: none; }
+    .related-link small { display: block; color: #888; font-size: 10px; margin-top: 2px; }
+
+    .footer { text-align: center; padding: 20px; color: #555; font-size: 11px; border-top: 1px solid #2a1f3a; margin-top: 24px; }
+    .footer a { color: #888; margin: 0 6px; }
+</style>
+</head>
+<body>
+
+<header class="st-top">
+    <div class="st-bar">
+        <div class="st-logo">Sakuga<span class="sk">Thread</span><small>FRAME-BY-FRAME SINCE 2009</small></div>
+        <nav class="st-nav">
+            <a href="#">Home</a>
+            <a href="#" class="current">Threads</a>
+            <a href="#">Gallery</a>
+            <a href="#">Studios</a>
+            <a href="#">Animators</a>
+            <a href="#">Schedule</a>
+            <a href="#">Glossary</a>
+        </nav>
+        <div class="st-user">
+            <span>welcome guest</span>
+            <a href="#">log in</a>
+            <a href="#">register</a>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+<main>
+    <div class="crumb"><a href="#">Threads</a> &rsaquo; <a href="#">2013</a> &rsaquo; <a href="#">October</a> &rsaquo; 2013-10-06-impact-of-eden</div>
+
+    <div class="thread-head">
+        <h1>Impact of Eden EP1 Sakuga Megathread &mdash; Burst's Debut</h1>
+        <div style="margin-bottom: 8px;">
+            <span class="tag">debut studio</span>
+            <span class="tag alt">action sequence</span>
+            <span class="tag alt2">VR-game</span>
+            <span class="tag alt3">character animation</span>
+            <span class="tag">Suzuhara</span>
+        </div>
+        <div class="thread-meta">
+            opened by <b>SakugaThreadZero</b> &middot;
+            Oct 6, 2013 &middot;
+            <b>87 replies</b> &middot;
+            <b>14,290 views</b> &middot;
+            <b>312 frame citations</b>
+        </div>
+    </div>
+
+    <!-- OP -->
+    <div class="post">
+        <div class="post-head">
+            <div class="post-avatar">SZ</div>
+            <div>
+                <div class="post-uname">SakugaThreadZero</div>
+                <div class="post-utitle">DATABASE CONTRIBUTOR &middot; 5,891 POSTS</div>
+            </div>
+            <div class="post-time"><span class="post-num">#1 (OP)</span>Oct 6, 2013 &middot; 5:08 AM JST</div>
+        </div>
+        <div class="post-body">
+            <p>cross-posting the Burst's-Debut analysis from the YAL thread because this needs its own thread. <i>Impact of Eden (2013)</i> ep 1 aired three hours ago and already has more individually-keyed action work than most fall premieres get across their first cour. let me walk through it.</p>
+
+            <p><b>I. PRODUCTION OVERVIEW</b></p>
+            <ul>
+                <li><b>Studio:</b> Burst (debut TV production, spun out from Flow Pictures' cinematic unit)</li>
+                <li><b>Director:</b> Kaihatsu Miura (Zero Latitude, Destiny/Infinite, Skyfall Chronicle: Black Aegis)</li>
+                <li><b>Storyboard / Pacing Lead:</b> <b>Tomoe Suzuhara</b> &mdash; this is the key name. her long-take work on Zero Latitude and the alley fights in River of Sparks made her the go-to for action choreography. she boarded this entire episode.</li>
+                <li><b>Chief Animation Director / Character Designer:</b> Lio Haraguchi</li>
+                <li><b>Colour Designer:</b> Mirai Kanzaki</li>
+                <li><b>Action Choreographer:</b> Yusuke Kagura</li>
+                <li><b>Compositing Lead:</b> Naochi Sumikuro (art direction) + in-house compositing team</li>
+            </ul>
+
+            <p><b>II. HEADLINE CUTS</b> (with rough timestamps for reference, JP broadcast cut):</p>
+
+            <p><b>1. The Cold Open Shockwave</b> <span class="frame-cite">~0:42</span></p>
+            <div class="gif-placeholder">
+                <div class="glabel"><big>[COLD OPEN: 8-FRAME COLOR FLIP]</big>cyan / lilac / vermillion cycling on baby eye-snap<br>compositor: in-house Burst &middot; reference frames available on request</div>
+            </div>
+            <p>this is the eight-frame compositing trick everyone is talking about. when the baby's eyes snap open, Burst cycles three custom-toned hue passes (cyan, lilac, vermillion) over the iris over 8 frames before settling. it reads as a "wrong reality is bleeding through" effect. broadcast encoder mushes it. wait for the BD.</p>
+
+            <p><b>2. School Riot &mdash; Stylized Inbetween Drop</b> <span class="frame-cite">~3:18 to ~5:02</span></p>
+            <p>controversial choice but I'm calling it deliberate. the riot scene drops to roughly 1/3 the inbetween density of the cold open. this is NOT a budget cut, it's a comedy-pacing choice that lets the chibi-style impact stamps and the freeze-holds land. compare to Yusuke Kagura's hallway choreography in <i>Pale Garden Reverie</i> ep 7. same trick.</p>
+
+            <p><b>3. Plantation Lobby &mdash; Likko's Crowd Sync Animation</b> <span class="frame-cite">~9:14 to ~9:18</span></p>
+            <div class="gif-placeholder">
+                <div class="glabel"><big>[LIKKO VALENNE: LOBBY DANCE CAMEO]</big>5 individually-animated NPCs syncing to her rhythm<br>4-second cut &middot; full key-frame pass<br>animator credit: TBD pending BD listing</div>
+            </div>
+            <p>FOUR SECONDS. five NPCs each individually keyed copying Likko's dance rhythm with separate timing offsets. that's not loop-recycled crowd animation. that's a key animator going "this is Likko's character beat, draw it correctly." this is the moment in the episode where I realized Burst wasn't going to half-ass any of their female cast.</p>
+
+            <p><b>4. Grayson vs. YAMAGA284 First Exchange</b> <span class="frame-cite">~10:04 to ~10:21</span></p>
+            <p>this is the first time the episode lets YAMAGA284 feel physically unfair. Grayson enters with clean, almost theatrical blade arcs, then YAMAGA interrupts the rhythm with those ugly off-axis shoulder snaps. watch the spacing: Grayson is animated on controlled 2s, YAMAGA keeps breaking into jagged 1s for impact frames. it makes the fight read like technique hitting a machine that refuses to obey human timing. great cut.</p>
+
+            <p><b>5. Echo &amp; Lisa Fight Sequence Transitions</b> <span class="frame-cite">~12:48 to ~14:02</span></p>
+            <p>this is the handoff cut: Echo's dual-blade footwork exits frame on a diagonal slash, and Lisa enters through the same motion line from above with aerial flame guns. that's the magic. the transition isn't a hard scene change; it's choreography passing the baton. Echo's blade arcs create the screen direction, Lisa's muzzle flashes finish the rhythm, and the enemy impacts stitch the two styles together. stylish without becoming noise.</p>
+
+            <p><b>6. MetaCode Arm-Charge (Burst Step Setup)</b> <span class="frame-cite">~16:30</span></p>
+            <div class="gif-placeholder">
+                <div class="glabel"><big>[SORA GAUTHIER: METACODE CHARGE]</big>Burst Step setup &middot; multi-layered electric overlay<br>~12 frames &middot; bone-deformation pass on forearm</div>
+            </div>
+            <p>this is where Burst signals their action language. the electric overlay on Sora's forearm has THREE individually-animated motion layers: skin deformation, hardlight glow, and the data-particle leak. that's three animator passes on one ~12-frame sequence. they're establishing the visual vocabulary for the rest of the cour right here.</p>
+
+            <p><b>7. Grayson's Crucible Blades Choreography</b> <span class="frame-cite">~17:08 to ~17:48</span></p>
+            <p>flaming blade arcs with heat distortion compositing. close-quarters silhouette work on the YAMAGA exchanges. multi-frame slow-motion on the deflection sequence. this is the most TRADITIONAL action sakuga in the episode &mdash; pure choreography, well executed, would have been the highlight of any other 2013 premiere. here it's the second-best sequence.</p>
+
+            <p><b>8. Abigail's Grapple-Pistol Finisher</b> <span class="frame-cite">~18:42 to ~19:06</span></p>
+            <div class="gif-placeholder game-card">
+                <div class="game-hud">
+                    <div class="game-topline">
+                        <span>Training Capture // Versus Build</span>
+                        <span><span class="platform-pill">ExBoxed EB</span><span class="platform-pill">StationPlayer SP3</span></span>
+                    </div>
+                    <div class="game-title">Abigail June: <span>Grapple-Pistol Burst</span></div>
+                    <div class="game-sub">cart-launch &rarr; air drift cancel &rarr; flame guns juggle &rarr; hard knockdown</div>
+                    <div class="combo-row">
+                        <b>24f key burst</b>
+                        <b>3 motion layers</b>
+                        <b class="impact-chip">red-orange EX impact frames</b>
+                        <b>K.O. camera lock</b>
+                    </div>
+                </div>
+            </div>
+            <p>the headline. let me break this one down properly because it's a clinic:</p>
+            <ul>
+                <li><b>Motion layers (3 independent passes):</b> body rotation, hair physics, uniform displacement. drawn as separate layers, not cel-shifted as a block. that's why the air rotation reads as a real body moving instead of a posed silhouette.</li>
+                <li><b>Custom color pass:</b> gold-orange weapon glow on the flame guns blades. distinct from Grayson's red-orange Crucible blade tone. compositor sat down and said "the girls' weapon energy needs to read different on screen even in chaos." that is care.</li>
+                <li><b>Realistic landing:</b> Abigail rolls badly. not heroically. the storyboard chose physics over hype. that's a character choice translated to animation.</li>
+                <li><b>Necklace clutch:</b> at the apex of the swing, her free hand briefly clutches her necklace. one-beat character animation INSIDE the action cut. nobody draws a personal gesture inside a kill cam unless they respect the character. Burst respects Abigail.</li>
+                <li><b>Camera holds on HER face:</b> not on YAMAGA's destruction. the K.O. frame is Abigail-centered. agency, not assist.</li>
+            </ul>
+
+            <p>my read: this is the cut that's going to get cited at year-end. <b>Animator TBD, Suzuhara boarded.</b> if anyone has BD-listing details on who keyed this, drop them in the thread.</p>
+
+            <p><b>III. UNDERAPPRECIATED MICRO-WORK</b></p>
+            <ul>
+                <li>Nova's posture in the KO HQ scene <span class="frame-cite">~20:15</span> &mdash; 1-2 pixel shoulder drop when she looks at the player counter. drawn-in exhaustion. zero dialogue overlay. trust in the audience.</li>
+                <li>Miyuki's micro-frown softening for ONE frame at the end of the lobby speech. cited frame: <span class="frame-cite">~14:01</span>. she breaks composure for a single frame and the show is daring you to notice.</li>
+                <li>Likko's hair physics &mdash; bobbing with separate timing from her head movement. independent animation pass. a second character on her head.</li>
+                <li>Ben's NodeCore drill spin-up + gigantic-fist smash on YAMAGA284 <span class="frame-cite">~17:24</span> &mdash; weight-shift wind-up, held single-frame impact pose at contact, multi-layer dust-and-shrapnel burst on the back end. cleanest pure-impact cut in the YAMAGA fight. Ben is the show's impact-frame anchor: when Eden needs you to feel the hit physically, Ben is the cut they call.</li>
+            </ul>
+
+            <p><b>IV. WHAT THIS MEANS</b></p>
+            <p>Burst just announced a studio identity in 24 minutes. they prioritized character animation over fan-service framing, gave equal labor to male and female combatants, and used composition + restraint as deliberate tools rather than budget cutbacks. whoever is funding their TV production line should be congratulated. and Suzuhara should be on every studio's hire-list by Monday.</p>
+
+            <p>frame citations and reference shots will be updated to this thread as BD-quality rips become available. RetroBluRay_AMV said they'd post their own breakdown from the BD master when it releases.</p>
+
+            <p>discuss below. and if you spot a frame I missed, cite it with timestamps.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Reply</a>
+            <a href="#">Quote</a>
+            <a href="#">Cite Frame</a>
+            <a href="#">Bookmark</a>
+            <span class="likes">&hearts; <b>248</b> likes &middot; <b>87</b> replies</span>
+        </div>
+    </div>
+
+    <!-- Reply 1 -->
+    <div class="post">
+        <div class="post-head">
+            <div class="post-avatar" style="background: linear-gradient(135deg,#4a8a8a,#1f4a4a);">RB</div>
+            <div>
+                <div class="post-uname">RetroBluRay_AMV</div>
+                <div class="post-utitle">BD CONTRIBUTOR &middot; 1,422 POSTS</div>
+            </div>
+            <div class="post-time"><span class="post-num">#2</span>Oct 6, 2013 &middot; 5:24 AM JST</div>
+        </div>
+        <div class="post-body">
+            <p>great writeup. confirming the Abigail finisher analysis from my Nasne recording. the broadcast cut is mushing the gold-orange tone on her flame guns blade glow into a generic yellow. BD will fix it.</p>
+            <p>also confirming the cold open's 8-frame color cycle. it's there. easy to miss at broadcast bitrate. I'll grab reference frames once the BD ships.</p>
+            <p>two adds from my pass:</p>
+            <ul>
+                <li>the YAMAGA284 silhouette work during the close-quarters Grayson exchanges has a hand-drawn 2-frame motion blur layer that compositing softens into the heat distortion. it's animator labor, not a digital filter. cite frame ~17:24.</li>
+                <li>the rooftop scene <span class="frame-cite">~11:02 to ~11:38</span> has full-cel custom animation on Sora's hair against the wind. it's not a particle filter. somebody hand-keyed it. for a quiet scene. respect.</li>
+            </ul>
+        </div>
+        <div class="post-actions">
+            <a href="#">Reply</a>
+            <a href="#">Quote</a>
+            <a href="#">Cite Frame</a>
+            <span class="likes">&hearts; <b>89</b> likes</span>
+        </div>
+    </div>
+
+    <!-- Reply 2 -->
+    <div class="post">
+        <div class="post-head">
+            <div class="post-avatar" style="background: linear-gradient(135deg,#9a3a8a,#4a1a3a);">FA</div>
+            <div>
+                <div class="post-uname">FrameAnalysis_JP</div>
+                <div class="post-utitle">DATABASE CONTRIBUTOR &middot; 3,008 POSTS</div>
+            </div>
+            <div class="post-time"><span class="post-num">#3</span>Oct 6, 2013 &middot; 6:02 AM JST</div>
+        </div>
+        <div class="post-body">
+            <div class="quote">
+                <div class="qhead">SakugaThreadZero said:</div>
+                if anyone has BD-listing details on who keyed this, drop them in the thread.
+            </div>
+            <p>partial credits from the production blog (jp side):</p>
+            <ul>
+                <li><b>Abigail finisher key animation:</b> Sayaka Onozaki (chief), with assist from Daiki Furusawa</li>
+                <li><b>Grayson Crucible Blade choreography:</b> Yusuke Kagura (also action choreographer)</li>
+                <li><b>MetaCode arm-charge:</b> Hironori Tachibana (effects animation specialist)</li>
+                <li><b>Echo/Lisa fight transition sequence:</b> Sayaka Onozaki handled the flight poses and transition keys, with Hironori Tachibana on muzzle-flash and hardlight debris effects.</li>
+                <li><b>Likko crowd-sync cameo:</b> Mei Akizuki (one of Burst's youngest animators, this is her debut TV credit)</li>
+                <li><b>Grayson vs. YAMAGA284 first exchange:</b> Yusuke Kagura, with effects assist from Hironori Tachibana</li>
+            </ul>
+            <p>note the gender mix on the animator credits. that probably matters for the staging choices on the female characters. you can feel it.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Reply</a>
+            <a href="#">Quote</a>
+            <span class="likes">&hearts; <b>127</b> likes</span>
+        </div>
+    </div>
+
+    <!-- Reply 3 -->
+    <div class="post">
+        <div class="post-head">
+            <div class="post-avatar" style="background: linear-gradient(135deg,#5a8a3a,#1f4a0a);">SO</div>
+            <div>
+                <div class="post-uname">Onozaki_Stan_Account</div>
+                <div class="post-utitle">FORUM REGULAR &middot; 487 POSTS</div>
+            </div>
+            <div class="post-time"><span class="post-num">#4</span>Oct 6, 2013 &middot; 7:18 AM JST</div>
+        </div>
+        <div class="post-body">
+            <p>SAYAKA ONOZAKI KEYED THE ABIGAIL FINISHER???</p>
+            <p>Onozaki is the animator who did the dance-fight sequence in <i>Pale Garden Reverie</i> ep 9 that everyone lost their minds over last year. she's been working her way up for three years. this is her first headline TV cut at a top-billing studio. she earned this.</p>
+            <p>also explains the care on Abigail's body language during the rotation. Onozaki does that thing where she animates characters as if they have actual weight and breath. it's why the finisher reads as "agency" instead of "pose."</p>
+            <p>somebody put her on the cover of Animation Note already.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Reply</a>
+            <a href="#">Quote</a>
+            <span class="likes">&hearts; <b>76</b> likes</span>
+        </div>
+    </div>
+
+    <!-- Reply 4 -->
+    <div class="post">
+        <div class="post-head">
+            <div class="post-avatar" style="background: linear-gradient(135deg,#3a4a8a,#0f1f4a);">SZ</div>
+            <div>
+                <div class="post-uname">SakugaThreadZero</div>
+                <div class="post-utitle">DATABASE CONTRIBUTOR &middot; 5,891 POSTS</div>
+            </div>
+            <div class="post-time"><span class="post-num">#5 (OP)</span>Oct 6, 2013 &middot; 7:31 AM JST</div>
+        </div>
+        <div class="post-body">
+            <div class="quote">
+                <div class="qhead">FrameAnalysis_JP said:</div>
+                <b>Echo/Lisa fight transition sequence:</b> Sayaka Onozaki handled the flight poses and transition keys, with Hironori Tachibana on muzzle-flash and hardlight debris effects.
+            </div>
+            <p>oh. OH. that explains why the Echo-to-Lisa handoff feels so clean. Onozaki on body motion plus Tachibana on effects is exactly the combo you want here: readable silhouettes first, then muzzle-flash debris snapping around the poses instead of swallowing them.</p>
+            <p>updating the OP with Sayaka Onozaki as Abigail finisher KA. thanks FrameAnalysis_JP.</p>
+            <p>also creating a dedicated "Sayaka Onozaki spotlight" thread because she earned it.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Reply</a>
+            <a href="#">Quote</a>
+            <span class="likes">&hearts; <b>113</b> likes</span>
+        </div>
+    </div>
+
+    <!-- More replies + pagination -->
+    <div id="generated-replies" class="generated-replies" hidden></div>
+    <div id="more-replies" class="more-replies">
+        <a href="#" id="show-more-replies">View 82 more replies &rsaquo;</a>
+    </div>
+    <div id="reply-pager" class="reply-pager" aria-label="Reply pages"></div>
+</main>
+
+<aside>
+    <div class="sk-card">
+        <h3>Thread Stats</h3>
+        <div class="stat-row"><span>Posts</span><b>87</b></div>
+        <div class="stat-row"><span>Views</span><b>14,290</b></div>
+        <div class="stat-row"><span>Frame cites</span><b>312</b></div>
+        <div class="stat-row"><span>GIF posts</span><b>49</b></div>
+        <div class="stat-row"><span>Contributors</span><b>38</b></div>
+        <div class="stat-row"><span>Started</span><b>Oct 6, 2013</b></div>
+        <div class="stat-row"><span>Last reply</span><b>2 min ago</b></div>
+    </div>
+
+    <div class="sk-card">
+        <h3>Featured Cuts</h3>
+        <a href="#" class="related-link">Abigail finisher (Onozaki)<small>cut ~18:42 &middot; gold-orange tone</small></a>
+        <a href="#" class="related-link">Echo/Lisa fight transition sequence<small>cut ~12:48 &middot; blade arcs into aerial flame guns</small></a>
+        <a href="#" class="related-link">MetaCode arm-charge (Tachibana)<small>cut ~16:30 &middot; 3-layer effect</small></a>
+        <a href="#" class="related-link">Grayson vs. YAMAGA284 first exchange<small>cut ~10:04 &middot; broken-timing impact frames</small></a>
+        <a href="#" class="related-link">Likko crowd-sync (Akizuki debut)<small>cut ~9:14 &middot; 4-sec character beat</small></a>
+        <a href="#" class="related-link">Grayson Crucible Blade exchange<small>cut ~17:08 &middot; heat distortion</small></a>
+    </div>
+
+    <div class="sk-card">
+        <h3>Related Threads</h3>
+        <a href="#" class="related-link">Sayaka Onozaki: career spotlight<small>opened by SakugaThreadZero &middot; 2h</small></a>
+        <a href="#" class="related-link">Burst studio profile: who's there<small>updated yesterday</small></a>
+        <a href="#" class="related-link">Tomoe Suzuhara key animations<small>archive thread</small></a>
+        <a href="#" class="related-link">Fall 2013 premiere sakuga ranks<small>community vote running</small></a>
+    </div>
+
+    <div class="sk-card">
+        <h3>Studios Mentioned</h3>
+        <a href="#" class="related-link"><b>Burst</b><small>1 series tracked</small></a>
+        <a href="#" class="related-link">Flow Pictures<small>parent studio</small></a>
+    </div>
+</aside>
+
+</div>
+
+<div class="footer">
+    SakugaThread &copy; 2013 &middot;
+    <a href="#">About</a>
+    <a href="#">Submission Guidelines</a>
+    <a href="#">DMCA</a>
+    <a href="#">Glossary</a>
+    <a href="#">Contact</a>
+</div>
+
+<script>
+(function () {
+    var repliesRoot = document.getElementById('generated-replies');
+    var moreBox = document.getElementById('more-replies');
+    var showMore = document.getElementById('show-more-replies');
+    var pager = document.getElementById('reply-pager');
+    if (!repliesRoot || !moreBox || !showMore || !pager) return;
+
+    var users = [
+        ['TapeFrameHunter', 'TF', 'FORUM REGULAR', '#6f3a9a,#221438'],
+        ['CutByCutClub', 'CC', 'MEMBER', '#2f6f78,#16343a'],
+        ['Bananarama', 'BA', 'NEW MEMBER', '#f0b429,#a23b2a'],
+        ['TachibanaEffects', 'TE', 'DATABASE CONTRIBUTOR', '#c83a2f,#4a1f56'],
+        ['KaguraTiming', 'KT', 'SENIOR MEMBER', '#3855a3,#151f45'],
+        ['Onozaki_Clipper', 'OC', 'FORUM REGULAR', '#7c315f,#27142b'],
+        ['BroadcastBitrate', 'BB', 'MEMBER', '#4a8a8a,#1f4a4a'],
+        ['ImpactFrameTax', 'IF', 'MEMBER', '#ff7a24,#52200c']
+    ];
+    var bodies = [
+        'finally clicked through the later pages. the red-orange impact-frame chip is correct. that cut reads like a fighting-game super freeze without actually becoming one.',
+        'the Echo/Lisa handoff still feels like the most underrated transition here. blade arc becomes flight path, then the muzzle flashes finish the motion sentence.',
+        'rewatched the Abigail finisher at 0.25x and the K.O. camera lock is doing more work than I noticed. the frame holds on HER, not the explosion.',
+        'Grayson vs. YAMAGA284 has that ugly broken timing that makes the enemy feel wrong. good call replacing the older note with that sequence.',
+        'Bananarama reporting in: the banana-yellow EX flash against the red-orange impact frames is extremely fake-console fighting game and I support it.',
+        'I like that the platform tags say ExBoxed EB and StationPlayer SP3. reads like a 2013 multiplat forum post without borrowing the real branding.',
+        'page 7 has the best late-thread energy. everyone is arguing about whether Tachibana composited the hardlight debris or just supervised it.',
+        'BD release needs clean frame grabs. broadcast compression is murdering the smoke trail on Lisa entering from above.'
+    ];
+
+    var totalReplies = 82;
+    var perPage = 10;
+    var totalPages = 9;
+    var currentPage = 1;
+    var allMode = false;
+
+    function escapeHtml(text) {
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function replyHtml(index) {
+        var u = users[index % users.length];
+        var page = Math.floor(index / perPage) + 1;
+        var body = bodies[index % bodies.length];
+        var postNum = index + 6;
+        var likes = 18 + ((index * 17) % 116);
+        return [
+            '<div class="post" data-reply-page="' + page + '">',
+            '  <div class="post-head">',
+            '    <div class="post-avatar" style="background: linear-gradient(135deg,' + u[3] + ');">' + u[1] + '</div>',
+            '    <div>',
+            '      <div class="post-uname">' + escapeHtml(u[0]) + '</div>',
+            '      <div class="post-utitle">' + u[2] + ' &middot; ' + (120 + index * 9) + ' POSTS</div>',
+            '    </div>',
+            '    <div class="post-time"><span class="post-num">#' + postNum + '</span>Oct 6, 2013 &middot; ' + (8 + (index % 14)) + ':' + String(10 + (index * 7) % 50).padStart(2, '0') + ' AM JST</div>',
+            '  </div>',
+            '  <div class="post-body"><p>' + escapeHtml(body) + '</p></div>',
+            '  <div class="post-actions"><a href="#">Reply</a><a href="#">Quote</a><span class="likes">&hearts; <b>' + likes + '</b> likes</span></div>',
+            '</div>'
+        ].join('');
+    }
+
+    function buildReplies() {
+        var html = [];
+        for (var i = 0; i < totalReplies; i += 1) html.push(replyHtml(i));
+        repliesRoot.innerHTML = html.join('');
+    }
+
+    function renderPager() {
+        var parts = [];
+        parts.push('<button type="button" data-action="all">All replies</button>');
+        for (var p = 1; p <= totalPages; p += 1) {
+            parts.push('<button type="button" data-page="' + p + '" class="' + (!allMode && p === currentPage ? 'current' : '') + '">' + p + '</button>');
+        }
+        parts.push('<button type="button" data-action="next">Next &rsaquo;</button>');
+        pager.innerHTML = parts.join('');
+    }
+
+    function showPage(page) {
+        allMode = false;
+        currentPage = Math.max(1, Math.min(totalPages, page));
+        repliesRoot.hidden = false;
+        moreBox.hidden = true;
+        Array.prototype.forEach.call(repliesRoot.querySelectorAll('.post'), function (post) {
+            post.hidden = Number(post.getAttribute('data-reply-page')) !== currentPage;
+        });
+        renderPager();
+        repliesRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showAll() {
+        allMode = true;
+        repliesRoot.hidden = false;
+        moreBox.hidden = true;
+        Array.prototype.forEach.call(repliesRoot.querySelectorAll('.post'), function (post) {
+            post.hidden = false;
+        });
+        renderPager();
+        repliesRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    buildReplies();
+    renderPager();
+
+    showMore.addEventListener('click', function (event) {
+        event.preventDefault();
+        showAll();
+    });
+
+    pager.addEventListener('click', function (event) {
+        var target = event.target;
+        if (!target || target.tagName !== 'BUTTON') return;
+        var action = target.getAttribute('data-action');
+        if (action === 'all') return showAll();
+        if (action === 'next') return showPage(currentPage === totalPages ? 1 : currentPage + 1);
+        var page = Number(target.getAttribute('data-page'));
+        if (page) showPage(page);
+    });
+})();
+</script>
+
+</body>
+</html>

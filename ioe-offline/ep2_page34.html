@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Impact of Eden Episode 2 Discussion - YourAnimeList (Page 34)</title>
+    <style>
+/* ============================================================
+   YourAnimeList - Episode 1 Discussion Thread
+   Fictional 2013 anime forum styling
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+:root {
+    --ink: #2d2a26;
+    --muted: #6b6258;
+    --paper: #fffdf7;
+    --page: #eee8dc;
+    --line: #d5c8b4;
+    --line-dark: #a89076;
+    --panel: #fbf7ec;
+    --panel-alt: #f4ead9;
+    --brand: #2d7c77;
+    --brand-dark: #195956;
+    --brand-soft: #d9efec;
+    --accent: #c0612c;
+    --accent-dark: #873f1f;
+    --gold: #e0aa35;
+    --visited: #685081;
+    --mod: #a13d49;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background:
+        linear-gradient(90deg, rgba(45, 124, 119, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(45, 124, 119, 0.04) 1px, transparent 1px),
+        var(--page);
+    background-size: 28px 28px;
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+a { color: var(--brand-dark); text-decoration: none; }
+a:hover { color: var(--accent-dark); text-decoration: underline; }
+a:visited { color: var(--visited); }
+
+/* ---------- Top YAL bar ---------- */
+.yal-topbar {
+    background: #28231f;
+    border-bottom: 4px solid var(--gold);
+    color: #fffaf0;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+.yal-topbar .logo {
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    font-weight: 900;
+    font-size: 21px;
+    letter-spacing: 0;
+    color: #fff7e8;
+    white-space: nowrap;
+}
+.yal-topbar .logo::before {
+    content: "YAL";
+    display: inline-block;
+    margin-right: 8px;
+    padding: 2px 6px;
+    background: var(--brand);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    font-size: 12px;
+    letter-spacing: 1px;
+    vertical-align: 2px;
+}
+.yal-topbar .logo span { color: var(--gold); }
+.yal-topbar nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+.yal-topbar nav a {
+    color: #f1e1ca;
+    padding: 4px 7px;
+    text-transform: none;
+    font-size: 12px;
+    letter-spacing: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+.yal-topbar nav a:hover {
+    background: rgba(224, 170, 53, 0.18);
+    color: #fff;
+    text-decoration: none;
+}
+.yal-topbar .search {
+    margin-left: auto;
+    display: flex;
+    gap: 5px;
+}
+.yal-topbar input[type="text"] {
+    border: 1px solid #6d5d4a;
+    background: #fffaf0;
+    color: var(--ink);
+    padding: 4px 8px;
+    font-family: inherit;
+    font-size: 12px;
+    width: 210px;
+    border-radius: 0;
+}
+.yal-topbar button {
+    background: var(--gold);
+    border: 1px solid #8f6620;
+    color: #2b2117;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+    background: #fff7e6;
+    border-bottom: 1px solid var(--line);
+    padding: 8px 18px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.breadcrumb a { color: var(--accent-dark); }
+.breadcrumb .sep { color: #aa8d6a; margin: 0 6px; }
+
+/* ---------- Page layout ---------- */
+.page {
+    max-width: 1120px;
+    margin: 16px auto;
+    padding: 0 14px;
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 18px;
+}
+
+/* ---------- Thread header ---------- */
+.thread-card {
+    background: var(--paper);
+    border: 1px solid var(--line-dark);
+    box-shadow: 4px 4px 0 rgba(90, 73, 51, 0.12);
+}
+.thread-title-bar {
+    background: var(--brand-soft);
+    border-bottom: 1px solid var(--line-dark);
+    padding: 12px 14px;
+}
+.thread-title-bar h1 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--brand-dark);
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+}
+.thread-title-bar .subtype {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+.thread-meta {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.thread-meta td {
+    padding: 6px 12px;
+    border-bottom: 1px solid #eadfcc;
+}
+.thread-meta tr:last-child td { border-bottom: none; }
+.thread-meta td.label {
+    background: #f4ead9;
+    color: #6b5134;
+    width: 116px;
+    font-weight: bold;
+    border-right: 1px solid #eadfcc;
+}
+.status-open {
+    display: inline-block;
+    background: #e5f5df;
+    border: 1px solid #8bb16f;
+    color: #3f6a29;
+    padding: 1px 7px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- Controls bar ---------- */
+.controls {
+    background: #f6ead6;
+    border: 1px solid var(--line-dark);
+    border-top: none;
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}
+.btn {
+    display: inline-block;
+    background: #fffaf0;
+    border: 1px solid #b29a79;
+    color: var(--brand-dark);
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 0;
+}
+.btn:hover {
+    background: #fff2d8;
+    border-color: var(--accent);
+    text-decoration: none;
+}
+.btn.primary {
+    background: var(--accent);
+    border: 1px solid var(--accent-dark);
+    color: #fff;
+    font-weight: bold;
+}
+.btn.primary:hover {
+    background: var(--accent-dark);
+    color: #fff;
+}
+.controls .spacer { flex: 1; }
+.controls .sort label { font-size: 12px; color: var(--muted); margin-right: 4px; }
+.controls select {
+    font-family: inherit;
+    font-size: 12px;
+    border: 1px solid #b29a79;
+    background: #fffaf0;
+    padding: 3px;
+}
+
+/* ---------- Pagination ---------- */
+.pagination {
+    background: #fff7e6;
+    border: 1px solid var(--line-dark);
+    padding: 7px 8px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 2px 7px;
+    margin: 1px;
+    border: 1px solid #d2bea3;
+    background: var(--paper);
+    color: var(--brand-dark);
+}
+.pagination a:hover {
+    background: var(--brand-soft);
+    border-color: var(--brand);
+    text-decoration: none;
+}
+.pagination .current {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand-dark);
+    font-weight: bold;
+}
+.pagination .gap {
+    background: transparent;
+    border: none;
+    color: #9a8061;
+}
+.pagination .nav { background: #fffaf0; }
+.pagination.bottom { border-top: none; }
+
+/* ---------- Posts ---------- */
+.posts {
+    border: 1px solid var(--line-dark);
+    border-top: none;
+}
+
+.post {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+}
+.post:nth-child(even) { background: #fbf3e4; }
+.post:nth-child(even) .post-user { background: #efe3ce; }
+.post:last-child { border-bottom: none; }
+
+/* User-submitted replies via the in-page reply form */
+.post.user-reply {
+    background: #fff8df !important;
+    border-left: 4px solid var(--gold);
+}
+.post.user-reply .post-user { background: #f2e5c2 !important; }
+.post.user-reply .post-yours {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--brand);
+    color: #fff !important;
+}
+
+.post-user {
+    background: #f2eadf;
+    border-right: 1px solid var(--line);
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+}
+.avatar {
+    width: 82px;
+    height: 82px;
+    display: block;
+    margin: 0 auto 7px;
+    border: 3px solid #fffaf0;
+    background: #ded0bf;
+    outline: 1px solid #aa987f;
+    box-shadow: 2px 2px 0 rgba(88, 68, 44, 0.15);
+}
+.username {
+    display: block;
+    font-weight: bold;
+    color: var(--brand-dark);
+    font-size: 12px;
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+.username.mod { color: var(--mod); }
+.rank {
+    font-size: 10px;
+    color: #7d5c8e;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 7px;
+}
+.rank.mod-rank { color: var(--mod); }
+.rank.mod-rank::before { content: "\2605 "; }
+.user-meta {
+    border-top: 1px dotted #c5b397;
+    padding-top: 5px;
+    line-height: 1.55;
+    color: var(--muted);
+    font-size: 10px;
+}
+.user-meta div { white-space: nowrap; }
+.user-meta b { color: var(--ink); }
+.status-online {
+    display: inline-block;
+    margin-top: 4px;
+    color: #3f792e;
+    font-weight: bold;
+    font-size: 10px;
+}
+.status-online::before {
+    content: "\2022";
+    color: #64a33f;
+    margin-right: 3px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.status-offline {
+    display: inline-block;
+    margin-top: 4px;
+    color: #8f8171;
+    font-size: 10px;
+}
+.status-offline::before {
+    content: "\2022";
+    color: #b9aa96;
+    margin-right: 3px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.post-body {
+    padding: 10px 13px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+.post-head {
+    border-bottom: 1px dotted #c5b397;
+    padding-bottom: 5px;
+    margin-bottom: 9px;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+.post-num {
+    color: var(--accent-dark);
+    font-weight: bold;
+}
+.post-time { color: #74604b; }
+
+.post-content {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink);
+    flex: 1;
+    word-wrap: break-word;
+}
+.post-content p { margin: 0 0 9px 0; }
+.post-content p:last-child { margin-bottom: 0; }
+.post-content em { color: #50473e; }
+
+/* Quote block */
+.quote {
+    margin: 7px 0 9px;
+    border: 1px solid #d2bea3;
+    background: #fffaf0;
+    font-size: 12px;
+}
+.quote-head {
+    background: #eadbc2;
+    padding: 3px 7px;
+    border-bottom: 1px solid #d2bea3;
+    font-size: 11px;
+    color: #5e4a33;
+    font-weight: bold;
+}
+.quote-head a { color: var(--accent-dark); }
+.quote-body {
+    padding: 7px 9px;
+    color: #51463a;
+    font-style: italic;
+}
+
+/* Spoiler tag */
+.spoiler {
+    margin: 7px 0;
+    border: 1px solid #b8a98f;
+    background: #f6ead6;
+    font-size: 12px;
+}
+.spoiler-head {
+    background: #ded0bf;
+    padding: 3px 7px;
+    font-size: 11px;
+    color: #5e4a33;
+    border-bottom: 1px solid #b8a98f;
+}
+.spoiler-toggle {
+    background: #fffaf0;
+    border: 1px solid #a89076;
+    color: var(--brand-dark);
+    font-size: 10px;
+    padding: 1px 5px;
+    margin-left: 6px;
+    cursor: pointer;
+    font-family: inherit;
+}
+.spoiler-body {
+    padding: 7px 9px;
+    color: #51463a;
+    background: #fff8df;
+}
+.spoiler[data-hidden="true"] .spoiler-body { display: none; }
+
+.edited {
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px dotted #c5b397;
+    font-size: 10px;
+    color: #8a7a68;
+    font-style: italic;
+}
+.edited b { color: #7d5c8e; font-style: normal; }
+
+.post-actions {
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px dotted #c5b397;
+    text-align: right;
+    font-size: 10px;
+    color: #8a7a68;
+}
+.post-actions a {
+    color: var(--brand-dark);
+    margin-left: 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+.post-actions .report { color: var(--mod); }
+
+/* ---------- Reply box ---------- */
+.reply-box {
+    background: var(--paper);
+    border: 1px solid var(--line-dark);
+    margin-top: 15px;
+    box-shadow: 4px 4px 0 rgba(90, 73, 51, 0.12);
+}
+.reply-box-head {
+    background: var(--brand-soft);
+    border-bottom: 1px solid var(--line-dark);
+    padding: 8px 11px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--brand-dark);
+}
+.reply-box-body { padding: 11px; }
+.reply-box textarea {
+    width: 100%;
+    min-height: 116px;
+    border: 1px solid #b29a79;
+    background: #fffdf8;
+    color: var(--ink);
+    padding: 7px;
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    resize: vertical;
+}
+.reply-box-toolbar {
+    margin-top: 7px;
+    padding-top: 7px;
+    border-top: 1px dotted #c5b397;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.reply-box-toolbar label { display: flex; align-items: center; gap: 4px; }
+.reply-box-toolbar .spacer { flex: 1; }
+
+/* ---------- Sidebar ---------- */
+aside.sidebar { font-size: 12px; }
+.side-card {
+    background: var(--paper);
+    border: 1px solid var(--line-dark);
+    margin-bottom: 13px;
+    box-shadow: 3px 3px 0 rgba(90, 73, 51, 0.10);
+}
+.side-head {
+    background: #eadbc2;
+    border-bottom: 1px solid var(--line-dark);
+    padding: 7px 9px;
+    font-weight: bold;
+    color: #5e4a33;
+    font-size: 12px;
+}
+.side-body { padding: 9px; }
+.side-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.side-body td {
+    padding: 3px 0;
+    vertical-align: top;
+}
+.side-body td.k { color: #7d6346; width: 94px; }
+.side-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.side-body ul li {
+    padding: 4px 0;
+    border-bottom: 1px dotted #c5b397;
+}
+.side-body ul li:last-child { border-bottom: none; }
+.side-body ul li::before {
+    content: ">";
+    color: var(--accent);
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.viewers-summary {
+    font-size: 12px;
+    color: var(--muted);
+}
+.viewers-summary b { color: var(--accent-dark); font-size: 15px; }
+.viewers-list {
+    margin-top: 7px;
+    padding-top: 7px;
+    border-top: 1px dotted #c5b397;
+    line-height: 1.6;
+    color: var(--muted);
+}
+.viewers-list a { font-size: 12px; }
+
+/* ---------- Footer ---------- */
+footer.yal-foot {
+    text-align: center;
+    padding: 16px 8px 26px;
+    color: var(--muted);
+    font-size: 12px;
+}
+footer.yal-foot a { color: var(--brand-dark); margin: 0 6px; }
+
+/* ---------- SVG sprite hidden ---------- */
+.svg-sprite {
+    width: 0;
+    height: 0;
+    position: absolute;
+    overflow: hidden;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .yal-topbar {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    .yal-topbar .search {
+        margin-left: 0;
+        width: 100%;
+    }
+    .yal-topbar input[type="text"] {
+        width: min(100%, 320px);
+    }
+    .page { grid-template-columns: 1fr; }
+    .post { grid-template-columns: 116px 1fr; }
+    .avatar { width: 66px; height: 66px; }
+}
+
+    </style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+
+<!-- 1. YALBot - teal badge moderator -->
+<symbol id="av-yalbot" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#195956"/>
+    <rect width="80" height="34" fill="#2d7c77"/>
+    <circle cx="40" cy="42" r="22" fill="#75b7ae" stroke="#2d231d" stroke-width="2"/>
+    <rect x="38" y="14" width="4" height="10" fill="#2d231d"/>
+    <circle cx="40" cy="12" r="4" fill="#e0aa35" stroke="#2d231d" stroke-width="1.5"/>
+    <rect x="28" y="36" width="9" height="6" fill="#fff7e6"/>
+    <rect x="43" y="36" width="9" height="6" fill="#fff7e6"/>
+    <rect x="30" y="38" width="2" height="2" fill="#195956"/>
+    <rect x="45" y="38" width="2" height="2" fill="#195956"/>
+    <rect x="34" y="50" width="12" height="3" fill="#2d231d"/>
+    <text x="40" y="74" font-family="Trebuchet MS, Arial" font-size="9" font-weight="bold" fill="#e0aa35" text-anchor="middle">YAL</text>
+</symbol>
+
+<!-- 2. xXStarCircuitXx - cosmic forum trading card -->
+<symbol id="av-starcircuit" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#130b22"/>
+    <rect x="9" y="7" width="62" height="66" rx="3" fill="#25113d" stroke="#f4d35e" stroke-width="2"/>
+    <path d="M18 18 H62 M18 62 H62" stroke="#ff4f8b" stroke-width="2" opacity="0.8"/>
+    <g stroke="#44d7c6" stroke-width="1.4" fill="none">
+        <path d="M20 50 H32 V38 H40"/>
+        <path d="M60 28 H50 V40 H40"/>
+        <path d="M28 22 V32 H38"/>
+        <path d="M52 58 V48 H42"/>
+    </g>
+    <polygon points="40,18 46,34 63,34 49,44 55,61 40,50 25,61 31,44 17,34 34,34" fill="#f4d35e" stroke="#fff7cc" stroke-width="1.5"/>
+    <circle cx="40" cy="40" r="8" fill="#130b22"/>
+    <circle cx="40" cy="40" r="3" fill="#44d7c6"/>
+    <g fill="#ff4f8b">
+        <circle cx="20" cy="50" r="2"/>
+        <circle cx="60" cy="28" r="2"/>
+        <circle cx="28" cy="22" r="2"/>
+        <circle cx="52" cy="58" r="2"/>
+    </g>
+    <text x="40" y="70" font-family="Courier" font-size="7" font-weight="bold" fill="#fff7cc" text-anchor="middle">STAR CIRCUIT</text>
+</symbol>
+
+<!-- 3. NekoToast92 - toaster idol shrine -->
+<symbol id="av-nekotoast" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#ffe0a8"/>
+    <path d="M10 70 H70 L64 42 H16 Z" fill="#5a3d2b"/>
+    <rect x="18" y="25" width="44" height="33" rx="5" fill="#e8e1d2" stroke="#6b4a32" stroke-width="2"/>
+    <rect x="24" y="32" width="32" height="13" rx="2" fill="#2b1d16"/>
+    <rect x="28" y="8" width="24" height="25" rx="5" fill="#f0b95a" stroke="#6b4a32" stroke-width="2"/>
+    <path d="M31 8 Q40 0 49 8" fill="#f6d08a" stroke="#6b4a32" stroke-width="2"/>
+    <circle cx="34" cy="39" r="3" fill="#ff4f8b"/>
+    <circle cx="46" cy="39" r="3" fill="#44d7c6"/>
+    <path d="M34 49 Q40 53 46 49" stroke="#6b4a32" stroke-width="1.7" fill="none"/>
+    <g fill="#fff7d6" stroke="#6b4a32" stroke-width="1">
+        <polygon points="18,25 14,14 28,22"/>
+        <polygon points="62,25 66,14 52,22"/>
+    </g>
+    <g fill="#ff4f8b">
+        <circle cx="16" cy="63" r="2"/>
+        <circle cx="64" cy="63" r="2"/>
+        <circle cx="40" cy="65" r="2"/>
+    </g>
+    <text x="40" y="75" font-family="Courier" font-size="7" font-weight="bold" fill="#fff7d6" text-anchor="middle">TOAST CLUB</text>
+</symbol>
+
+<!-- 4. MechaRonin - warning label mech mask -->
+<symbol id="av-mecharonin" viewBox="0 0 80 80">
+    <pattern id="mech-grid" width="8" height="8" patternUnits="userSpaceOnUse">
+        <path d="M 8 0 L 0 0 0 8" fill="none" stroke="#3a3a44" stroke-width="0.5"/>
+    </pattern>
+    <rect width="80" height="80" fill="#141820"/>
+    <rect width="80" height="80" fill="url(#mech-grid)"/>
+    <path d="M10 18 H70 L64 66 H16 Z" fill="#d6d7d2" stroke="#080a0d" stroke-width="2"/>
+    <path d="M16 22 H64 L60 34 H20 Z" fill="#ffc233" stroke="#080a0d" stroke-width="1.5"/>
+    <path d="M20 38 H60 L56 54 H24 Z" fill="#080a0d"/>
+    <rect x="24" y="42" width="32" height="5" fill="#ff304f"/>
+    <path d="M22 58 H58" stroke="#080a0d" stroke-width="3"/>
+    <circle cx="30" cy="62" r="2" fill="#44d7c6"/>
+    <circle cx="40" cy="62" r="2" fill="#ff304f"/>
+    <circle cx="50" cy="62" r="2" fill="#44d7c6"/>
+    <path d="M10 18 L4 10 H24 Z M70 18 L56 10 H76 Z" fill="#ffc233" stroke="#080a0d" stroke-width="1.5"/>
+    <text x="40" y="31" font-family="Courier" font-size="7" font-weight="bold" fill="#080a0d" text-anchor="middle">NODE PILOT</text>
+</symbol>
+
+<!-- 5. BlueSoda - soda can sticker mascot -->
+<symbol id="av-bluesoda" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#b7f3ff"/>
+    <path d="M24 12 H56 L62 68 H18 Z" fill="#37b8e8" stroke="#0b4462" stroke-width="2"/>
+    <path d="M24 12 Q40 5 56 12" fill="#d8f9ff" stroke="#0b4462" stroke-width="2"/>
+    <path d="M18 68 Q40 74 62 68" fill="#1788b5" stroke="#0b4462" stroke-width="2"/>
+    <path d="M24 28 Q40 36 56 28 Q48 48 24 58 Z" fill="#fff" opacity="0.9"/>
+    <text x="40" y="43" font-family="Courier" font-size="12" font-weight="bold" fill="#0b4462" text-anchor="middle">SODA</text>
+    <circle cx="31" cy="54" r="3" fill="#ff4f8b"/>
+    <circle cx="49" cy="54" r="3" fill="#ff4f8b"/>
+    <path d="M33 61 Q40 64 47 61" stroke="#0b4462" stroke-width="1.5" fill="none"/>
+    <g stroke="#0b4462" stroke-width="1.5">
+        <path d="M15 24 L5 18 M65 24 L75 18"/>
+        <path d="M15 36 L5 38 M65 36 L75 38"/>
+    </g>
+</symbol>
+
+<!-- 6. VHS_Samurai - haunted tape sticker -->
+<symbol id="av-vhssamurai" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#07070b"/>
+    <rect x="10" y="16" width="60" height="42" rx="3" fill="#11131a" stroke="#f3f0d7" stroke-width="2"/>
+    <rect x="18" y="24" width="44" height="13" fill="#f3f0d7"/>
+    <circle cx="27" cy="47" r="8" fill="#f3f0d7"/>
+    <circle cx="53" cy="47" r="8" fill="#f3f0d7"/>
+    <circle cx="27" cy="47" r="3" fill="#11131a"/>
+    <circle cx="53" cy="47" r="3" fill="#11131a"/>
+    <rect x="34" y="43" width="12" height="8" fill="#f3f0d7"/>
+    <path d="M20 24 L26 8 L34 24 L40 7 L47 24 L56 8 L60 24 Z" fill="#f3f0d7" stroke="#11131a" stroke-width="1"/>
+    <rect y="28" width="80" height="2" fill="#ff304f" opacity="0.75"/>
+    <rect y="39" width="80" height="2" fill="#44d7c6" opacity="0.75"/>
+    <rect y="61" width="80" height="2" fill="#ffd54a" opacity="0.75"/>
+    <text x="40" y="34" font-family="Courier" font-size="7" font-weight="bold" fill="#11131a" text-anchor="middle">VHS LIFER</text>
+    <text x="8" y="74" font-family="Courier" font-size="8" fill="#44d7c6">REC</text>
+</symbol>
+
+<!-- 7. KiraNotKira - conspiracy glasses badge -->
+<symbol id="av-kiranotkira" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#221738"/>
+    <rect x="12" y="10" width="56" height="60" rx="3" fill="#efe0b8" stroke="#1b102d" stroke-width="2"/>
+    <g stroke="#c9415a" stroke-width="1.2">
+        <path d="M20 22 L58 55"/>
+        <path d="M60 22 L22 58"/>
+        <path d="M18 42 H62"/>
+    </g>
+    <g fill="#1b102d">
+        <circle cx="22" cy="22" r="3"/>
+        <circle cx="58" cy="55" r="3"/>
+        <circle cx="60" cy="22" r="3"/>
+        <circle cx="22" cy="58" r="3"/>
+    </g>
+    <rect x="20" y="32" width="17" height="13" rx="2" fill="#fff" stroke="#1b102d" stroke-width="2"/>
+    <rect x="43" y="32" width="17" height="13" rx="2" fill="#fff" stroke="#1b102d" stroke-width="2"/>
+    <line x1="37" y1="38" x2="43" y2="38" stroke="#1b102d" stroke-width="2"/>
+    <rect x="24" y="37" width="9" height="3" fill="#1b102d"/>
+    <rect x="47" y="37" width="9" height="3" fill="#1b102d"/>
+    <text x="40" y="65" font-family="Courier" font-size="8" font-weight="bold" fill="#1b102d" text-anchor="middle">NOT SUS?</text>
+</symbol>
+
+<!-- 8. PlanetKid - handheld planet game -->
+<symbol id="av-planetkid" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#0e1a3a"/>
+    <rect x="13" y="18" width="54" height="44" rx="8" fill="#d7d1bd" stroke="#111827" stroke-width="2"/>
+    <rect x="22" y="25" width="36" height="24" fill="#111827"/>
+    <circle cx="40" cy="37" r="9" fill="#6ed6c2"/>
+    <ellipse cx="40" cy="37" rx="17" ry="4" fill="none" stroke="#ffd54a" stroke-width="2"/>
+    <circle cx="24" cy="55" r="3" fill="#ff4f8b"/>
+    <circle cx="56" cy="55" r="3" fill="#44d7c6"/>
+    <path d="M31 55 H39 M35 51 V59" stroke="#111827" stroke-width="2"/>
+    <text x="40" y="15" font-family="Courier" font-size="7" font-weight="bold" fill="#ffd54a" text-anchor="middle">PLANETATION</text>
+    <g fill="#fff">
+        <circle cx="10" cy="10" r="1"/>
+        <circle cx="70" cy="14" r="1"/>
+        <circle cx="66" cy="70" r="1"/>
+    </g>
+</symbol>
+
+<!-- 9. LuckyNoodle - ramen charm sticker -->
+<symbol id="av-luckynoodle" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#ffcadf"/>
+    <path d="M16 42 H64 L58 66 H22 Z" fill="#fff7d6" stroke="#8d4a2f" stroke-width="2"/>
+    <ellipse cx="40" cy="42" rx="24" ry="10" fill="#f25454" stroke="#8d4a2f" stroke-width="2"/>
+    <g stroke="#ffd54a" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M22 40 Q30 32 38 40 T54 40"/>
+        <path d="M24 45 Q34 36 44 45 T60 45"/>
+    </g>
+    <circle cx="30" cy="35" r="4" fill="#fff"/>
+    <circle cx="50" cy="35" r="4" fill="#fff"/>
+    <circle cx="31" cy="36" r="2" fill="#111"/>
+    <circle cx="49" cy="36" r="2" fill="#111"/>
+    <path d="M34 54 Q40 58 46 54" stroke="#8d4a2f" stroke-width="1.5" fill="none"/>
+    <path d="M58 18 Q68 20 66 30 Q58 28 58 18" fill="#ff4f8b" stroke="#8d4a2f" stroke-width="1"/>
+    <text x="40" y="73" font-family="Courier" font-size="7" font-weight="bold" fill="#8d4a2f" text-anchor="middle">LUCKY BOWL</text>
+</symbol>
+
+<!-- 10. 3EpisodeRule - Big "3" with glasses -->
+<symbol id="av-3eprule" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#e6dfc4"/>
+    <rect y="60" width="80" height="20" fill="#c4b88a"/>
+    <text x="40" y="58" font-family="Georgia" font-size="60" font-weight="bold" fill="#2b3a4d" text-anchor="middle">3</text>
+    <rect x="20" y="28" width="14" height="8" rx="1" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+    <rect x="46" y="28" width="14" height="8" rx="1" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+    <line x1="34" y1="32" x2="46" y2="32" stroke="#2b2b2b" stroke-width="2"/>
+    <text x="40" y="74" font-family="Verdana" font-size="9" font-weight="bold" fill="#2b3a4d" text-anchor="middle">EP RULE</text>
+</symbol>
+
+<!-- 11. LikkoFan - pink-haired Likko chibi sticker -->
+<symbol id="av-sakurastatic" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#ffcae8"/>
+    <path d="M0 12 Q20 2 40 12 T80 12 V80 H0 Z" fill="#ffe8f5"/>
+    <g stroke="#e45ca3" stroke-width="1.4" fill="none" opacity="0.75">
+        <path d="M8 62 Q20 54 32 62 T56 62"/>
+        <path d="M14 18 L20 24 M60 18 L66 24"/>
+    </g>
+    <path d="M18 72 Q18 52 40 48 Q62 52 62 72 Z" fill="#101018"/>
+    <path d="M28 52 L40 68 L52 52" fill="#fff" stroke="#101018" stroke-width="1.5"/>
+    <path d="M36 54 L40 68 L44 54" fill="#f06ba8"/>
+    <ellipse cx="40" cy="42" rx="19" ry="20" fill="#f3d7c5" stroke="#8b5369" stroke-width="1.4"/>
+    <path d="M18 38 Q14 20 28 13 Q40 5 54 12 Q68 20 63 40
+             Q58 32 54 30 Q48 39 43 28 Q38 42 30 29 Q26 32 18 38 Z"
+          fill="#f3a1c7" stroke="#a95780" stroke-width="1.2"/>
+    <path d="M20 36 Q10 40 11 52 Q18 49 23 42 Z" fill="#f3a1c7" stroke="#a95780" stroke-width="1"/>
+    <path d="M60 36 Q71 38 70 52 Q62 49 57 42 Z" fill="#f3a1c7" stroke="#a95780" stroke-width="1"/>
+    <path d="M26 30 Q31 20 39 23" stroke="#ffe7f1" stroke-width="1.3" fill="none" opacity="0.9"/>
+    <path d="M47 19 Q55 22 59 30" stroke="#ffe7f1" stroke-width="1.3" fill="none" opacity="0.9"/>
+    <circle cx="32" cy="42" r="4.4" fill="#fff"/>
+    <circle cx="49" cy="42" r="4.4" fill="#fff"/>
+    <circle cx="33" cy="42" r="2.6" fill="#c34f93"/>
+    <circle cx="50" cy="42" r="2.6" fill="#c34f93"/>
+    <circle cx="34" cy="40" r="1" fill="#fff"/>
+    <circle cx="51" cy="40" r="1" fill="#fff"/>
+    <path d="M34 54 Q40 60 47 54" stroke="#6b263a" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+    <path d="M46 52 L50 56" stroke="#6b263a" stroke-width="1.3" stroke-linecap="round"/>
+    <ellipse cx="29" cy="49" rx="3" ry="1.5" fill="#f06ba8" opacity="0.55"/>
+    <ellipse cx="51" cy="49" rx="3" ry="1.5" fill="#f06ba8" opacity="0.55"/>
+    <g transform="translate(62 16) rotate(14)">
+        <polygon points="0,-7 2,-2 7,-2 3,1.5 4.5,7 0,4 -4.5,7 -3,1.5 -7,-2 -2,-2"
+                 fill="#fff37a" stroke="#c27b00" stroke-width="1"/>
+        <circle cx="7" cy="7" r="2" fill="#44d7c6" stroke="#0d6b68" stroke-width="0.8"/>
+    </g>
+    <g font-family="Courier" font-size="7" font-weight="bold" fill="#e45ca3">
+        <text x="8" y="17">:P</text>
+        <text x="55" y="69">LKO</text>
+    </g>
+</symbol>
+
+<!-- 12. ZeroFrame - cyber boy with glitch effect -->
+<symbol id="av-zeroframe" viewBox="0 0 80 80">
+    <linearGradient id="zf-grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#0a1c2c"/>
+        <stop offset="1" stop-color="#22a4d4" stop-opacity="0.4"/>
+    </linearGradient>
+    <rect width="80" height="80" fill="#0a1c2c"/>
+    <rect y="0" width="80" height="80" fill="url(#zf-grad)"/>
+    <ellipse cx="40" cy="44" rx="20" ry="22" fill="#dac0a3"/>
+    <path d="M18 32 L20 16 L36 20 L40 8 L48 22 L60 16 L62 32 L40 26 Z" fill="#2b2b3b"/>
+    <rect x="22" y="38" width="36" height="6" fill="#0a1c2c"/>
+    <rect x="22" y="40" width="36" height="2" fill="#00ffea"/>
+    <rect x="26" y="38" width="6" height="6" fill="#22a4d4" opacity="0.6"/>
+    <rect x="50" y="38" width="6" height="6" fill="#ff2d8d" opacity="0.6"/>
+    <path d="M34 54 Q40 51 46 54" stroke="#00ffea" stroke-width="1.5" fill="none"/>
+    <rect x="0" y="20" width="80" height="2" fill="#ff2d8d" opacity="0.7"/>
+    <rect x="0" y="48" width="20" height="3" fill="#00ffea" opacity="0.5"/>
+    <rect x="40" y="56" width="40" height="2" fill="#ff2d8d" opacity="0.4"/>
+    <text x="6" y="76" font-family="Courier" font-size="8" fill="#00ffea">0x00</text>
+</symbol>
+
+<!-- 13. ForumGoblin - tiny gremlin with sharp teeth -->
+<symbol id="av-forumgoblin" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#3a5a2c"/>
+    <ellipse cx="40" cy="50" rx="26" ry="22" fill="#7ab84a"/>
+    <polygon points="14,30 18,12 28,28" fill="#7ab84a"/>
+    <polygon points="66,30 62,12 52,28" fill="#7ab84a"/>
+    <polygon points="18,22 22,16 24,24" fill="#5a8a32"/>
+    <polygon points="62,22 58,16 56,24" fill="#5a8a32"/>
+    <ellipse cx="32" cy="46" rx="5" ry="6" fill="#fff"/>
+    <ellipse cx="48" cy="46" rx="5" ry="6" fill="#fff"/>
+    <circle cx="32" cy="48" r="3" fill="#ffd54a"/>
+    <circle cx="48" cy="48" r="3" fill="#ffd54a"/>
+    <circle cx="32" cy="48" r="1.2" fill="#2b2b2b"/>
+    <circle cx="48" cy="48" r="1.2" fill="#2b2b2b"/>
+    <path d="M28 60 L34 64 L36 58 L40 66 L44 58 L46 64 L52 60 L48 66 L40 70 L32 66 Z" fill="#fff"/>
+</symbol>
+
+<!-- 14. MoonlitPixel - pixel-art moon -->
+<symbol id="av-moonlitpixel" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#1a1840"/>
+    <g fill="#fff">
+        <rect x="6" y="6" width="2" height="2"/>
+        <rect x="68" y="10" width="2" height="2"/>
+        <rect x="14" y="60" width="2" height="2"/>
+        <rect x="64" y="66" width="2" height="2"/>
+        <rect x="48" y="6" width="2" height="2"/>
+    </g>
+    <g fill="#ffe89c">
+        <rect x="36" y="16" width="20" height="4"/>
+        <rect x="28" y="20" width="20" height="4"/>
+        <rect x="24" y="24" width="16" height="4"/>
+        <rect x="20" y="28" width="16" height="4"/>
+        <rect x="20" y="32" width="12" height="4"/>
+        <rect x="16" y="36" width="12" height="4"/>
+        <rect x="16" y="40" width="12" height="4"/>
+        <rect x="20" y="44" width="12" height="4"/>
+        <rect x="20" y="48" width="16" height="4"/>
+        <rect x="24" y="52" width="16" height="4"/>
+        <rect x="28" y="56" width="20" height="4"/>
+        <rect x="36" y="60" width="20" height="4"/>
+    </g>
+    <g fill="#d4a83a">
+        <rect x="20" y="36" width="4" height="4"/>
+        <rect x="32" y="44" width="4" height="4"/>
+    </g>
+    <g fill="#fff">
+        <rect x="60" y="32" width="2" height="2"/>
+        <rect x="62" y="30" width="2" height="2"/>
+        <rect x="62" y="34" width="2" height="2"/>
+        <rect x="64" y="32" width="2" height="2"/>
+    </g>
+</symbol>
+
+<!-- 15. AbigailFanAlready - heart + chibi -->
+<symbol id="av-abigailfan" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#d4a574"/>
+    <!-- Hair back -->
+    <ellipse cx="40" cy="26" rx="16" ry="14" fill="#d4af37"/>
+    <path d="M24 32 Q20 40 22 52 L26 50 Q24 40 24 32 Z" fill="#d4af37"/>
+    <path d="M56 32 Q60 40 58 52 L54 50 Q56 40 56 32 Z" fill="#d4af37"/>
+    <!-- Bangs -->
+    <path d="M28 28 Q32 22 36 24 Q38 20 40 20 Q42 20 44 24 Q48 22 52 28" fill="#d4af37"/>
+    <path d="M30 32 Q33 28 36 30 L36 36" fill="#d4af37"/>
+    <path d="M50 32 Q47 28 44 30 L44 36" fill="#d4af37"/>
+    <!-- Face -->
+    <ellipse cx="40" cy="44" rx="15" ry="16" fill="#f5d7a1"/>
+    <!-- Eyes -->
+    <circle cx="33" cy="40" r="4" fill="#4a90e2"/>
+    <circle cx="47" cy="40" r="4" fill="#4a90e2"/>
+    <!-- Outfit - Yellow Top -->
+    <path d="M24 56 L24 72 L56 72 L56 56 Q50 54 40 54 Q30 54 24 56 Z" fill="#f4c430"/>
+    <path d="M28 56 L28 68 L52 68 L52 56 Q45 55 40 55 Q35 55 28 56 Z" fill="#ffd700"/>
+    <!-- Gem/Necklace -->
+    <circle cx="40" cy="59" r="4" fill="#2e5c8a" stroke="#4a90e2" stroke-width="1"/>
+    <circle cx="40" cy="59" r="2.5" fill="#5b9fd4"/>
+    <text x="40" y="76" font-family="Verdana" font-size="7" font-weight="bold" fill="#fff" text-anchor="middle">Abigail</text>
+</symbol>
+
+<!-- 16. RoboMango - mango robot -->
+<symbol id="av-robomango" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#fbb04a"/>
+    <ellipse cx="40" cy="46" rx="26" ry="28" fill="#ffd54a" stroke="#a05a14" stroke-width="2"/>
+    <path d="M28 22 Q40 16 52 22 Q50 18 40 16 Q30 18 28 22 Z" fill="#5a8a32"/>
+    <rect x="20" y="38" width="40" height="14" rx="3" fill="#2b2b2b"/>
+    <circle cx="30" cy="45" r="3.5" fill="#ff2d2d"/>
+    <circle cx="50" cy="45" r="3.5" fill="#22ddff"/>
+    <circle cx="30" cy="45" r="1.2" fill="#fff"/>
+    <circle cx="50" cy="45" r="1.2" fill="#fff"/>
+    <rect x="28" y="58" width="24" height="4" rx="1" fill="#a05a14"/>
+    <rect x="32" y="60" width="2" height="2" fill="#fbb04a"/>
+    <rect x="38" y="60" width="2" height="2" fill="#fbb04a"/>
+    <rect x="44" y="60" width="2" height="2" fill="#fbb04a"/>
+    <rect x="20" y="66" width="6" height="6" rx="1" fill="#a05a14"/>
+    <rect x="54" y="66" width="6" height="6" rx="1" fill="#a05a14"/>
+</symbol>
+
+<!-- 17. KaichouEnjoyer - council pin/uniform -->
+<symbol id="av-kaichouenjoyer" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#8c1a2c"/>
+    <rect y="40" width="80" height="40" fill="#5a0f1c"/>
+    <path d="M14 80 L14 50 L40 38 L66 50 L66 80 Z" fill="#1a1a2e"/>
+    <path d="M40 38 L34 80 L46 80 Z" fill="#fff"/>
+    <rect x="36" y="50" width="8" height="22" fill="#8c1a2c"/>
+    <line x1="40" y1="50" x2="40" y2="72" stroke="#1a1a2e" stroke-width="1"/>
+    <circle cx="40" cy="62" r="2" fill="#ffd54a"/>
+    <circle cx="40" cy="68" r="2" fill="#ffd54a"/>
+    <g transform="translate(58 30)">
+        <circle r="12" fill="#ffd54a" stroke="#a05a14" stroke-width="1.5"/>
+        <polygon points="0,-9 2.5,-2.5 9,-2.5 4,2 6,9 0,4.5 -6,9 -4,2 -9,-2.5 -2.5,-2.5" fill="#a01040"/>
+        <text y="3" font-family="Georgia" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">SC</text>
+    </g>
+    <text x="40" y="22" font-family="Georgia" font-size="11" font-weight="bold" fill="#ffd54a" text-anchor="middle">KAICHOU</text>
+</symbol>
+
+<!-- 18. sleepySenpai - sleepy blue-haired girl -->
+<symbol id="av-sleepysenpai" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#cfc4f0"/>
+    <ellipse cx="40" cy="46" rx="20" ry="22" fill="#f3d7b5"/>
+    <path d="M16 38 Q12 14 32 10 Q44 6 56 14 Q66 22 64 40 L60 30 Q54 24 48 28 Q40 22 32 28 Q26 24 20 30 Z" fill="#7a8cd4"/>
+    <path d="M16 38 Q14 56 20 64 L24 50 Z" fill="#7a8cd4"/>
+    <path d="M64 40 Q66 56 60 64 L56 50 Z" fill="#7a8cd4"/>
+    <path d="M26 44 Q30 42 36 44" stroke="#2b2b2b" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M44 44 Q48 42 54 44" stroke="#2b2b2b" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="30" cy="51" rx="3" ry="1.5" fill="#ff8db1" opacity="0.5"/>
+    <ellipse cx="50" cy="51" rx="3" ry="1.5" fill="#ff8db1" opacity="0.5"/>
+    <path d="M37 56 Q40 58 43 56" stroke="#2b2b2b" stroke-width="1" fill="none"/>
+    <text x="62" y="22" font-family="Georgia" font-size="14" font-weight="bold" fill="#fff" font-style="italic">z</text>
+    <text x="68" y="14" font-family="Georgia" font-size="10" font-weight="bold" fill="#fff" font-style="italic">z</text>
+    <text x="72" y="8" font-family="Georgia" font-size="7" font-weight="bold" fill="#fff" font-style="italic">z</text>
+</symbol>
+
+<!-- 19. CyberLunchbox - lunchbox with circuit -->
+<symbol id="av-cyberlunchbox" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#ff7c2c"/>
+    <rect x="10" y="22" width="60" height="44" rx="3" fill="#2b3a55" stroke="#0e1a3a" stroke-width="2"/>
+    <rect x="10" y="22" width="60" height="10" fill="#3a4d70"/>
+    <rect x="32" y="14" width="16" height="10" rx="2" fill="#3a4d70" stroke="#0e1a3a" stroke-width="1.5"/>
+    <g stroke="#22ddff" stroke-width="1.2" fill="none">
+        <path d="M20 40 L30 40 L30 50 L40 50"/>
+        <path d="M50 36 L50 44 L60 44"/>
+        <path d="M22 56 L36 56 L36 60 L46 60"/>
+    </g>
+    <g fill="#22ddff">
+        <circle cx="20" cy="40" r="1.5"/>
+        <circle cx="40" cy="50" r="1.5"/>
+        <circle cx="50" cy="36" r="1.5"/>
+        <circle cx="60" cy="44" r="1.5"/>
+        <circle cx="22" cy="56" r="1.5"/>
+        <circle cx="46" cy="60" r="1.5"/>
+    </g>
+    <rect x="44" y="38" width="14" height="6" fill="#ffd54a"/>
+    <text x="51" y="43" font-family="Courier" font-size="5" font-weight="bold" fill="#0e1a3a" text-anchor="middle">JUICE</text>
+</symbol>
+
+<!-- 20. HollowToast - cute ghost with toast -->
+<symbol id="av-hollowtoast" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#3a2858"/>
+    <path d="M22 28 Q22 14 40 14 Q58 14 58 28 L58 64 L52 60 L46 66 L40 60 L34 66 L28 60 L22 64 Z" fill="#f0eaff" stroke="#7a6fa3" stroke-width="2"/>
+    <ellipse cx="32" cy="40" rx="3.5" ry="5" fill="#1a1024"/>
+    <ellipse cx="48" cy="40" rx="3.5" ry="5" fill="#1a1024"/>
+    <circle cx="33" cy="38" r="1" fill="#fff"/>
+    <circle cx="49" cy="38" r="1" fill="#fff"/>
+    <ellipse cx="28" cy="50" rx="3" ry="1.5" fill="#ff8db1" opacity="0.6"/>
+    <ellipse cx="52" cy="50" rx="3" ry="1.5" fill="#ff8db1" opacity="0.6"/>
+    <ellipse cx="40" cy="52" rx="3" ry="2" fill="#1a1024"/>
+    <rect x="18" y="22" width="14" height="14" rx="2" fill="#f4c779" stroke="#a37b46" stroke-width="1.2" transform="rotate(-15 25 28)"/>
+    <rect x="20" y="24" width="10" height="10" fill="#fde6a8" transform="rotate(-15 25 28)"/>
+</symbol>
+
+<!-- 21. DEFAULT - cursed test-card sticker -->
+<symbol id="av-default" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#20172e"/>
+    <rect x="6" y="6" width="68" height="68" fill="#fff7d6" stroke="#111" stroke-width="2"/>
+    <rect x="10" y="10" width="16" height="16" fill="#ff4f8b"/>
+    <rect x="26" y="10" width="16" height="16" fill="#44d7c6"/>
+    <rect x="42" y="10" width="16" height="16" fill="#ffd54a"/>
+    <rect x="58" y="10" width="12" height="16" fill="#4c6bff"/>
+    <circle cx="40" cy="44" r="18" fill="#fff" stroke="#111" stroke-width="2"/>
+    <circle cx="33" cy="40" r="4" fill="#111"/>
+    <circle cx="49" cy="40" r="4" fill="#111"/>
+    <path d="M30 54 Q40 48 50 54" stroke="#111" stroke-width="2" fill="none"/>
+    <text x="40" y="72" font-family="Courier" font-size="7" font-weight="bold" fill="#111" text-anchor="middle">404 FACE</text>
+</symbol>
+
+<!-- 22. RetroBluRay - rainbow disc -->
+<symbol id="av-retrobluray" viewBox="0 0 80 80">
+    <radialGradient id="rb-disc" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="#fff"/>
+        <stop offset="0.3" stop-color="#bce0ff"/>
+        <stop offset="0.55" stop-color="#7eb1d8"/>
+        <stop offset="0.75" stop-color="#3a78c4"/>
+        <stop offset="1" stop-color="#14275e"/>
+    </radialGradient>
+    <rect width="80" height="80" fill="#0e1a3a"/>
+    <circle cx="40" cy="40" r="32" fill="url(#rb-disc)"/>
+    <g opacity="0.5">
+        <path d="M14 26 Q40 18 66 26" stroke="#ff2d2d" stroke-width="1.5" fill="none"/>
+        <path d="M14 32 Q40 24 66 32" stroke="#ffd54a" stroke-width="1.5" fill="none"/>
+        <path d="M14 38 Q40 30 66 38" stroke="#7ab84a" stroke-width="1.5" fill="none"/>
+        <path d="M14 44 Q40 36 66 44" stroke="#22a4d4" stroke-width="1.5" fill="none"/>
+        <path d="M14 50 Q40 42 66 50" stroke="#a060c8" stroke-width="1.5" fill="none"/>
+    </g>
+    <circle cx="40" cy="40" r="10" fill="#0e1a3a"/>
+    <circle cx="40" cy="40" r="3" fill="#cdd5e4"/>
+    <text x="40" y="14" font-family="Verdana" font-size="8" font-weight="bold" fill="#ffd54a" text-anchor="middle">BLU</text>
+</symbol>
+
+<!-- 23. StormWallTheory - dark storm cloud + lightning -->
+<symbol id="av-stormwalltheory" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#2b3a55"/>
+    <path d="M10 50 Q10 36 26 36 Q30 22 46 24 Q60 26 64 38 Q76 38 76 50 Q76 60 66 60 L18 60 Q10 60 10 50 Z" fill="#5a6a85" stroke="#1a2438" stroke-width="2"/>
+    <path d="M14 56 Q14 44 28 44 Q32 32 46 34 Q56 36 60 46 Q72 46 72 54 L72 56 Q72 56 14 56 Z" fill="#7a8aa5"/>
+    <polygon points="36,52 30,68 38,68 32,80 48,62 40,62 46,52" fill="#ffd54a" stroke="#c8a020" stroke-width="1"/>
+    <line x1="14" y1="64" x2="18" y2="72" stroke="#bce0ff" stroke-width="1.5"/>
+    <line x1="62" y1="64" x2="58" y2="72" stroke="#bce0ff" stroke-width="1.5"/>
+    <line x1="22" y1="68" x2="20" y2="76" stroke="#bce0ff" stroke-width="1.5"/>
+    <line x1="56" y1="68" x2="54" y2="76" stroke="#bce0ff" stroke-width="1.5"/>
+    <text x="40" y="20" font-family="Courier" font-size="9" font-weight="bold" fill="#ff7eb1" text-anchor="middle">??? MARK</text>
+</symbol>
+
+<!-- 24. SoraWatcher - eye/binoculars -->
+<symbol id="av-sorawatcher" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#5a3a14"/>
+    <ellipse cx="40" cy="44" rx="34" ry="22" fill="#f3d7b5" stroke="#5a3a14" stroke-width="2"/>
+    <ellipse cx="40" cy="44" rx="20" ry="20" fill="#fff" stroke="#5a3a14" stroke-width="1.5"/>
+    <circle cx="40" cy="44" r="14" fill="#3a78c4"/>
+    <circle cx="40" cy="44" r="6" fill="#1a1d24"/>
+    <circle cx="42" cy="40" r="2" fill="#fff"/>
+    <path d="M14 24 Q14 14 24 14 L34 14" stroke="#5a3a14" stroke-width="3" fill="none"/>
+    <path d="M66 24 Q66 14 56 14 L46 14" stroke="#5a3a14" stroke-width="3" fill="none"/>
+    <text x="40" y="76" font-family="Verdana" font-size="7" font-weight="bold" fill="#ffd54a" text-anchor="middle">WATCHING</text>
+</symbol>
+
+<!-- 24. NateWatcher - eye/binoculars -->
+<symbol id="av-natewatcher" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#5a3a14"/>
+    <ellipse cx="40" cy="44" rx="34" ry="22" fill="#f3d7b5" stroke="#5a3a14" stroke-width="2"/>
+    <ellipse cx="40" cy="44" rx="20" ry="20" fill="#fff" stroke="#5a3a14" stroke-width="1.5"/>
+    <circle cx="40" cy="44" r="14" fill="#3a78c4"/>
+    <circle cx="40" cy="44" r="6" fill="#1a1d24"/>
+    <circle cx="42" cy="40" r="2" fill="#fff"/>
+    <path d="M14 24 Q14 14 24 14 L34 14" stroke="#5a3a14" stroke-width="3" fill="none"/>
+    <path d="M66 24 Q66 14 56 14 L46 14" stroke="#5a3a14" stroke-width="3" fill="none"/>
+    <text x="40" y="76" font-family="Verdana" font-size="7" font-weight="bold" fill="#ffd54a" text-anchor="middle">WATCHING</text>
+</symbol>
+
+<!-- 25. ChibiComet - chibi face with comet streak -->
+<symbol id="av-chibicomet" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#1a1840"/>
+    <path d="M0 0 Q30 20 80 30 L80 0 Z" fill="#ffd54a" opacity="0.4"/>
+    <path d="M0 4 Q26 22 76 28" stroke="#ffe89c" stroke-width="2" fill="none"/>
+    <path d="M4 12 Q26 26 70 32" stroke="#ff8db1" stroke-width="1.5" fill="none"/>
+    <ellipse cx="40" cy="50" rx="20" ry="20" fill="#f3d7b5"/>
+    <path d="M22 44 Q24 28 40 28 Q56 28 58 44 Q54 38 50 38 Q46 32 40 32 Q34 32 30 38 Q26 38 22 44 Z" fill="#ec6fa3"/>
+    <ellipse cx="32" cy="48" rx="3" ry="4" fill="#2b2b2b"/>
+    <ellipse cx="48" cy="48" rx="3" ry="4" fill="#2b2b2b"/>
+    <circle cx="33" cy="46" r="1" fill="#fff"/>
+    <circle cx="49" cy="46" r="1" fill="#fff"/>
+    <path d="M35 58 Q40 60 45 58" stroke="#2b2b2b" stroke-width="1.5" fill="none"/>
+    <g fill="#fff">
+        <circle cx="10" cy="50" r="0.8"/>
+        <circle cx="20" cy="68" r="0.8"/>
+        <circle cx="68" cy="60" r="0.8"/>
+    </g>
+</symbol>
+
+<!-- 26. FinalBossu - 8-bit pixel boss -->
+<symbol id="av-finalbossu" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#1a0024"/>
+    <g fill="#5a0f1c">
+        <rect x="20" y="14" width="40" height="6"/>
+        <rect x="14" y="20" width="52" height="6"/>
+        <rect x="14" y="26" width="52" height="6"/>
+        <rect x="14" y="32" width="52" height="6"/>
+        <rect x="20" y="38" width="40" height="6"/>
+    </g>
+    <g fill="#ff2d2d">
+        <rect x="22" y="22" width="8" height="8"/>
+        <rect x="50" y="22" width="8" height="8"/>
+    </g>
+    <g fill="#fff">
+        <rect x="24" y="24" width="4" height="4"/>
+        <rect x="52" y="24" width="4" height="4"/>
+    </g>
+    <g fill="#5a0f1c">
+        <rect x="20" y="44" width="40" height="4"/>
+    </g>
+    <g fill="#ff2d2d">
+        <rect x="26" y="42" width="4" height="4"/>
+        <rect x="34" y="42" width="4" height="4"/>
+        <rect x="42" y="42" width="4" height="4"/>
+        <rect x="50" y="42" width="4" height="4"/>
+    </g>
+    <g fill="#ffd54a" font-family="Courier" font-size="6" font-weight="bold">
+        <text x="40" y="60" text-anchor="middle">HP: 99999</text>
+        <text x="40" y="70" text-anchor="middle">FINAL BOSS</text>
+    </g>
+</symbol>
+
+<!-- 27. MillenniumFan - CRT shrine head -->
+<symbol id="av-millenniumfan" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#2b1838"/>
+    <rect x="14" y="18" width="52" height="42" rx="4" fill="#f2e8cf" stroke="#312414" stroke-width="2"/>
+    <rect x="20" y="24" width="40" height="24" fill="#72d8c6" stroke="#312414" stroke-width="1.5"/>
+    <path d="M22 34 L58 26 M22 44 L58 36" stroke="#fff" stroke-width="1" opacity="0.55"/>
+    <circle cx="28" cy="54" r="2" fill="#ff4f8b"/>
+    <circle cx="36" cy="54" r="2" fill="#ffd54a"/>
+    <circle cx="48" cy="54" r="2" fill="#312414"/>
+    <path d="M28 18 L22 8 M52 18 L58 8" stroke="#f2e8cf" stroke-width="2"/>
+    <text x="40" y="72" font-family="Courier" font-size="8" font-weight="bold" fill="#ffd54a" text-anchor="middle">2001</text>
+</symbol>
+
+<!-- 28. Day01 - cracked egg planet -->
+<symbol id="av-day01" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#071629"/>
+    <circle cx="40" cy="40" r="30" fill="#fff0bd" stroke="#7e5a22" stroke-width="2"/>
+    <path d="M18 42 L28 34 L34 44 L42 30 L48 43 L58 34 L62 44" fill="none" stroke="#7e5a22" stroke-width="3"/>
+    <path d="M22 50 Q40 60 58 50" fill="#6ed6c2" opacity="0.8"/>
+    <circle cx="30" cy="34" r="3" fill="#111"/>
+    <circle cx="50" cy="34" r="3" fill="#111"/>
+    <path d="M35 48 Q40 52 45 48" stroke="#111" stroke-width="1.5" fill="none"/>
+    <text x="40" y="14" font-family="Courier" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">DAY 01</text>
+</symbol>
+
+<!-- 29. RawrXD - sticker dinosaur hoodie -->
+<symbol id="av-rawrxd" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#b7f0a4"/>
+    <path d="M18 70 Q18 28 40 18 Q62 28 62 70 Z" fill="#3aaa52" stroke="#175728" stroke-width="2"/>
+    <polygon points="28,24 32,12 36,25" fill="#f8ff7a"/>
+    <polygon points="40,20 44,8 48,23" fill="#f8ff7a"/>
+    <polygon points="52,26 58,16 58,32" fill="#f8ff7a"/>
+    <ellipse cx="40" cy="46" rx="18" ry="18" fill="#ffe0c0"/>
+    <circle cx="33" cy="42" r="3" fill="#111"/>
+    <circle cx="47" cy="42" r="3" fill="#111"/>
+    <path d="M32 54 L36 58 L40 54 L44 58 L48 54" stroke="#111" stroke-width="1.5" fill="none"/>
+    <text x="40" y="74" font-family="Verdana" font-size="8" font-weight="bold" fill="#175728" text-anchor="middle">RAWR XD</text>
+</symbol>
+
+<!-- 30. ToonblockKid - TV moon mask -->
+<symbol id="av-toonblock" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#1c2440"/>
+    <rect x="12" y="16" width="56" height="44" rx="5" fill="#ffde59" stroke="#1a1a1a" stroke-width="2"/>
+    <path d="M30 22 Q18 34 30 48 Q26 36 36 26 Z" fill="#1c2440"/>
+    <circle cx="49" cy="34" r="5" fill="#1a1a1a"/>
+    <path d="M42 48 Q50 53 58 48" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+    <rect x="24" y="62" width="32" height="6" fill="#6ed6c2" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M28 16 L22 8 M52 16 L58 8" stroke="#ffde59" stroke-width="2"/>
+</symbol>
+
+<!-- 31. HyperNekoMimi - neon cat radio -->
+<symbol id="av-hyperneko" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#190d2f"/>
+    <polygon points="20,32 24,12 36,28" fill="#ff4fba" stroke="#fff" stroke-width="1.5"/>
+    <polygon points="60,32 56,12 44,28" fill="#44d7c6" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="40" cy="44" r="24" fill="#22223a" stroke="#fff" stroke-width="2"/>
+    <circle cx="31" cy="42" r="5" fill="#44d7c6"/>
+    <circle cx="49" cy="42" r="5" fill="#ff4fba"/>
+    <path d="M34 54 Q40 58 46 54" stroke="#ffd54a" stroke-width="2" fill="none"/>
+    <path d="M8 28 Q14 20 22 28 M58 28 Q66 20 72 28" stroke="#ffd54a" stroke-width="2" fill="none"/>
+    <text x="40" y="73" font-family="Courier" font-size="7" font-weight="bold" fill="#fff" text-anchor="middle">NYA FM</text>
+</symbol>
+
+<!-- 32. ShadowToast - noir toast detective -->
+<symbol id="av-shadowtoast" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#181818"/>
+    <rect x="22" y="26" width="36" height="38" rx="7" fill="#c1843d" stroke="#2a1505" stroke-width="2"/>
+    <rect x="26" y="30" width="28" height="28" fill="#f2bd6b"/>
+    <path d="M18 28 L62 20 L66 28 L22 36 Z" fill="#111"/>
+    <rect x="28" y="40" width="24" height="5" fill="#111"/>
+    <circle cx="33" cy="42" r="1.2" fill="#fff"/>
+    <circle cx="47" cy="42" r="1.2" fill="#fff"/>
+    <path d="M32 54 Q40 58 48 54" stroke="#111" stroke-width="1.5" fill="none"/>
+    <path d="M8 70 Q32 58 72 70" stroke="#666" stroke-width="2" opacity="0.5"/>
+</symbol>
+
+<!-- 33. KitchenAnime - angry cooking star -->
+<symbol id="av-kitchenstar" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#7b1717"/>
+    <polygon points="40,8 48,30 72,30 52,44 60,68 40,54 20,68 28,44 8,30 32,30" fill="#ffd54a" stroke="#401010" stroke-width="2"/>
+    <rect x="26" y="20" width="28" height="12" rx="4" fill="#fff"/>
+    <rect x="22" y="28" width="36" height="8" fill="#fff"/>
+    <path d="M30 42 L36 44 M50 42 L44 44" stroke="#401010" stroke-width="2" stroke-linecap="round"/>
+    <path d="M32 54 Q40 50 48 54" stroke="#401010" stroke-width="2" fill="none"/>
+    <text x="40" y="75" font-family="Courier" font-size="7" font-weight="bold" fill="#fff" text-anchor="middle">SPICY</text>
+</symbol>
+
+<!-- 34. GoldenSloth - sleepy trophy face -->
+<symbol id="av-goldensloth" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#684a1b"/>
+    <path d="M24 18 H56 V44 Q56 58 40 62 Q24 58 24 44 Z" fill="#e0aa35" stroke="#3d2810" stroke-width="2"/>
+    <path d="M24 28 H12 Q12 42 24 42 M56 28 H68 Q68 42 56 42" fill="none" stroke="#e0aa35" stroke-width="5"/>
+    <path d="M30 40 Q34 38 38 40 M42 40 Q46 38 50 40" stroke="#3d2810" stroke-width="2" fill="none"/>
+    <path d="M34 50 Q40 52 46 50" stroke="#3d2810" stroke-width="1.5" fill="none"/>
+    <rect x="30" y="62" width="20" height="6" fill="#e0aa35" stroke="#3d2810" stroke-width="1"/>
+    <text x="40" y="14" font-family="Georgia" font-size="10" font-weight="bold" fill="#fff1b8" text-anchor="middle">zzz</text>
+</symbol>
+
+<!-- 35. NodeCoreOmega - bottled storm CPU -->
+<symbol id="av-nodeomega" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#071629"/>
+    <rect x="18" y="14" width="44" height="52" rx="4" fill="#172942" stroke="#72d8c6" stroke-width="2"/>
+    <rect x="26" y="22" width="28" height="20" fill="#0b1324" stroke="#72d8c6" stroke-width="1"/>
+    <path d="M36 24 L30 38 H40 L34 52 L52 32 H42 L48 24 Z" fill="#ffd54a"/>
+    <g stroke="#72d8c6" stroke-width="1">
+        <path d="M18 28 H8 M18 40 H8 M18 52 H8 M62 28 H72 M62 40 H72 M62 52 H72"/>
+    </g>
+    <circle cx="40" cy="58" r="4" fill="#ff4f8b"/>
+</symbol>
+
+<!-- 36. DrowsyGhostVHS - sleepy tape spirit -->
+<symbol id="av-drowsyvhs" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#25213a"/>
+    <rect x="14" y="20" width="52" height="36" rx="4" fill="#111" stroke="#cfc4f0" stroke-width="2"/>
+    <circle cx="28" cy="38" r="8" fill="#cfc4f0"/>
+    <circle cx="52" cy="38" r="8" fill="#cfc4f0"/>
+    <rect x="30" y="34" width="20" height="8" fill="#111"/>
+    <path d="M24 58 Q28 64 34 58 Q40 64 46 58 Q52 64 56 58 V70 H24 Z" fill="#f0eaff" opacity="0.9"/>
+    <path d="M24 30 Q30 28 36 30 M44 30 Q50 28 56 30" stroke="#fff" stroke-width="2" fill="none"/>
+    <text x="40" y="74" font-family="Courier" font-size="7" fill="#ff4fba" text-anchor="middle">SP MODE</text>
+</symbol>
+
+<!-- 37. VermilionOwl - shrine mask watcher -->
+<symbol id="av-vermilionowl" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#3b1111"/>
+    <path d="M18 26 Q40 6 62 26 L58 62 Q40 74 22 62 Z" fill="#d94a32" stroke="#250808" stroke-width="2"/>
+    <circle cx="31" cy="38" r="10" fill="#fff4cf" stroke="#250808" stroke-width="2"/>
+    <circle cx="49" cy="38" r="10" fill="#fff4cf" stroke="#250808" stroke-width="2"/>
+    <circle cx="31" cy="38" r="4" fill="#250808"/>
+    <circle cx="49" cy="38" r="4" fill="#250808"/>
+    <polygon points="40,44 34,54 46,54" fill="#ffd54a" stroke="#250808" stroke-width="1"/>
+    <path d="M18 26 L10 16 L26 20 M62 26 L70 16 L54 20" fill="#d94a32" stroke="#250808" stroke-width="2"/>
+</symbol>
+
+<!-- 38. CipherCaramel - candy hacker -->
+<symbol id="av-ciphercaramel" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#2a1a12"/>
+    <rect x="18" y="20" width="44" height="40" rx="8" fill="#d9823b" stroke="#5a2c12" stroke-width="2"/>
+    <path d="M18 40 L8 30 L8 50 Z M62 40 L72 30 L72 50 Z" fill="#ffcf7a" stroke="#5a2c12" stroke-width="2"/>
+    <rect x="26" y="34" width="28" height="10" fill="#10151c"/>
+    <text x="40" y="42" font-family="Courier" font-size="8" font-weight="bold" fill="#44d7c6" text-anchor="middle">0101</text>
+    <circle cx="30" cy="50" r="2" fill="#5a2c12"/>
+    <circle cx="50" cy="50" r="2" fill="#5a2c12"/>
+    <path d="M34 56 Q40 58 46 56" stroke="#5a2c12" stroke-width="1.5" fill="none"/>
+</symbol>
+
+<!-- 39. CalibrationSparrow - paper plane pilot -->
+<symbol id="av-calsparrow" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#d7eef0"/>
+    <path d="M8 28 L72 12 L48 62 L38 44 L24 56 Z" fill="#fff" stroke="#2c6468" stroke-width="2"/>
+    <path d="M38 44 L72 12 L28 38" stroke="#2c6468" stroke-width="1.5" fill="none"/>
+    <circle cx="26" cy="28" r="5" fill="#ff9b54"/>
+    <circle cx="28" cy="27" r="1.5" fill="#111"/>
+    <path d="M22 32 Q26 35 30 32" stroke="#111" stroke-width="1" fill="none"/>
+    <text x="40" y="74" font-family="Courier" font-size="7" font-weight="bold" fill="#2c6468" text-anchor="middle">CAL OK</text>
+</symbol>
+
+<!-- 40. BostonBaka - bean hat mascot -->
+<symbol id="av-bostonbean" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#26354f"/>
+    <ellipse cx="40" cy="46" rx="24" ry="28" fill="#b96a3b" stroke="#2d160b" stroke-width="2"/>
+    <path d="M18 30 Q40 8 62 30 Q52 22 40 24 Q28 22 18 30 Z" fill="#1a263d"/>
+    <rect x="24" y="22" width="32" height="6" fill="#c92d2d"/>
+    <circle cx="32" cy="44" r="3" fill="#111"/>
+    <circle cx="48" cy="44" r="3" fill="#111"/>
+    <path d="M32 54 Q40 58 48 54" stroke="#111" stroke-width="1.5" fill="none"/>
+    <text x="40" y="72" font-family="Verdana" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">BAKA</text>
+</symbol>
+
+<!-- 41. OkamotoAcolyte - director clapboard halo -->
+<symbol id="av-okamoto" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#1c1b1a"/>
+    <circle cx="40" cy="40" r="27" fill="#f8e7b8" stroke="#111" stroke-width="2"/>
+    <rect x="18" y="18" width="44" height="14" fill="#111"/>
+    <path d="M20 18 L28 32 M32 18 L40 32 M44 18 L52 32 M56 18 L62 28" stroke="#fff" stroke-width="3"/>
+    <circle cx="32" cy="42" r="3" fill="#111"/>
+    <circle cx="48" cy="42" r="3" fill="#111"/>
+    <path d="M34 52 Q40 56 46 52" stroke="#111" stroke-width="1.5" fill="none"/>
+    <circle cx="40" cy="10" r="7" fill="none" stroke="#ffd54a" stroke-width="2"/>
+</symbol>
+
+<!-- 42. KappaZero - cucumber arcade token -->
+<symbol id="av-kappazero" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#123525"/>
+    <circle cx="40" cy="42" r="28" fill="#62b25d" stroke="#082012" stroke-width="2"/>
+    <ellipse cx="40" cy="28" rx="18" ry="8" fill="#ffeaa0" stroke="#082012" stroke-width="1.5"/>
+    <circle cx="31" cy="42" r="4" fill="#082012"/>
+    <circle cx="49" cy="42" r="4" fill="#082012"/>
+    <path d="M30 54 Q40 60 50 54" stroke="#082012" stroke-width="2" fill="none"/>
+    <rect x="20" y="64" width="40" height="8" rx="4" fill="#c9f26d"/>
+    <text x="40" y="70" font-family="Courier" font-size="6" font-weight="bold" fill="#082012" text-anchor="middle">ZERO</text>
+</symbol>
+
+<!-- 43. GuestMascot - temporary account firework -->
+<symbol id="av-guestfirework" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#12142b"/>
+    <g stroke-linecap="round" stroke-width="2">
+        <path d="M40 10 V30 M40 50 V70 M10 40 H30 M50 40 H70" stroke="#ffd54a"/>
+        <path d="M20 20 L34 34 M46 46 L60 60 M60 20 L46 34 M34 46 L20 60" stroke="#ff4f8b"/>
+    </g>
+    <circle cx="40" cy="40" r="15" fill="#fff7d6" stroke="#111" stroke-width="2"/>
+    <circle cx="34" cy="37" r="2.5" fill="#111"/>
+    <circle cx="46" cy="37" r="2.5" fill="#111"/>
+    <path d="M33 47 Q40 52 47 47" stroke="#111" stroke-width="1.5" fill="none"/>
+</symbol>
+
+<!-- 44. GuestInk - splatter fanmark -->
+<symbol id="av-guestink" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#fff4df"/>
+    <path d="M40 12 C54 12 66 24 66 40 C66 56 54 68 40 68 C26 68 14 56 14 40 C14 24 26 12 40 12 Z" fill="#111"/>
+    <circle cx="25" cy="18" r="5" fill="#111"/>
+    <circle cx="60" cy="20" r="4" fill="#111"/>
+    <circle cx="16" cy="58" r="4" fill="#111"/>
+    <circle cx="65" cy="60" r="6" fill="#111"/>
+    <circle cx="33" cy="38" r="5" fill="#fff"/>
+    <circle cx="49" cy="38" r="5" fill="#fff"/>
+    <circle cx="34" cy="39" r="2" fill="#111"/>
+    <circle cx="48" cy="39" r="2" fill="#111"/>
+    <path d="M32 52 Q40 48 48 52" stroke="#fff" stroke-width="2" fill="none"/>
+</symbol>
+
+<!-- 45. GuestSticker - magical traffic cone -->
+<symbol id="av-guestcone" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#7fd8ff"/>
+    <polygon points="40,8 60,64 20,64" fill="#ff7c2c" stroke="#5a2b10" stroke-width="2"/>
+    <rect x="28" y="34" width="24" height="8" fill="#fff"/>
+    <rect x="24" y="56" width="32" height="8" fill="#fff"/>
+    <circle cx="34" cy="46" r="2.5" fill="#111"/>
+    <circle cx="46" cy="46" r="2.5" fill="#111"/>
+    <path d="M34 52 Q40 55 46 52" stroke="#111" stroke-width="1.5" fill="none"/>
+    <g fill="#ffd54a">
+        <polygon points="18,14 20,20 26,20 21,24 23,30 18,26 13,30 15,24 10,20 16,20"/>
+        <polygon points="62,20 64,25 69,25 65,28 67,33 62,30 57,33 59,28 55,25 60,25"/>
+    </g>
+</symbol>
+
+<!-- 46. GuestSignal - tiny satellite dish -->
+<symbol id="av-guestsignal" viewBox="0 0 80 80">
+    <rect width="80" height="80" fill="#10212f"/>
+    <path d="M22 54 Q38 28 64 22 Q58 50 30 62 Z" fill="#cfd9df" stroke="#0b1218" stroke-width="2"/>
+    <circle cx="34" cy="48" r="5" fill="#ff4f8b"/>
+    <path d="M34 48 L48 66" stroke="#cfd9df" stroke-width="4"/>
+    <rect x="38" y="66" width="24" height="6" fill="#cfd9df"/>
+    <path d="M54 18 Q64 28 58 40 M62 10 Q78 28 68 48" stroke="#ffd54a" stroke-width="2" fill="none"/>
+    <text x="16" y="18" font-family="Courier" font-size="7" fill="#72d8c6">LIVE</text>
+</symbol>
+
+</defs>
+</svg>
+
+
+<div class="yal-topbar">
+    <div class="logo">Your<span>Anime</span>List</div>
+    <nav>
+        <a href="#">Anime</a>
+        <a href="#">Manga</a>
+        <a href="#">Community</a>
+        <a href="#">Forums</a>
+        <a href="#">Industry</a>
+    </nav>
+    <div class="search">
+        <input type="text" placeholder="Search anime, manga, users...">
+        <button>Go</button>
+    </div>
+</div>
+
+<div class="breadcrumb">
+    <a href="#">YourAnimeList</a><span class="sep">&raquo;</span>
+    <a href="#">Anime</a><span class="sep">&raquo;</span>
+    <a href="#">Impact of Eden (2013)</a><span class="sep">&raquo;</span>
+    <a href="#">Episodes</a><span class="sep">&raquo;</span>
+    <span>Episode 2 Discussion</span>
+</div>
+
+<div class="page">
+<main>
+
+<div class="thread-card">
+    <div class="thread-title-bar">
+        <h1>Impact of Eden Episode 2 Discussion - FRONTIER RISK MANAGEMENT: Introduction</h1>
+        <div class="subtype">Forum &raquo; Anime Discussion &raquo; Episode Discussion</div>
+    </div>
+    <table class="thread-meta">
+        <tr><td class="label">Started by</td><td><a href="#" class="username mod">YALBot</a> <span class="rank mod-rank">Moderator</span></td></tr>
+        <tr><td class="label">Created</td><td>Oct 13, 2013, 02:31 JST</td></tr>
+        <tr><td class="label">Replies</td><td><b>945</b></td></tr>
+        <tr><td class="label">Views</td><td><b>37,840</b></td></tr>
+        <tr><td class="label">Last Reply</td><td>Oct 16, 2013, 23:15 JST &mdash; by <a href="#">TsundereWrangler</a></td></tr>
+        <tr><td class="label">Status</td><td><span class="status-open">Open</span></td></tr>
+    </table>
+</div>
+
+<div class="controls">
+    <a href="#reply" class="btn primary">Reply</a>
+    <a href="#" class="btn">Follow Topic</a>
+    <a href="#" class="btn">Watch Episode</a>
+    <a href="yal_impact_of_eden_ep1_2013.html" class="btn">Episode 1</a>
+    <a href="yal_impact_of_eden_ep3_2013.html" class="btn">Episode 3</a>
+    <span class="spacer"></span>
+    <span class="sort">
+        <label for="sort">Sort:</label>
+        <select id="sort">
+            <option>Oldest First</option>
+            <option>Newest First</option>
+        </select>
+    </span>
+</div>
+
+<div class="pagination">
+Page 34 of 48 &nbsp;
+    <a href="ep2_page33.html" class="nav">&laquo; Previous</a>
+    <a href="yal_impact_of_eden_ep2_2013.html">1</a>
+    <a href="ep2_page2.html">2</a>
+    <a href="ep2_page3.html">3</a>
+    <span class="gap">...</span>
+    <a href="ep2_page32.html">32</a>
+    <a href="ep2_page33.html">33</a>
+    <span class="current">34</span>
+    <a href="ep2_page35.html">35</a>
+    <a href="ep2_page36.html">36</a>
+    <span class="gap">...</span>
+    <a href="ep2_page47.html">47</a>
+    <a href="ep2_page48.html">48</a>
+    <a href="ep2_page35.html" class="nav">Next &raquo;</a>
+</div>
+
+<div class="posts">
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-abigailfan"/></svg>
+        <a href="#" class="username">AbigailFanAlready</a>
+        <div class="rank">Member</div>
+        <div class="user-meta">
+            <div>Joined: <b>May 2012</b></div>
+            <div>Posts: <b>531</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#661</span>
+            <span class="post-time">Oct 13, 2013, 22:03 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Arthur White pulling up the holographic map and zooming out to show the Skybelts gave me chills. The scale of this anime is unreal o_O</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-sorawatcher"/></svg>
+        <a href="#" class="username">HirotoHiro53</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Oct 2013</b></div>
+            <div>Posts: <b>35</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#662</span>
+            <span class="post-time">Oct 15, 2013, 15:12 JST</span>
+        </div>
+        <div class="post-content">
+            <p>The NodeCore drop-in from the sky right into the standoff between Sora and Miyuki was EPIC ^_^ Saved Sora just as Lisa locked onto him with her scope!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-cyberlunchbox"/></svg>
+        <a href="#" class="username">CalibrationLunchbox</a>
+        <div class="rank">Member</div>
+        <div class="user-meta">
+            <div>Joined: <b>Aug 2013</b></div>
+            <div>Posts: <b>118</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#663</span>
+            <span class="post-time">Oct 13, 2013, 04:12 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Arthur White cracking his knuckles with his giant lance... veteran commanders in anime are always the coolest characters!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-hyperneko"/></svg>
+        <a href="#" class="username">Cliffhanger_Hype_Bro</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Sep 2013</b></div>
+            <div>Posts: <b>18</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#664</span>
+            <span class="post-time">Oct 16, 2013, 12:11 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Did anyone catch Grayson calculating FRM's corporate military budget in his head? Dude is sneaky smart under that stoic sarcastic exterior.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-vhssamurai"/></svg>
+        <a href="#" class="username">ShounenLifer_VHS</a>
+        <div class="rank">Anime Addict</div>
+        <div class="user-meta">
+            <div>Joined: <b>Apr 2009</b></div>
+            <div>Posts: <b>4211</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#665</span>
+            <span class="post-time">Oct 14, 2013, 04:52 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Did anyone catch Grayson calculating FRM's corporate military budget in his head? Dude is sneaky smart under that stoic sarcastic exterior.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-sakurastatic"/></svg>
+        <a href="#" class="username">Skybelts_Explorer</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Oct 2013</b></div>
+            <div>Posts: <b>93</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#666</span>
+            <span class="post-time">Oct 14, 2013, 14:46 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Arthur White pulling up the holographic map and zooming out to show the Skybelts gave me chills. The scale of this anime is unreal o_O</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-sleepysenpai"/></svg>
+        <a href="#" class="username">sleepySenpai_DesuKa</a>
+        <div class="rank">Member</div>
+        <div class="user-meta">
+            <div>Joined: <b>Apr 2012</b></div>
+            <div>Posts: <b>410</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#667</span>
+            <span class="post-time">Oct 16, 2013, 13:10 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Rewatching Ep 2 right now just for the golf cart drift sequence. Studio Burst cooked so hard!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-sorawatcher"/></svg>
+        <a href="#" class="username">HirotoHiro53</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Oct 2013</b></div>
+            <div>Posts: <b>35</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#668</span>
+            <span class="post-time">Oct 15, 2013, 14:01 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Sora getting shot in the arm and still fighting, then charging MetaCode at the end with a bloody nose... bro has insane shounen protag energy!! 'By the time she pulls the trigger, go all in!' XD</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-moonlitpixel"/></svg>
+        <a href="#" class="username">NovaFanPixel</a>
+        <div class="rank">Database Contributor</div>
+        <div class="user-meta">
+            <div>Joined: <b>Mar 2010</b></div>
+            <div>Posts: <b>6239</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#669</span>
+            <span class="post-time">Oct 13, 2013, 16:41 JST</span>
+        </div>
+        <div class="post-content">
+            <p>lmao omi214 getting sliced by a QTE button combo (A B B C) from a golf cart and getting a huge 'omi214 IS ELIMINATED' pop-up sending him back to the lobby XD RIP :v</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-nodeomega"/></svg>
+        <a href="#" class="username">Planetation_Lore_Head</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Aug 2013</b></div>
+            <div>Posts: <b>67</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#670</span>
+            <span class="post-time">Oct 15, 2013, 06:43 JST</span>
+        </div>
+        <div class="post-content">
+            <p>The 3DCG mechs launching out of FRM HQ blended so seamlessly with the 2D hand-drawn explosions. Studio Burst debut is revolutionary!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-kiranotkira"/></svg>
+        <a href="#" class="username">GraysonSus_NotSus</a>
+        <div class="rank">Forum Regular</div>
+        <div class="user-meta">
+            <div>Joined: <b>Sep 2011</b></div>
+            <div>Posts: <b>646</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#671</span>
+            <span class="post-time">Oct 13, 2013, 05:39 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Arthur White cracking his knuckles with his giant lance and telling the squad 'In order to fight for freedom, break the cage' was so badass. Massive mentor energy!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-vermilionowl"/></svg>
+        <a href="#" class="username">VermilionOwl_AniFan</a>
+        <div class="rank">Member</div>
+        <div class="user-meta">
+            <div>Joined: <b>Sep 2012</b></div>
+            <div>Posts: <b>441</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#672</span>
+            <span class="post-time">Oct 13, 2013, 20:47 JST</span>
+        </div>
+        <div class="post-content">
+            <p>WHY DID IT CUT TO BLACK AT 1:82:46 ON THE TIMER T_T Sunday cannot come fast enough!! Also super hyped for the cool biker lady teased in the Ep 3 preview!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-vhssamurai"/></svg>
+        <a href="#" class="username">ShounenLifer_VHS</a>
+        <div class="rank">Anime Addict</div>
+        <div class="user-meta">
+            <div>Joined: <b>Apr 2009</b></div>
+            <div>Posts: <b>4224</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#673</span>
+            <span class="post-time">Oct 13, 2013, 16:22 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Abigail and Grayson in the jail cell was awesome. First the guard calls them pigs, and Abigail just aims her flame guns point blank at the wall to threaten him into opening the door XDD</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-ciphercaramel"/></svg>
+        <a href="#" class="username">TakuyaMangaBro</a>
+        <div class="rank">Member</div>
+        <div class="user-meta">
+            <div>Joined: <b>Sep 2013</b></div>
+            <div>Posts: <b>93</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#674</span>
+            <span class="post-time">Oct 16, 2013, 21:04 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Who else thinks the cool biker lady in the Ep 3 preview is connected to Frontier Risk Management? Sunday needs to hurry up!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-sorawatcher"/></svg>
+        <a href="#" class="username">HirotoHiro53</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Oct 2013</b></div>
+            <div>Posts: <b>47</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#675</span>
+            <span class="post-time">Oct 16, 2013, 10:20 JST</span>
+        </div>
+        <div class="post-content">
+            <p>The QTE prompt popping up right over omi214's face before he got sent to the waiting lobby is going to be a top tier meme format for 2013!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-drowsyvhs"/></svg>
+        <a href="#" class="username">AbigailGunKata_Fan</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Sep 2013</b></div>
+            <div>Posts: <b>60</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#676</span>
+            <span class="post-time">Oct 13, 2013, 09:19 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Miyuki Sawashiro's ED '24 Hours Everyday' has been on repeat for me since the episode ended. Such a cozy 2000s anime vibe.</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-nekotoast"/></svg>
+        <a href="#" class="username">AbigailGunKata_Fan</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Sep 2013</b></div>
+            <div>Posts: <b>50</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#677</span>
+            <span class="post-time">Oct 13, 2013, 08:34 JST</span>
+        </div>
+        <div class="post-content">
+            <p>Ben trying to loot scrap bots with Minko and groaning when they only dropped copper wire LOL. Gamer problems in a VR match!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-nekotoast"/></svg>
+        <a href="#" class="username">Abysslayer_Speculator</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Oct 2013</b></div>
+            <div>Posts: <b>82</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#678</span>
+            <span class="post-time">Oct 13, 2013, 07:39 JST</span>
+        </div>
+        <div class="post-content">
+            <p>The 3DCG mechs launching out of FRM HQ blended so seamlessly with the 2D hand-drawn explosions. Studio Burst debut is revolutionary!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-bostonbean"/></svg>
+        <a href="#" class="username">BostonBaka_Gaijin</a>
+        <div class="rank">Member</div>
+        <div class="user-meta">
+            <div>Joined: <b>Jun 2012</b></div>
+            <div>Posts: <b>334</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#679</span>
+            <span class="post-time">Oct 14, 2013, 12:23 JST</span>
+        </div>
+        <div class="post-content">
+            <p>The map reveal was insane. Shell 0 is just a tiny strip at the center, surrounded by 5 whole outer shells, skybelts, and the Abysslayer o_O Planetation is HUGE!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+<div class="post">
+    <div class="post-user">
+        <svg class="avatar" viewBox="0 0 80 80"><use href="#av-toonblock"/></svg>
+        <a href="#" class="username">Planetation_Lore_Head</a>
+        <div class="rank">Newbie</div>
+        <div class="user-meta">
+            <div>Joined: <b>Aug 2013</b></div>
+            <div>Posts: <b>104</b></div>
+            <div class="status-online">Online</div>
+        </div>
+    </div>
+    <div class="post-body">
+        <div class="post-head">
+            <span class="post-num">#680</span>
+            <span class="post-time">Oct 15, 2013, 16:11 JST</span>
+        </div>
+        <div class="post-content">
+            <p>That base defense scene was peak mecha sakuga! When the 3 FRM mechs launched out and tag-teamed the wheel monster mid-air, smashing it into the skyscraper with 'K.O.!' flashing on screen!</p>
+        </div>
+        <div class="post-actions">
+            <a href="#">Quote</a>
+            <a href="#">Reply</a>
+            <a href="#" class="report">Report</a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="pagination bottom">
+Page 34 of 48 &nbsp;
+    <a href="ep2_page33.html" class="nav">&laquo; Previous</a>
+    <a href="yal_impact_of_eden_ep2_2013.html">1</a>
+    <a href="ep2_page2.html">2</a>
+    <a href="ep2_page3.html">3</a>
+    <span class="gap">...</span>
+    <a href="ep2_page32.html">32</a>
+    <a href="ep2_page33.html">33</a>
+    <span class="current">34</span>
+    <a href="ep2_page35.html">35</a>
+    <a href="ep2_page36.html">36</a>
+    <span class="gap">...</span>
+    <a href="ep2_page47.html">47</a>
+    <a href="ep2_page48.html">48</a>
+    <a href="ep2_page35.html" class="nav">Next &raquo;</a>
+</div>
+
+<div class="reply-box" id="reply">
+    <div class="reply-box-head">Post a Reply</div>
+    <div class="reply-box-body">
+        <textarea placeholder="Write your response here... (Emoticons like XD, :3, T_T, o_O, >_< are encouraged!)"></textarea>
+        <div class="reply-box-toolbar">
+            <label><input type="checkbox"> Disable BBCode</label>
+            <label><input type="checkbox"> Disable Smilies</label>
+            <span class="spacer"></span>
+            <button class="btn">Preview</button>
+            <button class="btn primary">Submit Reply</button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<aside class="sidebar">
+
+    <div class="side-card">
+        <div class="side-head">Episode Discussion</div>
+        <div class="side-body">
+            <table>
+                <tr><td class="k">Episode</td><td><b>Episode 2</b></td></tr>
+                <tr><td class="k">Title</td><td>FRONTIER RISK MANAGEMENT: Introduction</td></tr>
+                <tr><td class="k">Replies</td><td>945</td></tr>
+                <tr><td class="k">Views</td><td>37,840</td></tr>
+                <tr><td class="k">Created</td><td>Oct 13, 2013</td></tr>
+                <tr><td class="k">Last Reply</td><td>Oct 16, 2013</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <div class="side-head">Quick Links</div>
+        <div class="side-body">
+            <ul>
+                <li><a href="#">Anime Page</a></li>
+                <li><a href="#">Episode List</a></li>
+                <li><a href="#">Characters</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Pictures</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <div class="side-head">Active Users Viewing</div>
+        <div class="side-body">
+            <div class="viewers-summary">
+                <b>54</b> users<br>
+                12 members &middot; 42 guests
+            </div>
+            <div class="viewers-list">
+                <a href="#">MiyukiKagemitsuStan</a>, <a href="#">BenChairThrower</a>,
+                <a href="#">AbigailSakugaLover</a>, <a href="#">NodeCoreOmega</a>,
+                <a href="#">WorldTreePulse</a>, <a href="#">DrowsyGhostVHS</a>,
+                <a href="#">SakugaThreadZero</a>, <a href="#">LikkoHammondCouncil</a>,
+                <a href="#">GraysonGuarding</a>, <a href="#">FinalBossu</a>,
+                <a href="#">FRM_Recruit</a>, <a href="#">DesuKawaii_92</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <div class="side-head">Hot Subthreads (this episode)</div>
+        <div class="side-body">
+            <ul>
+                <li><a href="#">Takanori Nishikawa OP "Human x Inhuman" &mdash; OP of the season?</a> (245 replies)</li>
+                <li><a href="#">Golf Cart Chase QTE (A B B C) &mdash; omi214 IS ELIMINATED meme thread</a> (189 replies)</li>
+                <li><a href="#">Akira Drift + Missile Barrage Sakuga &mdash; 3DCG mechs appreciation</a> (210 replies)</li>
+                <li><a href="#">Security Officer: "Pipe down, pig" + Abigail flame guns threat</a> (167 replies)</li>
+                <li><a href="#">PLANETATION MAP IS HUGE! Shells 0 to 5, Skybelts, Abysslayer breakdown</a> (305 replies)</li>
+                <li><a href="#">Arthur White &mdash; "In order to fight for freedom, break the cage"</a> (134 replies)</li>
+                <li><a href="#">Lisa &amp; Minko Outer Ring chase &mdash; 27-second camera burst breakdown</a> (176 replies)</li>
+                <li><a href="#">Miyuki's Void Rift Squad &mdash; Zantenzetsuken &amp; Likko bubblegum hype</a> (198 replies)</li>
+                <li><a href="#">Lisa cheek-shot lock-on sequence &amp; NodeCore drop-in</a> (154 replies)</li>
+                <li><a href="#">Abigail vs Miyuki showdown ("I don't need a whole legion!") &amp; 1:82:46 timer cliffhanger</a> (280 replies)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="side-card">
+        <div class="side-head">Other Episodes</div>
+        <div class="side-body">
+            <ul>
+                <li><a href="yal_impact_of_eden_ep1_2013.html">Ep 1</a> &mdash; Discussion (1,113)</li>
+                <li><b>Ep 2</b> &mdash; Discussion (945)</li>
+                <li><a href="yal_impact_of_eden_ep3_2013.html">Ep 3</a> &mdash; Discussion (1,067)</li>
+                <li>Ep 4 &mdash; Not aired yet</li>
+            </ul>
+        </div>
+    </div>
+
+</aside>
+</div>
+
+<footer class="yal-foot">
+    <a href="#">About</a> &middot;
+    <a href="#">Terms</a> &middot;
+    <a href="#">Privacy</a> &middot;
+    <a href="#">Contact</a> &middot;
+    <a href="#">Advertising</a><br>
+    &copy; 2013 YourAnimeList - All product names, logos, and brands are property of their respective owners.
+</footer>
+
+<script>
+document.querySelectorAll('.spoiler-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        var sp = btn.closest('.spoiler');
+        if (sp.dataset.hidden === 'true') {
+            sp.dataset.hidden = 'false';
+            btn.textContent = 'Hide';
+        } else {
+            sp.dataset.hidden = 'true';
+            btn.textContent = 'Show';
+        }
+    });
+});
+</script>
+</body>
+</html>

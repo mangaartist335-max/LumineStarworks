@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Impact of Eden - AdultDrift (Dub Coming Soon)</title>
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Helvetica Neue", Arial, sans-serif; color: #fff; background: #000; font-size: 14px; }
+    a { color: #ffe44a; text-decoration: none; }
+    a:hover { color: #fff; text-decoration: underline; }
+
+    /* Header */
+    .ad-top { background: #000; border-bottom: 1px solid #222; }
+    .ad-bar { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 22px; }
+    .ad-logo {
+        font-family: "Arial Black", "Helvetica Black", sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 1;
+    }
+    .ad-logo .drift {
+        display: inline-block;
+        background: #ffe44a;
+        color: #000;
+        padding: 0 6px;
+        margin-left: 2px;
+        transform: skewX(-12deg);
+    }
+    .ad-logo .drift span { display: inline-block; transform: skewX(12deg); }
+    .ad-logo small {
+        display: block;
+        font-size: 9px;
+        letter-spacing: 4px;
+        font-weight: normal;
+        color: #888;
+        margin-top: 3px;
+    }
+    .ad-nav { display: flex; gap: 2px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
+    .ad-nav a { color: #ccc; padding: 8px 14px; }
+    .ad-nav a:hover { color: #ffe44a; background: #111; text-decoration: none; }
+    .ad-nav a.current { color: #ffe44a; }
+    .ad-cta { margin-left: auto; font-size: 11px; }
+    .ad-cta a { color: #ffe44a; }
+
+    /* Show banner */
+    .show-banner {
+        position: relative;
+        height: 460px;
+        background:
+            linear-gradient(135deg, #1a0f00 0%, #2a1f0a 50%, #0a0500 100%);
+        overflow: hidden;
+        border-bottom: 1px solid #222;
+    }
+    .show-banner::before {
+        content: '';
+        position: absolute; inset: 0;
+        background:
+            radial-gradient(circle at 25% 35%, rgba(255,228,74,.15), transparent 50%),
+            radial-gradient(circle at 75% 70%, rgba(200,58,47,.20), transparent 55%);
+    }
+    .show-banner::after {
+        content: '';
+        position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+        background: linear-gradient(to bottom, transparent, #000);
+    }
+    .show-banner-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 50px 24px;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+    @media (max-width: 800px) { .show-banner-inner { grid-template-columns: 1fr; } .show-banner { height: auto; } }
+
+    .show-poster {
+        height: 380px;
+        background:
+            radial-gradient(circle at 30% 25%, rgba(255,200,90,.22), transparent 45%),
+            radial-gradient(circle at 75% 80%, rgba(60,255,200,.14), transparent 45%),
+            linear-gradient(135deg, #1f3556 0%, #4a1f56 40%, #c83a2f 100%);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: "Arial Black", sans-serif;
+        font-size: 22px;
+        letter-spacing: 2px;
+        text-align: center;
+        text-shadow: 0 3px 12px rgba(0,0,0,.7);
+        position: relative;
+        overflow: hidden;
+    }
+    .show-poster small {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 4px;
+        opacity: 0.85;
+        margin-top: 8px;
+        font-weight: normal;
+    }
+    .show-poster .coming-tag {
+        position: absolute;
+        top: 14px; right: -28px;
+        background: #ffe44a;
+        color: #000;
+        font-family: Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        padding: 6px 32px;
+        transform: rotate(45deg);
+    }
+
+    .show-info h1 {
+        font-family: "Arial Black", sans-serif;
+        font-size: 52px;
+        line-height: 1;
+        margin: 0 0 4px;
+        letter-spacing: -1px;
+        text-shadow: 0 2px 12px rgba(0,0,0,.6);
+    }
+    .show-info .jp {
+        font-family: Georgia, serif;
+        font-size: 14px;
+        color: #ccc;
+        letter-spacing: 5px;
+        margin-bottom: 22px;
+    }
+    .status-pill {
+        display: inline-block;
+        background: #ffe44a;
+        color: #000;
+        padding: 6px 16px;
+        font-family: "Arial Black", sans-serif;
+        font-size: 13px;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+        border-radius: 2px;
+    }
+    .premiere-line {
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 18px;
+    }
+    .premiere-line b { color: #ffe44a; }
+    .genre-line {
+        font-size: 13px;
+        color: #aaa;
+        margin-bottom: 22px;
+        letter-spacing: 1px;
+    }
+    .genre-line .sep { color: #ffe44a; margin: 0 8px; }
+
+    .cta-row { display: flex; gap: 12px; }
+    .cta-btn {
+        display: inline-block;
+        padding: 14px 28px;
+        background: #ffe44a;
+        color: #000;
+        font-weight: 900;
+        font-size: 14px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 2px;
+    }
+    .cta-btn:hover { background: #fff; color: #000; text-decoration: none; }
+    .cta-btn.ghost {
+        background: transparent;
+        color: #fff;
+        border: 2px solid #fff;
+        padding: 12px 26px;
+    }
+
+    /* Layout */
+    .container { max-width: 1180px; margin: 0 auto; padding: 36px 24px 60px; display: grid; grid-template-columns: 1fr 320px; gap: 36px; }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+    section { margin-bottom: 36px; }
+    section h2 {
+        font-family: "Arial Black", sans-serif;
+        font-size: 14px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #ffe44a;
+        margin: 0 0 16px;
+    }
+
+    .desc-block p { font-size: 14px; line-height: 1.7; color: #ccc; margin: 0 0 14px; }
+    .desc-block b { color: #fff; }
+
+    /* Countdown / announcement block */
+    .announce-block {
+        background: linear-gradient(135deg, #1a1500 0%, #0a0800 100%);
+        border: 1px solid #ffe44a;
+        padding: 24px 28px;
+        border-radius: 4px;
+        margin: 18px 0;
+        text-align: center;
+    }
+    .announce-block .a-eyebrow {
+        font-family: "Arial Black", sans-serif;
+        font-size: 11px;
+        letter-spacing: 4px;
+        color: #ffe44a;
+        margin-bottom: 8px;
+    }
+    .announce-block .a-headline {
+        font-family: "Arial Black", sans-serif;
+        font-size: 28px;
+        color: #fff;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+    }
+    .announce-block .a-line {
+        font-size: 13px;
+        color: #ccc;
+        line-height: 1.6;
+    }
+    .announce-block .a-line b { color: #ffe44a; }
+
+    /* Trailer placeholder */
+    .trailer-box {
+        background: #000;
+        border: 1px solid #222;
+        height: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        font-family: "Arial Black", sans-serif;
+        font-size: 11px;
+        letter-spacing: 3px;
+        margin: 14px 0;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1f0f00, #1a0a00);
+    }
+    .trailer-box::before {
+        content: '\25B6';
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;
+        color: rgba(255, 228, 74, 0.6);
+    }
+    .trailer-box .tlabel { position: relative; z-index: 2; padding: 8px 16px; background: rgba(0,0,0,.7); color: #ffe44a; }
+
+    /* Marathon strip */
+    .marathon-strip {
+        background: linear-gradient(90deg, #ffe44a, #ffae5b);
+        color: #000;
+        padding: 14px 24px;
+        font-family: "Arial Black", sans-serif;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 18px 0;
+        text-align: center;
+    }
+    .marathon-strip b { color: #c83a2f; }
+
+    /* Sidebar */
+    aside .ad-card {
+        background: #111;
+        padding: 16px 18px;
+        margin-bottom: 18px;
+        border-radius: 4px;
+        border: 1px solid #1a1a1a;
+    }
+    aside h3 {
+        font-family: "Arial Black", sans-serif;
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #ffe44a;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #2a2a2a;
+        margin: 0 0 12px;
+    }
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        padding: 6px 0;
+        border-bottom: 1px solid #1a1a1a;
+        color: #888;
+    }
+    .info-row:last-child { border: none; }
+    .info-row .v { color: #fff; text-align: right; }
+
+    .related-show {
+        display: flex;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid #1a1a1a;
+        align-items: center;
+    }
+    .related-show:last-child { border: none; }
+    .related-show .rs-poster {
+        width: 50px; height: 65px;
+        border-radius: 2px;
+        flex-shrink: 0;
+    }
+    .related-show b { color: #fff; font-size: 12px; display: block; }
+    .related-show small { color: #888; font-size: 10px; }
+
+    /* Footer */
+    footer { background: #050505; padding: 36px 24px; border-top: 1px solid #1a1a1a; }
+    .foot-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 28px; font-size: 11px; }
+    .foot-brand { font-family: "Arial Black", sans-serif; font-size: 18px; color: #fff; letter-spacing: 2px; }
+    .foot-brand small { display: block; color: #555; font-weight: normal; letter-spacing: 4px; font-size: 9px; margin-top: 4px; }
+    .foot-col h4 { color: #ffe44a; margin: 0 0 10px; font-size: 11px; letter-spacing: 2px; }
+    .foot-col a { display: block; color: #777; padding: 3px 0; }
+    .foot-col a:hover { color: #ffe44a; }
+    .foot-bottom { max-width: 1180px; margin: 24px auto 0; padding-top: 18px; border-top: 1px solid #1a1a1a; color: #555; font-size: 10px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header class="ad-top">
+    <div class="ad-bar">
+        <div class="ad-logo">
+            Adult<span class="drift"><span>Drift</span></span>
+            <small>UNCUT &middot; UNCENSORED &middot; AFTER MIDNIGHT</small>
+        </div>
+        <nav class="ad-nav">
+            <a href="#">HOME</a>
+            <a href="#" class="current">SHOWS</a>
+            <a href="#">SCHEDULE</a>
+            <a href="#">VIDEOS</a>
+            <a href="#">SHOP</a>
+            <a href="#">GAMES</a>
+        </nav>
+        <div class="ad-cta">
+            <a href="#">+ SIGN UP FOR DUB ALERTS</a>
+        </div>
+    </div>
+</header>
+
+<!-- Show banner -->
+<div class="show-banner">
+    <div class="show-banner-inner">
+        <div class="show-poster">
+            <div class="coming-tag">DUB SOON</div>
+            <div>
+                IMPACT OF<br>EDEN
+                <small>エデンの衝撃 &middot; 2013</small>
+            </div>
+        </div>
+        <div class="show-info">
+            <div class="status-pill">DUB COMING EARLY 2015</div>
+            <h1>IMPACT OF EDEN</h1>
+            <div class="jp">エデンの衝撃</div>
+            <div class="premiere-line">
+                English dub premieres on <b>AdultDrift</b> in early 2015. Cast announcement pending.
+            </div>
+            <div class="genre-line">
+                ACTION <span class="sep">/</span> SCI-FI <span class="sep">/</span> SCHOOL <span class="sep">/</span> VR-GAME <span class="sep">/</span> MYSTERY
+            </div>
+            <div class="cta-row">
+                <a href="#" class="cta-btn">&#9658; Watch Trailer</a>
+                <a href="#" class="cta-btn ghost">+ Add to Watchlist</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<main>
+    <!-- Big announcement -->
+    <div class="announce-block">
+        <div class="a-eyebrow">ACQUISITION ANNOUNCEMENT</div>
+        <div class="a-headline">AdultDrift acquires "Impact of Eden" for early 2015 broadcast</div>
+        <div class="a-line">
+            AdultDrift and Funmaxation have signed an exclusive English-dub broadcast deal for <b>Burst</b>'s debut anime <b>Impact of Eden (2013)</b>. The series will premiere in AdultDrift's late-night animation block in early 2015, following the completion of Funmaxation's English dub production. Cast announcements expected mid-2014. Marathons of the subtitled Japanese broadcast may appear earlier on AdultDrift's overnight schedule. Subscribe for dub alerts.
+        </div>
+    </div>
+
+    <!-- Synopsis -->
+    <section class="desc-block">
+        <h2>About the Show</h2>
+        <p><b>Impact of Eden (2013)</b> &mdash; or just <b>Eden</b> &mdash; is a 2013 anime original from debut studio Burst, directed by Kaihatsu Miura and scored by Hiroyuki Sawano. After struggling at Maple Grove City with his parents, twelve-year-old <b>Sora Gauthier</b> decides to head out on a Soul Anchor Journey to avenge his mother's survival.</p>
+
+        <p>Imagine if your favorite trapped-in-the-game anime took its protagonists seriously, gave its female cast the same staging respect as the male leads, and dropped sakuga choreography in episode one that other shows save for a midseason finale. Then imagine it on AdultDrift at 1AM Eastern. That's what we're bringing you in early 2015.</p>
+
+        <p>Based on an original concept by manga creator <b>Natsuki Takuya</b>, with series composition by Keito Kisaragi, character designs by Lio Haraguchi, and storyboards led by Tomoe Suzuhara. Voice cast in Japan includes <b>Mariya Ise</b>, <b>Saori Hayami</b>, <b>Kana Hanazawa</b>, <b>Yui Ishikawa</b>, <b>Rina Satou</b>, <b>Ayane Sakura</b>, <b>Nobuhiko Okamoto</b>, <b>Hiroshi Kamiya</b>, and <b>Kaito Ishikawa</b>. The dub cast will be announced in 2014.</p>
+    </section>
+
+    <!-- Trailer -->
+    <section>
+        <h2>Trailer</h2>
+        <div class="trailer-box">
+            <div class="tlabel">&#9658; PV: IMPACT OF EDEN &mdash; OFFICIAL TEASER (0:42)</div>
+        </div>
+        <p style="font-size: 12px; color: #888;">English-language teaser. Full dub trailer dropping late 2014.</p>
+    </section>
+
+    <!-- Marathon teaser -->
+    <div class="marathon-strip">
+        OVERNIGHT SUB MARATHON &middot; SAT 11.16.2013 &middot; <b>EP 1-6 BLOCK</b> &middot; 12AM EST &middot; ADULT DRIFT
+    </div>
+
+    <!-- Why we picked it up -->
+    <section class="desc-block">
+        <h2>Why We Picked It Up</h2>
+        <p>Here's the thing. We watch every fall season. We sit there at 3AM eastern reading subtitles and ranking shows. Most weeks the rankings are boring. <i>Impact of Eden</i>'s premiere broke our rankings. So we called Funmaxation. So we called AniBlex. So we signed a deal.</p>
+
+        <p>What you're getting: A 25-episode action-mystery with the production budget of a season finale running through every cut. A debut studio that hired Sayaka Onozaki for key animation. A voice cast Hollywood can't afford. A music score by Hiroyuki Sawano (who you know from like nine other shows we ran in the last three years). And a writer-room that treats its female cast as primary leads instead of accessories.</p>
+
+        <p>The fans on the YAL forum hit 1,113 replies on the episode 1 discussion thread in four days. <i>Four days.</i> SakugaThread.org has 312 frame citations on their megathread. AniWire gave the premiere an 8.5. We're paying attention. You should too.</p>
+
+        <p>Early 2015 is coming soon. Funmaxation needs the time to do the dub right. We will not rush a bad dub onto our block.</p>
+
+        <p>Until then: subscribe for dub alerts. Catch the overnight sub marathons. Tell your friend who's still on the fence.</p>
+    </section>
+
+    <!-- Dub cast preview -->
+    <section>
+        <h2>Dub Cast (TBA &mdash; mid-2014)</h2>
+        <div style="background: #111; padding: 18px; border-radius: 4px; border: 1px dashed #2a2a2a; font-size: 13px; line-height: 1.8; color: #888;">
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Sora Gauthier</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Grayson Rothenberg</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Hiroto Kobayashi</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Nathan Garrison</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Abigail June</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Miyuki Kagemitsu</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Lisa Hoshino</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Echo Desmond</b> &mdash; TBA</p>
+            <p style="margin: 0 0 8px;"><b style="color: #fff;">Arthur White</b> &mdash; TBA</p>
+            <p style="margin: 0;"><b style="color: #fff;">Emiko Umbracall</b> &mdash; TBA</p>
+        </div>
+        <p style="margin-top: 12px; font-size: 12px; color: #666;"><i>ADR direction by Funmaxation's Texas studio. Cast announcement target: AnimeNext 2014.</i></p>
+    </section>
+
+    <!-- Fan reactions strip -->
+    <section>
+        <h2>What People Are Saying</h2>
+        <div style="background: #111; padding: 18px; border-radius: 4px; font-size: 13px; line-height: 1.7;">
+            <p style="margin: 0 0 14px; color: #ccc;"><b style="color: #ffe44a;">"Burst Studio Announces Itself in 24 Minutes."</b><br>&mdash; AniWire premiere review (8.5/10)</p>
+            <p style="margin: 0 0 14px; color: #ccc;"><b style="color: #ffe44a;">"The most TRADITIONAL action sakuga in the episode was the second-best sequence."</b><br>&mdash; SakugaThread.org megathread</p>
+            <p style="margin: 0 0 14px; color: #ccc;"><b style="color: #ffe44a;">"This is what 'girls lead' looks like in fandom."</b><br>&mdash; YourAnimeList Episode 1 Discussion thread (1,113 replies)</p>
+            <p style="margin: 0; color: #ccc;"><b style="color: #ffe44a;">"Hayami's read on the speech is the performance of the year."</b><br>&mdash; t/anime megathread (Threadit, +1,247 points)</p>
+        </div>
+    </section>
+</main>
+
+<aside>
+    <div class="ad-card">
+        <h3>Show Info</h3>
+        <div class="info-row"><span>Origin</span><span class="v">Japan, 2013</span></div>
+        <div class="info-row"><span>Studio</span><span class="v">Burst</span></div>
+        <div class="info-row"><span>Director</span><span class="v">Kaihatsu Miura</span></div>
+        <div class="info-row"><span>Music</span><span class="v">Hiroyuki Sawano</span></div>
+        <div class="info-row"><span>Episodes</span><span class="v">25 (planned)</span></div>
+        <div class="info-row"><span>JP Air</span><span class="v">Sundays 01:58 JST</span></div>
+        <div class="info-row"><span>Licensor</span><span class="v">Funmaxation</span></div>
+        <div class="info-row"><span>Dub Premiere</span><span class="v" style="color: #ffe44a;">Early 2015</span></div>
+        <div class="info-row"><span>Block</span><span class="v">AdultDrift 1AM ET</span></div>
+        <div class="info-row"><span>Rating</span><span class="v">TV-MA</span></div>
+    </div>
+
+    <div class="ad-card">
+        <h3>Alerts</h3>
+        <p style="font-size: 12px; color: #ccc; line-height: 1.6; margin: 0 0 12px;">Get notified when the dub cast drops, when the trailer ships, and when broadcast week kicks off.</p>
+        <input type="email" placeholder="your.email@whatever.com" style="width: 100%; padding: 8px; background: #050505; border: 1px solid #2a2a2a; color: #fff; font-family: Arial; font-size: 12px; margin-bottom: 8px;">
+        <button style="width: 100%; padding: 10px; background: #ffe44a; color: #000; border: none; font-family: 'Arial Black', sans-serif; font-size: 12px; letter-spacing: 2px; cursor: pointer;">SUBSCRIBE</button>
+    </div>
+
+    <div class="ad-card">
+        <h3>Now Streaming on AdultDrift</h3>
+        <div class="related-show">
+            <div class="rs-poster" style="background: linear-gradient(135deg, #2a629a, #0a3260);"></div>
+            <div><b>Sinful Apex</b><small>2011 &middot; Flow Pictures</small></div>
+        </div>
+        <div class="related-show">
+            <div class="rs-poster" style="background: linear-gradient(135deg, #c83a2f, #5a1f1c);"></div>
+            <div><b>Zero Latitude</b><small>2010 &middot; Kaihatsu Miura</small></div>
+        </div>
+        <div class="related-show">
+            <div class="rs-poster" style="background: linear-gradient(135deg, #4a1f56, #1f0a2a);"></div>
+            <div><b>Blizzard Requiem</b><small>2012 &middot; Drama</small></div>
+        </div>
+        <div class="related-show">
+            <div class="rs-poster" style="background: linear-gradient(135deg, #0a5d2e, #02361a);"></div>
+            <div><b>Skyfall Chronicle: Black Aegis</b><small>2009</small></div>
+        </div>
+    </div>
+
+    <div class="ad-card" style="background: linear-gradient(135deg, #ffe44a, #ffae5b); border-color: #ffe44a;">
+        <h3 style="color: #000; border-bottom: 1px solid #c83a2f;">AdultDrift Shop</h3>
+        <p style="font-size: 13px; color: #000; line-height: 1.5; margin: 0 0 10px;"><b>Sinful Apex: Complete Collection</b><br>Out Nov 19, 2013 on Blu-ray</p>
+        <a href="#" style="display: inline-block; padding: 8px 14px; background: #000; color: #ffe44a; font-family: 'Arial Black'; font-size: 11px; letter-spacing: 2px;">PRE-ORDER NOW</a>
+    </div>
+</aside>
+
+</div>
+
+<footer>
+    <div class="foot-grid">
+        <div>
+            <div class="foot-brand">ADULTDRIFT<small>UNCUT &middot; UNCENSORED &middot; AFTER MIDNIGHT</small></div>
+            <p style="font-size: 11px; color: #555; margin-top: 14px; line-height: 1.6;">A late-night animation broadcast block bringing the best of Japanese animation, original animation, and the occasional crime against good taste to American television since 2001.</p>
+        </div>
+        <div class="foot-col">
+            <h4>NETWORK</h4>
+            <a href="#">About</a>
+            <a href="#">Schedule</a>
+            <a href="#">Press</a>
+            <a href="#">Careers</a>
+            <a href="#">Affiliates</a>
+        </div>
+        <div class="foot-col">
+            <h4>SHOWS</h4>
+            <a href="#">All Shows</a>
+            <a href="#">Upcoming</a>
+            <a href="#">Marathons</a>
+            <a href="#">Block Schedule</a>
+        </div>
+        <div class="foot-col">
+            <h4>FOLLOW</h4>
+            <a href="#">Birdie</a>
+            <a href="#">FacePage</a>
+            <a href="#">VueTube</a>
+            <a href="#">Newsletter</a>
+        </div>
+    </div>
+    <div class="foot-bottom">
+        &copy; 2013 AdultDrift Network LLC. All shows licensed from their respective rights holders. AdultDrift is a registered trademark.
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" aria-label="Sora Gauthier portrait">
+  <rect width="80" height="80" fill="#d4d0c8"/>
+
+  <!-- Shirt -->
+  <path d="M26 58 L54 58 L50 80 L30 80 Z" fill="#fff" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M33 56 Q40 60 47 56" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Mech right arm (viewer left) -->
+  <path d="M26 58 L14 56 L8 64 L6 74 L12 80 L22 78 L28 68 L28 58 Z" fill="#222" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+  <rect x="10" y="60" width="12" height="9" rx="1" fill="#c62828" stroke="#111" stroke-width="2"/>
+  <rect x="8" y="70" width="10" height="8" rx="1" fill="#8b4513" stroke="#111" stroke-width="2"/>
+  <circle cx="16" cy="66" r="2.5" fill="#555" stroke="#111" stroke-width="1.2"/>
+
+  <!-- Natural sleeve (viewer right) -->
+  <path d="M54 58 L66 64 L62 78 L50 74 Z" fill="#fff" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+  <line x1="54" y1="66" x2="62" y2="68" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="53" y1="70" x2="61" y2="72" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Neck -->
+  <path d="M35 50 L45 50 L43 58 L37 58 Z" fill="#d4a06a" stroke="#111" stroke-width="2"/>
+
+  <!-- Face -->
+  <ellipse cx="40" cy="41" rx="14" ry="16" fill="#d4a06a" stroke="#111" stroke-width="2.4"/>
+
+  <!-- Ears -->
+  <path d="M26 39 C24 41 24 45 26 48 C27 45 27 42 26 39 Z" fill="#d4a06a" stroke="#111" stroke-width="2"/>
+  <path d="M54 39 C56 41 56 45 54 48 C53 45 53 42 54 39 Z" fill="#d4a06a" stroke="#111" stroke-width="2"/>
+
+  <!-- Hair back / sides — rounded messy volume, low profile on top -->
+  <path d="M24 38
+           C23 28 30 17 40 16
+           C50 17 57 28 56 38
+           C57 44 54 48 50 49
+           L48 44 L26 44 L24 38 Z"
+        fill="#0f0f0f" stroke="#111" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M24 38 L20 36 L22 42 L26 44 Z" fill="#0f0f0f" stroke="#111" stroke-width="1.8"/>
+  <path d="M56 38 L60 36 L58 42 L54 44 Z" fill="#0f0f0f" stroke="#111" stroke-width="1.8"/>
+  <path d="M34 17 L32 14 L36 16 Z" fill="#0f0f0f" stroke="#111" stroke-width="1.5"/>
+  <path d="M40 16 L38 13 L42 15 Z" fill="#0f0f0f" stroke="#111" stroke-width="1.5"/>
+  <path d="M46 17 L48 14 L44 16 Z" fill="#0f0f0f" stroke="#111" stroke-width="1.5"/>
+
+  <!-- Eyes (simple dots) — drawn before bangs -->
+  <circle cx="35" cy="42" r="3" fill="#111"/>
+  <circle cx="45" cy="42" r="3" fill="#111"/>
+
+  <!-- Forehead bangs only — hang over brow, not covering eyes -->
+  <path d="M28 34 L30 40 L34 36 L38 40 L42 36 L46 40 L48 34 L44 32 L40 35 L36 32 Z" fill="#0f0f0f" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M36 32 L34 28 L38 30 Z" fill="#0f0f0f"/>
+  <path d="M44 32 L46 28 L42 30 Z" fill="#0f0f0f"/>
+</svg>

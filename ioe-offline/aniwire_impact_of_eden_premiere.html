@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>'Impact of Eden' Premiere Review: Burst Studio Announces Itself in 24 Minutes - AniWire</title>
+<style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Georgia, "Times New Roman", serif; color: #222; background: #f7f5f0; }
+    a { color: #0a5d2e; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    .aw-header { background: #0a5d2e; color: #fff; padding: 8px 30px; }
+    .aw-header-top { display: flex; align-items: center; gap: 18px; }
+    .aw-logo { font-family: Arial, sans-serif; font-weight: 900; font-size: 22px; letter-spacing: -0.5px; }
+    .aw-logo .wire { color: #ffe44a; }
+    .aw-tagline { font-size: 11px; font-family: Arial, sans-serif; opacity: 0.7; font-style: italic; margin-top: -2px; }
+    .aw-search { margin-left: auto; padding: 4px 10px; background: rgba(255,255,255,0.18); border-radius: 3px; font-size: 12px; font-family: Arial, sans-serif; }
+    .aw-search input { background: transparent; border: none; color: #fff; outline: none; width: 180px; font-size: 12px; }
+    .aw-nav { background: #073b1d; padding: 0 30px; font-family: Arial, sans-serif; font-size: 13px; }
+    .aw-nav a { color: #fff; padding: 9px 14px; display: inline-block; }
+    .aw-nav a:hover { background: #0a5d2e; text-decoration: none; }
+    .aw-nav a.current { background: #ffe44a; color: #073b1d; font-weight: bold; }
+
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px 30px; display: grid; grid-template-columns: 1fr 280px; gap: 36px; }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+    /* Breadcrumb */
+    .breadcrumb { font-size: 12px; color: #777; margin-bottom: 14px; font-family: Arial, sans-serif; }
+    .breadcrumb a { color: #777; }
+
+    /* Article */
+    article h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #0a5d2e; }
+    .subtitle { font-size: 17px; color: #555; margin-bottom: 18px; font-style: italic; }
+    .meta { font-size: 12px; color: #888; font-family: Arial, sans-serif; padding-bottom: 14px; border-bottom: 1px solid #d6d2c4; margin-bottom: 22px; }
+    .meta .author { color: #0a5d2e; font-weight: bold; }
+    .meta .divider { margin: 0 8px; }
+
+    article p { font-size: 16px; line-height: 1.7; margin: 0 0 16px; }
+    article h2 { font-size: 22px; color: #073b1d; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #ffe44a; }
+    article h3 { font-size: 18px; color: #0a5d2e; margin: 20px 0 8px; }
+    article blockquote {
+        margin: 18px 0;
+        padding: 14px 20px;
+        background: #fff8d9;
+        border-left: 4px solid #ffe44a;
+        font-size: 17px;
+        font-style: italic;
+        color: #333;
+    }
+    article ul { margin: 0 0 18px 24px; padding: 0; font-size: 16px; line-height: 1.7; }
+    article ul li { margin-bottom: 8px; }
+
+    .verdict-box {
+        margin: 22px 0;
+        padding: 18px 22px;
+        background: #fff;
+        border: 2px solid #0a5d2e;
+        border-radius: 4px;
+        position: relative;
+    }
+    .verdict-box .vlabel {
+        position: absolute; top: -12px; left: 14px;
+        background: #0a5d2e; color: #fff;
+        padding: 2px 12px;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        letter-spacing: 1px;
+        font-weight: bold;
+    }
+    .verdict-box .score {
+        font-family: Arial, sans-serif;
+        font-size: 38px;
+        font-weight: 900;
+        color: #0a5d2e;
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+    .verdict-box .score small { font-size: 18px; color: #888; font-weight: normal; }
+    .verdict-box .summary { font-size: 14px; color: #444; line-height: 1.6; font-family: Arial, sans-serif; }
+
+    /* Sidebar */
+    aside h3 { font-family: Arial, sans-serif; font-size: 13px; color: #073b1d; letter-spacing: 1px; padding-bottom: 8px; border-bottom: 2px solid #0a5d2e; margin: 0 0 12px; text-transform: uppercase; }
+    .ad-block {
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        color: #aaa;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        text-align: center;
+        padding: 60px 12px;
+        border: 1px dashed #555;
+        margin-bottom: 24px;
+        letter-spacing: 1px;
+    }
+    .related-list { margin-bottom: 28px; }
+    .related-list a { display: block; padding: 8px 0; border-bottom: 1px solid #d6d2c4; font-family: Arial, sans-serif; font-size: 13px; color: #073b1d; }
+    .related-list a:hover { color: #0a5d2e; }
+    .related-list .rdate { color: #999; font-size: 11px; display: block; margin-top: 2px; }
+
+    /* Comments stub */
+    .comments-stub { margin-top: 36px; padding: 20px; background: #fff; border: 1px solid #d6d2c4; }
+    .comments-stub h3 { margin-top: 0; font-family: Arial, sans-serif; color: #073b1d; }
+    .comments-toolbar { font-family: Arial, sans-serif; font-size: 11px; color: #777; margin: 4px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #e0dccf; }
+    .comments-toolbar a { color: #0a5d2e; text-decoration: none; margin: 0 4px; }
+    .comments-toolbar a.active { color: #073b1d; font-weight: bold; text-decoration: underline; }
+    .comment { padding: 10px 4px; border-bottom: 1px dashed #e0dccf; font-size: 14px; line-height: 1.5; }
+    .comment:last-of-type { border-bottom: 1px dashed #e0dccf; }
+    .comment .uname { font-family: Arial, sans-serif; font-weight: bold; color: #0a5d2e; font-size: 13px; }
+    .comment .cdate { font-family: Arial, sans-serif; font-size: 11px; color: #aaa; margin-left: 6px; }
+    .comment p { margin: 4px 0 6px; }
+    .comment.reply { margin-left: 24px; padding-left: 10px; border-left: 2px solid #e0dccf; background: #fbfaf5; }
+    .comment.reply2 { margin-left: 48px; padding-left: 10px; border-left: 2px solid #e0dccf; background: #fbfaf5; }
+    .comment.user-submitted { background: #fff8d8; border-left: 3px solid #ffe44a; padding-left: 8px; }
+    .comment .vote { font-family: Arial, sans-serif; font-size: 11px; color: #888; margin-top: 2px; }
+    .comment .vote a { color: #888; text-decoration: none; padding: 0 1px; }
+    .comment .vote a:hover { color: #0a5d2e; text-decoration: underline; }
+    .comment .vote .score { color: #444; font-weight: bold; }
+    .comment .vote .arrow { display: inline-block; padding: 0 3px; cursor: pointer; }
+    .comment .vote .arrow.up:hover { color: #0a5d2e; }
+    .comment .vote .arrow.down:hover { color: #963; }
+    .comment .vote .sep { color: #ccc; padding: 0 4px; }
+    .comments-loadmore { text-align: center; padding: 12px 0 4px; font-size: 13px; font-family: Arial, sans-serif; }
+    .comments-loadmore a { color: #0a5d2e; }
+
+    /* Comment form (2013-era guest comment widget) */
+    .comment-form { margin-top: 22px; padding: 14px; border: 1px solid #c8c4b4; background: #f5f4ec; }
+    .comment-form h4 { margin: 0 0 4px; font-family: Arial, sans-serif; font-size: 14px; color: #073b1d; }
+    .comment-form .form-meta { font-size: 11px; color: #777; font-family: Arial, sans-serif; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dotted #c8c4b4; }
+    .comment-form .form-meta a { color: #0a5d2e; text-decoration: none; }
+    .comment-form .signin-row { font-family: Arial, sans-serif; font-size: 11px; color: #555; margin-bottom: 10px; }
+    .comment-form .signin-row a { display: inline-block; padding: 3px 8px; margin-right: 4px; background: linear-gradient(to bottom, #fafafa 0%, #d8d8d8 100%); border: 1px solid #999; border-bottom-color: #777; color: #333; text-decoration: none; font-size: 11px; }
+    .comment-form .signin-row a:hover { background: linear-gradient(to bottom, #fff 0%, #e6e6e6 100%); }
+    .comment-form .form-row { margin-bottom: 8px; }
+    .comment-form label { display: block; font-family: Arial, sans-serif; font-size: 12px; color: #555; margin-bottom: 2px; }
+    .comment-form label .req { color: #b00; }
+    .comment-form input[type="text"],
+    .comment-form input[type="email"],
+    .comment-form textarea {
+        width: 100%; padding: 5px 6px; border: 1px solid #aaa; border-top-color: #888;
+        background: #fff; font-family: Arial, sans-serif; font-size: 13px; box-sizing: border-box;
+    }
+    .comment-form textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+    .comment-form .form-row.checkbox { font-family: Arial, sans-serif; font-size: 11px; color: #555; }
+    .comment-form .form-row.checkbox input { margin-right: 4px; vertical-align: middle; }
+    .comment-form .captcha { margin: 10px 0; padding: 8px; background: #fff; border: 1px dashed #aaa; font-family: 'Courier New', monospace; font-size: 13px; color: #333; }
+    .comment-form .captcha .puzzle { font-weight: bold; letter-spacing: 1px; background: #ececdc; padding: 2px 8px; border: 1px solid #bbb; }
+    .comment-form .captcha input { width: 60px; margin-left: 6px; padding: 2px 4px; border: 1px solid #aaa; font-family: 'Courier New', monospace; }
+    .comment-form .form-actions { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .comment-form button {
+        background: linear-gradient(to bottom, #f9f6e3 0%, #ddd9c0 100%);
+        border: 1px solid #8a8466; border-bottom-color: #6a6446;
+        padding: 5px 16px; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;
+        color: #073b1d; cursor: pointer;
+    }
+    .comment-form button:hover { background: linear-gradient(to bottom, #fff7c8 0%, #e8e3b8 100%); }
+    .comment-form button:active { background: #ddd9c0; border-color: #6a6446; }
+    .comment-form .powered { font-size: 10px; color: #999; font-family: Arial, sans-serif; text-align: right; }
+    .comment-form .powered b { color: #0a5d2e; }
+    .comment-form .policy { font-size: 11px; color: #888; margin-top: 8px; padding-top: 6px; border-top: 1px dotted #c8c4b4; font-family: Arial, sans-serif; }
+    .comment-form .policy a { color: #0a5d2e; }
+    .comment-form .form-error { color: #b00; font-size: 11px; font-family: Arial, sans-serif; margin-top: 4px; display: none; }
+    .comment-form .form-error.shown { display: block; }
+
+    /* Footer */
+    footer { background: #073b1d; color: #aaa; padding: 24px 30px; margin-top: 40px; font-family: Arial, sans-serif; font-size: 12px; text-align: center; }
+    footer a { color: #ffe44a; margin: 0 8px; }
+</style>
+</head>
+<body>
+
+<header class="aw-header">
+    <div class="aw-header-top">
+        <div>
+            <div class="aw-logo">Ani<span class="wire">Wire</span></div>
+            <div class="aw-tagline">animation news that doesn't waste your time &mdash; since 2007</div>
+        </div>
+        <div class="aw-search">
+            <input type="text" placeholder="search aniwire...">
+        </div>
+    </div>
+    <nav class="aw-nav">
+        <a href="#">Home</a>
+        <a href="#" class="current">News</a>
+        <a href="#">Reviews</a>
+        <a href="#">Features</a>
+        <a href="#">Industry</a>
+        <a href="#">Streaming</a>
+        <a href="#">Conventions</a>
+        <a href="#">Forums</a>
+    </nav>
+</header>
+
+<div class="container">
+
+<article>
+    <div class="breadcrumb"><a href="#">News</a> &rsaquo; <a href="#">Reviews</a> &rsaquo; <a href="#">Fall 2013</a> &rsaquo; Impact of Eden Premiere</div>
+
+    <h1>'Impact of Eden' Premiere Review: Burst Studio Announces Itself in 24 Minutes</h1>
+    <div class="subtitle">Debut studio Burst opens its catalog with a fall premiere so dense it feels like a finale &mdash; and it works.</div>
+
+    <div class="meta">
+        <span class="author">By Cassidy Renault-Hammond</span>
+        <span class="divider">|</span>
+        <span>Senior Anime Correspondent</span>
+        <span class="divider">|</span>
+        <span>October 6, 2013 &mdash; 4:18 PM EDT</span>
+    </div>
+
+    <p>Burst's debut anime <b>Impact of Eden (2013)</b> aired its first episode tonight on JP broadcast at 01:58 JST, and on the off chance you missed the chatter rolling through every anime forum on the internet for the last six hours: it landed. Hard.</p>
+
+    <p>With <b>Kaihatsu Miura</b> directing, <b>Keito Kisaragi</b> on series composition, and <b>Hiroyuki Sawano</b> composing the score, the premiere delivers the kind of front-loaded confidence that most studios save for episode three. It's not subtle about it. The cold open hits you with a date stamp from eleven years before the main timeline, the rooftop scene gives you the show's emotional thesis in ninety seconds, and the YAMAGA284 boss fight in the third act features sakuga choreography that would make a senior studio nervous about its season.</p>
+
+    <p>This is a debut studio. And let's be precise about that: not "Burst's first <i>TV</i> series." Burst's first piece of animation, full stop. No early ONA. No warm-up short. No web pilot. No movie before the flagship. Burst has no prior credits to point at. <i>Impact of Eden</i> is the studio's birth certificate. And they came out swinging like a finale.</p>
+
+    <h2>What's actually in the episode</h2>
+
+    <p>The setup, for the spoiler-cautious: After struggling at Maple Grove City with his parents, twelve-year-old <b>Sora Gauthier</b> decides to head out on a Soul Anchor Journey to avenge his mother's survival, joining forces with allies <b>Abigail June</b>, <b>Grayson Rothenberg</b>, and <b>Ben Smythe</b> inside <b>Planetation</b>. Running the system from above, however, is a council called <b>Student Council 1</b>, led by its president, <b>Miyuki Kagemitsu</b>. Over a single school day and an evening match, the episode establishes the show's "Burst Step" combat language and culminates in a boss encounter against an enemy player called YAMAGA284.</p>
+
+    <p>What sets the premiere apart isn't the premise &mdash; VR game anime has been a well-worn genre since 2002. What sets it apart is the <i>pace</i> and the <i>specificity</i>. Each character introduction is a working scene, not an info dump. Each chunk of world-building is delivered through action, not exposition. And the episode finds time, somehow, for full-length business operations by Gamlet (Kishou Taniyama) and Nova (Yui Ishikawa) and a quiet KO HQ scene where the show's adult-world stakes are conveyed entirely through both Nova and Gamlet's tone of voice.</p>
+
+    <blockquote>"No fear, no hesitation, no regrets!<br>
+    If the walls above stand in front of you, advance to crush them!<br>
+    Restrictions behind history are merely an excuse to refuse living!<br>
+    That is the real truth of humanity!<br>
+    Because of our mistakes, we deserve a path to choose where we keep moving forward!<br>
+    Therefore, our choice towards history is REFUSAL!"</blockquote>
+
+    <p>That's Miyuki, delivered live in the WarWorld lobby, two minutes before her squad and Sora's squad walk into the YAMAGA fight. It's the most quotable line of the fall season so far, and the show puts it in episode one. Saori Hayami delivers it like she's been waiting all year to read it.</p>
+
+    <h2>Burst earned the budget</h2>
+
+    <p>The animation is the bigger story. Burst spun out of Flow Pictures' late-era cinematic unit &mdash; the same staff culture that produced the iconic <i>Steelbound Testament</i> &mdash; and that pedigree shows. The YAMAGA284 fight features heat distortion compositing on the Crucible Blades, individually-keyed multi-frame slow motion on the Burst Step animations, and silhouette-work during the final exchange that delivers high-quality fluid sakuga choreography.</p>
+
+    <p>But the small choices are the more impressive flex. Burst gave a full key-frame pass to a four-second comedic emote scene featuring Likko Valenne (Student Council 1's Secretary, voiced by Ayane Sakura), where five distinct NPCs animate copying her dance rhythm individually instead of looping a single crowd animation. That's labor a debut studio is not <i>supposed</i> to be able to afford. And they did it for a comedy beat.</p>
+
+    <p>The grapple-pistol finisher <b>Abigail June</b> lands on YAMAGA at the end of act three is the headline sakuga sequence and it deserves the attention. The cut is staged across roughly forty drawings inside a 1.4-second window, with three discrete physics passes layered into a single take: the recoil arc on Abigail's shoulder as the pistol fires, the cable's whip-lash counter-curve in mid-air, and the impact deformation on YAMAGA284's plating at the moment of contact. Each of those is the kind of pass that, on most TV productions, would get one of the three; Burst gave it all three, on a single cut, on a debut. That is the headline. But the headline is not the story. The story is the <i>under-discussed</i> flex: the deliberate, per-character animation work given to <i>every</i> female character in the cast, and the structural decision to put the show's biggest emotional, ideological, and combat beats in the hands of those women without exception.</p>
+
+    <p>Take the women one at a time. <b>Miyuki Kagemitsu</b>'s stillness in the pre-Void Rift lobby is animated as a deliberate composition choice, not a budget save: she crosses her arms into a held pose, the OST cuts to silence underneath, and her squad in the background freezes their idle loops on the same beat â€” five separate keyed character poses holding at once, which is the opposite of how a TV anime would normally cheat that shot. Her micro-frown softening for a single frame at the close of "<i>Therefore, our choice towards history is REFUSAL!</i>" is the kind of animation choice you do not stumble into; somebody studied her. <b>Echo Desmond</b>'s stylish dual-blade fight sequence is the louder flex: she threads between two YAMAGA units with a low sliding cut, reverses into a backhand parry, and uses the rebound to vault into a corkscrew slash without the camera ever losing her center of gravity. The sakuga is not just "fast"; it is readable speed â€” full-body anticipation before every blade contact, separate arcs for each weapon, hair and jacket lagging a few frames behind the turn, and red-orange impact frames that punctuate the hits without hiding the choreography. The staff is introducing her as a veteran combatant first and a visual second, and the camera language enforces it. <b>Likko Valenne</b>'s chaotic comedy timing is the most expensive comedy beat on the episode: five distinct NPC dance loops keyed individually instead of cycled, plus an independent hair-physics pass that bobs at a different timing than her head movement, which is effectively giving her hair its own animator credit. <b>Nova</b>'s posture-as-grief portrayal in the KO HQ scene is the most quietly virtuosic cut in the entire premiere â€” a one-to-two pixel shoulder drop when she looks at the player counter, drawn-in exhaustion held for fourteen frames with zero dialogue overlay, and a re-grounding of her stance on the line about Frontier Risk that asks the audience to read a working professional carrying institutional weight. <b>Lisa</b> and <b>Minko</b>'s riot-read in the hallway scene gets walking-and-talking acting beats with shoulder turns and eyeline shifts that route the scene's information without pushing it into expository over-the-shoulder cuts. None of these women are framed as decoration. None of them are framed as reaction shots for a male lead. They are framed as the people <i>delivering</i> the scenes they are in.</p>
+
+    <p>The thematic implication is the part the discourse hasn't fully caught up with yet. The show's ideological spine &mdash; Miyuki's lobby speech &mdash; is delivered by a woman. The show's adult-world stakes &mdash; the Frontier Risk diagnosis at KO HQ &mdash; are delivered by a woman. The show's headline sakuga finisher on the episode's marquee fight is landed by a woman. The show's most expensive single comedy beat is built around a woman. The show's cleanest dual-blade speed-language showcase is given to a woman. That is not "male dominate, female support." That is a structural reversal: the women here are not adjacent to the lead role, they <i>are</i> the lead roles, plural. Burst's storyboard team, led by <b>Tomoe Suzuhara</b>, animated the women in this episode as characters first and as visuals second, and the writing under <b>Keito Kisaragi</b>'s series composition makes that the show's organizing principle, not a one-episode flourish. That kind of parity-by-leadership treatment is not a given in 2013, and frankly it's not a given in 2026 either. Eden is doing it on a debut studio's first ep. That deserves to be said out loud.</p>
+
+    <p>And the boys, to be clear, are not getting shortchanged either. <b>Sora</b>'s MetaCode arm-charge animates across three independent motion layers &mdash; skin deformation, hardlight glow, and the data-particle leak &mdash; over a single ~12-frame sequence; that's three animator passes for one cut, and it establishes the show's effects vocabulary right there. <b>Grayson</b>'s Crucible Dual Blade choreography on YAMAGA284 carries heat-distortion compositing on every flaming arc, with hand-drawn 2-frame motion blur underneath the digital pass &mdash; that's labor, not a filter. <b>Ben</b>'s NodeCore work &mdash; the drill spin-up and the gigantic-fist smash that lands square on YAMAGA284 &mdash; is a standout impact-frame sequence: weight-shift on the wind-up, a held single-frame impact pose at contact, then a multi-layer dust-and-shrapnel burst that sells the hit physically rather than as a stylized effect. Even <b>Gamlet</b>'s quiet coffee scene with Nova rests on micro-acting in the shoulders. The point isn't that the women got more attention than the men. It's that <i>nobody</i> in this cast got decoration treatment. Burst gave parity. That, in 2013, is rarer than it should be.</p>
+
+    <p>And there's a second register of male animation work worth flagging, because the discourse keeps under-counting it. The clearest example is <b>Sora</b>'s MetaCode mid-charge transformation in the YAMAGA fight &mdash; a four-second window where the data-particle leak escalates from a hairline glow to a full hardlight overlay across seven layered cuts, while Sora's face cycles through a keyed micro-expression on every pose: fear, then commitment, then a single-frame neutral that lands the swing. That is character animation grafted onto an effects sequence, not the other way around. <b>Grayson</b>'s calibration-card beat earlier in the episode gets a held two-second quiet shot with the redacted KO-tier 3 tag flashing once on the card surface &mdash; the kind of background-information frame a debut studio is allowed to cheat and Burst chose not to. <b>Ben</b>'s classroom-door-lock at the end of his hallway sprint, normally the kind of beat a TV production cycles a stock animation for, gets full hand-on-handle physics on the lock turn. And the supporting credited men &mdash; <b>William Jones</b> (Hiro Shimono), <b>Kieran Atsushi</b> (Hiroshi Kamiya), <b>Michael Pentulengro</b> (Yoshimasa Hosoya), <b>Andreas Walker</b> (Tasuku Hatanaka) &mdash; are not crowd-art either: each gets at least one keyed reaction shot or named acting beat, with cast-of-this-tier voice work underneath. On a debut studio's first episode in 2013, that's a resource-allocation flex on its own. The shape, when you sit with it, is that the men in Eden are animated as characters in motion &mdash; <i>becoming</i>, escalating, transforming &mdash; while the women are animated as characters who already are. Both registers are working in parallel, both registers are working hard, and Burst is asking the audience to read both at once.</p>
+
+    <h2>Voice cast on a debut studio production</h2>
+
+    <p>The vocal cast is, frankly, embarrassing for a debut studio. We have Mariya Ise as Sora Gauthier, Nobuhiko Okamoto as Grayson Rothenberg, Kana Hanazawa as Abigail June, Kaito Ishikawa as Ben Smythe, Saori Hayami as Miyuki, Rina Satou as Echo, Hiro Shimono as William, Hiroshi Kamiya as Kieran, Ayane Sakura as Likko, Yoshimasa Hosoya as Michael Pentulengro, and Tasuku Hatanaka as Andreas Walker. Yui Ishikawa, fresh off her widely-acclaimed work earlier this year, plays Nova. Kishou Taniyama plays Gamlet.</p>
+
+    <p>That cast, for a debut studio's first-ever animated production &mdash; period, no qualifier, no prior work for the producers to point at &mdash; is unheard of. Whoever did the producer relationships on this project knew exactly who they were calling and why.</p>
+
+    <h2>The not-as-good</h2>
+
+    <p>It's not flawless. One line of YAMAGA284 dialogue early in the fight is intentionally off-putting in a way that crosses into "uncomfortable for shock value" territory and we wish it had been written with more care, given the age of the squad. The hallway riot scene in act one uses a deliberately stiffer animation style that some viewers will read as budget-cutting rather than as a stylistic choice (it's a stylistic choice, but the show could have communicated that better). And the sheer density of the premiere will lose some viewers who wanted a slower introduction to the cast.</p>
+
+    <p>None of these are dealbreakers. But they're worth flagging.</p>
+
+    <h2>What this means for the season</h2>
+
+    <p>Burst just announced itself. <i>Impact of Eden (2013)</i> is the kind of episode-one that makes the rest of the fall season nervous, because if Burst can sustain even 75% of this density across a 25-episode run, this is going to be a Show of the Year conversation by January. The early YAL score (8.51 after a single episode and 2,847 votes as of this writing) suggests the audience already knows.</p>
+
+    <p>Episode two airs Sunday October 13 at 01:58 JST. We will be there.</p>
+
+    <div class="verdict-box">
+        <div class="vlabel">VERDICT</div>
+        <div class="score">8.5<small> / 10</small></div>
+        <div class="summary">A staggeringly confident debut. Burst handled the production logistics, Takuya's original concept delivers a layered cast, and the staff list reads like a who's-who. The single weak dialogue beat and a premiere this dense risking viewer fatigue hold us back from a 9. Everything else is a clinic in how to open a 25-episode show.</div>
+    </div>
+
+    <p style="font-size: 12px; color: #888; font-family: Arial, sans-serif; margin-top: 20px;">
+        <i>Cassidy Renault-Hammond covers animation production for AniWire. She has been writing about Japanese animation since 2008. Disclosure: AniWire received no press materials from Burst or AniBlex for this review; the review is based on the public Japanese broadcast.</i>
+    </p>
+
+    <!-- Comments -->
+    <div class="comments-stub">
+        <h3>Reader Comments (<span id="comments-count">412</span>)</h3>
+        <div class="comments-toolbar">
+            Sort by:
+            <a href="#" class="active">Best</a> &middot;
+            <a href="#">Newest</a> &middot;
+            <a href="#">Oldest</a>
+            <span style="float: right;">
+                <a href="#">Subscribe to thread</a> &middot;
+                <a href="#">RSS</a>
+            </span>
+        </div>
+
+        <div id="comments-list">
+
+            <div class="comment">
+                <span class="uname">SinfulApexFan_2009</span><span class="cdate">Oct 6, 2013 &middot; 5:02 PM EDT</span>
+                <p>Cassidy you understated Hayami's read on the speech. that performance is the moment of the year for me. nobody else came close.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">147</span></span><span class="arrow down" data-arrow="down" data-target="vcount-1">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply (3)</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment reply">
+                <span class="uname">Cassidy_RH</span> <span style="font-size:10px;color:#999;font-family:Arial,sans-serif;background:#ffe44a;padding:1px 5px;margin-left:4px;">staff</span><span class="cdate">Oct 6, 2013 &middot; 5:11 PM EDT</span>
+                <p>fair criticism. I went back and forth on how to weight the speech in the review and I think you're right that I left points on the table. the embargo on long-form analysis pieces lifts Friday and you'll see Hayami's read get the dedicated treatment it deserves. thanks for reading.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">89</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">PressCheck_Anime</span><span class="cdate">Oct 6, 2013 &middot; 5:14 PM EDT</span>
+                <p>good review but you missed the bigger story which is that Suzuhara boarded this fight. that's the headline. her work on <i>Zero Latitude</i> already proved she's the best in the business on long-take action and this is the proof she can do it in TV format too.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">112</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply (1)</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment reply">
+                <span class="uname">DebutStudioGazer</span><span class="cdate">Oct 6, 2013 &middot; 5:19 PM EDT</span>
+                <p>seconding this. Suzuhara's name in the storyboard credit was the FIRST thing I noticed when the ED rolled. she's been overdue a TV series of this caliber for two years.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">63</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">EchoDesmond_Stan</span><span class="cdate">Oct 6, 2013 &middot; 5:23 PM EDT</span>
+                <p>thank you for actually crediting the women on production. so many of these reviews list the director and the composer and stop there. Suzuhara and Hayami deserve top billing on this episode. and frankly so does Kisaragi on the comp side.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">98</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">9PointZeroForUs</span><span class="cdate">Oct 6, 2013 &middot; 5:41 PM EDT</span>
+                <p>8.5 is generous but I am not going to argue. show is real.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">41</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">OurChoiceIsRefusal</span><span class="cdate">Oct 6, 2013 &middot; 5:58 PM EDT</span>
+                <p>the Miyuki section of the review is the only thing on the english internet right now that gets the speech RIGHT. she is the show's spine. saving this article for the screen-cap when we are all proven correct in three months.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">76</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">AbigailFinisher_Frame_8</span><span class="cdate">Oct 6, 2013 &middot; 6:14 PM EDT</span>
+                <p>working animator here. small note on the recoil arc &mdash; you're correct on the layered passes count but the actual recoil arc is 6 frames not 8 like a couple of other sites are claiming. otherwise this is the most accurate breakdown I have read on this fight today. nice work.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">131</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply (2)</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment reply">
+                <span class="uname">Cassidy_RH</span> <span style="font-size:10px;color:#999;font-family:Arial,sans-serif;background:#ffe44a;padding:1px 5px;margin-left:4px;">staff</span><span class="cdate">Oct 6, 2013 &middot; 6:21 PM EDT</span>
+                <p>good catch &mdash; correction noted, I'll patch the article body in the next pass. appreciate the eyes.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">52</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">HammondMidAlum</span><span class="cdate">Oct 6, 2013 &middot; 6:31 PM EDT</span>
+                <p>review missed Lisa &amp; Minko's hallway walk-and-talk imo. that scene is doing a TON of work for the riot setup and barely anyone is talking about it. otherwise solid piece.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">29</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">Council_1_Forever</span><span class="cdate">Oct 6, 2013 &middot; 7:02 PM EDT</span>
+                <p>the fact that this review names every Student Council 1 member by their actual role and credits the women as <i>leads</i> is genuinely refreshing. most reviews would have written a single sentence calling them "the council group" and moved on. thank you for the labor.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">84</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">OffPuttingDialogue_Watch</span><span class="cdate">Oct 6, 2013 &middot; 7:33 PM EDT</span>
+                <p>I was 10/10 on this episode until the YAMAGA284 player chat insult line about Echo. that one beat soured a 10 to a 9 for me. show is otherwise immaculate. and yeah Hayami is performance of the year, agreed with everyone above.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">54</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply (1)</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">FirstAnimationPeriod</span><span class="cdate">Oct 6, 2013 &middot; 7:51 PM EDT</span>
+                <p>"Burst has no prior credits to point at. Impact of Eden is the studio's birth certificate." this is going to be the line everybody quotes when they talk about Burst for the next decade. mark my words.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">118</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">NovaIsTheBoss_42</span><span class="cdate">Oct 6, 2013 &middot; 8:09 PM EDT</span>
+                <p>the under-discussed VA performance of the episode is Yui Ishikawa's read on the Frontier Risk diagnosis. Hayami gets the louder beat but Ishikawa is doing the harder one. quiet exhaustion is a high-difficulty register and she lands it on first reading. crediting Gamlet (Taniyama) too because the two of them are doing the office-life acting that this show desperately needed in ep 1.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">93</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+            <div class="comment">
+                <span class="uname">Likko_Sakura_Defender</span><span class="cdate">Oct 6, 2013 &middot; 8:34 PM EDT</span>
+                <p>review acknowledges the Likko emote scene as the most expensive comedy beat which is correct but I'd push it further &mdash; that scene is the studio's <i>statement of philosophy</i>. you don't spend that much labor on a four second comedy beat unless you've decided as a team that the fan-coded characters get the same animator hours as the lead-coded characters. that's the read. that's the studio.</p>
+                <div class="vote">
+                    <span class="score">&#9650; <span class="vcount">71</span></span><span class="arrow down" data-arrow="down">&#9660;</span>
+                    <span class="sep">|</span> <a href="#">Reply</a> <span class="sep">|</span> <a href="#">Permalink</a> <span class="sep">|</span> <a href="#">Flag</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="comments-loadmore">
+            <a href="#" id="view-all-comments">View all 412 comments &rsaquo;</a>
+        </div>
+
+        <!-- Comment form -->
+        <div class="comment-form">
+            <h4>Add Your Comment</h4>
+            <div class="form-meta">
+                Comments are moderated. First-time commenters' posts are held for review. <a href="#">Comments policy</a> &middot; <a href="#">Markdown syntax</a>
+            </div>
+
+            <div class="signin-row">
+                <b>Sign in:</b>
+                <a href="#">AniWire</a>
+                <a href="#">OpenID</a>
+                <a href="#">Birdie</a>
+                <span style="margin-left: 4px;">or post as a guest below.</span>
+            </div>
+
+            <form id="aniwire-comment-form" novalidate>
+                <div class="form-row">
+                    <label for="cf-name">Name <span class="req">*</span></label>
+                    <input type="text" id="cf-name" name="cf-name" maxlength="40" autocomplete="off">
+                </div>
+                <div class="form-row">
+                    <label for="cf-email">Email <span style="color:#999;font-weight:normal;">(not published)</span></label>
+                    <input type="email" id="cf-email" name="cf-email" maxlength="80" autocomplete="off">
+                </div>
+                <div class="form-row">
+                    <label for="cf-comment">Comment <span class="req">*</span></label>
+                    <textarea id="cf-comment" name="cf-comment" maxlength="2000"></textarea>
+                </div>
+
+                <div class="captcha">
+                    <label for="cf-captcha" style="display:inline;color:#777;font-family:Arial,sans-serif;font-size:11px;">Spam check &mdash; please solve:</label>
+                    <span class="puzzle" id="cf-captcha-q">5 + 3 =</span>
+                    <input type="text" id="cf-captcha" maxlength="3" autocomplete="off" aria-label="Captcha answer">
+                </div>
+
+                <div class="form-row checkbox">
+                    <label><input type="checkbox" id="cf-notify"> Notify me of follow-up comments by email.</label>
+                </div>
+                <div class="form-row checkbox">
+                    <label><input type="checkbox" id="cf-subscribe"> Subscribe to AniWire's weekly newsletter.</label>
+                </div>
+
+                <div class="form-error" id="cf-error"></div>
+
+                <div class="form-actions">
+                    <button type="submit">Submit Comment</button>
+                    <span class="powered">Powered by <b>AniWire Comments</b> v2.4</span>
+                </div>
+
+                <div class="policy">
+                    By posting you agree to AniWire's <a href="#">Comments Policy</a> and <a href="#">Terms of Service</a>. Off-topic, abusive, or spam comments will be removed without warning. Please be respectful of fellow commenters &mdash; this is an animation news site, not a battleground.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var captchaA = Math.floor(Math.random() * 9) + 1;
+        var captchaB = Math.floor(Math.random() * 9) + 1;
+        var captchaQ = document.getElementById('cf-captcha-q');
+        if (captchaQ) captchaQ.textContent = captchaA + ' + ' + captchaB + ' =';
+
+        var form = document.getElementById('aniwire-comment-form');
+        if (!form) return;
+        var commentsList = document.getElementById('comments-list');
+        var commentCountEl = document.getElementById('comments-count');
+        var viewAllEl = document.getElementById('view-all-comments');
+        var errorEl = document.getElementById('cf-error');
+        var totalCount = parseInt((commentCountEl && commentCountEl.textContent) || '412', 10);
+
+        var initialVisible = commentsList.querySelectorAll('.comment').length;
+        var totalArchive = 412;
+        var loadedFromArchive = initialVisible;
+        var BATCH_SIZE = 25;
+
+        function showError(msg) {
+            if (!errorEl) { alert(msg); return; }
+            errorEl.textContent = msg;
+            errorEl.classList.add('shown');
+        }
+        function clearError() {
+            if (!errorEl) return;
+            errorEl.textContent = '';
+            errorEl.classList.remove('shown');
+        }
+
+        function pad2(n) { return (n < 10 ? '0' : '') + n; }
+        function formatNow() {
+            var d = new Date();
+            var hours = d.getHours();
+            var ampm = hours < 12 ? 'AM' : 'PM';
+            var h12 = hours % 12; if (h12 === 0) h12 = 12;
+            return 'Oct 6, 2013 \u00b7 ' + h12 + ':' + pad2(d.getMinutes()) + ' ' + ampm + ' EDT';
+        }
+
+        function bindVote(commentNode) {
+            var voteState = { value: 0 };
+            var countEl = commentNode.querySelector('.vcount');
+            if (!countEl) return;
+            var baseCount = parseInt(countEl.textContent, 10) || 0;
+
+            function setVote(direction) {
+                var newState = (voteState.value === direction) ? 0 : direction;
+                voteState.value = newState;
+                countEl.textContent = baseCount + newState;
+            }
+
+            var upEl = commentNode.querySelector('.vote .score');
+            var downEl = commentNode.querySelector('.vote .arrow.down');
+            if (upEl) upEl.style.cursor = 'pointer';
+            if (upEl) upEl.addEventListener('click', function(e) { e.preventDefault(); setVote(1); });
+            if (downEl) downEl.addEventListener('click', function(e) { e.preventDefault(); setVote(-1); });
+        }
+
+        var existingComments = commentsList.querySelectorAll('.comment');
+        for (var i = 0; i < existingComments.length; i++) bindVote(existingComments[i]);
+
+        // ---------- Procedural comment archive generator ----------
+        var USERNAMES = [
+            "SakugaWatcher_2010", "HypeBeam_3500", "MariyaIse_Disciple", "AbigailFanAlready",
+            "MiyukiSpeechFan", "EchoStanForever", "NovaIsTheBoss_42", "Likko_Sakura_4Eva",
+            "GamletAppreciation", "FrameByFrame_Fan", "AnimatorFromKobe", "KeyAnimationKid",
+            "Just_a_Lurker", "FirstTimePoster_2013", "AnonymousReader_77", "BroadcastWatcher",
+            "HypeChecker_2013", "Skeptic_Anime", "NeutralCritic_03", "ContrarianAnimeFan",
+            "BurstFan_DayOne", "FlowPicturesFan_2009", "SinfulApexFan_2011", "Day1Burst",
+            "HanazawaForever", "OkamotoEnthusiast", "HayamiQueen_Stan", "SakuraAyane_Stan",
+            "ChoiceIsRefusalFan", "ThesisLineFan_X", "KO_HQ_Watcher", "FrontierRiskFan",
+            "NovaGamletShipper", "TheRealAW_Fan", "LongTimeReader_07", "FirstComment_Always",
+            "BringBack90sAnime", "BluRayHunter_2013", "TheaterFanWaiting", "OPSingleHunter",
+            "EDVinylWanted", "PressCheck_Anime_2", "RewatchingForever", "CaughtUpJustNow",
+            "RegistrationDayOne", "MillenniumFan", "AnimeYearAlive", "NightShiftWatcher",
+            "EastCoastReader_NJ", "WestCoastWaitingRoom", "JST_Live_Tweeter", "SubsOnlyForever",
+            "NoSpoilerZone_99", "GraduateStudentAnime", "QuietWatcher_22", "SocialDistanceLurker",
+            "HypeBalanceTeam", "TBHThisIsGreat", "9PointFiveMinimum", "PrintingItOut",
+            "Ranking_The_OPs", "Sawano_Score_Watcher", "OST_Hunter_2013", "VAGuessThread",
+            "SubgroupComparison", "ManuscriptCollector", "MerchPreorderHunter", "EarlyBirdViewer",
+            "InsomniaCrew", "WeekendReviewer", "ProductionDiaryFan", "StudioHistoryNerd",
+            "TomoeSuzuhara_Fan", "KisaragiKeito_Fan", "LioHaraguchi_Stan", "MiuraDirected_Fan",
+            "FunmaxationCustomer", "AniBlexProducer_Watch", "YAMAGAFightFan", "BurstStepStudent",
+            "MetaCodeTheorist", "VoidRiftWaiter", "PlanetationLore_Fan", "WarWorldGamer",
+            "StudentCouncil1_Forever", "HammondAcademyAlum", "FrontierRiskTheorist", "NodeCoreFan",
+            "CrucibleBladesFan", "GrapplePistolFan_42", "LobbySpeechReplay", "SinfulApexFan_2010",
+            "Steelbound_Witness", "TorchPassWatcher", "BirthCertificateFan", "DebutFlexAppreciator",
+            "ParityNotPedestal", "WomenLeadCoded", "TakuyaPhilosophyFan", "RetroBluRay_AMV"
+        ];
+
+        var TEMPLATE_POOL = [
+            // Praise
+            "this is one of the best ep1s of the year. mark it.",
+            "saving this article. saving the screencaps. ep 2 needs to live up.",
+            "8.5 might be too low actually. let me sit with the episode for a few hours.",
+            "Burst's first ever animation period and it's THIS? what a swing for a debut.",
+            "did not expect this much from a brand new studio. genuinely impressed.",
+            "best fall premiere I've seen in three years and I am NOT exaggerating.",
+            "if the rest of the season holds at 75% of this density we have a Show of the Year on our hands.",
+            "the discourse is going to be insufferable about this show and you know what? it has earned every minute of it.",
+
+            // Speech / Miyuki
+            "Miyuki carries the entire ideological weight of this show. one episode and that's already true.",
+            "Hayami's read on \"REFUSAL!\" is the line of the season. you cannot convince me otherwise.",
+            "the speech is going to be the meme template of the season by January. mark it.",
+            "rewatched the speech four times. the way the OST drops out underneath it is composer-level discipline.",
+            "Miyuki's stillness during the speech is the most expensive shot in the episode and the cheapest to misread.",
+
+            // Action / Abigail / fight
+            "Abigail's grapple-pistol finisher is going to be the cut everybody screencaps for the next decade.",
+            "the YAMAGA284 fight makes an 8.5 review look conservative honestly.",
+            "Grayson's flaming dual blades is the second most impressive cut in the fight after Abigail's finisher and it's not close.",
+            "Ben's NodeCore drill spin-up is the under-discussed impact-frame cut of the YAMAGA fight. weight-shift on the wind-up is professional-grade.",
+            "Sora's MetaCode mid-charge transformation is the best individual cut in the fight, fight me.",
+
+            // Women-lead framing
+            "the women in this show are the leads. I will keep saying this until everyone catches up.",
+            "the staff trusted seven women to carry the show in ep 1 and they delivered. that's the whole story.",
+            "Nova is the show's adult-world spine. Yui Ishikawa is doing the harder VA work this episode by far.",
+            "Echo's dual-blade fight cut is the under-discussed flex of the episode. readable speed, separate weapon arcs, and impact frames that don't hide the choreography.",
+            "Likko's hair physics gets her a separate animator credit and that's not a joke. that's a structural decision.",
+            "Lisa and Minko's hallway walk-and-talk is the riot setup nobody is crediting. it's a stealth flex.",
+            "Eden just put seven women in lead-coded roles in ep 1 and the discourse cannot decide who to talk about first. THAT'S the win condition.",
+            "this is not 'male dominate, female support.' this is the women leading. read the staging.",
+
+            // Voice cast
+            "Kana Hanazawa as Abigail is genius casting. reverse expectations work and they work BIG.",
+            "Mariya Ise voicing a 12 year old boy is exactly what I wanted in Sora.",
+            "Saori Hayami performance of the year. nothing else came close in October.",
+            "Yui Ishikawa as Nova is the under-discussed VA flex. she carries the office scene by herself.",
+            "Kishou Taniyama is so underrated. give him another lead role yesterday.",
+            "Rina Satou as Echo is exactly right. you can hear the veteran in her line reads.",
+            "Ayane Sakura as Likko is the fan-cast nobody saw coming and it is PERFECT.",
+            "Hiroshi Kamiya as Kieran is the casting flex of a debut studio with zero shame about it.",
+            "Nobuhiko Okamoto and Kaito Ishikawa on the same squad voice cast is the pull of the year.",
+            "stacked cast for a debut studio. AniBlex is throwing real money at this and it shows.",
+
+            // Burst / lineage
+            "first ever Burst anime. they SKIPPED the test ONA phase. what a flex.",
+            "Flow Pictures' final breath into Burst's first breath. clean torch pass.",
+            "Sinful Apex staff carrying this episode. I hear it in every cut.",
+            "Burst doesn't have an Inferno Cop equivalent. they walked straight into a TV ep 1 and DELIVERED. that is not normal.",
+            "the 'no early ONA, no warm-up short' line is going to be the permanent tagline for this studio.",
+            "Studio Burst's birth certificate is a TV ep 1 with an 8.5 review. I am still processing this.",
+
+            // Production / staff
+            "Sawano's score is restrained in a way I did not expect. somebody leaned on him to pull back.",
+            "Suzuhara on storyboard is the headline credit. her name on the ED is what made me lean forward.",
+            "Kisaragi on series comp is why this episode lands its emotional through-lines. she is doing the writing-side work that makes the animation possible.",
+            "Lio Haraguchi's character designs are subtle in a way that doesn't show off and does the entire heavy lift in a fight scene.",
+            "Tsubasa Aramaki and Junpei Oikawa got an 8.5 ep 1 out of a debut studio. give them medals.",
+
+            // Mystery / lore hooks
+            "the Frontier Risk Management line is the season's mystery hook. mark it.",
+            "the World Tree shot at the end is going to be the screenshot of the season by November.",
+            "STATUS: UNCONFIRMED VIRUS MANIFESTATION is the most ominous text overlay I've seen this year.",
+            "the 'baby's hand on the glass' shot at the end of ep 1 is going to be the most-discussed frame of the cour.",
+
+            // Skeptical / debate
+            "8.5 is hype talking. let me see ep 2 first.",
+            "every fall season I see this exact 'ep 1 is amazing' thread. I'll wait.",
+            "Burst is a debut studio. this much polish on ep 1 means budget burn. show me ep 6.",
+            "the YAMAGA284 chat insult about Echo is unforgivable. that's a 9.0 ceiling for me until they address it.",
+            "I'm tempering expectations. ep 1s are designed to over-deliver. let's see what ep 4 looks like.",
+            "calling 8.5 right now is reviewer-brain. the audience aggregate is already at 8.51 on YAL with sample size of 2,847. those numbers will MOVE.",
+
+            // Casual / community
+            "first comment on this article from the west coast. just got home from work, watched the ep, and: yes.",
+            "watched this with my partner and we both agree, it's special.",
+            "I'm an old-school fan. last show that hit me this hard was a 2009 release. this is special.",
+            "sub or wait for dub debate is dead. watch the sub now.",
+            "ED tracklist when?",
+            "OP single release date?",
+            "BD release date when?",
+            "where can I find the OP single? need it on my drive yesterday.",
+            "ED needs a vinyl release. someone make this happen.",
+            "someone post the timestamp for the rooftop scene please",
+            "I literally cried at the speech and I'm not ashamed about it",
+            "rewatching the YAMAGA fight on loop. someone help.",
+            "ep 2 in 7 days??? how am I supposed to wait that long after this",
+            "saving this comments section for the receipt when this show wins everything in January.",
+            "the fact that this is the FIRST Burst anime is going to be a trivia question for years.",
+            "AniBlex producer team needs to be on every newcomer's hire-list.",
+
+            // Article meta
+            "Cassidy keeps writing the best premiere reviews on the english internet. give her a raise.",
+            "noticed a small typo in paragraph 4 but otherwise great article",
+            "this article is going to age very well, mark it",
+            "best AniWire piece I've read in months",
+            "saving the article. screencap of the byline. Cassidy is on a hot streak.",
+            "the lineage paragraph is the cleanest write-up of Burst's identity I've read all week.",
+
+            // Off-the-wall
+            "I am genuinely worried about Frontier Risk and I do not know what it is yet.",
+            "sleep is not real. ep 1 ate my evening.",
+            "saving article. saving comments. saving entire experience.",
+            "the show is going to be insufferable to argue about. cannot wait."
+        ];
+
+        // Generate timeline of timestamps for the remaining 397 comments,
+        // spread across Oct 6 evening through Oct 9 evening (broadcast window).
+        function buildTimeline() {
+            var stamps = [];
+            // Start at Oct 6, 8:35 PM EDT, generate ~4 days through Oct 9, 11 PM EDT
+            // 4 days * 28 slots = 112 slots, but we need 397, so generate denser.
+            var days = ['Oct 6', 'Oct 7', 'Oct 8', 'Oct 9'];
+            // Distribute 397 comments unevenly: most concentrated on Oct 6 night, tapering down
+            var weightsPerDay = [0.45, 0.30, 0.15, 0.10];
+            var startMinutesPerDay = [(20 * 60 + 35), 0, 0, 0];
+            var endMinutesPerDay = [(23 * 60 + 59), (23 * 60 + 59), (23 * 60 + 59), (23 * 60 + 0)];
+
+            var remaining = totalArchive - initialVisible;
+            for (var d = 0; d < days.length; d++) {
+                var dayCount = Math.round(remaining * weightsPerDay[d]);
+                var startMin = startMinutesPerDay[d];
+                var endMin = endMinutesPerDay[d];
+                for (var k = 0; k < dayCount; k++) {
+                    var minute = startMin + Math.floor((endMin - startMin) * (k / Math.max(1, dayCount - 1)));
+                    var hour24 = Math.floor(minute / 60);
+                    var min = minute % 60;
+                    var ampm = hour24 < 12 ? 'AM' : 'PM';
+                    var h12 = hour24 % 12; if (h12 === 0) h12 = 12;
+                    stamps.push(days[d] + ', 2013 \u00b7 ' + h12 + ':' + pad2(min) + ' ' + ampm + ' EDT');
+                }
+            }
+            return stamps;
+        }
+        var TIMESTAMPS = buildTimeline();
+
+        function pickRandom(arr, idx) {
+            // deterministic-ish: rotate through with randomized offset for variety
+            return arr[(idx * 7 + Math.floor(idx / 3)) % arr.length];
+        }
+        function randomVoteCount(idx) {
+            // Earlier comments (lower idx) get more votes; later get fewer.
+            var ratio = 1 - (idx / Math.max(1, totalArchive - initialVisible));
+            var base = Math.floor(80 * ratio * ratio + 4);
+            var jitter = Math.floor(Math.random() * 20) - 6;
+            var v = base + jitter;
+            return v < 1 ? 1 : v;
+        }
+
+        function buildArchiveCommentNode(archiveIdx) {
+            var name = pickRandom(USERNAMES, archiveIdx);
+            var body = pickRandom(TEMPLATE_POOL, archiveIdx + 3);
+            var ts = TIMESTAMPS[archiveIdx] || ('Oct 9, 2013 \u00b7 11:00 PM EDT');
+            var votes = randomVoteCount(archiveIdx);
+            var replyCountSuffix = (votes > 60 && (archiveIdx % 5) === 0) ? ' (' + (1 + (archiveIdx % 4)) + ')' : '';
+
+            var node = document.createElement('div');
+            node.className = 'comment';
+            node.innerHTML =
+                '<span class="uname"></span><span class="cdate"></span>' +
+                '<p></p>' +
+                '<div class="vote">' +
+                    '<span class="score">&#9650; <span class="vcount">' + votes + '</span></span>' +
+                    '<span class="arrow down" data-arrow="down">&#9660;</span>' +
+                    '<span class="sep">|</span> <a href="#">Reply' + replyCountSuffix + '</a>' +
+                    ' <span class="sep">|</span> <a href="#">Permalink</a>' +
+                    ' <span class="sep">|</span> <a href="#">Flag</a>' +
+                '</div>';
+            node.querySelector('.uname').textContent = name;
+            node.querySelector('.cdate').textContent = ts;
+            node.querySelector('p').textContent = body;
+            return node;
+        }
+
+        function updateLoadMoreLabel() {
+            if (!viewAllEl) return;
+            if (loadedFromArchive >= totalArchive) {
+                viewAllEl.textContent = 'You\u2019ve reached the end of the comments \u2014 thank you for reading.';
+                viewAllEl.style.color = '#888';
+                viewAllEl.style.cursor = 'default';
+                viewAllEl.style.textDecoration = 'none';
+                viewAllEl.removeAttribute('href');
+            } else {
+                var remainingArchive = totalArchive - loadedFromArchive;
+                var nextBatch = Math.min(BATCH_SIZE, remainingArchive);
+                viewAllEl.textContent = 'Showing ' + loadedFromArchive + ' of ' + totalArchive + ' \u00b7 Load ' + nextBatch + ' more comments \u203a';
+            }
+        }
+        updateLoadMoreLabel();
+
+        if (viewAllEl) {
+            viewAllEl.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (loadedFromArchive >= totalArchive) return;
+                var remainingArchive = totalArchive - loadedFromArchive;
+                var batch = Math.min(BATCH_SIZE, remainingArchive);
+                var firstNew = null;
+                for (var k = 0; k < batch; k++) {
+                    var archiveIdx = loadedFromArchive - initialVisible + k;
+                    var node = buildArchiveCommentNode(archiveIdx);
+                    bindVote(node);
+                    commentsList.appendChild(node);
+                    if (k === 0) firstNew = node;
+                }
+                loadedFromArchive += batch;
+                updateLoadMoreLabel();
+                if (firstNew) firstNew.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
+        // ---------- Comment form submission ----------
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearError();
+
+            var name = (document.getElementById('cf-name').value || '').trim();
+            var body = (document.getElementById('cf-comment').value || '').trim();
+            var captchaAns = (document.getElementById('cf-captcha').value || '').trim();
+
+            if (!name) { showError('Please enter a name.'); return; }
+            if (!body) { showError('Please enter a comment.'); return; }
+            if (parseInt(captchaAns, 10) !== (captchaA + captchaB)) {
+                showError('Spam check answer is incorrect. Please try again.');
+                return;
+            }
+
+            var node = document.createElement('div');
+            node.className = 'comment user-submitted';
+            node.innerHTML =
+                '<span class="uname"></span><span class="cdate"></span>' +
+                '<p></p>' +
+                '<div class="vote">' +
+                    '<span class="score">&#9650; <span class="vcount">1</span></span>' +
+                    '<span class="arrow down" data-arrow="down">&#9660;</span>' +
+                    '<span class="sep">|</span> <a href="#">Reply</a>' +
+                    ' <span class="sep">|</span> <a href="#">Permalink</a>' +
+                    ' <span class="sep">|</span> <a href="#">Flag</a>' +
+                '</div>';
+            node.querySelector('.uname').textContent = name;
+            node.querySelector('.cdate').textContent = formatNow();
+            node.querySelector('p').textContent = body;
+            bindVote(node);
+
+            commentsList.appendChild(node);
+
+            totalCount += 1;
+            totalArchive += 1;
+            loadedFromArchive += 1;
+            if (commentCountEl) commentCountEl.textContent = totalCount;
+            updateLoadMoreLabel();
+
+            document.getElementById('cf-comment').value = '';
+            document.getElementById('cf-captcha').value = '';
+            captchaA = Math.floor(Math.random() * 9) + 1;
+            captchaB = Math.floor(Math.random() * 9) + 1;
+            if (captchaQ) captchaQ.textContent = captchaA + ' + ' + captchaB + ' =';
+
+            node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    })();
+    </script>
+
+</article>
+
+<aside>
+    <div class="ad-block">
+        ADVERTISEMENT<br>
+        <span style="font-size:9px;">[FUNMAXATION HOME VIDEO]</span><br><br>
+        SINFUL APEX<br>
+        COMPLETE COLLECTION<br>
+        ON BLU-RAY NOV 19
+    </div>
+
+    <h3>Related Coverage</h3>
+    <div class="related-list">
+        <a href="#">Burst Studio profile: who's actually working there<span class="rdate">Sep 28, 2013</span></a>
+        <a href="#">Kaihatsu Miura discusses 'Impact of Eden' at TGS panel<span class="rdate">Sep 22, 2013</span></a>
+        <a href="#">Fall 2013 Preview: 12 anime worth your queue<span class="rdate">Sep 15, 2013</span></a>
+        <a href="#">Tomoe Suzuhara's storyboard journey from indie shorts to TV<span class="rdate">Aug 30, 2013</span></a>
+        <a href="#">Why Hiroyuki Sawano keeps getting hired for action anime<span class="rdate">Jul 11, 2013</span></a>
+        <a href="#">Inside 'WarWorld': the VR-MMO backstory Burst designed<span class="rdate">Oct 1, 2013</span></a>
+    </div>
+
+    <h3>Trending Now</h3>
+    <div class="related-list">
+        <a href="#">'Impact of Eden' YAMAGA284 fight is sakuga of the year, fans argue<span class="rdate">Just now</span></a>
+        <a href="#">Saori Hayami's Miyuki speech gets full transcript translation<span class="rdate">3 hours ago</span></a>
+        <a href="#">MunchyRoll confirms subbed simulcast for fall premieres<span class="rdate">5 hours ago</span></a>
+        <a href="#">Mariya Ise's range: voicing 12-year-old boys at 25<span class="rdate">Yesterday</span></a>
+    </div>
+
+    <h3>Newsletter</h3>
+    <div style="padding: 14px; background: #fff; border: 1px solid #d6d2c4; font-family: Arial, sans-serif; font-size: 12px; color: #555; line-height: 1.5;">
+        Get AniWire's weekly digest. Every Friday. Just the news worth reading.<br><br>
+        <input type="email" placeholder="your.email@example.com" style="width: 100%; padding: 6px; margin-bottom: 6px; border: 1px solid #ccc; font-family: Arial;">
+        <button style="width: 100%; padding: 8px; background: #0a5d2e; color: #fff; border: none; font-family: Arial; font-weight: bold; font-size: 12px; letter-spacing: 1px; cursor: pointer;">SUBSCRIBE</button>
+    </div>
+</aside>
+
+</div>
+
+<footer>
+    <div style="margin-bottom: 8px; font-weight: bold; color: #ffe44a;">AniWire</div>
+    <div>
+        <a href="#">About</a>
+        <a href="#">Editorial Policy</a>
+        <a href="#">Advertise</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">RSS</a>
+    </div>
+    <div style="margin-top: 12px; color: #666;">&copy; 2013 AniWire Media LLC &middot; All rights reserved.</div>
+</footer>
+
+</body>
+</html>
