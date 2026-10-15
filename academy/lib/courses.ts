@@ -59,7 +59,7 @@ export type Course = {
   flagship?: boolean;
 };
 
-export type CoverTheme = "teal" | "coral" | "sage" | "sky" | "plum" | "sun";
+export type CoverTheme = "sky" | "pink" | "blend" | "periwinkle" | "aqua" | "rose";
 
 export type CourseIcon =
   | "shield"
@@ -108,7 +108,7 @@ export const courses: Course[] = [
     rating: 4.9,
     learners: 320,
     price: null,
-    cover: "teal",
+    cover: "blend",
     icon: "shield",
     featured: true,
     flagship: true,
@@ -237,7 +237,7 @@ export const courses: Course[] = [
     rating: 4.8,
     learners: 980,
     price: 59,
-    cover: "sage",
+    cover: "aqua",
     icon: "clipboard",
     outcomes: [
       "Complete a point-of-care risk assessment",
@@ -281,7 +281,7 @@ export const courses: Course[] = [
     rating: 4.7,
     learners: 410,
     price: 149,
-    cover: "plum",
+    cover: "periwinkle",
     icon: "users",
     outcomes: [
       "Describe the role of the occupational health nurse",
@@ -325,7 +325,7 @@ export const courses: Course[] = [
     rating: 4.9,
     learners: 1210,
     price: 95,
-    cover: "coral",
+    cover: "pink",
     icon: "heart-pulse",
     featured: true,
     outcomes: [
@@ -365,7 +365,7 @@ export const courses: Course[] = [
     rating: 4.8,
     learners: 560,
     price: 129,
-    cover: "sun",
+    cover: "rose",
     icon: "bandage",
     outcomes: [
       "Complete a thorough wound assessment",
@@ -410,7 +410,7 @@ export const courses: Course[] = [
     rating: 4.9,
     learners: 870,
     price: 0,
-    cover: "teal",
+    cover: "pink",
     icon: "globe",
     outcomes: [
       "Understand the steps toward practising in Ontario",
@@ -454,7 +454,7 @@ export const courses: Course[] = [
     rating: 4.7,
     learners: 290,
     price: 49,
-    cover: "sage",
+    cover: "aqua",
     icon: "home",
     outcomes: [
       "Plan a health fair from idea to event day",
@@ -496,7 +496,7 @@ export const courses: Course[] = [
     rating: 4.8,
     learners: 740,
     price: 0,
-    cover: "sun",
+    cover: "rose",
     icon: "leaf",
     outcomes: [
       "Use quick reset practices during a shift",

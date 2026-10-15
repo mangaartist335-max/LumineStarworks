@@ -29,7 +29,7 @@ export function CurriculumAccordion({ modules }: { modules: Module[] }) {
   }
 
   return (
-    <div className="divide-y overflow-hidden rounded-2xl border bg-surface">
+    <div className="divide-y overflow-hidden rounded-md border bg-surface">
       {modules.map((mod, i) => {
         const isOpen = open.includes(i);
         const minutes = mod.lessons.reduce((n, l) => n + l.minutes, 0);

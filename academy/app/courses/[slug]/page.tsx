@@ -55,7 +55,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
 
   return (
     <>
-      <section className="border-b bg-surface">
+      <section className="sky-wash">
         <div className="mx-auto max-w-6xl px-4 pb-12 pt-8 sm:px-6">
           <nav className="flex items-center gap-1 text-sm text-muted" aria-label="Breadcrumb">
             <Link href="/courses" className="hover:text-foreground">Courses</Link>
@@ -71,17 +71,17 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
           <div className="mt-6 grid gap-10 lg:grid-cols-[1.5fr_1fr]">
             <div>
               <div className="flex flex-wrap gap-2 text-xs font-medium">
-                <span className="rounded-full bg-brand-soft px-2.5 py-1 text-brand-dark">{course.category}</span>
-                <span className="rounded-full bg-surface-muted px-2.5 py-1 text-muted">{course.level}</span>
-                <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">{course.format}</span>
+                <span className="caps rounded-full bg-white px-3 py-1 text-[10px] font-bold text-sky-deep">{course.category}</span>
+                <span className="caps rounded-full bg-white px-3 py-1 text-[10px] font-bold text-muted">{course.level}</span>
+                <span className="caps rounded-full bg-accent px-3 py-1 text-[10px] font-bold text-white">{course.format}</span>
               </div>
-              <h1 className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+              <h1 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">
                 {course.title}
               </h1>
-              <p className="mt-4 text-lg leading-relaxed text-muted">{course.tagline}</p>
+              <p className="mt-4 font-display text-lg italic leading-relaxed text-brand-dark">{course.tagline}</p>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
                 <span className="inline-flex items-center gap-1.5">
-                  <Star className="h-4 w-4 fill-sun text-sun" aria-hidden />
+                  <Star className="h-4 w-4 fill-accent text-accent" aria-hidden />
                   <span className="font-semibold">{course.rating.toFixed(1)}</span>
                   <span className="text-muted">rating</span>
                 </span>
@@ -97,7 +97,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
                 </span>
               </div>
             </div>
-            <CourseCover theme={course.cover} icon={course.icon} size="lg" className="hidden h-60 rounded-3xl lg:block" />
+            <CourseCover theme={course.cover} icon={course.icon} size="lg" className="hidden h-60 rounded-md border-4 border-white shadow-[0_10px_30px_-12px_rgba(47,147,207,0.6)] lg:block" />
           </div>
         </div>
       </section>
@@ -105,12 +105,12 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 pt-12 sm:px-6 lg:grid-cols-[1.5fr_1fr]">
         <div className="space-y-12">
           <section>
-            <h2 className="font-display text-2xl font-semibold">About this course</h2>
+            <h2 className="font-display text-2xl font-bold">About this course</h2>
             <p className="mt-3 leading-relaxed text-muted">{course.description}</p>
           </section>
 
-          <section className="rounded-2xl border bg-surface p-6">
-            <h2 className="font-display text-2xl font-semibold">What you&rsquo;ll learn</h2>
+          <section className="rounded-md border bg-surface p-6">
+            <h2 className="font-display text-2xl font-bold">What you&rsquo;ll learn</h2>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2">
               {course.outcomes.map((o) => (
                 <li key={o} className="flex gap-3 text-sm leading-relaxed">
@@ -125,7 +125,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
 
           <section>
             <div className="flex flex-wrap items-end justify-between gap-2">
-              <h2 className="font-display text-2xl font-semibold">Curriculum</h2>
+              <h2 className="font-display text-2xl font-bold">Curriculum</h2>
               <p className="text-sm text-muted">
                 {course.modules.length} modules · {lessonCount(course)} lessons · {minutes} min
               </p>
@@ -136,7 +136,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
           </section>
 
           <section>
-            <h2 className="font-display text-2xl font-semibold">Who it&rsquo;s for</h2>
+            <h2 className="font-display text-2xl font-bold">Who it&rsquo;s for</h2>
             <ul className="mt-4 space-y-2">
               {course.audience.map((a) => (
                 <li key={a} className="flex items-center gap-3 text-sm text-muted">
@@ -147,8 +147,8 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
             </ul>
           </section>
 
-          <section className="rounded-2xl border bg-surface p-6">
-            <h2 className="font-display text-2xl font-semibold">Your instructor</h2>
+          <section className="rounded-md border bg-surface p-6">
+            <h2 className="font-display text-2xl font-bold">Your instructor</h2>
             <div className="mt-5 flex gap-4">
               <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-brand font-semibold text-white">
                 {course.instructor.initials}
@@ -165,7 +165,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-2xl border bg-surface p-6 shadow-[0_20px_40px_-24px_rgba(15,110,106,0.3)]">
+          <div className="notice-card p-6">
             {enrollment ? (
               <div className="mb-5">
                 <div className="flex items-center justify-between text-sm">
@@ -181,7 +181,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
               </div>
             ) : (
               <div className="mb-5">
-                <p className="font-display text-3xl font-semibold">
+                <p className="font-display text-3xl font-bold">
                   {formatPrice(course.price)}
                 </p>
                 <p className="mt-1 text-sm text-muted">
@@ -213,7 +213,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
       </div>
 
       <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
-        <h2 className="font-display text-2xl font-semibold">You might also enjoy</h2>
+        <h2 className="font-display text-2xl font-bold">You might also enjoy</h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((c) => (
             <CourseCard key={c.slug} course={c} />

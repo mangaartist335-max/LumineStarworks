@@ -69,7 +69,7 @@ export function CatalogBrowser({
 
   return (
     <div>
-      <div className="rounded-2xl border bg-surface p-4 sm:p-5">
+      <div className="notice-card p-4 sm:p-5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
           <label className="relative flex-1">
             <span className="sr-only">Search courses</span>
@@ -90,7 +90,7 @@ export function CatalogBrowser({
                 type="checkbox"
                 checked={freeOnly}
                 onChange={(e) => setFreeOnly(e.target.checked)}
-                className="h-4 w-4 accent-[var(--brand)]"
+                className="h-4 w-4 accent-[var(--accent)]"
               />
               Free courses
             </label>
@@ -105,10 +105,10 @@ export function CatalogBrowser({
               onClick={() => setCategory(c)}
               aria-pressed={category === c}
               className={clsx(
-                "rounded-full border px-3.5 py-1.5 text-sm font-medium transition",
+                "rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition",
                 category === c
-                  ? "border-brand bg-brand text-white"
-                  : "bg-background text-muted hover:border-brand/40 hover:text-foreground"
+                  ? "border-accent bg-accent text-white"
+                  : "border-sky bg-white text-brand hover:bg-brand-soft"
               )}
             >
               {c === "All" ? "All topics" : c}
@@ -124,7 +124,7 @@ export function CatalogBrowser({
           {hasFilters && (
             <>
               {" · "}
-              <button type="button" onClick={reset} className="font-medium text-brand hover:underline">
+              <button type="button" onClick={reset} className="font-semibold text-accent hover:underline">
                 Clear filters
               </button>
             </>
@@ -152,13 +152,13 @@ export function CatalogBrowser({
           ))}
         </div>
       ) : (
-        <div className="mt-5 rounded-2xl border border-dashed bg-surface px-6 py-16 text-center">
-          <p className="font-display text-xl font-semibold">Nothing matches just yet</p>
+        <div className="mt-5 rounded-md border border-dashed bg-surface px-6 py-16 text-center">
+          <p className="font-display text-xl font-bold">Nothing matches just yet</p>
           <p className="mt-2 text-sm text-muted">Try a different search or loosen a filter or two.</p>
           <button
             type="button"
             onClick={reset}
-            className="mt-5 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
+            className="btn-pink mt-5 px-5 py-2 text-sm"
           >
             Show all courses
           </button>

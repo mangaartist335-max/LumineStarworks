@@ -16,7 +16,7 @@ export function EnrollButton({ enrolled, label }: { enrolled: boolean; label: st
         </div>
         <Link
           href="/dashboard"
-          className="block w-full rounded-full bg-brand py-3 text-center text-sm font-semibold text-white transition hover:bg-brand-dark"
+          className="btn-outline-sky w-full py-3 text-sm"
         >
           Continue in My learning
         </Link>
@@ -28,7 +28,7 @@ export function EnrollButton({ enrolled, label }: { enrolled: boolean; label: st
     <button
       type="button"
       onClick={() => setJoined(true)}
-      className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
+      className="btn-pink w-full py-3 text-sm"
     >
       {label}
     </button>

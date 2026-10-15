@@ -1,37 +1,48 @@
 @import "tailwindcss";
 
+/* Palette taken from nurseswecare.org: sky-blue bands, soft and hot pinks,
+   a periwinkle frame on notice cards, and plenty of white. */
 :root {
-  --background: #fbf8f4;
+  --background: #ffffff;
   --surface: #ffffff;
-  --surface-muted: #f3eee7;
-  --border: #e7e0d6;
-  --foreground: #1f2a2e;
-  --muted: #5d6b70;
-  --brand: #0f6e6a;
-  --brand-dark: #0a4f4c;
-  --brand-soft: #e3f1ef;
-  --accent: #e9785e;
-  --accent-soft: #fdebe5;
-  --sun: #f4b73f;
-  --sage: #8fb39a;
+  --surface-muted: #f2f9fe;
+  --mist: #edebec;
+  --border: #d6ebf8;
+  --foreground: #1d1f24;
+  --muted: #545b66;
+  --sky: #a3d8f5;
+  --sky-deep: #6cc0ec;
+  --brand: #2f93cf;
+  --brand-dark: #1d6e9f;
+  --brand-soft: #e4f4fd;
+  --pink: #f9bdeb;
+  --accent: #ee6ec9;
+  --accent-dark: #c9479f;
+  --accent-soft: #fde8f8;
+  --periwinkle: #9ba3e4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
+  --color-mist: var(--mist);
   --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-sky: var(--sky);
+  --color-sky-deep: var(--sky-deep);
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);
   --color-brand-soft: var(--brand-soft);
+  --color-pink: var(--pink);
   --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
   --color-accent-soft: var(--accent-soft);
-  --color-sun: var(--sun);
-  --color-sage: var(--sage);
+  --color-periwinkle: var(--periwinkle);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
+  --font-caps: var(--font-caps);
 }
 
 * {
@@ -48,24 +59,87 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--brand) 25%, transparent);
+  background: color-mix(in srgb, var(--pink) 60%, transparent);
 }
 
-.hero-wash {
+/* Airy hallway-style blue wash used behind hero sections. */
+.sky-wash {
   background:
-    radial-gradient(55% 60% at 85% 10%, color-mix(in srgb, var(--accent) 18%, transparent) 0%, transparent 70%),
-    radial-gradient(50% 60% at 10% 90%, color-mix(in srgb, var(--brand) 16%, transparent) 0%, transparent 70%);
+    radial-gradient(40% 70% at 50% 0%, rgba(255, 255, 255, 0.95) 0%, transparent 70%),
+    linear-gradient(180deg, #eaf6fe 0%, #cdeafb 55%, #b9e1f8 100%);
 }
 
-.cover-teal { background: linear-gradient(135deg, #0f6e6a 0%, #3aa39b 100%); }
-.cover-coral { background: linear-gradient(135deg, #e9785e 0%, #f3a98c 100%); }
-.cover-sage { background: linear-gradient(135deg, #5e8f6e 0%, #a9cbb0 100%); }
-.cover-sky { background: linear-gradient(135deg, #3b7fb6 0%, #8dc1e3 100%); }
-.cover-plum { background: linear-gradient(135deg, #6c4f8f 0%, #a98bc8 100%); }
-.cover-sun { background: linear-gradient(135deg, #e09a1f 0%, #f6cf72 100%); }
+.pink-wash {
+  background: linear-gradient(135deg, #f9c6ee 0%, #f6a9e2 50%, #ef7fcf 100%);
+}
+
+/* Soft blue glow on blue headings, like the site's section titles. */
+.text-glow {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 6px rgba(47, 147, 207, 0.35);
+}
+
+.caps {
+  font-family: var(--font-caps);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+/* Notice-style card with the periwinkle frame from the homepage. */
+.notice-card {
+  background: #ffffff;
+  border: 4px solid var(--periwinkle);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px -12px rgba(110, 120, 210, 0.45);
+}
+
+.btn-outline-sky {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid var(--sky);
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: var(--brand);
+  font-family: var(--font-caps);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  box-shadow: 0 3px 8px -4px rgba(47, 147, 207, 0.5);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-outline-sky:hover {
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+}
+
+.btn-pink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-caps);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background 0.15s ease;
+}
+
+.btn-pink:hover {
+  background: var(--accent-dark);
+}
+
+.cover-sky { background: linear-gradient(135deg, #8fd0f3 0%, #c9e9fb 100%); }
+.cover-pink { background: linear-gradient(135deg, #f49ad9 0%, #fbd0f1 100%); }
+.cover-blend { background: linear-gradient(135deg, #8fd0f3 0%, #f7b5e8 100%); }
+.cover-periwinkle { background: linear-gradient(135deg, #8f98e0 0%, #c3c8f2 100%); }
+.cover-aqua { background: linear-gradient(135deg, #6cc0ec 0%, #a3e0f0 100%); }
+.cover-rose { background: linear-gradient(135deg, #f7b5e8 0%, #c3c8f2 100%); }
 
 .cover-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1.5px, transparent 1.5px);
   background-size: 18px 18px;
 }
 
@@ -76,4 +150,13 @@ body {
 
 .animate-fade-up {
   animation: fade-up 0.5s ease both;
+}
+
+/* Keeps white text readable on the light sky and pink bands. */
+.on-band {
+  text-shadow: 0 1px 3px rgba(29, 110, 159, 0.55);
+}
+
+.on-pink {
+  text-shadow: 0 1px 3px rgba(201, 71, 159, 0.55);
 }
