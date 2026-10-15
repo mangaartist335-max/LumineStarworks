@@ -4,7 +4,7 @@ import { Float, MeshTransmissionMaterial, PresentationControls, Sparkles } from 
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { Interactive } from "./Interactive";
-import { SceneFrame, useMediaQuery, useReducedMotion } from "./SceneFrame";
+import { KeyRig, SceneFrame, useMediaQuery, useReducedMotion } from "./SceneFrame";
 import { COLORS, Glossy, useHeartGeometry, usePlusGeometry, useShieldGeometry } from "./shapes";
 import { Studio } from "./Studio";
 
@@ -13,12 +13,16 @@ const GLASS_BACKDROP = new THREE.Color("#4a7fb0");
 
 // Camera rig: drifts with the pointer and slowly pushes in as you scroll, for
 // a gentle cinematic feel.
+// When motion is paused it simply holds still.
 function Rig() {
+  const still = useReducedMotion();
   useFrame(({ camera, pointer }, delta) => {
-    const scroll = Math.min(1, window.scrollY / window.innerHeight);
+    const scroll = still ? 0 : Math.min(1, window.scrollY / window.innerHeight);
+    const px = still ? 0 : pointer.x;
+    const py = still ? 0 : pointer.y;
     const k = Math.min(1, delta * 2.5);
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 0.8, k);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 0.5 - scroll * 0.6, k);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, px * 0.8, k);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, py * 0.5 - scroll * 0.6, k);
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 10 - scroll * 2.5, k);
     camera.lookAt(0, 0, 0);
   });
@@ -42,6 +46,7 @@ function Composition() {
       position={wide ? [viewport.width * 0.21, 0.15, 0] : [0, 0.15, 0]}
       scale={wide ? Math.min(0.9, viewport.height / 6.8, viewport.width / 11) : fit}
     >
+      <KeyRig>
       <PresentationControls
         global
         snap
@@ -124,6 +129,7 @@ function Composition() {
           </Interactive>
         </Float>
       </PresentationControls>
+      </KeyRig>
 
       {/* Drifting "aerosol" particles */}
       <Sparkles count={70} scale={[9, 6, 4]} size={3.2} speed={reduced ? 0 : 0.35} color={COLORS.sky} opacity={0.9} />
@@ -132,9 +138,22 @@ function Composition() {
   );
 }
 
-export default function HeroScene({ className }: { className?: string }) {
+export default function HeroScene({
+  className,
+  toggle = true,
+}: {
+  className?: string;
+  toggle?: boolean;
+}) {
   return (
-    <SceneFrame className={className} camera={{ position: [0, 0, 10], fov: 35 }}>
+    <SceneFrame
+      className={className}
+      camera={{ position: [0, 0, 10], fov: 35 }}
+      dark
+      toggle={toggle}
+      hintClassName="top-3 lg:top-24"
+      label="Floating 3D shapes: a glass bubble with a pink centre, a blue shield with a white cross, a pink heart, a pink plus sign, a blue ring and a pearly capsule"
+    >
       <Studio />
       <Composition />
       <Rig />

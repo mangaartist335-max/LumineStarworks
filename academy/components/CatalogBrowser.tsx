@@ -94,7 +94,7 @@ export function CatalogBrowser({
                   className={clsx(
                     "flex items-center justify-between gap-3 rounded-full px-4 py-2 text-left text-sm font-medium transition lg:rounded-2xl",
                     category === c
-                      ? "bg-accent text-white shadow-[0_8px_18px_-10px_rgba(236,95,191,0.9)]"
+                      ? "bg-accent-strong text-white shadow-[0_8px_18px_-10px_rgba(204,51,153,0.9)]"
                       : "bg-white text-muted ring-1 ring-border hover:text-foreground lg:bg-transparent lg:ring-0 lg:hover:bg-white"
                   )}
                 >
@@ -107,11 +107,11 @@ export function CatalogBrowser({
         </FilterGroup>
 
         <FilterGroup title="Level">
-          <Segmented options={LEVELS} value={level} onChange={(v) => setLevel(v as Level | "All")} />
+          <Segmented label="Level" options={LEVELS} value={level} onChange={(v) => setLevel(v as Level | "All")} />
         </FilterGroup>
 
         <FilterGroup title="Format">
-          <Segmented options={FORMATS} value={format} onChange={(v) => setFormat(v as Format | "All")} />
+          <Segmented label="Format" options={FORMATS} value={format} onChange={(v) => setFormat(v as Format | "All")} />
         </FilterGroup>
 
         <label className="flex cursor-pointer items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-medium ring-1 ring-border">
@@ -120,20 +120,20 @@ export function CatalogBrowser({
             type="checkbox"
             checked={freeOnly}
             onChange={(e) => setFreeOnly(e.target.checked)}
-            className="h-4 w-4 accent-[var(--accent)]"
+            className="h-4 w-4 accent-[var(--accent-strong)]"
           />
         </label>
       </aside>
 
       <div className="min-w-0">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-muted">
+          <p className="text-sm text-muted" aria-live="polite">
             <span className="font-semibold text-foreground">{results.length}</span>{" "}
             {results.length === 1 ? "course" : "courses"}
             {hasFilters && (
               <>
                 {" · "}
-                <button type="button" onClick={reset} className="font-semibold text-accent hover:underline">
+                <button type="button" onClick={reset} className="font-semibold text-accent-dark hover:underline">
                   Clear filters
                 </button>
               </>
@@ -184,16 +184,18 @@ function FilterGroup({ title, children }: { title: string; children: React.React
 }
 
 function Segmented({
+  label,
   options,
   value,
   onChange,
 }: {
+  label: string;
   options: readonly string[];
   value: string;
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-1 rounded-2xl bg-surface-muted p-1 ring-1 ring-border" role="group">
+    <div className="grid grid-cols-2 gap-1 rounded-2xl bg-surface-muted p-1 ring-1 ring-border" role="group" aria-label={label}>
       {["All", ...options].map((o) => (
         <button
           key={o}

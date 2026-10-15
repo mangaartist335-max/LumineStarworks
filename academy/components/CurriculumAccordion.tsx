@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { BookOpen, ChevronDown, CircleCheck, PenLine, PlayCircle, Radio } from "lucide-react";
 import clsx from "clsx";
 import type { Lesson, Module } from "@/lib/courses";
@@ -23,6 +23,7 @@ const KIND_LABEL: Record<Lesson["kind"], string> = {
 
 export function CurriculumAccordion({ modules }: { modules: Module[] }) {
   const [open, setOpen] = useState<number[]>([0]);
+  const baseId = useId();
 
   function toggle(i: number) {
     setOpen((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]));
@@ -45,6 +46,7 @@ export function CurriculumAccordion({ modules }: { modules: Module[] }) {
               type="button"
               onClick={() => toggle(i)}
               aria-expanded={isOpen}
+              aria-controls={`${baseId}-module-${i}`}
               className="flex w-full items-center gap-4 px-5 py-4 text-left transition hover:bg-surface-muted/60"
             >
               <span
@@ -67,7 +69,7 @@ export function CurriculumAccordion({ modules }: { modules: Module[] }) {
               />
             </button>
             {isOpen && (
-              <div className="px-5 pb-4">
+              <div id={`${baseId}-module-${i}`} className="px-5 pb-4">
                 <p className="mb-3 pl-14 text-sm text-muted">{mod.summary}</p>
                 <ul className="space-y-1 pl-14">
                   {mod.lessons.map((lesson) => {

@@ -50,7 +50,7 @@ export function SiteHeader() {
       className={clsx(
         "sticky top-0 z-30 border-b transition-colors duration-300",
         dark
-          ? "border-transparent bg-[#0b1c33]/30 backdrop-blur-md"
+          ? "on-dark border-transparent bg-[#0b1c33]/55 backdrop-blur-md"
           : "border-white/60 bg-white/75 backdrop-blur-xl"
       )}
     >
@@ -68,6 +68,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive(pathname, item.href) ? "page" : undefined}
               className={clsx(
                 "rounded-full px-4 py-2 text-sm font-medium transition",
                 isActive(pathname, item.href)
@@ -75,7 +76,7 @@ export function SiteHeader() {
                     ? "bg-white/15 text-white"
                     : "bg-white text-foreground shadow-[0_2px_8px_-2px_rgba(42,134,194,0.35)]"
                   : dark
-                    ? "text-white/70 hover:text-white"
+                    ? "text-white/80 hover:text-white"
                     : "text-muted hover:text-foreground"
               )}
             >
@@ -108,6 +109,7 @@ export function SiteHeader() {
           )}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -115,11 +117,12 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="border-t bg-white px-4 py-3 md:hidden" aria-label="Mobile">
+        <nav id="mobile-nav" className="border-t bg-white px-4 py-3 md:hidden" aria-label="Mobile">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive(pathname, item.href) ? "page" : undefined}
               onClick={() => setOpen(false)}
               className={clsx(
                 "block rounded-2xl px-4 py-3 text-sm font-medium",

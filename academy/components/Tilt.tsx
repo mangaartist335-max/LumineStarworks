@@ -2,9 +2,11 @@
 
 import { useRef } from "react";
 import clsx from "clsx";
+import { isMotionStill } from "./motion";
 
 // Tilts its content toward the cursor in 3D, with a soft light sheen that
-// follows along. Touch and reduced-motion users just get the flat card.
+// follows along. It's a mouse-only flourish: touch, keyboard and
+// paused-motion users get the same card, just flat.
 export function Tilt({
   children,
   className,
@@ -19,7 +21,7 @@ export function Tilt({
   function onMove(e: React.PointerEvent<HTMLDivElement>) {
     const el = ref.current;
     if (!el || e.pointerType !== "mouse") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isMotionStill()) return;
     const r = el.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width;
     const y = (e.clientY - r.top) / r.height;

@@ -2,7 +2,7 @@
 
 import { Float, PresentationControls } from "@react-three/drei";
 import { Interactive } from "./Interactive";
-import { SceneFrame, useReducedMotion } from "./SceneFrame";
+import { KeyRig, SceneFrame, useReducedMotion } from "./SceneFrame";
 import { COLORS, Glossy, useHeartGeometry } from "./shapes";
 import { Studio } from "./Studio";
 
@@ -10,6 +10,7 @@ function MedalModel() {
   const reduced = useReducedMotion();
   const heart = useHeartGeometry();
   return (
+    <KeyRig>
     <PresentationControls global snap speed={1.6} polar={[-0.4, 0.4]} azimuth={[-1.4, 1.4]}>
       <Float speed={reduced ? 0 : 1.6} rotationIntensity={0.4} floatIntensity={0.6}>
         <Interactive speed={0.3} sway={0.55}>
@@ -30,12 +31,18 @@ function MedalModel() {
         </Interactive>
       </Float>
     </PresentationControls>
+    </KeyRig>
   );
 }
 
 export default function Medal({ className }: { className?: string }) {
   return (
-    <SceneFrame className={className} camera={{ position: [0, 0, 4.4], fov: 35 }}>
+    <SceneFrame
+      className={className}
+      camera={{ position: [0, 0, 4.4], fov: 35 }}
+      label="3D medal in pink and sky blue with a white heart on each side"
+      toggle={false}
+    >
       <Studio />
       <MedalModel />
     </SceneFrame>

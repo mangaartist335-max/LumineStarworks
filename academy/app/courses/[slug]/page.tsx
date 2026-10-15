@@ -74,7 +74,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
               <div className="flex flex-wrap gap-2 text-xs font-semibold">
                 <span className="rounded-full bg-white px-3 py-1.5 text-brand-dark ring-1 ring-border">{course.category}</span>
                 <span className="rounded-full bg-white px-3 py-1.5 text-muted ring-1 ring-border">{course.level}</span>
-                <span className="rounded-full bg-accent px-3 py-1.5 text-white">{course.format}</span>
+                <span className="rounded-full bg-accent-strong px-3 py-1.5 text-white">{course.format}</span>
               </div>
               <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
                 {course.title}
@@ -105,9 +105,9 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
               >
                 <div className="dot-grid absolute inset-0 opacity-50" />
                 <div className="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-white/30 blur-2xl" />
-                <CourseObject icon={course.icon} theme={course.cover} className="absolute inset-0" />
+                <CourseObject icon={course.icon} theme={course.cover} courseTitle={course.title} className="absolute inset-0 rounded-[2.5rem]" />
                 <p className="animate-hint pointer-events-none absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-white/65 px-3 py-1 text-[11px] font-semibold text-brand-dark backdrop-blur">
-                  <Hand className="h-3.5 w-3.5" aria-hidden /> Drag to spin
+                  <Hand className="h-3.5 w-3.5" aria-hidden /> Drag or use arrow keys to spin
                 </p>
               </div>
               <div className="glass pointer-events-none absolute -bottom-5 left-4 flex items-center gap-3 rounded-3xl px-4 py-3 sm:-left-6">

@@ -15,7 +15,7 @@ export function CourseCard({ course }: { course: Course }) {
               {course.category}
             </span>
             {course.flagship && (
-              <span className="rounded-full bg-accent px-2.5 py-1 text-[11px] font-semibold text-white">
+              <span className="rounded-full bg-accent-strong px-2.5 py-1 text-[11px] font-semibold text-white">
                 Flagship
               </span>
             )}
@@ -42,7 +42,7 @@ export function CourseCard({ course }: { course: Course }) {
                 {course.rating.toFixed(1)} · {course.learners.toLocaleString("en-US")} learners
               </p>
             </div>
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-surface-muted text-foreground transition group-hover:bg-accent group-hover:text-white">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-surface-muted text-foreground transition group-hover:bg-accent-strong group-hover:text-white">
               <ArrowUpRight className="h-5 w-5" aria-hidden />
             </span>
           </div>

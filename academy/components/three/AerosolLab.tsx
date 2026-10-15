@@ -2,7 +2,7 @@
 
 import { Float } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { SceneFrame, useMediaQuery, useReducedMotion } from "./SceneFrame";
 import { COLORS, Glossy, usePlusGeometry, useShieldGeometry } from "./shapes";
@@ -28,12 +28,25 @@ function makeDotTexture() {
 
 type ShieldSpot = { x: number; y: number; rx: number; ry: number; scale: number };
 
-// Particles drift across like air. Your pointer stirs them, and the shield
-// gently guides them around it, like a well-fitted respirator.
-function Particles({ shieldOn, spot }: { shieldOn: boolean; spot: ShieldSpot }) {
+// Particles drift across like air. Your pointer stirs them, a breeze sweeps
+// them along, and the shield gently guides them around it, like a
+// well-fitted respirator. When motion is paused they rest, and only move
+// while you stir them, send a breeze or switch the shield.
+function Particles({ shieldOn, spot, gust }: { shieldOn: boolean; spot: ShieldSpot; gust: number }) {
   const ref = useRef<THREE.Points>(null);
   const { viewport, pointer } = useThree();
-  const reduced = useReducedMotion();
+  const still = useReducedMotion();
+  const lastPointer = useRef({ x: 0, y: 0, at: -10 });
+  const gustAt = useRef(-10);
+  const settleUntil = useRef(0);
+  const pending = useRef({ gust: false, settle: true });
+
+  useEffect(() => {
+    if (gust > 0) pending.current.gust = true;
+  }, [gust]);
+  useEffect(() => {
+    pending.current.settle = true;
+  }, [shieldOn]);
   const halfW = viewport.width / 2 + 0.5;
   const halfH = viewport.height / 2;
 
@@ -59,9 +72,28 @@ function Particles({ shieldOn, spot }: { shieldOn: boolean; spot: ShieldSpot }) 
 
   useFrame((state, delta) => {
     const pts = ref.current;
-    if (!pts || reduced) return;
+    if (!pts) return;
     const dt = Math.min(delta, 0.05);
     const t = state.clock.elapsedTime;
+
+    const lp = lastPointer.current;
+    if (pointer.x !== lp.x || pointer.y !== lp.y) {
+      lastPointer.current = { x: pointer.x, y: pointer.y, at: t };
+    }
+    if (pending.current.gust) {
+      pending.current.gust = false;
+      gustAt.current = t;
+      settleUntil.current = Math.max(settleUntil.current, t + 2.2);
+    }
+    if (pending.current.settle) {
+      pending.current.settle = false;
+      settleUntil.current = Math.max(settleUntil.current, t + 1.6);
+    }
+    const stirring = t - lastPointer.current.at < 0.6;
+    if (still && !stirring && t > settleUntil.current) return;
+
+    // A breeze starts strong and fades over a couple of seconds.
+    const breeze = Math.max(0, 1 - (t - gustAt.current) / 2);
     const px = (pointer.x * viewport.width) / 2;
     const py = (pointer.y * viewport.height) / 2;
     const arr = pts.geometry.attributes.position.array as Float32Array;
@@ -72,8 +104,8 @@ function Particles({ shieldOn, spot }: { shieldOn: boolean; spot: ShieldSpot }) 
       let y = arr[ix + 1];
       const s = seeds[i];
 
-      x += dt * (0.9 + Math.sin(s) * 0.3);
-      y += dt * Math.sin(t * 0.8 + s) * 0.25;
+      x += dt * (0.9 + Math.sin(s) * 0.3) + dt * breeze * 3.2 * (0.7 + 0.3 * Math.sin(s * 3));
+      y += dt * Math.sin(t * 0.8 + s) * 0.25 + dt * breeze * Math.sin(s * 7 + t * 3) * 1.1;
 
       // The pointer acts like a soft fan.
       const dx = x - px;
@@ -131,6 +163,7 @@ function Particles({ shieldOn, spot }: { shieldOn: boolean; spot: ShieldSpot }) 
 }
 
 function ShieldModel({ visible, spot }: { visible: boolean; spot: ShieldSpot }) {
+  const still = useReducedMotion();
   const shield = useShieldGeometry();
   const plus = usePlusGeometry();
   const ref = useRef<THREE.Group>(null);
@@ -147,7 +180,7 @@ function ShieldModel({ visible, spot }: { visible: boolean; spot: ShieldSpot }) 
   });
 
   return (
-    <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.5}>
+    <Float speed={still ? 0 : 1.2} rotationIntensity={0.2} floatIntensity={0.5}>
       <group ref={ref} position={[spot.x, spot.y, 0.5]}>
         <mesh geometry={shield}>
           <Glossy color={COLORS.sky} />
@@ -162,7 +195,7 @@ function ShieldModel({ visible, spot }: { visible: boolean; spot: ShieldSpot }) 
 
 // The shield sits to the right of the text on wide screens, and below it on
 // phones.
-function Lab({ shieldOn }: { shieldOn: boolean }) {
+function Lab({ shieldOn, gust }: { shieldOn: boolean; gust: number }) {
   const { viewport } = useThree();
   const wide = useMediaQuery("(min-width: 768px)");
   const spot = useMemo<ShieldSpot>(
@@ -174,17 +207,27 @@ function Lab({ shieldOn }: { shieldOn: boolean }) {
   );
   return (
     <>
-      <Particles shieldOn={shieldOn} spot={spot} />
+      <Particles shieldOn={shieldOn} spot={spot} gust={gust} />
       <ShieldModel visible={shieldOn} spot={spot} />
     </>
   );
 }
 
-export default function AerosolLab({ className, shieldOn }: { className?: string; shieldOn: boolean }) {
+// Purely visual: the section around it explains what's happening in words,
+// and its buttons do everything the pointer can.
+export default function AerosolLab({
+  className,
+  shieldOn,
+  gust,
+}: {
+  className?: string;
+  shieldOn: boolean;
+  gust: number;
+}) {
   return (
-    <SceneFrame className={className} camera={{ position: [0, 0, 8], fov: 40 }}>
+    <SceneFrame className={className} camera={{ position: [0, 0, 8], fov: 40 }} keyboard={false} toggle={false}>
       <Studio intensity={1.2} />
-      <Lab shieldOn={shieldOn} />
+      <Lab shieldOn={shieldOn} gust={gust} />
     </SceneFrame>
   );
 }

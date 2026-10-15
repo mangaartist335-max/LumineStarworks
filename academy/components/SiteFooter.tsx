@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Logo } from "./Logo";
+import { MotionToggle } from "./motion";
 
 const SITE = "https://www.nurseswecare.org";
 
@@ -21,25 +22,28 @@ export function SiteFooter() {
             </p>
           </div>
           <FooterCol title="Learn">
-            <li><Link href="/courses" className="hover:text-accent">All courses</Link></li>
-            <li><Link href="/#paths" className="hover:text-accent">Learning paths</Link></li>
-            <li><Link href="/courses/rn-respirator-fit-testing-train-the-trainer" className="hover:text-accent">Train-the-Trainer</Link></li>
+            <li><Link href="/courses" className="hover:text-accent-dark">All courses</Link></li>
+            <li><Link href="/#paths" className="hover:text-accent-dark">Learning paths</Link></li>
+            <li><Link href="/courses/rn-respirator-fit-testing-train-the-trainer" className="hover:text-accent-dark">Train-the-Trainer</Link></li>
           </FooterCol>
           <FooterCol title="You">
-            <li><Link href="/dashboard" className="hover:text-accent">My learning</Link></li>
-            <li><Link href="/dashboard#certificates" className="hover:text-accent">Certificates</Link></li>
+            <li><Link href="/dashboard" className="hover:text-accent-dark">My learning</Link></li>
+            <li><Link href="/dashboard#certificates" className="hover:text-accent-dark">Certificates</Link></li>
           </FooterCol>
           <FooterCol title="NursesWeCare">
-            <li><a href={SITE} className="hover:text-accent" target="_blank" rel="noreferrer">Main website</a></li>
-            <li><a href={`${SITE}/booking-workingplace-request-form`} className="hover:text-accent" target="_blank" rel="noreferrer">Book a fit test</a></li>
-            <li><a href={`${SITE}/contact-5`} className="hover:text-accent" target="_blank" rel="noreferrer">Contact</a></li>
+            <li><a href={SITE} className="hover:text-accent-dark" target="_blank" rel="noreferrer">Main website</a></li>
+            <li><a href={`${SITE}/booking-workingplace-request-form`} className="hover:text-accent-dark" target="_blank" rel="noreferrer">Book a fit test</a></li>
+            <li><a href={`${SITE}/contact-5`} className="hover:text-accent-dark" target="_blank" rel="noreferrer">Contact</a></li>
           </FooterCol>
         </div>
         <div className="border-t">
-          <p className="mx-auto max-w-6xl px-4 py-5 text-xs text-muted sm:px-6">
-            Prototype · Apart from the RN Train-the-Trainer program, courses, prices and learner
-            data are sample placeholders.
-          </p>
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
+            <p className="text-xs text-muted">
+              Prototype · Apart from the RN Train-the-Trainer program, courses, prices and learner
+              data are sample placeholders.
+            </p>
+            <MotionToggle tone="plain" />
+          </div>
         </div>
       </div>
     </footer>
@@ -49,7 +53,7 @@ export function SiteFooter() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="font-display text-sm font-semibold">{title}</h3>
+      <h2 className="font-display text-sm font-semibold">{title}</h2>
       <ul className="mt-4 space-y-2.5 text-sm text-muted">{children}</ul>
     </div>
   );

@@ -16,7 +16,10 @@
   --brand-soft: #e6f4fd;
   --pink: #f9bdeb;
   --accent: #ec5fbf;
-  --accent-dark: #c63f9c;
+  /* Deeper pinks for text and for anything with white text on it, so both
+     stay easy to read (WCAG AA contrast). */
+  --accent-strong: #cc3399;
+  --accent-dark: #b8328c;
   --accent-soft: #fde9f7;
 }
 
@@ -34,14 +37,19 @@
   --color-brand-soft: var(--brand-soft);
   --color-pink: var(--pink);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-accent-dark: var(--accent-dark);
   --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 }
 
-* {
-  border-color: var(--border);
+/* In the base layer so border color utilities (like border-white/10) can
+   still override it. */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
 }
 
 html {
@@ -58,6 +66,53 @@ body {
   background: color-mix(in srgb, var(--pink) 70%, transparent);
 }
 
+/* A clear focus ring for keyboard users, lighter on the dark scenes. */
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+}
+
+.night :focus-visible,
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--sky);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 60;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: #ffffff;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+/* Keyboard-focusable 3D scenes: an inset ring and a short how-to. */
+.scene-focus:focus-visible {
+  outline-offset: -4px;
+  border-radius: inherit;
+}
+
+.scene-keys {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.scene-focus:focus-visible .scene-keys {
+  opacity: 1;
+  transform: none;
+}
+
 /* Soft blobs of sky and pink, used behind hero areas. */
 .mesh {
   background:
@@ -68,7 +123,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(100deg, #3aa6e3 10%, var(--accent) 90%);
+  background: linear-gradient(100deg, var(--brand) 10%, var(--accent-strong) 90%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -120,7 +175,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--accent-strong);
   color: #ffffff;
   font-weight: 600;
   box-shadow: 0 10px 24px -12px rgba(236, 95, 191, 0.9);
@@ -348,14 +403,39 @@ body {
   }
 }
 
+/* Motion stops for people who ask their device for less of it, or who press
+   "Pause animations" (which sets data-motion on <html>). "Play animations"
+   sets data-motion="playing" to opt back in. */
 @media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="playing"]) :is(
+    .animate-fade-up,
+    .animate-float,
+    .animate-scene-in,
+    .animate-hint,
+    .line-mask > span,
+    .reveal,
+    .hero-drift
+  ) {
+    animation: none;
+  }
+
+  html:not([data-motion="playing"]) {
+    scroll-behavior: auto;
+  }
+}
+
+html[data-motion="paused"] :is(
   .animate-fade-up,
   .animate-float,
   .animate-scene-in,
   .animate-hint,
   .line-mask > span,
   .reveal,
-  .hero-drift {
-    animation: none;
-  }
+  .hero-drift
+) {
+  animation: none;
+}
+
+html[data-motion="paused"] {
+  scroll-behavior: auto;
 }

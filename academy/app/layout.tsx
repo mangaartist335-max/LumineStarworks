@@ -27,8 +27,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${sans.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
+        <a href="#main" className="skip-link">
+          Skip to main content
+        </a>
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main id="main" tabIndex={-1} className="flex-1 outline-none">
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

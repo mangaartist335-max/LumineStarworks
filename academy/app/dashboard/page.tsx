@@ -52,7 +52,7 @@ export default function DashboardPage() {
         <div className="glass flex items-center gap-2 rounded-[2rem] py-2 pl-2 pr-6">
           <div className="cover-blend relative h-28 w-28 shrink-0 overflow-hidden rounded-[1.5rem]">
             <div className="dot-grid absolute inset-0 opacity-50" />
-            <Medal className="absolute inset-0" />
+            <Medal className="absolute inset-0 rounded-[1.5rem]" />
           </div>
           <div className="pl-2">
             <p className="text-xs font-semibold text-accent-dark">Next milestone</p>
@@ -60,7 +60,7 @@ export default function DashboardPage() {
               {learner.hoursGoal - learner.hoursEarned} hours to your yearly goal
             </p>
             <p className="mt-0.5 text-xs text-muted">Give the medal a spin!</p>
-            <Link href="/courses" className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline">
+            <Link href="/courses" className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-accent-dark hover:underline">
               Browse courses <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
@@ -151,7 +151,7 @@ export default function DashboardPage() {
           <section>
             <div className="flex items-end justify-between">
               <h2 className="font-display text-2xl font-semibold">Recommended for you</h2>
-              <Link href="/courses" className="text-sm font-semibold text-accent hover:underline">
+              <Link href="/courses" className="text-sm font-semibold text-accent-dark hover:underline">
                 See all
               </Link>
             </div>
@@ -211,7 +211,7 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     aria-label={`Download certificate for ${c.courseTitle}`}
-                    className="grid h-9 w-9 place-items-center rounded-full bg-surface-muted text-muted hover:bg-accent hover:text-white"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-surface-muted text-muted hover:bg-accent-strong hover:text-white"
                   >
                     <Download className="h-4 w-4" aria-hidden />
                   </button>

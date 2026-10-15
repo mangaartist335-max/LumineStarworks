@@ -14,6 +14,7 @@ import {
 import { courses, getCourse } from "@/lib/courses";
 import { CourseCard } from "@/components/CourseCard";
 import { AerosolLabSection, HeroScene } from "@/components/three";
+import { MotionToggle } from "@/components/motion";
 
 const FIT_TEST_URL = "https://www.nurseswecare.org/booking-workingplace-request-form";
 const FLAGSHIP_SLUG = "rn-respirator-fit-testing-train-the-trainer";
@@ -54,13 +55,10 @@ export default function HomePage() {
     <>
       {/* Cinematic hero: a twilight stage with 3D shapes you can drag around */}
       <section className="night grain relative -mt-[72px] overflow-hidden text-white">
-        <div className="animate-scene-in absolute inset-x-0 top-[72px] h-[360px] sm:h-[420px] lg:inset-0 lg:h-auto">
-          <HeroScene className="h-full w-full" />
-        </div>
-        <div className="vignette pointer-events-none absolute inset-0" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-background" />
+        <div className="vignette pointer-events-none absolute inset-0 z-[1]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-44 bg-gradient-to-b from-transparent to-background" />
 
-        <div className="hero-drift pointer-events-none relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-4 pb-36 pt-[452px] sm:px-6 sm:pt-[512px] lg:pb-32 lg:pt-28">
+        <div className="hero-drift pointer-events-none relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-4 pb-36 pt-[452px] sm:px-6 sm:pt-[512px] lg:pb-32 lg:pt-28">
           <div className="max-w-xl">
             <span className="eyebrow-dark animate-fade-up">RN-led learning · Hamilton, Ontario</span>
             <h1 className="mt-6 font-display text-[2.9rem] font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-[4.25rem]">
@@ -75,7 +73,7 @@ export default function HomePage() {
                 </span>
               </span>
             </h1>
-            <p className="animate-fade-up mt-6 max-w-lg text-lg leading-relaxed text-white/75 [animation-delay:450ms]">
+            <p className="animate-fade-up mt-6 max-w-lg text-lg leading-relaxed text-white/80 [animation-delay:450ms]">
               NursesWeCare Academy helps nurses and healthcare teams build real confidence in
               respiratory protection and occupational health, with online lessons, hands-on
               practicums and a warm community cheering you on.
@@ -88,22 +86,35 @@ export default function HomePage() {
                 Become a fit test trainer
               </Link>
             </div>
-            <ul className="animate-fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70 [animation-delay:750ms]">
+            <ul className="animate-fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/75 [animation-delay:750ms]">
               {["Taught by RNs", "CSA Z94.4 aligned", "Certificates included"].map((t) => (
                 <li key={t} className="flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-pink" aria-hidden /> {t}
                 </li>
               ))}
             </ul>
-            <p className="animate-hint mt-10 hidden items-center gap-2 text-sm text-white/60 lg:flex">
-              <Hand className="h-4 w-4" aria-hidden /> Drag the scene to look around, or click a shape to spin it
-            </p>
+            <div className="mt-10 hidden items-center gap-3 lg:flex">
+              <MotionToggle compact tone="dark" className="pointer-events-auto" />
+              <p className="animate-hint flex items-center gap-2 text-sm text-white/70">
+                <Hand className="h-4 w-4" aria-hidden /> Drag or use arrow keys to look around · click a
+                shape to spin it
+              </p>
+            </div>
           </div>
         </div>
 
-        <p className="animate-hint pointer-events-none absolute left-1/2 top-[404px] flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white/85 ring-1 ring-white/15 backdrop-blur sm:top-[464px] lg:hidden">
-          <Hand className="h-3.5 w-3.5" aria-hidden /> Tap a shape to spin it
-        </p>
+        <div className="absolute left-1/2 top-[398px] z-10 flex -translate-x-1/2 items-center gap-2 sm:top-[458px] lg:hidden">
+          <p className="animate-hint flex items-center gap-2 whitespace-nowrap rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white/90 ring-1 ring-white/15 backdrop-blur">
+            <Hand className="h-3.5 w-3.5" aria-hidden /> Tap a shape to spin it
+          </p>
+          <MotionToggle compact tone="dark" />
+        </div>
+
+        {/* The 3D scene comes after the words, so keyboard users reach the
+            buttons first; it still sits visually behind everything. */}
+        <div className="animate-scene-in absolute inset-x-0 top-[72px] z-0 h-[360px] sm:h-[420px] lg:inset-0 lg:h-auto">
+          <HeroScene className="absolute inset-0" toggle={false} />
+        </div>
       </section>
 
       {/* Stats ribbon overlapping the hero */}
@@ -182,18 +193,18 @@ export default function HomePage() {
       </section>
 
       {/* Interactive aerosol lab */}
-      <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
         <div className="reveal">
           <AerosolLabSection />
         </div>
-      </section>
+      </div>
 
       {/* Flagship spotlight */}
       <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
         <div className="reveal overflow-hidden rounded-[2.5rem] bg-accent-soft">
           <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr]">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
+              <span className="inline-flex items-center gap-2 rounded-full bg-accent-strong px-3 py-1 text-xs font-semibold text-white">
                 <Star className="h-3.5 w-3.5 fill-white" aria-hidden /> Flagship program
               </span>
               <h2 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight">
