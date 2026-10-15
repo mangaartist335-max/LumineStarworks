@@ -12,18 +12,20 @@ export default async function CatalogPage(props: PageProps<"/courses">) {
 
   return (
     <>
-      <section className="sky-wash px-4 pb-24 pt-12 sm:px-6">
-        <header className="mx-auto max-w-3xl text-center">
-          <p className="caps text-xs font-bold text-accent">Course catalog</p>
-          <h1 className="text-glow mt-3 text-4xl font-light text-sky-deep sm:text-5xl">Find Your Next Course</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-muted">
-            Respiratory protection, occupational health, clinical skills and more, all developed
-            and delivered by Registered Nurses. Every course earns learning hours you can log for
-            your annual CNO Quality Assurance reflection.
+      <section className="mesh">
+        <header className="mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6">
+          <span className="eyebrow">Course catalog</span>
+          <h1 className="mt-5 max-w-2xl font-display text-5xl font-semibold leading-[1.05] tracking-tight">
+            Courses that grow <span className="gradient-text">with you</span>
+          </h1>
+          <p className="mt-4 max-w-xl text-lg text-muted">
+            Respiratory protection, occupational health, clinical skills and more, taught by
+            Registered Nurses. Every course comes with learning hours for your CNO Quality
+            Assurance.
           </p>
         </header>
       </section>
-      <div className="mx-auto -mt-16 max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
         {/* key resets local filter state when the category link changes */}
         <CatalogBrowser key={initialCategory ?? "all"} courses={courses} initialCategory={initialCategory} />
       </div>

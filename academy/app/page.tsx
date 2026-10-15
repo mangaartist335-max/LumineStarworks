@@ -1,34 +1,49 @@
 import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
-import { CATEGORIES, courses, getCourse } from "@/lib/courses";
+import {
+  ArrowRight,
+  Award,
+  BadgeCheck,
+  CalendarClock,
+  Check,
+  Clock,
+  Globe,
+  HandHeart,
+  MapPin,
+  ShieldCheck,
+  Star,
+} from "lucide-react";
+import { courses, getCourse } from "@/lib/courses";
 import { CourseCard } from "@/components/CourseCard";
-import { LogoMark } from "@/components/Logo";
+import { ProgressBar } from "@/components/ProgressBar";
 
 const FIT_TEST_URL = "https://www.nurseswecare.org/booking-workingplace-request-form";
 const FLAGSHIP_SLUG = "rn-respirator-fit-testing-train-the-trainer";
 
 const STATS = [
-  { value: String(courses.length), label: "Courses" },
-  { value: String(courses.reduce((n, c) => n + c.learningHours, 0)), label: "Learning hours" },
-  { value: `${Math.floor(courses.reduce((n, c) => n + c.learners, 0) / 1000)}k+`, label: "Nurses learning" },
-  {
-    value: (courses.reduce((n, c) => n + c.rating, 0) / courses.length).toFixed(1),
-    label: "Average rating",
-  },
+  { value: String(courses.length), label: "Courses and workshops" },
+  { value: String(courses.reduce((n, c) => n + c.learningHours, 0)), label: "Hours of learning" },
+  { value: `${Math.floor(courses.reduce((n, c) => n + c.learners, 0) / 1000)}k+`, label: "Learners so far" },
+  { value: (courses.reduce((n, c) => n + c.rating, 0) / courses.length).toFixed(1), label: "Average rating" },
 ];
 
-const COMMUNITY = [
+const PATHS = [
   {
-    title: "Developed by RNs",
-    body: "Every program is built and delivered by Registered and Occupational Health Nurses who fit test, teach and support teams every week.",
+    step: 1,
+    title: "Foundations",
+    blurb: "Get comfortable with respirators, PPE and everyday infection prevention.",
+    slugs: ["respiratory-protection-essentials", "ipac-foundations"],
   },
   {
-    title: "Aligned with standards",
-    body: "Our respiratory protection education follows CSA Z94.4, so what you learn carries straight into your workplace program.",
+    step: 2,
+    title: "Practitioner",
+    blurb: "Grow into occupational health and the clinical skills workplaces count on.",
+    slugs: ["occupational-health-nursing-essentials", "advanced-wound-care-fundamentals"],
   },
   {
-    title: "Learning together",
-    body: "NursesWeCare began with colleagues guiding fellow nurses and internationally educated nurses, and peer support is still at our heart.",
+    step: 3,
+    title: "Trainer",
+    blurb: "Lead fit testing for your organization and teach others to do it well.",
+    slugs: [FLAGSHIP_SLUG],
   },
 ];
 
@@ -38,199 +53,281 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero: a framed notice card on an airy blue wash, like the homepage. */}
-      <section className="sky-wash px-4 py-14 sm:px-6 lg:py-20">
-        <div className="notice-card mx-auto max-w-4xl animate-fade-up px-6 py-10 text-center sm:px-12">
-          <p className="caps text-xs font-bold text-accent">Welcome to the Academy</p>
-          <h1 className="mt-4 font-display text-3xl font-bold leading-tight sm:text-5xl">
-            NursesWeCare Academy
-          </h1>
-          <p className="mt-3 font-display text-lg italic text-brand-dark sm:text-xl">
-            Occupational Health and Respiratory Protection Education
-          </p>
-          <p className="mx-auto mt-6 max-w-2xl leading-relaxed text-muted">
-            Programs developed and delivered by Registered Nurses who are dedicated to advancing
-            respiratory protection education and occupational health practices. Learn online,
-            practise hands-on in Hamilton, and bring what you learn back to your team.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/courses" className="btn-outline-sky px-6 py-3 text-sm">
-              Browse Courses
-            </Link>
-            <Link href={`/courses/${FLAGSHIP_SLUG}`} className="btn-outline-sky px-6 py-3 text-sm">
-              RN Train-the-Trainer Program
-            </Link>
-          </div>
-        </div>
-
-        <div className="mx-auto mt-14 max-w-4xl text-center">
-          <h2 className="text-glow font-sans text-3xl font-light text-sky-deep sm:text-4xl">
-            Occupational Health Nursing Education
-          </h2>
-          <p className="mt-2 text-lg">By The NursesWeCare Team</p>
-          <dl className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label} className="rounded-md bg-white/80 px-4 py-5 shadow-sm">
-                <dd className="font-display text-3xl font-bold text-brand-dark">{s.value}</dd>
-                <dt className="caps mt-1 text-[10px] font-bold text-muted">{s.label}</dt>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* Pink quote banner with the white logo mark. */}
-      <section className="pink-wash relative overflow-hidden px-4 py-16 text-center text-white sm:px-6">
-        <LogoMark tone="white" className="mx-auto h-24 w-28" />
-        <p className="mx-auto mt-6 max-w-4xl font-caps text-2xl font-extrabold uppercase leading-snug tracking-[0.08em] drop-shadow-[0_2px_6px_rgba(201,71,159,0.5)] sm:text-4xl">
-          &ldquo;Knowledge empowers us to make healthier choices, build stronger communities, and
-          create a healthier future.&rdquo;
-        </p>
-      </section>
-
-      {/* Flagship program, laid out like the program block on the homepage. */}
-      <section className="bg-mist px-4 py-16 sm:px-6">
-        <div className="mx-auto grid max-w-6xl items-stretch lg:grid-cols-[1fr_1.4fr]">
-          <div className="cover-blend relative min-h-56 overflow-hidden rounded-t-md lg:rounded-l-md lg:rounded-tr-none">
-            <div className="cover-pattern absolute inset-0" />
-            <div className="relative flex h-full flex-col justify-end p-8 text-white">
-              <p className="caps text-xs font-bold">Now enrolling</p>
-              <p className="mt-2 font-display text-2xl font-bold">Group seats available for workplaces</p>
-            </div>
-          </div>
-          <div className="rounded-b-md bg-white p-8 sm:p-10 lg:rounded-r-md lg:rounded-bl-none">
-            <p className="text-4xl font-light text-sky-deep">NursesWeCare</p>
-            <p className="mt-1 font-display text-lg italic">Occupational Health and Respiratory Protection Education</p>
-            <h2 className="mt-6 text-lg font-bold">{flagship.title} Program</h2>
-            <p className="text-muted">Offered by NursesWeCare Academy</p>
-            <p className="mt-4 leading-relaxed text-muted">
-              Designed to equip Registered Nurses with the knowledge and practical skills to conduct
-              respirator fit testing safely and effectively in healthcare and workplace environments.
+      {/* Hero */}
+      <section className="mesh relative overflow-hidden">
+        <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-28 pt-14 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:pt-20">
+          <div className="animate-fade-up">
+            <span className="eyebrow">RN-led learning · Hamilton, Ontario</span>
+            <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+              Protect every <span className="gradient-text">breath.</span>
+              <br />
+              Grow every <span className="gradient-text">skill.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              NursesWeCare Academy helps nurses and healthcare teams build real confidence in
+              respiratory protection and occupational health, with online lessons, hands-on
+              practicums and a warm community cheering you on.
             </p>
-            <p className="mt-4 font-semibold">The program integrates:</p>
-            <ul className="mt-2 grid gap-1.5 text-sm text-muted sm:grid-cols-2">
-              {[
-                "Aerosol science and airborne transmission",
-                "Respirator technology and filtration",
-                "Qualitative respirator fit testing",
-                "Infection prevention and control",
-                "Occupational health nursing considerations",
-                "Adult learning principles",
-              ].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                  {item}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/courses" className="btn-primary px-6 py-3.5 text-sm">
+                Explore courses <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link href={`/courses/${FLAGSHIP_SLUG}`} className="btn-secondary px-6 py-3.5 text-sm">
+                Become a fit test trainer
+              </Link>
+            </div>
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+              {["Taught by RNs", "CSA Z94.4 aligned", "Certificates included"].map((t) => (
+                <li key={t} className="flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-accent" aria-hidden /> {t}
                 </li>
               ))}
             </ul>
-            <Link href={`/courses/${FLAGSHIP_SLUG}`} className="btn-pink mt-8 px-6 py-3 text-sm">
-              View Program Details <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+          </div>
+
+          {/* A little collage of what learning here feels like. */}
+          <div className="relative mx-auto w-full max-w-md animate-fade-up [animation-delay:150ms] lg:max-w-none">
+            <div className="cover-blend relative aspect-[4/3.4] overflow-hidden rounded-[2.5rem] shadow-[0_40px_80px_-40px_rgba(42,134,194,0.7)]">
+              <div className="dot-grid absolute inset-0" />
+              <div className="absolute -bottom-16 -right-10 h-64 w-64 rounded-full bg-white/30" />
+              <div className="absolute inset-0 grid place-items-center">
+                <span className="grid h-28 w-28 place-items-center rounded-[2rem] bg-white/40 text-white ring-1 ring-white/70 backdrop-blur">
+                  <ShieldCheck className="h-14 w-14" strokeWidth={1.5} aria-hidden />
+                </span>
+              </div>
+            </div>
+
+            <div className="glass animate-float absolute -left-4 top-6 w-56 rounded-3xl p-4 sm:-left-10">
+              <p className="flex items-center gap-2 text-xs font-semibold text-accent-dark">
+                <CalendarClock className="h-4 w-4" aria-hidden /> Next practicum
+              </p>
+              <p className="mt-1.5 font-display text-sm font-semibold">Hands-on fit testing</p>
+              <p className="text-xs text-muted">Thursday · 9:00 AM · Hamilton</p>
+            </div>
+
+            <div className="glass animate-float absolute -right-2 bottom-10 w-64 rounded-3xl p-4 [animation-delay:1.5s] sm:-right-8">
+              <p className="text-xs font-semibold text-brand-dark">Your progress</p>
+              <p className="mt-1 font-display text-sm font-semibold">{flagship.title}</p>
+              <div className="mt-3 flex items-center gap-2">
+                <ProgressBar value={62} label="Sample progress" />
+                <span className="text-xs font-semibold">62%</span>
+              </div>
+            </div>
+
+            <div className="absolute -bottom-5 left-8 flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-xs font-semibold text-white shadow-lg">
+              <BadgeCheck className="h-4 w-4" aria-hidden /> Certificate earned!
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
+      {/* Stats ribbon overlapping the hero */}
+      <section className="relative z-10 mx-auto -mt-14 max-w-5xl px-4 sm:px-6">
+        <dl className="card grid grid-cols-2 gap-y-6 px-6 py-7 md:grid-cols-4">
+          {STATS.map((s, i) => (
+            <div key={s.label} className={`text-center ${i > 0 ? "md:border-l" : ""}`}>
+              <dd className="gradient-text font-display text-4xl font-semibold">{s.value}</dd>
+              <dt className="mt-1 text-sm text-muted">{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* Learning paths */}
+      <section id="paths" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-24 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow">Learning paths</span>
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight">
+            Find your path, one step at a time
+          </h2>
+          <p className="mt-3 text-muted">
+            Start where you are. Each step builds on the last, all the way to training others.
+          </p>
+        </div>
+        <ol className="relative mt-12 grid gap-6 md:grid-cols-3">
+          <span
+            className="absolute left-[16%] right-[16%] top-0 hidden border-t-2 border-dashed border-sky md:block"
+            aria-hidden
+          />
+          {PATHS.map((path) => (
+            <li key={path.title} className="card relative flex flex-col p-6 pt-0">
+              <span className="gradient-fill mx-auto grid h-16 w-16 -translate-y-1/2 place-items-center rounded-full font-display text-2xl font-semibold text-white ring-8 ring-background">
+                {path.step}
+              </span>
+              <h3 className="-mt-4 text-center font-display text-xl font-semibold">{path.title}</h3>
+              <p className="mt-2 text-center text-sm leading-relaxed text-muted">{path.blurb}</p>
+              <ul className="mt-5 space-y-2">
+                {path.slugs.map((slug) => {
+                  const c = getCourse(slug);
+                  if (!c) return null;
+                  return (
+                    <li key={slug}>
+                      <Link
+                        href={`/courses/${slug}`}
+                        className="flex items-center justify-between gap-3 rounded-2xl bg-surface-muted px-4 py-3 text-sm font-medium transition hover:bg-accent-soft"
+                      >
+                        <span>{c.title}</span>
+                        <ArrowRight className="h-4 w-4 shrink-0 text-accent" aria-hidden />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Featured courses */}
+      <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-display text-3xl font-bold">Featured Courses</h2>
-            <p className="mt-2 text-muted">Start with our most requested programs.</p>
+            <span className="eyebrow">Popular right now</span>
+            <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight">Featured courses</h2>
           </div>
-          <Link href="/courses" className="caps inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-accent-dark">
-            See all courses <ArrowRight className="h-4 w-4" aria-hidden />
+          <Link href="/courses" className="btn-secondary px-5 py-2.5 text-sm">
+            Browse all courses <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((course) => (
             <CourseCard key={course.slug} course={course} />
           ))}
         </div>
       </section>
 
-      {/* Vision and mission blocks, in the site's blue and pink. */}
-      <section className="mt-20 grid md:grid-cols-2">
-        <div className="flex min-h-64 flex-col items-center justify-center bg-sky px-8 py-14 text-center text-white">
-          <h2 className="on-band font-display text-5xl">Vision</h2>
-          <span className="mt-3 h-px w-10 bg-white" />
-        </div>
-        <div className="flex items-center px-8 py-14 sm:px-16">
-          <p className="max-w-md text-lg leading-relaxed">
-            To establish a reputable organization in advancing health, safety, and wellness, where
-            workplaces are healthier, communities stronger, and nurses empowered to create lasting
-            impact.
-          </p>
-        </div>
-        <div className="order-4 flex items-center px-8 py-14 sm:px-16 md:order-3">
-          <p className="max-w-md text-lg leading-relaxed">
-            NursesWeCare provides evidence-based nursing services, occupational health programs, and
-            community wellness initiatives that improve lives in workplaces and across communities.
-            Through education, specialized clinical services, and partnerships, we support the next
-            generation of nurses, individuals, and organizations to thrive in health and safety.
-          </p>
-        </div>
-        <div className="order-3 flex min-h-64 flex-col items-center justify-center bg-pink px-8 py-14 text-center text-white md:order-4">
-          <h2 className="on-pink font-display text-5xl">Mission</h2>
-          <span className="mt-3 h-px w-10 bg-white" />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-20 text-center sm:px-6">
-        <span className="caps on-band inline-block rounded-xl bg-sky px-5 py-2 text-sm font-extrabold text-white">
-          NursesWeCare
-        </span>
-        <h2 className="mt-4 font-caps text-3xl font-extrabold uppercase leading-tight text-accent sm:text-4xl">
-          A Community of Caring &amp; Learning
-        </h2>
-        <div className="mt-4 flex justify-center gap-4" aria-hidden>
-          <span className="h-3 w-3 rounded-full bg-accent" />
-          <span className="h-3 w-3 rounded-full bg-accent" />
-          <span className="h-3 w-3 rounded-full bg-accent" />
-        </div>
-        <div className="mt-10 grid gap-6 text-left md:grid-cols-3">
-          {COMMUNITY.map(({ title, body }) => (
-            <div key={title} className="rounded-md bg-sky p-6 shadow-[0_6px_18px_-10px_rgba(47,147,207,0.8)]">
-              <h3 className="on-band font-display text-xl font-bold text-white">{title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-[#123f5e]">{body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
-        <h2 className="text-center font-display text-3xl font-bold">Explore by Topic</h2>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          {CATEGORIES.map((cat) => {
-            const count = courses.filter((c) => c.category === cat).length;
-            return (
-              <Link
-                key={cat}
-                href={`/courses?category=${encodeURIComponent(cat)}`}
-                className="btn-outline-sky px-5 py-3 text-sm"
-              >
-                {cat}
-                <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] text-accent-dark">{count}</span>
+      {/* Flagship spotlight */}
+      <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+        <div className="overflow-hidden rounded-[2.5rem] bg-accent-soft">
+          <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr]">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
+                <Star className="h-3.5 w-3.5 fill-white" aria-hidden /> Flagship program
+              </span>
+              <h2 className="mt-5 font-display text-4xl font-semibold leading-tight tracking-tight">
+                {flagship.title}
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted">
+                Leave ready to run fit testing in your own workplace. You&rsquo;ll learn the science,
+                practise the hands-on steps with RN faculty, and pick up the teaching skills to
+                train your colleagues with confidence.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2 text-sm">
+                <span className="rounded-full bg-white px-3 py-1.5 font-medium">{flagship.learningHours} learning hours</span>
+                <span className="rounded-full bg-white px-3 py-1.5 font-medium">{flagship.format}</span>
+                <span className="rounded-full bg-white px-3 py-1.5 font-medium">Group seats for workplaces</span>
+              </div>
+              <Link href={`/courses/${FLAGSHIP_SLUG}`} className="btn-primary mt-8 px-6 py-3.5 text-sm">
+                See the program <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-            );
-          })}
+            </div>
+
+            <ol className="space-y-3">
+              {flagship.modules.map((m, i) => (
+                <li key={m.title} className="flex items-start gap-4 rounded-3xl bg-white p-4 shadow-[0_10px_30px_-24px_rgba(198,63,156,0.8)]">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-soft font-display text-sm font-semibold text-brand-dark">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <p className="font-display font-semibold">{m.title}</p>
+                    <p className="text-sm text-muted">{m.summary}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-4 pt-20 sm:px-6">
-        <div className="notice-card px-6 py-10 text-center sm:px-12">
-          <h2 className="font-display text-2xl font-bold">Need a Respirator Fit Test?</h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted">
-            NursesWeCare also offers N95 respirator fit testing for students and workplaces, at our
-            Hamilton office and on site. Please arrive clean-shaven around the respirator sealing
-            area so we can get a proper seal.
-          </p>
-          <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-muted">
-            <MapPin className="h-4 w-4 text-accent" aria-hidden /> 702 Upper James St., Hamilton, ON
-          </p>
-          <a href={FIT_TEST_URL} target="_blank" rel="noreferrer" className="btn-outline-sky mt-6 px-6 py-3 text-sm">
-            Book A Fit Test
-          </a>
+      {/* Why learn with us, as a bento grid */}
+      <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+        <div className="max-w-2xl">
+          <span className="eyebrow">Why learn with us</span>
+          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight">
+            Made by nurses who do this every day
+          </h2>
+        </div>
+        <div className="mt-10 grid auto-rows-[minmax(150px,auto)] gap-5 md:grid-cols-4">
+          <div className="cover-sky relative overflow-hidden rounded-[2rem] p-8 md:col-span-2 md:row-span-2">
+            <div className="dot-grid absolute inset-0 opacity-60" />
+            <div className="relative flex h-full flex-col">
+              <MapPin className="h-8 w-8 text-brand-dark" aria-hidden />
+              <h3 className="mt-auto pt-16 font-display text-3xl font-semibold leading-tight">
+                Practise for real, right here in Hamilton
+              </h3>
+              <p className="mt-3 max-w-sm text-foreground/80">
+                Online lessons get you ready, then small-group practicums let you build skills with
+                RN faculty beside you.
+              </p>
+            </div>
+          </div>
+          <BentoTile icon={Clock} title="Learn between shifts" body="Short lessons you can finish on a break." tone="pink" />
+          <BentoTile icon={ShieldCheck} title="Standards built in" body="Respiratory content follows CSA Z94.4." tone="white" />
+          <BentoTile icon={Globe} title="Welcoming to IENs" body="Peer support for internationally educated nurses." tone="white" />
+          <BentoTile icon={Award} title="Certificates for CNO QA" body="Log your learning hours with ease." tone="sky" />
+        </div>
+      </section>
+
+      {/* Kind words */}
+      <section className="mx-auto max-w-3xl px-4 pt-24 text-center sm:px-6">
+        <HandHeart className="mx-auto h-10 w-10 text-accent" aria-hidden />
+        <blockquote className="mt-6 font-display text-2xl font-medium leading-snug sm:text-3xl">
+          &ldquo;I walked in nervous about teaching fit testing and walked out excited to run our
+          first session. The whole team made it feel easy.&rdquo;
+        </blockquote>
+        <p className="mt-4 text-sm text-muted">Sample learner · RN, Occupational Health</p>
+      </section>
+
+      {/* Fit test call to action */}
+      <section className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+        <div className="mesh relative overflow-hidden rounded-[2.5rem] px-8 py-14 ring-1 ring-border sm:px-14">
+          <div className="grid items-center gap-8 md:grid-cols-[1.4fr_1fr]">
+            <div>
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Need an N95 fit test?
+              </h2>
+              <p className="mt-3 max-w-lg text-muted">
+                Students and workplaces can book a fit test with our RN team, in Hamilton or on site.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 md:justify-end">
+              <a href={FIT_TEST_URL} target="_blank" rel="noreferrer" className="btn-primary px-6 py-3.5 text-sm">
+                Book a fit test
+              </a>
+              <Link href="/courses?category=Respiratory%20Protection" className="btn-secondary px-6 py-3.5 text-sm">
+                Learn about respirators
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>
+  );
+}
+
+function BentoTile({
+  icon: Icon,
+  title,
+  body,
+  tone,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  body: string;
+  tone: "pink" | "sky" | "white";
+}) {
+  const tones = {
+    pink: "bg-accent-soft",
+    sky: "bg-brand-soft",
+    white: "card",
+  };
+  return (
+    <div className={`${tones[tone]} rounded-[2rem] p-6`}>
+      <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white text-accent shadow-sm">
+        <Icon className="h-5 w-5" />
+      </span>
+      <h3 className="mt-4 font-display text-lg font-semibold">{title}</h3>
+      <p className="mt-1 text-sm text-muted">{body}</p>
+    </div>
   );
 }

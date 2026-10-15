@@ -1,24 +1,16 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville, Montserrat, Nunito_Sans } from "next/font/google";
+import { DM_Sans, Outfit } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { ChatBubble } from "@/components/ChatBubble";
 import "./globals.css";
 
-const sans = Nunito_Sans({
+const sans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const display = Libre_Baskerville({
+const display = Outfit({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-});
-
-const caps = Montserrat({
-  variable: "--font-caps",
   subsets: ["latin"],
 });
 
@@ -28,20 +20,16 @@ export const metadata: Metadata = {
     template: "%s · NursesWeCare Academy",
   },
   description:
-    "Occupational health and respiratory protection education, developed and delivered by Registered Nurses. A community of caring and learning.",
+    "Respiratory protection and occupational health courses for nurses and healthcare teams, taught by Registered Nurses.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${sans.variable} ${display.variable} ${caps.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${sans.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        <ChatBubble />
       </body>
     </html>
   );
