@@ -18,17 +18,17 @@ export type LiveSession = {
 export type Certificate = {
   courseTitle: string;
   earned: string;
-  ceHours: number;
+  hours: number;
 };
 
 export const learner = {
   firstName: "Jordan",
   fullName: "Jordan Ellis",
   initials: "JE",
-  role: "RN, Medical-Surgical",
+  role: "RN, Occupational Health · Hamilton, ON",
   memberSince: "March 2026",
-  ceGoal: 24,
-  ceEarned: 14,
+  hoursGoal: 30,
+  hoursEarned: 8,
   streakDays: 12,
   minutesThisWeek: 94,
   weeklyGoalMinutes: 120,
@@ -36,62 +36,62 @@ export const learner = {
 
 export const enrollments: Enrollment[] = [
   {
-    slug: "confident-clinical-assessment",
+    slug: "rn-respirator-fit-testing-train-the-trainer",
     progress: 62,
-    nextLesson: "Case walk-through: the quiet change",
+    nextLesson: "Hands-on practicum",
     lastActive: "Yesterday",
   },
   {
-    slug: "charge-nurse-essentials",
+    slug: "ipac-foundations",
     progress: 35,
-    nextLesson: "Assignment-building workshop",
+    nextLesson: "Choosing the right PPE",
     lastActive: "3 days ago",
   },
   {
-    slug: "community-health-outreach",
+    slug: "advanced-wound-care-fundamentals",
     progress: 12,
-    nextLesson: "Finding local partners",
+    nextLesson: "Assessment walkthrough",
     lastActive: "Last week",
   },
 ];
 
 export const liveSessions: LiveSession[] = [
   {
-    title: "Assignment-building workshop",
-    courseSlug: "charge-nurse-essentials",
+    title: "Fit testing hands-on practicum",
+    courseSlug: "rn-respirator-fit-testing-train-the-trainer",
     date: "Thu, Oct 16",
-    time: "7:00 PM ET",
-    host: "Priya Raman",
+    time: "9:00 AM ET",
+    host: "RN Faculty · 702 Upper James St., Hamilton",
   },
   {
-    title: "Community coffee chat: outreach ideas",
-    courseSlug: "community-health-outreach",
+    title: "Community health fair planning workshop",
+    courseSlug: "community-health-fairs",
     date: "Tue, Oct 21",
     time: "12:30 PM ET",
-    host: "Tomas Reyes",
+    host: "RN Faculty · Online",
   },
 ];
 
 export const certificates: Certificate[] = [
   {
-    courseTitle: "Resilient Care: Everyday Wellbeing for Nurses",
+    courseTitle: "Respiratory Protection Essentials",
     earned: "Sep 2026",
-    ceHours: 6,
+    hours: 2,
   },
   {
-    courseTitle: "Thriving in Your First Year",
+    courseTitle: "CPR & BLS for Healthcare Providers",
     earned: "Jul 2026",
-    ceHours: 5,
+    hours: 4,
   },
   {
-    courseTitle: "Compassionate Communication",
+    courseTitle: "Wellness Workshop: Healthy Habits at Work",
     earned: "May 2026",
-    ceHours: 3,
+    hours: 2,
   },
 ];
 
 export const recommendedSlugs = [
-  "mindful-leadership",
-  "pediatric-care-foundations",
-  "career-pathways-specialty",
+  "occupational-health-nursing-essentials",
+  "ien-pathways-ontario",
+  "community-health-fairs",
 ];

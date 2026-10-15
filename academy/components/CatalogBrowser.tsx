@@ -36,7 +36,7 @@ export function CatalogBrowser({
       if (category !== "All" && c.category !== category) return false;
       if (level !== "All" && c.level !== level) return false;
       if (format !== "All" && c.format !== format) return false;
-      if (freeOnly && c.price !== 0) return false;
+      if (freeOnly && (c.price ?? 1) !== 0) return false;
       if (!q) return true;
       return [c.title, c.tagline, c.category, c.instructor.name]
         .join(" ")
@@ -48,7 +48,7 @@ export function CatalogBrowser({
         case "rating":
           return b.rating - a.rating;
         case "ce":
-          return b.ceHours - a.ceHours;
+          return b.learningHours - a.learningHours;
         case "short":
           return a.weeks - b.weeks;
         default:
@@ -92,7 +92,7 @@ export function CatalogBrowser({
                 onChange={(e) => setFreeOnly(e.target.checked)}
                 className="h-4 w-4 accent-[var(--brand)]"
               />
-              Free for members
+              Free courses
             </label>
           </div>
         </div>
@@ -139,7 +139,7 @@ export function CatalogBrowser({
           >
             <option value="popular">Most popular</option>
             <option value="rating">Highest rated</option>
-            <option value="ce">Most CE hours</option>
+            <option value="ce">Most learning hours</option>
             <option value="short">Shortest first</option>
           </select>
         </label>

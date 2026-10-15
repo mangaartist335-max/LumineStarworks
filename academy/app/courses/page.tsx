@@ -16,8 +16,8 @@ export default async function CatalogPage(props: PageProps<"/courses">) {
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Course catalog</p>
         <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight">Find your next course</h1>
         <p className="mt-3 text-muted">
-          Clinical skills, leadership, wellbeing and more, all built by nurses. Every course earns
-          CE hours you can track right in your dashboard.
+          Respiratory protection, occupational health, clinical skills and more, all developed and delivered by Registered Nurses. Every course earns
+          learning hours you can log for your annual CNO Quality Assurance reflection.
         </p>
       </header>
       <div className="mt-8">

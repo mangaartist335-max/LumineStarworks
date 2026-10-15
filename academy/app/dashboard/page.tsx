@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Award, CalendarDays, Clock, Download, Flame, PlayCircle, Sparkles, Video } from "lucide-react";
+import { ArrowRight, Award, CalendarDays, Clock, Download, Flame, ShieldCheck, PlayCircle, Sparkles, Video } from "lucide-react";
 import { getCourse, type Course } from "@/lib/courses";
 import { certificates, enrollments, learner, liveSessions, recommendedSlugs } from "@/lib/learner";
 import { CourseCover } from "@/components/CourseCover";
@@ -24,7 +24,7 @@ export default function DashboardPage() {
   const recommended = recommendedSlugs
     .map((slug) => getCourse(slug))
     .filter((c): c is Course => Boolean(c));
-  const cePct = Math.round((learner.ceEarned / learner.ceGoal) * 100);
+  const cePct = Math.round((learner.hoursEarned / learner.hoursGoal) * 100);
   const weekPct = Math.round((learner.minutesThisWeek / learner.weeklyGoalMinutes) * 100);
 
   return (
@@ -52,8 +52,8 @@ export default function DashboardPage() {
       </header>
 
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Your stats">
-        <StatCard icon={Award} label="CE hours this cycle" value={`${learner.ceEarned} / ${learner.ceGoal}`}>
-          <ProgressBar value={cePct} label="CE hours goal" />
+        <StatCard icon={Award} label="Learning hours this year" value={`${learner.hoursEarned} / ${learner.hoursGoal}`}>
+          <ProgressBar value={cePct} label="Learning hours goal" />
         </StatCard>
         <StatCard icon={Clock} label="Learning this week" value={`${learner.minutesThisWeek} min`}>
           <ProgressBar value={weekPct} label="Weekly learning goal" />
@@ -186,7 +186,7 @@ export default function DashboardPage() {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">{c.courseTitle}</p>
                     <p className="text-xs text-muted">
-                      {c.ceHours} CE hours · Earned {c.earned}
+                      {c.hours} learning hours · Earned {c.earned}
                     </p>
                   </div>
                   <button
@@ -199,6 +199,24 @@ export default function DashboardPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className="rounded-2xl border bg-surface p-6">
+            <h2 className="flex items-center gap-2 font-display text-xl font-semibold">
+              <ShieldCheck className="h-5 w-5 text-brand" aria-hidden /> Your fit test
+            </h2>
+            <p className="mt-2 text-sm text-muted">
+              Last fit test: <span className="text-foreground">N95 respirator, passed Nov 2025</span>.
+              Your yearly re-test is coming up next month.
+            </p>
+            <a
+              href="https://www.nurseswecare.org/booking-workingplace-request-form"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white hover:brightness-95"
+            >
+              Book a fit test
+            </a>
           </section>
 
           <section className="rounded-2xl bg-brand-soft p-6">

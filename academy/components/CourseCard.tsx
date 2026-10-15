@@ -24,7 +24,7 @@ export function CourseCard({ course }: { course: Course }) {
           <div className="flex items-center gap-4 text-xs text-muted">
             <span className="inline-flex items-center gap-1">
               <Award className="h-3.5 w-3.5 text-accent" aria-hidden />
-              {course.ceHours} CE hrs
+              {course.learningHours} learning hrs
             </span>
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" aria-hidden />
@@ -37,8 +37,8 @@ export function CourseCard({ course }: { course: Course }) {
           </div>
           <div className="mt-4 flex items-center justify-between border-t pt-4 text-sm">
             <span className="text-muted">{course.format}</span>
-            <span className={course.price === 0 ? "font-semibold text-brand" : "font-semibold"}>
-              {course.price === 0 ? "Free for members" : formatPrice(course.price)}
+            <span className={course.price === 0 || course.price === null ? "font-semibold text-brand" : "font-semibold"}>
+              {formatPrice(course.price)}
             </span>
           </div>
         </div>

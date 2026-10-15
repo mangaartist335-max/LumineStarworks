@@ -45,7 +45,7 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
     .slice(0, 3);
 
   const facts = [
-    { icon: Award, label: "CE hours", value: `${course.ceHours} contact hours` },
+    { icon: Award, label: "Learning hours", value: `${course.learningHours} learning hours + certificate` },
     { icon: CalendarDays, label: "Duration", value: `${course.weeks} ${course.weeks === 1 ? "week" : "weeks"}` },
     { icon: Clock, label: "Learning time", value: `About ${hours} hours` },
     { icon: ListChecks, label: "Lessons", value: `${lessonCount(course)} lessons in ${course.modules.length} modules` },
@@ -182,19 +182,21 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
             ) : (
               <div className="mb-5">
                 <p className="font-display text-3xl font-semibold">
-                  {course.price === 0 ? "Free" : formatPrice(course.price)}
+                  {formatPrice(course.price)}
                 </p>
                 <p className="mt-1 text-sm text-muted">
-                  {course.price === 0
-                    ? "Included with your NursesWeCare membership"
-                    : "Members save 20% at checkout"}
+                  {course.price === null
+                    ? "Group and workplace pricing available on request"
+                    : course.price === 0
+                      ? "Free for the NursesWeCare community"
+                      : "Prices in Canadian dollars"}
                 </p>
               </div>
             )}
 
             <EnrollButton
               enrolled={Boolean(enrollment)}
-              label={course.format === "Live cohort" ? "Reserve my seat" : "Enroll now"}
+              label={course.price === null ? "Request a seat" : course.format === "Virtual" ? "Enroll now" : "Reserve my seat"}
             />
 
             <dl className="mt-6 space-y-3 border-t pt-5">

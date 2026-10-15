@@ -1,28 +1,28 @@
 import {
-  Compass,
-  GraduationCap,
+  Bandage,
+  ClipboardCheck,
+  Globe,
   HeartPulse,
   House,
   Leaf,
-  MessageCircleHeart,
-  Sparkles,
-  Stethoscope,
+  ShieldCheck,
   Users,
+  Wind,
   type LucideIcon,
 } from "lucide-react";
 import clsx from "clsx";
 import type { CourseIcon, CoverTheme } from "@/lib/courses";
 
 const ICONS: Record<CourseIcon, LucideIcon> = {
+  shield: ShieldCheck,
+  wind: Wind,
   "heart-pulse": HeartPulse,
-  leaf: Leaf,
-  compass: Compass,
+  bandage: Bandage,
+  globe: Globe,
   users: Users,
-  stethoscope: Stethoscope,
-  sparkles: Sparkles,
-  graduation: GraduationCap,
+  clipboard: ClipboardCheck,
   home: House,
-  message: MessageCircleHeart,
+  leaf: Leaf,
 };
 
 export function CourseCover({

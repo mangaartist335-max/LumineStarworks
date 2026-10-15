@@ -1,16 +1,20 @@
-// Sample catalog for the prototype. Everything here is placeholder content
-// written to show the shape of a real catalog; swap it for real courses later.
+// Catalog for the prototype. The RN Respirator Fit Testing Train-the-Trainer
+// program mirrors the real NursesWeCare Academy flagship; the other courses
+// are sample offerings built around NursesWeCare's services (fit testing,
+// occupational health, CPR/BLS, wound care, health fairs and IEN support).
+// Prices, schedules and faculty are placeholders until the real details are in.
 
 export type Category =
+  | "Respiratory Protection"
+  | "Occupational Health"
   | "Clinical Skills"
-  | "Nurse Wellbeing"
-  | "Leadership"
-  | "Career Growth"
+  | "Emergency Response"
+  | "IEN Pathways"
   | "Community Health";
 
-export type Level = "Beginner" | "Intermediate" | "Advanced";
+export type Level = "Foundational" | "Intermediate" | "Advanced";
 
-export type Format = "Self-paced" | "Live cohort" | "Workshop";
+export type Format = "In person" | "Virtual" | "Blended";
 
 export type Lesson = {
   title: string;
@@ -40,11 +44,11 @@ export type Course = {
   category: Category;
   level: Level;
   format: Format;
-  ceHours: number;
+  learningHours: number;
   weeks: number;
   rating: number;
   learners: number;
-  price: number; // 0 means included free with membership
+  price: number | null; // CAD; null means "contact us for pricing"
   cover: CoverTheme;
   icon: CourseIcon;
   outcomes: string[];
@@ -52,527 +56,462 @@ export type Course = {
   instructor: Instructor;
   modules: Module[];
   featured?: boolean;
+  flagship?: boolean;
 };
 
 export type CoverTheme = "teal" | "coral" | "sage" | "sky" | "plum" | "sun";
 
 export type CourseIcon =
+  | "shield"
+  | "wind"
   | "heart-pulse"
-  | "leaf"
-  | "compass"
+  | "bandage"
+  | "globe"
   | "users"
-  | "stethoscope"
-  | "sparkles"
-  | "graduation"
+  | "clipboard"
   | "home"
-  | "message";
+  | "leaf";
 
 export const CATEGORIES: Category[] = [
+  "Respiratory Protection",
+  "Occupational Health",
   "Clinical Skills",
-  "Nurse Wellbeing",
-  "Leadership",
-  "Career Growth",
+  "Emergency Response",
+  "IEN Pathways",
   "Community Health",
 ];
 
-export const LEVELS: Level[] = ["Beginner", "Intermediate", "Advanced"];
+export const LEVELS: Level[] = ["Foundational", "Intermediate", "Advanced"];
 
-export const FORMATS: Format[] = ["Self-paced", "Live cohort", "Workshop"];
+export const FORMATS: Format[] = ["In person", "Virtual", "Blended"];
+
+const RN_FACULTY: Instructor = {
+  name: "NursesWeCare RN Faculty",
+  credentials: "Registered Nurses",
+  role: "Respiratory Protection & Occupational Health",
+  bio: "Our programs are developed and delivered by Registered Nurses who fit test, teach and support healthcare teams across the Hamilton area every week.",
+  initials: "RN",
+};
 
 export const courses: Course[] = [
   {
-    slug: "resilient-care-everyday-wellbeing",
-    title: "Resilient Care: Everyday Wellbeing for Nurses",
-    tagline: "Small, practical habits that keep you steady and bright on shift.",
+    slug: "rn-respirator-fit-testing-train-the-trainer",
+    title: "RN Respirator Fit Testing Train-the-Trainer",
+    tagline: "Become the fit testing lead your workplace can count on.",
     description:
-      "A warm, practical course on building daily routines that support your energy, focus and joy at work. You'll learn quick reset techniques you can use between patients, ways to protect your rest, and how to bring a little more ease into every shift.",
-    category: "Nurse Wellbeing",
-    level: "Beginner",
-    format: "Self-paced",
-    ceHours: 6,
+      "Our flagship program prepares Registered Nurses to deliver respirator fit testing and training in healthcare and workplace settings. You'll build a strong foundation in respiratory protection, practise qualitative fit testing hands-on, learn clear documentation, and develop the teaching skills to train others with confidence, so your organization can build its own internal fit testing capacity.",
+    category: "Respiratory Protection",
+    level: "Advanced",
+    format: "Blended",
+    learningHours: 14,
     weeks: 3,
     rating: 4.9,
-    learners: 2140,
-    price: 0,
-    cover: "sage",
-    icon: "leaf",
-    featured: true,
-    outcomes: [
-      "Use three-minute reset practices during a busy shift",
-      "Build a pre-shift and post-shift routine that fits your life",
-      "Plan restful days off that genuinely recharge you",
-      "Create a personal wellbeing plan you can keep coming back to",
-    ],
-    audience: [
-      "Nurses at any stage of their career",
-      "Students preparing for clinical placements",
-      "Nurse managers looking for ideas to share with their teams",
-    ],
-    instructor: {
-      name: "Dana Whitfield",
-      credentials: "MSN, RN",
-      role: "Wellbeing Program Lead",
-      bio: "Dana spent twelve years on a busy medical-surgical floor before focusing on nurse wellbeing. She loves turning research into simple habits people actually enjoy.",
-      initials: "DW",
-    },
-    modules: [
-      {
-        title: "Your energy, your way",
-        summary: "Understand what fuels you and what drains you on a typical shift.",
-        lessons: [
-          { title: "Welcome and how this course works", minutes: 5, kind: "video" },
-          { title: "Mapping your energy across a shift", minutes: 12, kind: "practice" },
-          { title: "The science of small breaks", minutes: 10, kind: "reading" },
-        ],
-      },
-      {
-        title: "Reset in three minutes",
-        summary: "Quick breathing, movement and grounding practices for the hallway or break room.",
-        lessons: [
-          { title: "Box breathing, step by step", minutes: 8, kind: "video" },
-          { title: "Stretches you can do in scrubs", minutes: 9, kind: "video" },
-          { title: "Try it on your next shift", minutes: 15, kind: "practice" },
-        ],
-      },
-      {
-        title: "Rest that restores",
-        summary: "Sleep tips for every schedule, including nights and rotating shifts.",
-        lessons: [
-          { title: "Sleep strategies for shift workers", minutes: 14, kind: "video" },
-          { title: "Designing a recharge day", minutes: 10, kind: "practice" },
-          { title: "Your personal wellbeing plan", minutes: 20, kind: "practice" },
-          { title: "Check your understanding", minutes: 10, kind: "quiz" },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "confident-clinical-assessment",
-    title: "Confident Clinical Assessment",
-    tagline: "Sharpen your head-to-toe assessment and trust what you notice.",
-    description:
-      "Build a structured, confident approach to patient assessment. Through short videos, case walk-throughs and practice checklists, you'll strengthen the skills that help you spot changes early and communicate them clearly.",
-    category: "Clinical Skills",
-    level: "Intermediate",
-    format: "Self-paced",
-    ceHours: 10,
-    weeks: 4,
-    rating: 4.8,
-    learners: 3285,
-    price: 89,
+    learners: 320,
+    price: null,
     cover: "teal",
-    icon: "stethoscope",
+    icon: "shield",
     featured: true,
+    flagship: true,
     outcomes: [
-      "Perform a focused, systematic head-to-toe assessment",
-      "Recognize early signs of a changing patient condition",
-      "Document findings clearly and consistently",
-      "Use SBAR to share concerns with the care team",
+      "Explain respiratory protection principles and the CSA Z94.4-18 standard",
+      "Describe aerosol science and airborne transmission in plain language",
+      "Perform qualitative fit testing accurately and safely",
+      "Document fit test results clearly and consistently",
+      "Apply adult learning principles to train other fit testers",
+      "Support your workplace in running its own fit testing program",
     ],
     audience: [
-      "Newer nurses building clinical confidence",
-      "Experienced nurses moving to a new specialty",
+      "Registered Nurses in occupational health, IPAC or staff education",
+      "Healthcare employers building internal fit testing capacity",
+      "Nurse educators supporting clinical placements",
     ],
-    instructor: {
-      name: "Marcus Okafor",
-      credentials: "DNP, APRN, CCRN",
-      role: "Clinical Educator",
-      bio: "Marcus has precepted dozens of new graduates and is known for making complex physiology feel friendly and memorable.",
-      initials: "MO",
-    },
+    instructor: RN_FACULTY,
     modules: [
       {
-        title: "A system that works every time",
-        summary: "Set up a repeatable assessment flow you can rely on.",
+        title: "Respiratory protection foundations",
+        summary: "Why respiratory protection matters and the standards that guide it.",
         lessons: [
-          { title: "Why structure builds confidence", minutes: 7, kind: "video" },
-          { title: "The head-to-toe flow", minutes: 18, kind: "video" },
-          { title: "Printable assessment checklist", minutes: 5, kind: "reading" },
+          { title: "Welcome to the program", minutes: 10, kind: "video" },
+          { title: "Respiratory protection principles", minutes: 25, kind: "video" },
+          { title: "Understanding CSA Z94.4-18", minutes: 20, kind: "reading" },
         ],
       },
       {
-        title: "Noticing the early signs",
-        summary: "Spot subtle trends in vitals, mental status and skin.",
+        title: "Aerosol science and filtration",
+        summary: "How particles travel and how respirators keep us protected.",
         lessons: [
-          { title: "Trends tell the story", minutes: 15, kind: "video" },
-          { title: "Case walk-through: the quiet change", minutes: 20, kind: "practice" },
-          { title: "Check your understanding", minutes: 10, kind: "quiz" },
+          { title: "Aerosol science and airborne transmission", minutes: 25, kind: "video" },
+          { title: "Respirator types and filtration", minutes: 20, kind: "video" },
+          { title: "Infection prevention and control connections", minutes: 15, kind: "reading" },
+          { title: "Check your understanding", minutes: 15, kind: "quiz" },
         ],
       },
       {
-        title: "Speaking up with clarity",
-        summary: "Communicate findings so the whole team can act quickly.",
+        title: "Qualitative fit testing in practice",
+        summary: "Hands-on practice at our Hamilton training space.",
         lessons: [
-          { title: "SBAR in real life", minutes: 12, kind: "video" },
-          { title: "Practice script builder", minutes: 15, kind: "practice" },
-          { title: "Documentation that helps the next shift", minutes: 10, kind: "reading" },
+          { title: "Preparing the client and the space", minutes: 15, kind: "video" },
+          { title: "Step-by-step qualitative fit test", minutes: 30, kind: "video" },
+          { title: "Hands-on practicum", minutes: 180, kind: "live" },
+        ],
+      },
+      {
+        title: "Documentation and records",
+        summary: "Keep accurate, audit-ready fit testing records.",
+        lessons: [
+          { title: "Documenting a fit test", minutes: 15, kind: "video" },
+          { title: "Record-keeping practice", minutes: 20, kind: "practice" },
+        ],
+      },
+      {
+        title: "Training others",
+        summary: "Bring adult learning principles to your own sessions.",
+        lessons: [
+          { title: "Adult learning principles", minutes: 20, kind: "video" },
+          { title: "Plan your first training session", minutes: 30, kind: "practice" },
+          { title: "Teach-back evaluation", minutes: 90, kind: "live" },
         ],
       },
     ],
   },
   {
-    slug: "charge-nurse-essentials",
-    title: "Charge Nurse Essentials",
-    tagline: "Lead the shift with calm, clarity and a team-first mindset.",
+    slug: "respiratory-protection-essentials",
+    title: "Respiratory Protection Essentials",
+    tagline: "Know your respirator, wear it well and stay protected.",
     description:
-      "Step into the charge role with confidence. This live cohort covers assignments, flow, delegation and team communication, with plenty of time to learn from fellow nurses who are stepping up too.",
-    category: "Leadership",
+      "A friendly, practical introduction to respiratory protection for anyone who wears an N95 at work or on placement. Learn how respirators work, how to put one on and take it off properly, how to do a seal check, and what to expect at your fit test.",
+    category: "Respiratory Protection",
+    level: "Foundational",
+    format: "Virtual",
+    learningHours: 2,
+    weeks: 1,
+    rating: 4.8,
+    learners: 1640,
+    price: 25,
+    cover: "sky",
+    icon: "wind",
+    featured: true,
+    outcomes: [
+      "Explain how an N95 respirator protects you",
+      "Put on and remove a respirator correctly",
+      "Perform a user seal check every time",
+      "Know how to prepare for your fit test appointment",
+    ],
+    audience: [
+      "Nursing and healthcare students heading to clinical placements",
+      "Healthcare workers and staff in any setting that uses respirators",
+    ],
+    instructor: RN_FACULTY,
+    modules: [
+      {
+        title: "How respirators protect you",
+        summary: "The basics of filtration and fit.",
+        lessons: [
+          { title: "Why fit matters", minutes: 10, kind: "video" },
+          { title: "Respirators vs. masks", minutes: 8, kind: "reading" },
+        ],
+      },
+      {
+        title: "Wearing it well",
+        summary: "Donning, doffing and seal checks.",
+        lessons: [
+          { title: "Donning and doffing step by step", minutes: 12, kind: "video" },
+          { title: "The user seal check", minutes: 8, kind: "video" },
+          { title: "Getting ready for your fit test", minutes: 6, kind: "reading" },
+          { title: "Check your understanding", minutes: 10, kind: "quiz" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "ipac-foundations",
+    title: "Infection Prevention & Control Foundations",
+    tagline: "Everyday IPAC practices that keep patients and teams safe.",
+    description:
+      "Build confidence with the core infection prevention and control practices used across Ontario healthcare settings: hand hygiene, routine practices, additional precautions, PPE selection and point-of-care risk assessment.",
+    category: "Occupational Health",
+    level: "Foundational",
+    format: "Virtual",
+    learningHours: 5,
+    weeks: 2,
+    rating: 4.8,
+    learners: 980,
+    price: 59,
+    cover: "sage",
+    icon: "clipboard",
+    outcomes: [
+      "Complete a point-of-care risk assessment",
+      "Choose the right PPE for routine and additional precautions",
+      "Model great hand hygiene for your team",
+      "Respond calmly and clearly to exposure situations",
+    ],
+    audience: ["Nurses and nursing students", "Personal support workers and allied health staff"],
+    instructor: RN_FACULTY,
+    modules: [
+      {
+        title: "Routine practices",
+        summary: "The everyday habits behind safe care.",
+        lessons: [
+          { title: "Hand hygiene that sticks", minutes: 10, kind: "video" },
+          { title: "Point-of-care risk assessment", minutes: 15, kind: "video" },
+        ],
+      },
+      {
+        title: "Additional precautions and PPE",
+        summary: "Contact, droplet and airborne precautions in practice.",
+        lessons: [
+          { title: "Choosing the right PPE", minutes: 14, kind: "video" },
+          { title: "Case scenarios", minutes: 20, kind: "practice" },
+          { title: "Check your understanding", minutes: 10, kind: "quiz" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "occupational-health-nursing-essentials",
+    title: "Occupational Health Nursing Essentials",
+    tagline: "Support healthy, safe workplaces from the ground up.",
+    description:
+      "An introduction to the growing field of occupational health nursing. Explore workplace hazard assessment, health surveillance, return-to-work support and building wellness programs that people genuinely enjoy taking part in.",
+    category: "Occupational Health",
     level: "Intermediate",
-    format: "Live cohort",
-    ceHours: 12,
-    weeks: 6,
-    rating: 4.9,
-    learners: 860,
+    format: "Blended",
+    learningHours: 10,
+    weeks: 4,
+    rating: 4.7,
+    learners: 410,
     price: 149,
     cover: "plum",
     icon: "users",
+    outcomes: [
+      "Describe the role of the occupational health nurse",
+      "Identify and assess common workplace hazards",
+      "Support employees through return-to-work planning",
+      "Design a simple workplace wellness initiative",
+    ],
+    audience: ["Nurses exploring occupational health", "Workplace health and safety teams"],
+    instructor: RN_FACULTY,
+    modules: [
+      {
+        title: "The occupational health nurse",
+        summary: "Scope, standards and the people you'll work with.",
+        lessons: [
+          { title: "A day in occupational health", minutes: 15, kind: "video" },
+          { title: "Ontario workplace health and safety basics", minutes: 20, kind: "reading" },
+        ],
+      },
+      {
+        title: "Healthy workplaces",
+        summary: "Assess hazards and grow wellness.",
+        lessons: [
+          { title: "Hazard assessment walkthrough", minutes: 25, kind: "practice" },
+          { title: "Return-to-work support", minutes: 18, kind: "video" },
+          { title: "Wellness program workshop", minutes: 90, kind: "live" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "bls-cpr-healthcare-providers",
+    title: "CPR & BLS for Healthcare Providers",
+    tagline: "Hands-on skills to respond with confidence.",
+    description:
+      "A hands-on Basic Life Support session for healthcare providers and students. Practise high-quality CPR, AED use and team-based resuscitation with RN instructors in a small, supportive group.",
+    category: "Emergency Response",
+    level: "Foundational",
+    format: "In person",
+    learningHours: 4,
+    weeks: 1,
+    rating: 4.9,
+    learners: 1210,
+    price: 95,
+    cover: "coral",
+    icon: "heart-pulse",
     featured: true,
     outcomes: [
-      "Make balanced, thoughtful patient assignments",
-      "Delegate with clarity and appreciation",
-      "Run a quick, useful huddle",
-      "Support teammates through a busy shift",
+      "Deliver high-quality CPR for adults, children and infants",
+      "Use an AED safely and quickly",
+      "Work as part of a coordinated resuscitation team",
     ],
-    audience: [
-      "Nurses preparing for their first charge shifts",
-      "New charge nurses who want a supportive peer group",
-    ],
-    instructor: {
-      name: "Priya Raman",
-      credentials: "MSN, RN, NE-BC",
-      role: "Nurse Leadership Coach",
-      bio: "Priya has led units across three hospitals and now coaches new leaders. Her sessions are known for being practical, encouraging and full of real stories.",
-      initials: "PR",
-    },
+    audience: ["Nurses and nursing students", "Anyone needing BLS for work or placement"],
+    instructor: RN_FACULTY,
     modules: [
       {
-        title: "The charge mindset",
-        summary: "What great charge nurses do differently.",
-        lessons: [
-          { title: "Live kickoff and introductions", minutes: 60, kind: "live" },
-          { title: "Leading from where you stand", minutes: 12, kind: "video" },
-        ],
+        title: "Before class",
+        summary: "A short online warm-up.",
+        lessons: [{ title: "BLS refresher video", minutes: 20, kind: "video" }],
       },
       {
-        title: "Assignments and flow",
-        summary: "Balance acuity, skills and continuity of care.",
+        title: "Hands-on session",
+        summary: "Skills practice at our Hamilton training space.",
         lessons: [
-          { title: "Assignment-building workshop", minutes: 60, kind: "live" },
-          { title: "Practice: build tonight's board", minutes: 20, kind: "practice" },
-        ],
-      },
-      {
-        title: "Team communication",
-        summary: "Huddles, delegation and recognizing great work.",
-        lessons: [
-          { title: "The five-minute huddle", minutes: 10, kind: "video" },
-          { title: "Delegation role-play", minutes: 60, kind: "live" },
-          { title: "Celebrating your team", minutes: 8, kind: "reading" },
-          { title: "Final reflection", minutes: 15, kind: "quiz" },
+          { title: "CPR and AED skills stations", minutes: 120, kind: "live" },
+          { title: "Team scenarios and skills check", minutes: 60, kind: "live" },
         ],
       },
     ],
   },
   {
-    slug: "new-grad-thriving-first-year",
-    title: "Thriving in Your First Year",
-    tagline: "A friendly roadmap from orientation to feeling at home on the unit.",
+    slug: "advanced-wound-care-fundamentals",
+    title: "Advanced Wound Care Fundamentals",
+    tagline: "Assess, treat and support healing with confidence.",
     description:
-      "Everything we wish someone had told us in year one. Learn how to organize your shift, ask great questions, build relationships with your team and celebrate how much you're growing.",
-    category: "Career Growth",
-    level: "Beginner",
-    format: "Self-paced",
-    ceHours: 5,
+      "Grow your wound care practice with evidence-informed assessment, dressing selection and documentation, plus how telenursing can support clients between visits.",
+    category: "Clinical Skills",
+    level: "Intermediate",
+    format: "Blended",
+    learningHours: 8,
     weeks: 3,
     rating: 4.8,
-    learners: 4012,
-    price: 0,
+    learners: 560,
+    price: 129,
     cover: "sun",
-    icon: "graduation",
+    icon: "bandage",
     outcomes: [
-      "Organize your shift with a simple brain sheet",
-      "Ask for help in ways that build trust",
-      "Set goals with your preceptor",
-      "Track and celebrate your progress",
+      "Complete a thorough wound assessment",
+      "Choose dressings that support healing",
+      "Document wound progress clearly",
+      "Support clients virtually between visits",
     ],
-    audience: ["New graduate nurses", "Nursing students in their final year"],
-    instructor: {
-      name: "Alex Moreno",
-      credentials: "BSN, RN",
-      role: "Residency Program Coordinator",
-      bio: "Alex coordinates a nurse residency program and loves helping new nurses find their footing and their people.",
-      initials: "AM",
-    },
+    audience: ["Community and home care nurses", "Nurses wanting to grow their wound care skills"],
+    instructor: RN_FACULTY,
     modules: [
       {
-        title: "Getting organized",
-        summary: "Tools that make a twelve-hour shift feel manageable.",
+        title: "Wound assessment",
+        summary: "A structured, repeatable approach.",
         lessons: [
-          { title: "Your brain sheet, your way", minutes: 10, kind: "video" },
-          { title: "Prioritizing with confidence", minutes: 12, kind: "video" },
+          { title: "Wound healing basics", minutes: 15, kind: "video" },
+          { title: "Assessment walkthrough", minutes: 20, kind: "video" },
         ],
       },
       {
-        title: "Growing with your team",
-        summary: "Build strong relationships with preceptors and peers.",
+        title: "Treatment and follow-up",
+        summary: "Dressings, documentation and telenursing.",
         lessons: [
-          { title: "Great questions to ask", minutes: 8, kind: "reading" },
-          { title: "Goal-setting with your preceptor", minutes: 15, kind: "practice" },
-          { title: "Celebrate your wins", minutes: 6, kind: "practice" },
+          { title: "Dressing selection guide", minutes: 15, kind: "reading" },
+          { title: "Case practice", minutes: 25, kind: "practice" },
+          { title: "Supporting clients by phone and video", minutes: 12, kind: "video" },
+          { title: "Check your understanding", minutes: 10, kind: "quiz" },
         ],
       },
     ],
   },
   {
-    slug: "compassionate-communication",
-    title: "Compassionate Communication",
-    tagline: "Connect with patients and families in every conversation.",
+    slug: "ien-pathways-ontario",
+    title: "IEN Pathways: Nursing in Ontario",
+    tagline: "Peer support and practical guidance for internationally educated nurses.",
     description:
-      "Explore communication techniques that help patients feel heard and help families feel included. Practice active listening, teach-back and culturally responsive care in short, interactive lessons.",
-    category: "Clinical Skills",
-    level: "Beginner",
-    format: "Workshop",
-    ceHours: 3,
-    weeks: 1,
-    rating: 4.7,
-    learners: 1530,
-    price: 39,
-    cover: "coral",
-    icon: "message",
+      "Built from our years of supporting internationally educated nurses, this program walks you through the Ontario nursing landscape, from registration steps to workplace culture, with a warm peer community cheering you on.",
+    category: "IEN Pathways",
+    level: "Foundational",
+    format: "Virtual",
+    learningHours: 6,
+    weeks: 4,
+    rating: 4.9,
+    learners: 870,
+    price: 0,
+    cover: "teal",
+    icon: "globe",
     outcomes: [
-      "Use active listening to build trust quickly",
-      "Confirm understanding with teach-back",
-      "Adapt your approach to each patient's culture and preferences",
+      "Understand the steps toward practising in Ontario",
+      "Feel at home with Canadian workplace communication",
+      "Build a study and career plan that fits your life",
+      "Connect with nurses who've walked the same path",
     ],
-    audience: ["All nurses and nursing students", "Patient care technicians"],
-    instructor: {
-      name: "Grace Liu",
-      credentials: "MSN, RN, CNL",
-      role: "Patient Experience Specialist",
-      bio: "Grace helps care teams create moments that patients remember for all the right reasons.",
-      initials: "GL",
-    },
+    audience: ["Internationally educated nurses in or moving to Ontario"],
+    instructor: RN_FACULTY,
     modules: [
       {
-        title: "Listening that lands",
-        summary: "Make every patient feel heard.",
+        title: "Your pathway",
+        summary: "Registration steps and planning ahead.",
         lessons: [
-          { title: "The power of the first minute", minutes: 8, kind: "video" },
-          { title: "Active listening practice", minutes: 15, kind: "practice" },
+          { title: "The road to practising in Ontario", minutes: 20, kind: "video" },
+          { title: "Your personal pathway planner", minutes: 20, kind: "practice" },
         ],
       },
       {
-        title: "Teaching that sticks",
-        summary: "Help patients go home confident.",
+        title: "Thriving at work",
+        summary: "Culture, communication and community.",
         lessons: [
-          { title: "Teach-back made simple", minutes: 10, kind: "video" },
-          { title: "Live practice workshop", minutes: 90, kind: "live" },
+          { title: "Communication in Canadian care settings", minutes: 15, kind: "video" },
+          { title: "Peer circle", minutes: 60, kind: "live" },
+          { title: "Career growth resources", minutes: 10, kind: "reading" },
         ],
       },
     ],
   },
   {
-    slug: "community-health-outreach",
-    title: "Community Health Outreach",
-    tagline: "Bring care, education and connection beyond the hospital walls.",
+    slug: "community-health-fairs",
+    title: "Planning Community Health Fairs",
+    tagline: "Bring health education and screening to your neighbourhood.",
     description:
-      "Learn how nurses plan and lead community health events, from wellness screenings to health education sessions. You'll leave with a ready-to-use outreach plan for your own neighborhood.",
+      "Learn how NursesWeCare plans health fairs and wellness workshops, from finding partners to running welcoming screening and education stations, and leave with your own event plan.",
     category: "Community Health",
     level: "Intermediate",
-    format: "Self-paced",
-    ceHours: 8,
-    weeks: 4,
-    rating: 4.8,
-    learners: 720,
-    price: 69,
-    cover: "sky",
+    format: "Virtual",
+    learningHours: 4,
+    weeks: 2,
+    rating: 4.7,
+    learners: 290,
+    price: 49,
+    cover: "sage",
     icon: "home",
     outcomes: [
-      "Assess what your community would love support with",
+      "Plan a health fair from idea to event day",
       "Partner with local organizations",
-      "Plan a welcoming health education event",
-      "Share results and keep the momentum going",
+      "Run engaging education and screening stations",
     ],
-    audience: ["Nurses interested in public and community health", "Faith community and school nurses"],
-    instructor: {
-      name: "Tomas Reyes",
-      credentials: "MPH, BSN, RN",
-      role: "Community Health Nurse",
-      bio: "Tomas has organized health fairs, school programs and pop-up clinics, and he's happiest when a whole neighborhood shows up.",
-      initials: "TR",
-    },
+    audience: ["Nurses passionate about community health", "Workplace wellness coordinators"],
+    instructor: RN_FACULTY,
     modules: [
       {
-        title: "Know your community",
-        summary: "Listen first, then plan.",
+        title: "Planning",
+        summary: "Partners, logistics and a great plan.",
         lessons: [
-          { title: "Community strengths mapping", minutes: 14, kind: "video" },
-          { title: "Finding local partners", minutes: 10, kind: "reading" },
+          { title: "Health fair planning toolkit", minutes: 20, kind: "practice" },
+          { title: "Finding community partners", minutes: 10, kind: "reading" },
         ],
       },
       {
-        title: "Plan your event",
-        summary: "From idea to an inviting, well-run day.",
+        title: "Event day",
+        summary: "Make it welcoming and fun.",
         lessons: [
-          { title: "Event planning toolkit", minutes: 18, kind: "practice" },
-          { title: "Health education that's fun", minutes: 12, kind: "video" },
-          { title: "Check your understanding", minutes: 10, kind: "quiz" },
+          { title: "Education stations that engage", minutes: 15, kind: "video" },
+          { title: "Planning workshop", minutes: 60, kind: "live" },
         ],
       },
     ],
   },
   {
-    slug: "mindful-leadership",
-    title: "Mindful Leadership for Nurse Managers",
-    tagline: "Build a unit culture where people love to come to work.",
+    slug: "healthy-habits-healthcare-workers",
+    title: "Wellness Workshop: Healthy Habits at Work",
+    tagline: "Simple, energizing habits for busy healthcare teams.",
     description:
-      "An advanced program for nurse leaders who want to create supportive, high-performing teams. Explore coaching conversations, recognition, shared governance and leading change with kindness.",
-    category: "Leadership",
-    level: "Advanced",
-    format: "Live cohort",
-    ceHours: 15,
-    weeks: 8,
-    rating: 4.9,
-    learners: 410,
-    price: 249,
-    cover: "teal",
-    icon: "compass",
-    outcomes: [
-      "Hold coaching conversations that inspire growth",
-      "Build recognition into everyday routines",
-      "Lead change with clarity and warmth",
-      "Grow future leaders on your team",
-    ],
-    audience: ["Nurse managers and directors", "Assistant nurse managers"],
-    instructor: {
-      name: "Priya Raman",
-      credentials: "MSN, RN, NE-BC",
-      role: "Nurse Leadership Coach",
-      bio: "Priya has led units across three hospitals and now coaches new leaders. Her sessions are known for being practical, encouraging and full of real stories.",
-      initials: "PR",
-    },
-    modules: [
-      {
-        title: "Leading yourself first",
-        summary: "Your values, your style, your energy.",
-        lessons: [
-          { title: "Cohort welcome", minutes: 60, kind: "live" },
-          { title: "Your leadership values", minutes: 15, kind: "practice" },
-        ],
-      },
-      {
-        title: "Coaching and recognition",
-        summary: "Help every team member grow.",
-        lessons: [
-          { title: "The coaching conversation", minutes: 14, kind: "video" },
-          { title: "Coaching lab", minutes: 60, kind: "live" },
-          { title: "Recognition rituals", minutes: 10, kind: "reading" },
-        ],
-      },
-      {
-        title: "Leading change",
-        summary: "Bring your team along with you.",
-        lessons: [
-          { title: "Change with heart", minutes: 12, kind: "video" },
-          { title: "Capstone presentations", minutes: 90, kind: "live" },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "pediatric-care-foundations",
-    title: "Pediatric Care Foundations",
-    tagline: "Family-centered care for little patients and their grown-ups.",
-    description:
-      "A friendly introduction to pediatric nursing: developmental stages, child-friendly assessment, safe medication practice and partnering with families so kids feel safe and supported.",
-    category: "Clinical Skills",
-    level: "Beginner",
-    format: "Self-paced",
-    ceHours: 7,
-    weeks: 3,
-    rating: 4.7,
-    learners: 1180,
-    price: 79,
-    cover: "sun",
-    icon: "heart-pulse",
-    outcomes: [
-      "Adapt your assessment to each developmental stage",
-      "Calculate weight-based doses safely",
-      "Use play and distraction to ease procedures",
-      "Partner with families as part of the care team",
-    ],
-    audience: ["Nurses new to pediatrics", "Nursing students"],
-    instructor: {
-      name: "Hannah Brooks",
-      credentials: "MSN, RN, CPN",
-      role: "Pediatric Nurse Educator",
-      bio: "Hannah has spent her career in children's hospitals and keeps a pocket full of stickers at all times.",
-      initials: "HB",
-    },
-    modules: [
-      {
-        title: "Growing and developing",
-        summary: "What to expect from infancy to the teen years.",
-        lessons: [
-          { title: "Developmental stages at a glance", minutes: 12, kind: "video" },
-          { title: "Child-friendly assessment", minutes: 14, kind: "video" },
-        ],
-      },
-      {
-        title: "Safe, gentle care",
-        summary: "Medications, comfort and families.",
-        lessons: [
-          { title: "Weight-based dosing practice", minutes: 20, kind: "practice" },
-          { title: "Comfort through play", minutes: 10, kind: "video" },
-          { title: "Check your understanding", minutes: 10, kind: "quiz" },
-        ],
-      },
-    ],
-  },
-  {
-    slug: "career-pathways-specialty",
-    title: "Career Pathways: Finding Your Specialty",
-    tagline: "Explore where your nursing journey could take you next.",
-    description:
-      "Discover the wide world of nursing specialties, certifications and advanced roles. Hear from nurses in a range of fields and build a personal growth plan for the next few years.",
-    category: "Career Growth",
-    level: "Beginner",
-    format: "Workshop",
-    ceHours: 2,
+      "A relaxed, interactive workshop on staying energized through busy shifts: movement, rest, nourishment and quick reset practices, plus ideas to bring back to your whole team.",
+    category: "Occupational Health",
+    level: "Foundational",
+    format: "Virtual",
+    learningHours: 2,
     weeks: 1,
     rating: 4.8,
-    learners: 1960,
+    learners: 740,
     price: 0,
-    cover: "coral",
-    icon: "sparkles",
+    cover: "sun",
+    icon: "leaf",
     outcomes: [
-      "Compare specialties that match your interests",
-      "Understand certification and education options",
-      "Create a personal three-year growth plan",
+      "Use quick reset practices during a shift",
+      "Plan restful days that recharge you",
+      "Share wellness ideas with your team",
     ],
-    audience: ["Nurses curious about what's next", "Students exploring options"],
-    instructor: {
-      name: "Alex Moreno",
-      credentials: "BSN, RN",
-      role: "Residency Program Coordinator",
-      bio: "Alex coordinates a nurse residency program and loves helping new nurses find their footing and their people.",
-      initials: "AM",
-    },
+    audience: ["Nurses and healthcare teams", "Workplace wellness champions"],
+    instructor: RN_FACULTY,
     modules: [
       {
-        title: "Explore the possibilities",
-        summary: "A tour of specialties and roles.",
+        title: "Healthy habits",
+        summary: "Energy, rest and resets.",
         lessons: [
-          { title: "Panel: a day in our specialties", minutes: 45, kind: "live" },
-          { title: "Specialty explorer worksheet", minutes: 15, kind: "practice" },
-        ],
-      },
-      {
-        title: "Plan your path",
-        summary: "Turn curiosity into next steps.",
-        lessons: [
-          { title: "Certifications explained", minutes: 10, kind: "reading" },
-          { title: "Your three-year plan", minutes: 20, kind: "practice" },
+          { title: "Live wellness workshop", minutes: 75, kind: "live" },
+          { title: "Your healthy habits plan", minutes: 15, kind: "practice" },
         ],
       },
     ],
@@ -594,6 +533,8 @@ export function totalMinutes(course: Course) {
   );
 }
 
-export function formatPrice(price: number) {
-  return price === 0 ? "Included with membership" : `$${price}`;
+export function formatPrice(price: number | null) {
+  if (price === null) return "Contact us";
+  if (price === 0) return "Free";
+  return `CA$${price}`;
 }

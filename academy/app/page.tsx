@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, Award, CalendarHeart, HeartHandshake, Laptop, Quote, UsersRound } from "lucide-react";
+import { ArrowRight, Award, CalendarHeart, HeartHandshake, Laptop, MapPin, Quote, ShieldCheck, UsersRound } from "lucide-react";
 import { CATEGORIES, courses } from "@/lib/courses";
 import { CourseCard } from "@/components/CourseCard";
 
 const STATS = [
   { value: String(courses.length), label: "Courses to explore" },
-  { value: String(courses.reduce((n, c) => n + c.ceHours, 0)), label: "CE hours available" },
+  { value: String(courses.reduce((n, c) => n + c.learningHours, 0)), label: "Learning hours available" },
   {
     value: `${Math.floor(courses.reduce((n, c) => n + c.learners, 0) / 1000)}k+`,
     label: "Nurses learning",
@@ -18,26 +18,26 @@ const STATS = [
 
 const PILLARS = [
   {
-    icon: Award,
-    title: "Accredited CE, made simple",
-    body: "Earn continuing education hours as you go, with certificates saved to your dashboard and ready for renewal time.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Wellbeing at the center",
-    body: "We believe caring for yourself is part of caring for patients, so every learning path makes room for rest, joy and balance.",
+    icon: ShieldCheck,
+    title: "Standards you can trust",
+    body: "Our respiratory protection programs follow CSA Z94.4-18, so what you learn carries straight into your workplace program.",
   },
   {
     icon: UsersRound,
-    title: "Taught by nurses",
-    body: "Every course is built by working nurses and nurse leaders who know what a real shift looks like.",
+    title: "Developed and delivered by RNs",
+    body: "Every program is built and taught by Registered Nurses who fit test, teach and support healthcare teams every week.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "A community that lifts you up",
+    body: "NursesWeCare began by helping fellow nurses and internationally educated nurses grow, and peer support is still at our heart.",
   },
 ];
 
 const STEPS = [
   { icon: Laptop, title: "Pick a course", body: "Browse by topic, level or format and start whenever it suits you." },
-  { icon: CalendarHeart, title: "Learn on your schedule", body: "Short lessons fit between shifts, and live cohorts keep you connected." },
-  { icon: Award, title: "Earn and celebrate", body: "Collect CE hours and certificates, and watch your progress grow." },
+  { icon: CalendarHeart, title: "Learn on your schedule", body: "Online lessons fit between shifts, with hands-on practice at our Hamilton training space." },
+  { icon: Award, title: "Earn and celebrate", body: "Collect certificates and learning hours for your CNO Quality Assurance reflection." },
 ];
 
 export default function HomePage() {
@@ -53,12 +53,12 @@ export default function HomePage() {
               The learning home of NursesWeCare
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              Caring for the people <span className="text-brand">who care for everyone.</span>
+              Advancing health, safety and wellness <span className="text-brand">in workplaces and communities.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-              NursesWeCare Academy brings together continuing education, career growth and
-              wellbeing in one welcoming place. Learn from fellow nurses, earn CE hours and keep
-              growing at a pace that feels good.
+              NursesWeCare Academy offers respiratory protection and occupational health
+              education, developed and delivered by Registered Nurses. Learn online, practise
+              hands-on in Hamilton, and bring what you learn back to your team.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -87,7 +87,7 @@ export default function HomePage() {
                       className="flex items-center gap-4 rounded-2xl p-3 transition hover:bg-background"
                     >
                       <span className={`cover-${c.cover} grid h-12 w-12 shrink-0 place-items-center rounded-xl text-sm font-semibold text-white`}>
-                        {c.ceHours}h
+                        {c.learningHours}h
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate font-semibold">{c.title}</span>
@@ -100,8 +100,8 @@ export default function HomePage() {
                 ))}
               </ul>
               <div className="mt-4 rounded-2xl bg-brand-soft p-4 text-sm text-brand-dark">
-                <span className="font-semibold">New cohort:</span> Charge Nurse Essentials starts soon.
-                Bring a friend from your unit!
+                <span className="font-semibold">Now enrolling:</span> RN Respirator Fit Testing
+                Train-the-Trainer. Group seats available for workplaces.
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function HomePage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="font-display text-3xl font-semibold tracking-tight">Featured courses</h2>
-            <p className="mt-2 text-muted">Hand-picked favorites from nurses across the community.</p>
+            <p className="mt-2 text-muted">Start with our most requested programs.</p>
           </div>
           <Link href="/courses" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline">
             See all courses <ArrowRight className="h-4 w-4" aria-hidden />
@@ -139,7 +139,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
         <h2 className="font-display text-3xl font-semibold tracking-tight">Explore by topic</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((cat) => {
             const count = courses.filter((c) => c.category === cat).length;
             return (
@@ -183,10 +183,10 @@ export default function HomePage() {
               <figure className="mt-8 rounded-2xl bg-white/10 p-5">
                 <Quote className="h-5 w-5 text-sun" aria-hidden />
                 <blockquote className="mt-2 text-sm leading-relaxed">
-                  &ldquo;The lessons are short enough to finish on a lunch break, and I actually look
-                  forward to them. I&rsquo;ve picked up so many ideas I use on every shift.&rdquo;
+                  &ldquo;The practicum made fit testing click for me. I came back ready to train
+                  our whole unit, and I felt supported the entire way.&rdquo;
                 </blockquote>
-                <figcaption className="mt-3 text-xs text-white/70">Sample learner quote · RN, Telemetry</figcaption>
+                <figcaption className="mt-3 text-xs text-white/70">Sample learner quote · RN, Occupational Health</figcaption>
               </figure>
             </div>
             <ol className="space-y-4">
@@ -208,16 +208,19 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pt-20 text-center sm:px-6">
-        <h2 className="font-display text-3xl font-semibold tracking-tight">Ready to keep growing?</h2>
+        <h2 className="font-display text-3xl font-semibold tracking-tight">Need a fit test instead?</h2>
         <p className="mx-auto mt-3 max-w-lg text-muted">
-          Members get free access to wellbeing and career courses, plus member pricing on
-          everything else.
+          NursesWeCare also offers N95 respirator fit testing for students and workplaces at our
+          Hamilton office and on site.
+        </p>
+        <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-muted">
+          <MapPin className="h-4 w-4 text-accent" aria-hidden /> 702 Upper James St., Hamilton, ON
         </p>
         <Link
-          href="/courses"
+          href="https://www.nurseswecare.org/booking-workingplace-request-form"
           className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
         >
-          Find your next course <ArrowRight className="h-4 w-4" aria-hidden />
+          Book a fit test <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>
       </section>
     </>

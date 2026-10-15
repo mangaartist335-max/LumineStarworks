@@ -8,16 +8,16 @@ export function SiteFooter() {
         <div className="space-y-4">
           <Logo />
           <p className="max-w-sm text-sm leading-relaxed text-muted">
-            The learning home of NursesWeCare. Courses made by nurses, for nurses, so the people
-            who care for everyone else have a place to grow, too.
+            Respiratory protection and occupational health education, developed and delivered by
+            Registered Nurses. 702 Upper James St., Hamilton, ON.
           </p>
         </div>
         <div>
           <h3 className="text-sm font-semibold">Learn</h3>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li><Link href="/courses" className="hover:text-foreground">All courses</Link></li>
-            <li><Link href="/courses?category=Nurse%20Wellbeing" className="hover:text-foreground">Wellbeing</Link></li>
-            <li><Link href="/courses?category=Leadership" className="hover:text-foreground">Leadership</Link></li>
+            <li><Link href="/courses?category=Respiratory%20Protection" className="hover:text-foreground">Respiratory protection</Link></li>
+            <li><Link href="/courses?category=IEN%20Pathways" className="hover:text-foreground">IEN pathways</Link></li>
             <li><Link href="/dashboard" className="hover:text-foreground">My learning</Link></li>
           </ul>
         </div>
@@ -29,14 +29,15 @@ export function SiteFooter() {
                 Visit nurseswecare.org
               </a>
             </li>
-            <li><span>Membership</span></li>
-            <li><span>Contact us</span></li>
+            <li><a href="https://www.nurseswecare.org/booking-workingplace-request-form" className="hover:text-foreground" target="_blank" rel="noreferrer">Book a fit test</a></li>
+            <li><a href="https://www.nurseswecare.org/shop" className="hover:text-foreground" target="_blank" rel="noreferrer">Shop</a></li>
+            <li><a href="https://www.nurseswecare.org/contact-5" className="hover:text-foreground" target="_blank" rel="noreferrer">Contact us</a></li>
           </ul>
         </div>
       </div>
       <div className="border-t">
         <p className="mx-auto max-w-6xl px-4 py-5 text-xs text-muted sm:px-6">
-          Prototype · Course content, instructors and learner data are sample placeholders.
+          Prototype · Apart from the Train-the-Trainer program, courses, prices and learner data are sample placeholders.
         </p>
       </div>
     </footer>
