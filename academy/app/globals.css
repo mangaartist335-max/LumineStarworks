@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbf8f4;
+  --surface: #ffffff;
+  --surface-muted: #f3eee7;
+  --border: #e7e0d6;
+  --foreground: #1f2a2e;
+  --muted: #5d6b70;
+  --brand: #0f6e6a;
+  --brand-dark: #0a4f4c;
+  --brand-soft: #e3f1ef;
+  --accent: #e9785e;
+  --accent-soft: #fdebe5;
+  --sun: #f4b73f;
+  --sage: #8fb39a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-soft: var(--brand-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-sun: var(--sun);
+  --color-sage: var(--sage);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand) 25%, transparent);
+}
+
+.hero-wash {
+  background:
+    radial-gradient(55% 60% at 85% 10%, color-mix(in srgb, var(--accent) 18%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 60% at 10% 90%, color-mix(in srgb, var(--brand) 16%, transparent) 0%, transparent 70%);
+}
+
+.cover-teal { background: linear-gradient(135deg, #0f6e6a 0%, #3aa39b 100%); }
+.cover-coral { background: linear-gradient(135deg, #e9785e 0%, #f3a98c 100%); }
+.cover-sage { background: linear-gradient(135deg, #5e8f6e 0%, #a9cbb0 100%); }
+.cover-sky { background: linear-gradient(135deg, #3b7fb6 0%, #8dc1e3 100%); }
+.cover-plum { background: linear-gradient(135deg, #6c4f8f 0%, #a98bc8 100%); }
+.cover-sun { background: linear-gradient(135deg, #e09a1f 0%, #f6cf72 100%); }
+
+.cover-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease both;
+}

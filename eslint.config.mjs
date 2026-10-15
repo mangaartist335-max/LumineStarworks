@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The Academy prototype is its own Next.js app with its own lint setup.
+    "academy/**",
   ]),
 ]);
 
