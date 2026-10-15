@@ -8,6 +8,7 @@ import {
   Check,
   ChevronRight,
   Clock,
+  Hand,
   Laptop,
   ListChecks,
   Star,
@@ -15,11 +16,11 @@ import {
 } from "lucide-react";
 import { courses, formatPrice, getCourse, lessonCount, totalMinutes } from "@/lib/courses";
 import { enrollments } from "@/lib/learner";
-import { CourseCover } from "@/components/CourseCover";
 import { CourseCard } from "@/components/CourseCard";
 import { CurriculumAccordion } from "@/components/CurriculumAccordion";
 import { EnrollButton } from "@/components/EnrollButton";
 import { ProgressBar } from "@/components/ProgressBar";
+import { CourseObject } from "@/components/three";
 
 export function generateStaticParams() {
   return courses.map((c) => ({ slug: c.slug }));
@@ -97,14 +98,19 @@ export default async function CoursePage(props: PageProps<"/courses/[slug]">) {
                 </span>
               </div>
             </div>
-            <div className="relative hidden lg:block">
-              <CourseCover
-                theme={course.cover}
-                icon={course.icon}
-                size="lg"
-                className="h-72 rounded-[2.5rem] shadow-[0_40px_80px_-40px_rgba(42,134,194,0.7)]"
-              />
-              <div className="glass absolute -bottom-5 -left-6 flex items-center gap-3 rounded-3xl px-4 py-3">
+            {/* A 3D model of the course, ready to be dragged around */}
+            <div className="relative">
+              <div
+                className={`cover-${course.cover} relative h-64 overflow-hidden rounded-[2.5rem] shadow-[0_40px_80px_-40px_rgba(42,134,194,0.7)] sm:h-72 lg:h-80`}
+              >
+                <div className="dot-grid absolute inset-0 opacity-50" />
+                <div className="absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-white/30 blur-2xl" />
+                <CourseObject icon={course.icon} theme={course.cover} className="absolute inset-0" />
+                <p className="animate-hint pointer-events-none absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-white/65 px-3 py-1 text-[11px] font-semibold text-brand-dark backdrop-blur">
+                  <Hand className="h-3.5 w-3.5" aria-hidden /> Drag to spin
+                </p>
+              </div>
+              <div className="glass pointer-events-none absolute -bottom-5 left-4 flex items-center gap-3 rounded-3xl px-4 py-3 sm:-left-6">
                 <span className="grid h-10 w-10 place-items-center rounded-2xl bg-accent-soft text-accent">
                   <Award className="h-5 w-5" aria-hidden />
                 </span>

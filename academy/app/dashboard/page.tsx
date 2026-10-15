@@ -6,6 +6,7 @@ import { certificates, enrollments, learner, liveSessions, recommendedSlugs } fr
 import { CourseCover } from "@/components/CourseCover";
 import { CourseCard } from "@/components/CourseCard";
 import { ProgressBar } from "@/components/ProgressBar";
+import { Medal } from "@/components/three";
 
 export const metadata: Metadata = {
   title: "My learning",
@@ -47,12 +48,23 @@ export default function DashboardPage() {
             </p>
           </div>
         </div>
-        <Link
-          href="/courses"
-          className="btn-secondary px-5 py-2.5 text-sm"
-        >
-          Browse courses <ArrowRight className="h-4 w-4" aria-hidden />
-        </Link>
+        {/* Next milestone, with a little 3D medal to play with */}
+        <div className="glass flex items-center gap-2 rounded-[2rem] py-2 pl-2 pr-6">
+          <div className="cover-blend relative h-28 w-28 shrink-0 overflow-hidden rounded-[1.5rem]">
+            <div className="dot-grid absolute inset-0 opacity-50" />
+            <Medal className="absolute inset-0" />
+          </div>
+          <div className="pl-2">
+            <p className="text-xs font-semibold text-accent-dark">Next milestone</p>
+            <p className="mt-0.5 font-display font-semibold leading-snug">
+              {learner.hoursGoal - learner.hoursEarned} hours to your yearly goal
+            </p>
+            <p className="mt-0.5 text-xs text-muted">Give the medal a spin!</p>
+            <Link href="/courses" className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline">
+              Browse courses <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
       </header>
 
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Your stats">

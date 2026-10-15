@@ -13,15 +13,25 @@ export function LogoMark({ className }: { className?: string }) {
   );
 }
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
   return (
     <Link href="/" className={clsx("group inline-flex items-center gap-2.5", className)} aria-label="NursesWeCare Academy home">
       <LogoMark className="h-9 w-11 transition group-hover:scale-105" />
       <span className="leading-none">
-        <span className="block font-display text-[17px] font-semibold tracking-tight text-foreground">
+        <span
+          className={clsx(
+            "block font-display text-[17px] font-semibold tracking-tight transition-colors",
+            tone === "light" ? "text-white" : "text-foreground"
+          )}
+        >
           NursesWeCare
         </span>
-        <span className="gradient-text mt-0.5 block font-display text-[13px] font-semibold tracking-wide">
+        <span
+          className={clsx(
+            "mt-0.5 block font-display text-[13px] font-semibold tracking-wide",
+            tone === "light" ? "gradient-text-light" : "gradient-text"
+          )}
+        >
           Academy
         </span>
       </span>

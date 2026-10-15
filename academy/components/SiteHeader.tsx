@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { Logo } from "./Logo";
@@ -21,17 +21,47 @@ function isActive(pathname: string, href: string) {
   return pathname.startsWith(href);
 }
 
+// True until the page has scrolled most of the way past the home hero.
+function useOverHero(enabled: boolean) {
+  const [over, setOver] = useState(true);
+  useEffect(() => {
+    if (!enabled) return;
+    const update = () => setOver(window.scrollY < window.innerHeight * 0.75);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [enabled]);
+  return enabled && over;
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // The home page opens on a dark cinematic hero, so the header turns light
+  // and see-through while it floats over it.
+  const dark = useOverHero(pathname === "/") && !open;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/60 bg-white/70 backdrop-blur-xl">
+    <header
+      className={clsx(
+        "sticky top-0 z-30 border-b transition-colors duration-300",
+        dark
+          ? "border-transparent bg-[#0b1c33]/30 backdrop-blur-md"
+          : "border-white/60 bg-white/75 backdrop-blur-xl"
+      )}
+    >
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Logo />
+        <Logo tone={dark ? "light" : "dark"} />
 
         <nav
-          className="hidden items-center gap-1 rounded-full bg-surface-muted p-1 ring-1 ring-border md:flex"
+          className={clsx(
+            "hidden items-center gap-1 rounded-full p-1 ring-1 transition-colors md:flex",
+            dark ? "bg-white/8 ring-white/15" : "bg-surface-muted ring-border"
+          )}
           aria-label="Main"
         >
           {NAV.map((item) => (
@@ -41,8 +71,12 @@ export function SiteHeader() {
               className={clsx(
                 "rounded-full px-4 py-2 text-sm font-medium transition",
                 isActive(pathname, item.href)
-                  ? "bg-white text-foreground shadow-[0_2px_8px_-2px_rgba(42,134,194,0.35)]"
-                  : "text-muted hover:text-foreground"
+                  ? dark
+                    ? "bg-white/15 text-white"
+                    : "bg-white text-foreground shadow-[0_2px_8px_-2px_rgba(42,134,194,0.35)]"
+                  : dark
+                    ? "text-white/70 hover:text-white"
+                    : "text-muted hover:text-foreground"
               )}
             >
               {item.label}
@@ -57,7 +91,10 @@ export function SiteHeader() {
           <Link
             href="/dashboard"
             aria-label={`${learner.fullName}'s learning`}
-            className="gradient-fill grid h-10 w-10 place-items-center rounded-full font-display text-xs font-semibold text-white ring-4 ring-white"
+            className={clsx(
+              "gradient-fill grid h-10 w-10 place-items-center rounded-full font-display text-xs font-semibold text-white ring-4 transition",
+              dark ? "ring-white/15" : "ring-white"
+            )}
           >
             {learner.initials}
           </Link>
@@ -65,7 +102,10 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="grid h-10 w-10 place-items-center rounded-full bg-surface-muted text-foreground md:hidden"
+          className={clsx(
+            "grid h-10 w-10 place-items-center rounded-full md:hidden",
+            dark ? "bg-white/10 text-white" : "bg-surface-muted text-foreground"
+          )}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
