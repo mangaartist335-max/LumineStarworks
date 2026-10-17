@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 import { MotionToggle } from "./motion";
+import { offerings } from "@/lib/offerings";
 
 const SITE = "https://www.nurseswecare.org";
 
@@ -10,7 +11,7 @@ export function SiteFooter() {
     <footer className="mt-28">
       <div className="gradient-fill h-1" />
       <div className="bg-surface">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-[1.4fr_1.3fr_1fr_1fr_1fr]">
           <div className="space-y-4">
             <Logo />
             <p className="max-w-xs text-sm leading-relaxed text-muted">
@@ -21,6 +22,13 @@ export function SiteFooter() {
               <MapPin className="h-4 w-4 text-accent" aria-hidden /> Hamilton, Ontario
             </p>
           </div>
+          <FooterCol title="What we offer">
+            {offerings.map((o) => (
+              <li key={o.slug}>
+                <Link href={`/offerings/${o.slug}`} className="hover:text-accent-dark">{o.title}</Link>
+              </li>
+            ))}
+          </FooterCol>
           <FooterCol title="Learn">
             <li><Link href="/courses" className="hover:text-accent-dark">All courses</Link></li>
             <li><Link href="/#paths" className="hover:text-accent-dark">Learning paths</Link></li>

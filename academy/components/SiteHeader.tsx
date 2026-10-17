@@ -10,6 +10,7 @@ import { learner } from "@/lib/learner";
 
 const NAV = [
   { href: "/", label: "Home" },
+  { href: "/offerings", label: "What we offer" },
   { href: "/courses", label: "Courses" },
   { href: "/#paths", label: "Learning paths" },
   { href: "/dashboard", label: "My learning" },
@@ -59,7 +60,7 @@ export function SiteHeader() {
 
         <nav
           className={clsx(
-            "hidden items-center gap-1 rounded-full p-1 ring-1 transition-colors md:flex",
+            "hidden items-center gap-1 rounded-full p-1 ring-1 transition-colors lg:flex",
             dark ? "bg-white/8 ring-white/15" : "bg-surface-muted ring-border"
           )}
           aria-label="Main"
@@ -85,7 +86,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <Link href="/courses" className="btn-primary px-4 py-2 text-sm">
             Start learning
           </Link>
@@ -104,7 +105,7 @@ export function SiteHeader() {
         <button
           type="button"
           className={clsx(
-            "grid h-10 w-10 place-items-center rounded-full md:hidden",
+            "grid h-10 w-10 place-items-center rounded-full lg:hidden",
             dark ? "bg-white/10 text-white" : "bg-surface-muted text-foreground"
           )}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -117,7 +118,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav id="mobile-nav" className="border-t bg-white px-4 py-3 md:hidden" aria-label="Mobile">
+        <nav id="mobile-nav" className="border-t bg-white px-4 py-3 lg:hidden" aria-label="Mobile">
           {NAV.map((item) => (
             <Link
               key={item.href}

@@ -15,6 +15,7 @@ import { courses, getCourse } from "@/lib/courses";
 import { CourseCard } from "@/components/CourseCard";
 import { AerosolLabSection, HeroScene } from "@/components/three";
 import { MotionToggle } from "@/components/motion";
+import { OfferingTiles } from "@/components/OfferingCard";
 
 const FIT_TEST_URL = "https://www.nurseswecare.org/booking-workingplace-request-form";
 const FLAGSHIP_SLUG = "rn-respirator-fit-testing-train-the-trainer";
@@ -127,6 +128,22 @@ export default function HomePage() {
             </div>
           ))}
         </dl>
+      </section>
+
+      {/* Everything NursesWeCare offers, one tap away */}
+      <section aria-labelledby="offer-title" className="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+        <div className="reveal flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-2xl">
+            <span className="eyebrow">What we offer</span>
+            <h2 id="offer-title" className="mt-4 font-display text-4xl font-semibold tracking-tight">
+              Care, training and community in one place
+            </h2>
+          </div>
+          <Link href="/offerings" className="btn-secondary px-5 py-2.5 text-sm">
+            See everything we offer <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+        <OfferingTiles className="reveal mt-10" />
       </section>
 
       {/* Learning paths */}
