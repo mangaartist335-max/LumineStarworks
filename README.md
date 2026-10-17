@@ -13,6 +13,9 @@ tech stack, a database schema, a folder structure, a 48-hour build plan, a
 definition of done, and a ready-to-paste Claude Code prompt with matching
 `CLAUDE.md` and `AGENTS.md` files.
 
+> **Also in this repo:** the [NursesWeCare Academy prototype](academy/README.md),
+> a standalone learning platform app in `academy/` (`cd academy && npm install && npm run dev`).
+
 ## Tech stack
 
 - Next.js (App Router) + TypeScript
