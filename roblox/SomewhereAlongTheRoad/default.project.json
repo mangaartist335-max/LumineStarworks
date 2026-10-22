@@ -1,0 +1,17 @@
+{
+  "name": "SomewhereAlongTheRoad",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "SomewhereShared": { "$path": "src/ReplicatedStorage/SomewhereShared" }
+    },
+    "ServerScriptService": {
+      "SomewhereServer": { "$path": "src/ServerScriptService/SomewhereServer" }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "SomewhereClient": { "$path": "src/StarterPlayer/StarterPlayerScripts/SomewhereClient" }
+      }
+    }
+  }
+}
