@@ -4,38 +4,45 @@ A small, quiet roadside town in Roblox. You step off at the bus stop and wander:
 store, a diner with pie, a few houses, a trail into the woods, a creek, a hill with the best view
 in the county. Now and then the town does something unexpected. Some days, nothing happens at all.
 
-**Version 0.3: an interactive cutscene starring your avatar.** Press Play and a 2:42 trailer
-runs by itself. Your own Roblox character is the main character: you walk into town past the
-welcome sign, wait at the bus stop, wave at the duck truck, sit at the lookout for the sunset,
-and end up back on the bus stop bench. The camera films it all across 17 shots with captions and
-a title card, and the events happen on cue. **Tap or click to jump to the next scene.** Your
-controls and the Roblox buttons are switched off, so the screen is ready to record.
+**Version 0.4: a first-person cutscene, with sound.** Press Play and a 2:43 trailer runs by
+itself, seen through your own avatar's eyes. You walk into town along the road at dawn, sit at
+the bus stop, stroll through the store's sliding doors, crouch down to say hi to Gerald the
+gnome, watch the duck truck roll past, sit at the lookout for the sunset, and end up back on the
+bus stop bench. There are 17 scenes with captions and a title card, and the events happen on cue.
+**Tap or click to jump to the next scene.** Your controls and the Roblox buttons are switched
+off, so the screen is ready to record.
+
+**It comes with its own sound pack.** The `audio/` folder has 22 original sounds: birds, crickets,
+wind, rain, thunder, the creek, the store's fridge hum, diner chatter, a duck-truck honk, a little
+jukebox tune and more. All of them are made from scratch by `tools/make_sounds.py`, so they're
+yours to use. Roblox only plays audio that's been uploaded to Roblox, so there's one quick step
+for you: see [Adding the sounds](#adding-the-sounds).
 
 The explorable version is still in there. Set `Config.Mode = "Game"` to walk around yourself.
 
 ---
 
-## The trailer, shot by shot
+## The trailer, scene by scene
 
-| # | Shot | Time | What happens | On screen |
+| # | Scene | Time | What you see (and hear) | On screen |
 |---|------|------|--------------|-----------|
-| 1 | Morning mist | 0:00 | Aerial push over the fields toward town | *Somewhere along the road,* |
-| 2 | Welcome sign | 0:12 | You walk past the Halfway sign toward town | *there's a little town called Halfway.* / Population: enough. |
-| 3 | Bus stop | 0:22 | You wait on the bus stop bench | *Nothing much happens here.* |
-| 4 | Halfway Mart | 0:31 | You walk up, the automatic doors open, and you head inside | *Mostly.* |
-| 5 | The duck | 0:38 | The giant rubber duck truck rolls past and you wave. The driver yells "Don't ask!" | |
-| 6 | Gerald | 0:49 | Gerald the gnome watching the road | |
-| 7 | Why it crossed | 0:55 | A chicken crosses the road and you point at it. Dot: "I'm not even going to ask." | |
-| 8 | The trail | 1:04 | You stroll down the dirt trail at golden hour | *Take the trail sometime.* |
-| 9 | The tiny door | 1:13 | Close-up of the door in the old oak | |
-| 10 | Wendell | 1:19 | You lean on the bridge rail next to Wendell while he fishes | |
-| 11 | The deer | 1:26 | A deer looks up at you, then trots off | |
-| 12 | The lookout | 1:34 | You sit on the lookout bench at sunset, the town far below | *Stay for the sunset.* |
-| 13 | Storm | 1:46 | Clouds roll in, rain, lightning | *Some days it rains.* |
-| 14 | Lights out | 1:58 | You're in a diner booth when the lights flicker off and back on | *Some nights the lights take a little nap.* |
-| 15 | Main street at night | 2:09 | You walk home under the streetlights | |
-| 16 | Something rare | 2:18 | You find fireflies and a glowing stone in the clearing | *And sometimes…* / *…something you can't quite explain.* |
-| 17 | Title | 2:31 | Back on the bus stop bench, the camera rises over the road | **Somewhere Along the Road** / Coming soon to Roblox |
+| 1 | Morning walk | 0:00 | Walking the shoulder of the road at dawn, in the mist. Birds, a soft breeze, your footsteps | *Somewhere along the road,* |
+| 2 | Welcome sign | 0:12 | Walking past the Halfway sign, looking ahead to town | *there's a little town called Halfway.* / Population: enough. |
+| 3 | Bus stop | 0:21 | Sitting on the bench, looking across the road at the store | *Nothing much happens here.* |
+| 4 | Halfway Mart | 0:30 | Walking up, the doors slide open with a chime, and in you go to the fridge hum | *Mostly.* |
+| 5 | The duck | 0:38 | The giant rubber duck truck rolls past and honks. Your head turns to follow it | |
+| 6 | Gerald | 0:49 | Crouching down to say hello to Gerald the gnome | |
+| 7 | Why it crossed | 0:55 | A chicken crosses the road. Dot: "I'm not even going to ask." | |
+| 8 | The trail | 1:04 | Strolling down the dirt trail at golden hour | *Take the trail sometime.* |
+| 9 | The tiny door | 1:13 | Crouching closer to the little door in the old oak | |
+| 10 | Wendell | 1:20 | On the bridge next to Wendell while he fishes, the creek babbling below | |
+| 11 | The deer | 1:27 | Something rustles in the trees. A deer looks up at you, then trots off | |
+| 12 | The lookout | 1:35 | Sitting on the lookout bench at sunset, the town far below | *Stay for the sunset.* |
+| 13 | Storm | 1:47 | In the store's parking lot, looking up as the storm rolls in. Rain and thunder | *Some days it rains.* |
+| 14 | Lights out | 1:59 | In a diner booth, everyone chatting, when the lights take a little nap | *Some nights the lights take a little nap.* |
+| 15 | Main street at night | 2:10 | Walking home under the streetlights, crickets singing | |
+| 16 | Something rare | 2:19 | Stepping slowly into the clearing toward the glow, with a soft shimmering hum | *And sometimes…* / *…something you can't quite explain.* |
+| 17 | Title | 2:32 | Back on the bus stop bench, where it all started | **Somewhere Along the Road** / Coming soon to Roblox |
 
 Every shot, line of text, timing and avatar move lives in
 `src/ReplicatedStorage/SomewhereShared/Cutscene.luau`. Change the words, swap the order, delete
@@ -43,14 +50,19 @@ shots, or add your own. Settings at the top of that file:
 
 | Setting | What it does |
 |---|---|
+| `FirstPerson = true` | See through your avatar's eyes. Set `false` and the camera follows just behind you instead. |
+| `PovFov = 66` | How wide you see in first person. |
+| `HeadSway = 1` | A gentle handheld feel. `0` keeps the view perfectly steady. |
 | `StarAvatar = true` | Your character stars. Set `false` for scenery only. |
 | `TapToSkip = true` | A tap or click jumps to the next scene. |
 | `WaitForTap = false` | Set `true` to make every scene wait for a tap before moving on. |
 | `TapHint = true` | A small "tap to skip ahead" note shows during the first shot. Set `false` for recording. |
 | `Letterbox = true` | Cinematic black bars. |
 
-**To grab a camera position for a new shot:** line up Studio's editor camera, then run this in
-the Command Bar. It prints a `Pos` and a `Look` you can paste into a shot.
+Each scene says where you stand (`Avatar.At`), where you walk, sit or crouch, and where you
+look (`From.Look` turning to `To.Look`). **To find a point to look at:** click any part in Studio
+and copy its Position. Or line up Studio's editor camera and run this in the Command Bar, which
+prints where the camera is and a point 30 studs in front of it.
 
 ```lua
 local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVector * 30)
@@ -59,8 +71,8 @@ local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVe
 ### Recording it
 
 - **In Studio:** press Play. The trailer starts after a couple of seconds of black. Click to skip
-  ahead, or press **R** to roll it again from the top. The Output window shows "Cutscene mode"
-  when the right version is running.
+  ahead, or press **R** to roll it again from the top. The Output window shows "First-person
+  cutscene (v0.4.0)" when the right version is running.
 - **For the cleanest video:** publish the place (File → Publish to Roblox, and keep it private),
   open it in the Roblox app, go full screen, and record with Xbox Game Bar (**Win + Alt + R**) or
   OBS. Studio's own window has panels around the game view, so the Roblox app gives a cleaner
@@ -74,28 +86,33 @@ local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVe
 
 Checked here:
 
-- All 49 scripts compile, and they type-check with **zero errors** in strict mode against the
+- All 50 scripts compile, and they type-check with **zero errors** in strict mode against the
   full Roblox API definitions (luau-lsp).
-- Every cutscene camera was checked against the built town: none of the 17 shots starts inside
-  a wall or a tree, and nothing solid blocks its subject. Your avatar's marks were checked the
-  same way: never inside anything, never hidden behind a wall, always inside the letterboxed
-  picture. This check also caught a pane of glass that had been placed across the store's front
-  door in the first version. It's fixed. `tools/check_shots.py` runs the check,
-  and `dist/shot_map.png` shows where each shot sits.
+- Every scene was checked from your avatar's eyes against the built town, at standing,
+  walking, sitting and crouching eye heights. Your eyes are never inside a wall or a tree,
+  nothing solid sits between you and what the scene looks at, and none of your walks bump into
+  anything. `tools/check_shots.py` runs the check, and `dist/shot_map.png` shows where you are
+  in each scene. The check found two things, and both are fixed. The welcome sign's edge stuck
+  out over the walking path. And the store's "OPEN" sign would have floated in the doorway
+  when the doors slid open, so now it slides along with the door.
+- The sound pack: all 22 files are built from scratch. Every loop joins up seamlessly with no
+  click at the loop point, and keeps its exact length after encoding. Levels are set so nothing
+  clips. I couldn't listen to them here, so they were checked by measurement and by looking at
+  their spectrograms (`audio/spectrograms.png`).
 - The real world-builder code runs offline (with Lune) and builds the town: about 3,000 parts,
-  26 lights, 30 things to interact with, 20 seats, and 602 terrain fills.
-- An automatic check confirms every note, discovery, item and route marker the scripts
-  look for actually exists in the town.
-- The Command Bar bootstrap gets a dry run against an empty place, where it installs all 46
-  scripts and builds the same 3,000 parts.
+  26 lights, 30 things to interact with, 20 seats, and 603 terrain fills.
+- An automatic check confirms every note, discovery, item, route marker and sound slot the
+  scripts look for actually exists.
+- The Command Bar bootstrap gets a dry run against an empty place. It installs all 50 scripts,
+  builds the same 3,000 parts and sets up the 22 sound slots.
 - The first version was opened in Studio and ran: the terrain, buildings, grass, power lines and
   interface all loaded.
 
-**Not checked yet:** the avatar cutscene hasn't been played in Studio. Camera moves, NPC
-walking, vehicles, rain and lighting run on Roblox's physics and renderer, and those only exist
-inside Studio. Expect a
-few small things to need tuning on the first run, like an NPC standing a little too high, or a
-light that's too bright. The game hasn't been published anywhere.
+**Not checked yet:** the first-person version hasn't been played in Studio, and the sounds
+haven't been heard in game. Camera moves, NPC walking, vehicles, rain and lighting run on
+Roblox's physics and renderer, and those only exist inside Studio. Expect a few small things to
+tune on the first run, like the eye height for a very tall or very short avatar, or one sound
+a bit louder than the rest. The game hasn't been published anywhere.
 
 ---
 
@@ -103,9 +120,9 @@ light that's too bright. The game hasn't been published anywhere.
 
 ### Option A: open the place file (easiest)
 
-1. Download `dist/SomewhereAlongTheRoad_Cutscene.rbxl` from this folder on GitHub (click the file,
-   then the download button). The old `SomewhereAlongTheRoad.rbxl` is the first version. Delete it
-   so it can't be opened by mistake.
+1. Download `dist/SomewhereAlongTheRoad_FirstPerson.rbxl` from this folder on GitHub (click the
+   file, then the download button). If you have older copies (`SomewhereAlongTheRoad.rbxl` or
+   `SomewhereAlongTheRoad_Cutscene.rbxl`), delete them so they can't be opened by mistake.
 2. Open Roblox Studio, then **File → Open from File…** and pick it.
 3. Press **Play** (F5). The terrain (grass, creek, hill, trail) fills in when the game starts, then
    the trailer begins.
@@ -124,7 +141,7 @@ local B = require(game.ServerScriptService.SomewhereServer.World.Builder) B.Buil
 3. In Studio, **View → Command Bar**, paste, and press Enter. It takes a few seconds.
 4. Look for "Somewhere Along the Road is installed" in the Output, then press **Play**.
 
-The bootstrap is long (about 280 KB). If the Command Bar has trouble with a paste that size,
+The bootstrap is long (about 320 KB). If the Command Bar has trouble with a paste that size,
 use Option A.
 
 ---
@@ -181,15 +198,37 @@ at night with the streetlights on, and the rare event in the clearing.
 
 ---
 
-## Adding sound (optional)
+## Adding the sounds
 
-No audio ships with the game, because no sound ID could be checked from here. Every sound
-slot is blank in `src/ReplicatedStorage/SomewhereShared/Config.luau`, and the game plays fine
-without them. Events that you'd normally *hear* show a soft one-line hint instead.
+Roblox can only play audio that's been uploaded to Roblox, so this is the one step that needs
+you. The game plays fine without it, just quieter.
 
-To add a sound: in Studio, open **Toolbox → Audio**, find a track uploaded by **Roblox** (for
-example "birds", "rain", "crickets" or "diner"), right-click it, choose **Copy Asset ID**, and
-paste it into the slot as `"rbxassetid://123456"`.
+1. **Upload the files.** In Studio, open the **Asset Manager** (on the View tab, or the Window
+   menu in newer Studio), click **Bulk Import**, and pick the `.ogg` files in this project's
+   `audio/` folder. You can also upload them at create.roblox.com, under Creations →
+   Development Items → Audio. Roblox reviews each upload, which usually takes a few minutes.
+2. **Put each one in its slot.** In the Explorer, open **SoundService → SomewhereSounds**. There's
+   a Sound for every slot, named the same as its file. Click one (say `Wind`), then in Properties
+   click **SoundId** and pick your uploaded `Wind` from the list. Do the same for the others.
+   (If you'd rather paste ids, `Config.Sounds` in `Config.luau` takes them too. A plain number
+   like `123456` works.)
+3. **Press Play.** Your footsteps are Roblox's own built-in character sounds, so you'll hear
+   yourself walking without uploading anything.
+
+**If you can only upload a few:** Roblox limits how many audio files an account can upload
+each month (accounts without ID verification get fewer, around 10 a month last time I checked).
+These ten cover the whole trailer, so start with them: `DayBirds`, `Wind`, `NightCrickets`,
+`Rain`, `Thunder`, `Creek`, `StoreHum`, `DinerChatter`, `Horn`, `SoftHum`. Next most useful:
+`Engine`, `StoreChime`, `Chicken`, `Rustle`. The rest (`CounterBell`, `Door`, `Jukebox`,
+`IceCreamTune`, `Owl`, `Tractor`, `Mower`, `Sip`) are mostly heard while exploring in game mode.
+
+**If a slot has its id but stays silent:** audio you upload plays in places you own. Publish
+the place to your account (File → Publish to Roblox; it can stay private) and try again.
+
+**Want to change a sound?** Each one is a short recipe in `tools/make_sounds.py` (needs numpy
+and ffmpeg). Run `python3 tools/make_sounds.py` to remake them all, or
+`python3 tools/make_sounds.py Wind Rain` for just those. The files are `.ogg` on purpose: MP3
+adds a tiny gap at the start, which makes loops click.
 
 ---
 
@@ -212,7 +251,7 @@ example `RoadsideSpot` or `WoodsSpot`) moves where an event happens.
 
 ```
 src/
-  ReplicatedStorage/SomewhereShared/   Config, Text and Cutscene (shared by server and players)
+  ReplicatedStorage/SomewhereShared/   Config, Text, Cutscene and Sounds (shared by server and players)
   ServerScriptService/SomewhereServer/
     init.server.luau                   starts everything
     World/                             builds the town (Kit, Layout, Store, Diner, Houses…)
@@ -223,7 +262,9 @@ src/
 tools/
   build.luau        builds dist/ (place file, bootstrap) and runs the checks
   render_map.py     draws dist/map_overview.png and dist/map_town.png
-  check_shots.py    checks every cutscene camera and draws dist/shot_map.png
+  check_shots.py    checks every scene from your avatar's eyes and draws dist/shot_map.png
+  make_sounds.py    makes the sound pack in audio/
+audio/              the 22 original sounds, ready to upload (plus spectrograms.png)
 default.project.json                   for Rojo users
 ```
 
@@ -232,6 +273,7 @@ default.project.json                   for Rojo users
 With [Lune](https://github.com/lune-org/lune) installed, run from this folder:
 
 ```
+python3 tools/make_sounds.py
 lune run tools/build.luau
 python3 tools/render_map.py
 python3 tools/check_shots.py
@@ -245,10 +287,10 @@ python3 tools/check_shots.py
 |---|---|
 | 1. Town, roads, buildings, spawn | Done |
 | 2. Interiors and interactions | Done: store, diner, Hollis's house |
-| 3. Day/night, weather, ambience | Done (sounds are blank slots for now) |
+| 3. Day/night, weather, ambience | Done, with an original 22-sound pack (needs uploading, see above) |
 | 4. Random events | Done: all ten |
 | 5. NPCs, polish, mobile | Four residents and phone-sized UI are in |
-| Trailer cutscene | Done: 17 shots, 2:42, starring your avatar, tap to skip ahead. Tuning after the first watch in Studio |
+| Trailer cutscene | Done: 17 scenes, 2:43, first person through your avatar's eyes, tap to skip ahead. Tuning after the first watch in Studio |
 
 Ideas for later: saving discoveries between visits (DataStore), more houses to step inside,
 a radio station in the diner, and a proper bus timetable.

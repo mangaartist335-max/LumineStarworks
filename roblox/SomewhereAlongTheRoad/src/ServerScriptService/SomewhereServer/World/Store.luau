@@ -69,8 +69,11 @@ function Store.build(parent: Instance, rng: Kit.Rng)
 		panel:SetAttribute("SlideX", side * 3.9)
 		Kit.block(model, "DoorRail", Vector3.new(0.2, 8.6, 0.3), L(side * 4.05, 4.9, -D / 2 + t + 0.2), Palette.MetalDark, Enum.Material.Metal, { Decor = true })
 	end
-	local doorSign = Kit.block(model, "DoorSign", Vector3.new(2.6, 1.6, 0.1), L(0, 6.2, -D / 2 + t + 0.42), Palette.Cream, Enum.Material.SmoothPlastic, { Decor = true })
+	-- The sign hangs on the left door and slides along with it.
+	local doorSign = Kit.block(model, "DoorSign", Vector3.new(2.6, 1.6, 0.1), L(-2.02, 6.2, -D / 2 + t + 0.42), Palette.Cream, Enum.Material.SmoothPlastic, { Decor = true })
 	doorSign:SetAttribute("StoreDoorSign", true)
+	doorSign:SetAttribute("AutoDoor", "Store")
+	doorSign:SetAttribute("SlideX", -3.9)
 	local doorLabel = Kit.label(doorSign, Enum.NormalId.Front, "OPEN\n24 hrs-ish", { Font = Enum.Font.PatrickHand, TextColor = Palette.StoreGreen, Padding = 2 })
 	doorLabel.Name = "DoorSignLabel"
 	Kit.block(model, "Mat", Vector3.new(7, 0.06, 4), L(0, 0.63, -D / 2 + 3.2), rgb(70, 64, 60), Enum.Material.Fabric, { Decor = true })

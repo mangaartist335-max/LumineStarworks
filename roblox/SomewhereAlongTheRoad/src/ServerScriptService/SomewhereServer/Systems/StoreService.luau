@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+local Sounds = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Sounds"))
 
 local StoreService = {}
 
@@ -89,7 +89,8 @@ function StoreService.Init(context: any)
 			if d:GetAttribute("AutoDoor") == "Store" then
 				local slide = (d:GetAttribute("SlideX") :: number?) or 4
 				table.insert(doors, { part = d, closed = d.CFrame, opened = d.CFrame * CFrame.new(slide, 0, 0), isOpen = false })
-			elseif d.Name == "StoreFloor" then
+			end
+			if d.Name == "StoreFloor" then
 				floor = d
 			elseif d:GetAttribute("StoreDoorSign") then
 				local gui = d:FindFirstChildWhichIsA("SurfaceGui")
@@ -97,23 +98,23 @@ function StoreService.Init(context: any)
 			end
 		end
 	end
-	if #doors > 0 and Config.Sounds.StoreChime ~= "" then
-		local s = Instance.new("Sound")
-		s.SoundId = Config.Sounds.StoreChime
-		s.Volume = 0.4
-		s.RollOffMaxDistance = 50
-		s.Parent = doors[1].part
-		chime = s
+	if #doors > 0 then
+		chime = Sounds.Make("StoreChime", doors[1].part, { Volume = 0.4 })
+		if chime then
+			chime.RollOffMaxDistance = 50
+		end
 	end
 	if #doors == 0 then
 		return
 	end
 
-	local center = Vector3.zero
+	-- The middle of the doorway (the sign rides on one door, so take the middle of them all).
+	local low, high = doors[1].closed.Position, doors[1].closed.Position
 	for _, door in doors do
-		center += door.closed.Position
+		low = low:Min(door.closed.Position)
+		high = high:Max(door.closed.Position)
 	end
-	center /= #doors
+	local center = (low + high) / 2
 
 	task.spawn(function()
 		while true do

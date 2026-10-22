@@ -1,10 +1,12 @@
 """Checks every cutscene camera against the built town (dist/map.json).
 
-For each shot it samples the camera path and reports:
-  * cameras sitting inside a part (a wall, a tree trunk, a canopy...)
+Most shots are first person, so the camera is your avatar's eyes: standing, walking, sitting
+or crouching. For each shot it samples the view and reports:
+  * eyes (or a free camera) inside a part: a wall, a tree trunk, a canopy...
   * cameras below the ground (the lookout hill)
-  * solid parts blocking the view of the shot's subject
-Then it draws dist/shot_map.png: every camera path on the map, numbered.
+  * your avatar standing inside something, or a walk that bumps into something solid
+  * solid parts between your eyes and what the shot is looking at
+Then it draws dist/shot_map.png: where you are in every shot, numbered, with your gaze.
 
 Usage (from the project folder):  python3 tools/check_shots.py
 """
@@ -22,20 +24,22 @@ DIST = os.path.join(os.path.dirname(HERE), "dist")
 # Hill shape from World/Layout.luau.
 HILL = (-150.0, 362.0, 112.0, 30.0)
 
-# What each shot is really about, so we can check nothing solid is in the way.
+# Things a shot must show besides the point it looks at (checked from your eyes).
 SUBJECTS = {
-    "Bus stop": (-30, 3.2, 27.3),
-    "Halfway Mart": (-50, 15.9, -62.6),
-    "Gerald": (-6, 2.2, 19.5),
-    "Why it crossed": (40, 4.5, 39.2),
-    "The tiny door": (-100.9, 1.0, 120),
-    "Wendell": (-147.8, 4.5, 184),
-    "The deer": (-128, 4, 74),
-    "Lights out": (40, 20.6, 57.5),
-    "Something rare": (-210, 4, 242),
-    "Title": (-30, 3, 24),
-    "The lookout": (40, 20.6, 57.5),
+    "Bus stop": (-44, 7, -62),  # the store sign across the road
+    "Lights out": (40, 6, 57.5),  # the diner counter
 }
+
+# Things a shot's gaze sweeps past on purpose (the sign you walk by, a lamp post on the street).
+EXPECTED = {
+    "Welcome sign": {"Board", "Post"},
+    "Main street at night": {"Pole"},
+}
+
+# You can see through these (store and diner windows).
+SEE_THROUGH = {"Glass"}
+
+AUTO_DOORS = {"SlidingDoor", "DoorSign"}
 
 FOLIAGE = {"Leaves", "Needles", "Bush", "Plant", "Flower"}
 
@@ -116,7 +120,7 @@ def segment_hits(part, a, b):
 
 
 def avatar_at(avatar, seconds):
-    """Where the avatar is `seconds` into the shot (walking at its speed through its points)."""
+    """Where the avatar's feet are `seconds` into the shot (walking at its speed through its points)."""
     pos = avatar["at"]
     left = seconds * avatar["speed"]
     for p in avatar["walk"]:
@@ -129,49 +133,102 @@ def avatar_at(avatar, seconds):
     return pos
 
 
-def check_avatar(shot, avatar, samples, parts):
+def eye_at(avatar, seconds):
+    """Where your eyes are (the first-person camera), matching Cinematic.plannedEye."""
+    if avatar["sit"]:
+        seat = avatar["sitAt"]
+        eye = (seat[0], seat[1] + 2.9, seat[2])
+    else:
+        feet = avatar_at(avatar, seconds)
+        eye = (feet[0], feet[1] + avatar["eyeHeight"], feet[2])
+    if avatar["crouch"]:
+        eye = (eye[0], eye[1] - avatar["crouchDrop"], eye[2])
+    return eye
+
+
+def first_hit(part, a, b):
+    """Fraction along a->b where the segment enters the part, or None."""
+    if part["k"] == "Ball":
+        return 0.5 if segment_hits(part, a, b) else None
+    la, lb = local(part, a), local(part, b)
+    h = half_extents(part)
+    t0, t1 = 0.0, 1.0
+    for i in range(3):
+        d = lb[i] - la[i]
+        if abs(d) < 1e-9:
+            if abs(la[i]) > h[i]:
+                return None
+            continue
+        u0 = (-h[i] - la[i]) / d
+        u1 = (h[i] - la[i]) / d
+        if u0 > u1:
+            u0, u1 = u1, u0
+        t0, t1 = max(t0, u0), min(t1, u1)
+        if t0 > t1:
+            return None
+    return t0
+
+
+def check_body(avatar, duration, parts):
+    """Your avatar shouldn't stand inside things or walk into them."""
     notes = []
-    duration = shot["duration"]
-    for i, (cam, look) in enumerate(samples):
-        t = duration * i / (len(samples) - 1)
-        feet = avatar_at(avatar, t)
-        if avatar["sit"]:
-            seat = avatar["sitAt"]
-            body = (seat[0], seat[1] + 3.0, seat[2])  # roughly head height when seated
-        else:
-            body = (feet[0], feet[1] + 3, feet[2])
-        if not avatar["sit"]:
-            for part in parts:
-                if part["n"] not in FOLIAGE and inside(part, body, margin=-0.2):
-                    notes.append(f"avatar stands inside {part['n']} at {tuple(round(v, 1) for v in feet)}")
-        # Is the avatar in front of the camera, roughly within the picture?
-        to_avatar = sub(body, cam)
-        la = math.sqrt(dot(to_avatar, to_avatar))
-        # Camera basis, then the avatar's angle across and up/down in the picture.
-        fwd = sub(look, cam)
-        n = math.sqrt(dot(fwd, fwd))
-        fwd = (fwd[0] / n, fwd[1] / n, fwd[2] / n)
-        right = (-fwd[2], 0.0, fwd[0])
-        rn = math.sqrt(dot(right, right)) or 1
-        right = (right[0] / rn, 0.0, right[2] / rn)
-        up = (right[1] * fwd[2] - right[2] * fwd[1], right[2] * fwd[0] - right[0] * fwd[2], right[0] * fwd[1] - right[1] * fwd[0])
-        z = dot(to_avatar, fwd)
-        if z <= 0:
-            notes.append(f"avatar behind the camera at {t:.0f}s")
-            continue
-        across = math.degrees(math.atan2(abs(dot(to_avatar, right)), z))
-        updown = math.degrees(math.atan2(abs(dot(to_avatar, up)), z))
-        fov = shot["fov"]
-        half_v = math.degrees(math.atan(math.tan(math.radians(fov / 2)) * 0.744))  # letterboxed picture
-        half_h = math.degrees(math.atan(math.tan(math.radians(fov / 2)) * 1.778))
-        if across > half_h * 0.95 or updown > half_v * 0.95:
-            notes.append(f"avatar out of frame at {t:.0f}s ({across:.0f} across, {updown:.0f} up/down)")
-            continue
-        end = lerp(cam, body, max(0.0, (la - 1.5) / la))
-        solid = sorted({p["n"] for p in parts if p["n"] not in FOLIAGE and p["t"] < 0.3 and segment_hits(p, cam, end)})
-        if solid:
-            notes.append(f"avatar hidden behind {', '.join(solid)} at {t:.0f}s")
+    if avatar["sit"]:
+        return notes
+    for i in range(9):
+        feet = avatar_at(avatar, duration * i / 8)
+        chest = (feet[0], feet[1] + 3, feet[2])
+        for part in parts:
+            if part["n"] not in FOLIAGE and inside(part, chest, margin=-0.2):
+                notes.append(f"avatar stands inside {part['n']} at {tuple(round(v, 1) for v in feet)}")
+    points = [avatar["at"]] + list(avatar["walk"] or [])
+    for a, b in zip(points, points[1:]):
+        for h in (1.5, 3.0):
+            a2 = (a[0], a[1] + h, a[2])
+            b2 = (b[0], b[1] + h, b[2])
+            hit = sorted({p["n"] for p in parts if p["n"] not in FOLIAGE | AUTO_DOORS and p["t"] < 0.6 and segment_hits(p, a2, b2)})
+            if hit:
+                notes.append(f"walk from {tuple(round(v) for v in a)} to {tuple(round(v) for v in b)} bumps into {', '.join(hit)}")
     return notes
+
+
+def blockers(parts, eye, target, expected=frozenset()):
+    """Solid parts between the eye and a point (stopping just short of it), nearest first."""
+    d = sub(target, eye)
+    length = math.sqrt(dot(d, d))
+    if length < 3:
+        return [], []
+    end = lerp(eye, target, (length - 2.5) / length)
+    solid, soft = {}, set()
+    for part in parts:
+        # The thing you're looking at doesn't block itself, and the store doors slide open.
+        if part["n"] in AUTO_DOORS or inside(part, target, margin=1.0):
+            continue
+        t = first_hit(part, eye, end)
+        if t is None:
+            continue
+        if part["n"] in FOLIAGE | SEE_THROUGH | expected:
+            soft.add(part["n"])
+        else:
+            dist = t * (length - 2.5)
+            solid[part["n"]] = min(dist, solid.get(part["n"], 1e9))
+    return sorted(solid.items(), key=lambda kv: kv[1]), sorted(soft)
+
+
+def samples_for(shot):
+    """(camera, look) pairs across the shot, with the time of each."""
+    out = []
+    avatar = shot.get("avatar")
+    for i in range(9):
+        t = shot["duration"] * i / 8
+        e = ease(i / 8, shot["ease"])
+        look = lerp(shot["from"]["look"], shot["to"]["look"], e)
+        if shot.get("pov") and avatar:
+            cam = eye_at(avatar, t)
+        else:
+            a = shot["from"]["pos"]
+            cam = lerp(a, shot["to"]["pos"] or a, e)
+        out.append((t, cam, look))
+    return out
 
 
 def main():
@@ -182,44 +239,37 @@ def main():
     issues = 0
     for n, shot in enumerate(shots, 1):
         notes = []
-        samples = []
-        for i in range(9):
-            e = ease(i / 8, shot["ease"])
-            samples.append((lerp(shot["from"]["pos"], shot["to"]["pos"], e), lerp(shot["from"]["look"], shot["to"]["look"], e)))
-        for pos, _look in samples:
-            ground = hill_height(pos[0], pos[2])
-            if pos[1] < ground + 0.8:
-                notes.append(f"camera too close to the ground at {tuple(round(v, 1) for v in pos)} (ground {ground:.1f})")
+        samples = samples_for(shot)
+        for _t, cam, _look in samples:
+            ground = hill_height(cam[0], cam[2])
+            if cam[1] < ground + 0.8:
+                notes.append(f"camera too close to the ground at {tuple(round(v, 1) for v in cam)} (ground {ground:.1f})")
             for part in parts:
-                if inside(part, pos):
-                    notes.append(f"camera inside {part['n']} at {tuple(round(v, 1) for v in pos)}")
-        subject = SUBJECTS.get(shot["name"])
-        if subject:
-            for pos, _look in samples[::2]:
-                # Stop just short of the subject so its own parts don't count.
-                d = sub(subject, pos)
-                length = math.sqrt(dot(d, d))
-                end = lerp(pos, subject, max(0.0, (length - 2.5) / length))
-                blockers = {}
-                for part in parts:
-                    if segment_hits(part, pos, end):
-                        kind = "leaves" if part["n"] in FOLIAGE else "solid"
-                        blockers[part["n"]] = kind
-                solid = sorted(k for k, v in blockers.items() if v == "solid")
-                soft = sorted(k for k, v in blockers.items() if v == "leaves")
+                if inside(part, cam, margin=0.25):
+                    notes.append(f"camera inside {part['n']} at {tuple(round(v, 1) for v in cam)}")
+        # What you're looking at (tracked shots turn toward a moving thing; this checks the
+        # starting gaze), plus any extra subject the shot needs to show.
+        for t, cam, look in samples[::2]:
+            targets = [("view", look)]
+            if shot["name"] in SUBJECTS:
+                targets.append(("subject", SUBJECTS[shot["name"]]))
+            for label, target in targets:
+                solid, soft = blockers(parts, cam, target, EXPECTED.get(shot["name"], frozenset()))
                 if solid:
-                    notes.append(f"view of subject blocked by {', '.join(solid)} from {tuple(round(v, 1) for v in pos)}")
+                    names = ", ".join(f"{k} ({v:.0f} studs away)" for k, v in solid[:4])
+                    notes.append(f"{label} at {t:.0f}s blocked by {names}")
                 if soft:
-                    notes.append(f"(leaves in the way: {', '.join(soft)} from {tuple(round(v, 1) for v in pos)})")
+                    notes.append(f"(seen past, fine: {', '.join(soft)} in the {label} at {t:.0f}s)")
         avatar = shot.get("avatar")
         if avatar:
-            notes.extend(check_avatar(shot, avatar, samples, parts))
+            notes.extend(check_body(avatar, shot["duration"], parts))
         unique = list(dict.fromkeys(notes))
         status = "ok" if not [u for u in unique if not u.startswith("(")] else "CHECK"
         if status != "ok":
             issues += 1
-        print(f"{n:2d}. {shot['name']:<22} {shot['duration']:>5.1f}s  {status}")
-        for u in unique[:6]:
+        kind = "eyes" if shot.get("pov") else "free"
+        print(f"{n:2d}. {shot['name']:<22} {shot['duration']:>5.1f}s  {kind:<4}  {status}")
+        for u in unique[:8]:
             print(f"      - {u}")
     draw(data, shots)
     print(f"\n{issues} shot(s) need a look" if issues else "\nAll shots clear")
@@ -240,17 +290,15 @@ def draw(data, shots):
     except OSError:
         font = ImageFont.load_default()
     for n, shot in enumerate(shots, 1):
-        a = shot["from"]["pos"]
-        b = shot["to"]["pos"]
-        d.line([pt(a[0], a[2]), pt(b[0], b[2])], fill=(255, 214, 64), width=3)
-        for key in ("from", "to"):
-            p = shot[key]["pos"]
-            look = shot[key]["look"]
-            v = (look[0] - p[0], look[2] - p[2])
+        samples = samples_for(shot)
+        path = [pt(cam[0], cam[2]) for _t, cam, _look in samples]
+        d.line(path, fill=(255, 214, 64), width=3)
+        for _t, cam, look in (samples[0], samples[-1]):
+            v = (look[0] - cam[0], look[2] - cam[2])
             length = math.hypot(*v) or 1
-            tip = (p[0] + v[0] / length * 22, p[2] + v[1] / length * 22)
-            d.line([pt(p[0], p[2]), pt(*tip)], fill=(255, 120, 90), width=2)
-        x, z = pt(a[0], a[2])
+            tip = (cam[0] + v[0] / length * 22, cam[2] + v[1] / length * 22)
+            d.line([pt(cam[0], cam[2]), pt(*tip)], fill=(255, 120, 90), width=2)
+        x, z = path[0]
         d.ellipse([x - 9, z - 9, x + 9, z + 9], fill=(30, 30, 30))
         d.text((x, z), str(n), fill=(255, 255, 255), font=font, anchor="mm")
     out = os.path.join(DIST, "shot_map.png")

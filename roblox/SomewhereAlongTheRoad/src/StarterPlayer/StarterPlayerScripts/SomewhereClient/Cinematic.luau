@@ -34,6 +34,9 @@ local trackedLook: Vector3? = nil
 local remote: RemoteEvent
 local avatarThread: thread? = nil
 local directedIndex = 0
+local placedIndex = 0 -- the shot whose mark the avatar has actually reached
+local eyeSmoothed: Vector3? = nil
+local eyeIndex = 0
 local lastTap = 0
 local PARKED = CFrame.new(0, -60, 0) -- out of sight, under the town, for shots you're not in
 
@@ -173,6 +176,48 @@ local function setText(label: TextLabel, text: string, alpha: number)
 	label.TextStrokeTransparency = 1 - alpha * 0.35
 end
 
+-- Where your eyes would be for this shot's plan, before the avatar has got there.
+local function plannedEye(plan: Cutscene.Avatar): Vector3
+	local eye = if plan.Sit then plan.Sit + Vector3.new(0, 2.9, 0) else plan.At.Position + Vector3.new(0, settings.EyeHeight, 0)
+	return if plan.Crouch then eye - Vector3.new(0, settings.CrouchDrop, 0) else eye
+end
+
+-- Where your eyes actually are: just above the centre of your avatar's head. For a seated
+-- shot this waits until you're actually on the seat, so the view doesn't dip on the way down.
+local function headEye(plan: Cutscene.Avatar): Vector3?
+	local char = player.Character
+	local head = char and char:FindFirstChild("Head")
+	if not char or not head or not head:IsA("BasePart") then
+		return nil
+	end
+	if plan.Sit then
+		local humanoid = char:FindFirstChildOfClass("Humanoid")
+		if not humanoid or not humanoid.SeatPart then
+			return nil
+		end
+	end
+	local eye = head.Position + Vector3.new(0, 0.25, 0)
+	return if plan.Crouch then eye - Vector3.new(0, settings.CrouchDrop, 0) else eye
+end
+
+-- In first person you don't see your own body. Your shadow stays (it's nice to see it walk
+-- along beside you), except when you're crouching, where a standing shadow would look odd.
+local function hideBody(hide: boolean, noShadow: boolean)
+	local char = player.Character
+	if not char then
+		return
+	end
+	local value = if hide then 1 else 0
+	for _, d in char:GetDescendants() do
+		if d:IsA("BasePart") then
+			d.LocalTransparencyModifier = value
+			d.CastShadow = not noShadow
+		elseif d:IsA("Decal") then
+			d.LocalTransparencyModifier = value
+		end
+	end
+end
+
 local function step(dt: number)
 	local camera = workspace.CurrentCamera
 	camera.CameraType = Enum.CameraType.Scriptable
@@ -194,7 +239,6 @@ local function step(dt: number)
 	local t = math.clamp(workspace:GetServerTimeNow() - live.startedAt, 0, duration)
 	local e = ease(t / duration, shot.Ease)
 
-	local pos = shot.From.Pos:Lerp(shot.To.Pos, e)
 	local look = shot.From.Look:Lerp(shot.To.Look, e)
 	local track = shot.Track
 	if track then
@@ -208,8 +252,48 @@ local function step(dt: number)
 			look = trackedLook :: Vector3
 		end
 	end
-	camera.CFrame = CFrame.lookAt(pos, look)
-	local fov0 = shot.From.Fov or settings.DefaultFov
+
+	local plan = if settings.StarAvatar then shot.Avatar else nil
+	local pov = plan ~= nil and settings.FirstPerson
+	local pos: Vector3
+	if plan then
+		-- Your eyes: the planned spot until the avatar reaches its mark, then the real head,
+		-- smoothed so footsteps give a gentle bob rather than a shake.
+		local target = (placedIndex == live.index and headEye(plan)) or plannedEye(plan)
+		if eyeIndex ~= live.index or not eyeSmoothed then
+			eyeIndex = live.index
+			eyeSmoothed = target
+		else
+			eyeSmoothed = (eyeSmoothed :: Vector3):Lerp(target, 1 - math.exp(-dt * 12))
+		end
+		local eye = eyeSmoothed :: Vector3
+		if pov then
+			pos = eye
+		else
+			-- Third person: hang back behind your shoulder.
+			local flat = Vector3.new(look.X - eye.X, 0, look.Z - eye.Z)
+			local back = if flat.Magnitude > 0.1 then flat.Unit else Vector3.zAxis
+			pos = eye - back * 9 + Vector3.new(0, 2, 0)
+		end
+	else
+		local from = shot.From.Pos or Vector3.new(0, 20, 0)
+		pos = from:Lerp(shot.To.Pos or from, e)
+	end
+	hideBody(pov, pov and plan ~= nil and plan.Crouch == true)
+
+	local frame = CFrame.lookAt(pos, look)
+	if pov and settings.HeadSway > 0 then
+		local s = settings.HeadSway
+		local clock = os.clock()
+		frame *= CFrame.Angles(
+			(math.sin(clock * 1.1) * 0.0035 + math.sin(clock * 2.3) * 0.0012) * s,
+			(math.sin(clock * 0.8 + 1) * 0.005) * s,
+			math.sin(clock * 0.6 + 2) * 0.002 * s
+		)
+	end
+	camera.CFrame = frame
+	local defaultFov = if pov then settings.PovFov else settings.DefaultFov
+	local fov0 = shot.From.Fov or defaultFov
 	local fov1 = shot.To.Fov or fov0
 	camera.FieldOfView = fov0 + (fov1 - fov0) * e
 
@@ -310,12 +394,14 @@ local function direct(index: number)
 		if not plan then
 			root.Anchored = true
 			char:PivotTo(PARKED)
+			placedIndex = index
 			return
 		end
 		local standHeight = if humanoid.RigType == Enum.HumanoidRigType.R15 then humanoid.HipHeight + root.Size.Y / 2 else 3
 		root.Anchored = false
 		char:PivotTo(plan.At * CFrame.new(0, standHeight, 0))
 		root.AssemblyLinearVelocity = Vector3.zero
+		placedIndex = index
 
 		if plan.Sit then
 			remote:FireServer("Sit", plan.Sit)

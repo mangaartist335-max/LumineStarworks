@@ -1,7 +1,7 @@
 --!strict
 -- Background sound: birds by day, crickets at night, wind, rain (muffled indoors), the store's
--- fridge hum, diner chatter, the creek. Every layer is optional; blank slots in Config.Sounds
--- are skipped, so the game is simply quieter until you add audio you trust.
+-- fridge hum, diner chatter, the creek. Every layer is optional: an empty slot (see Sounds) is
+-- simply skipped, so the town is just quieter until you add the audio.
 
 local Lighting = game:GetService("Lighting")
 local Players = game:GetService("Players")
@@ -10,6 +10,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
 local Config = require(Shared:WaitForChild("Config"))
+local Sounds = require(Shared:WaitForChild("Sounds"))
 
 local Ambience = {}
 
@@ -27,16 +28,10 @@ local function smooth(a: number, b: number, x: number): number
 end
 
 local function layer(slot: string): Sound?
-	local id = (Config.Sounds :: any)[slot] :: string
-	if id == "" then
+	local s = Sounds.Make(slot, SoundService, { Name = "Ambience_" .. slot, Looped = true, Volume = 0 })
+	if not s then
 		return nil
 	end
-	local s = Instance.new("Sound")
-	s.Name = "Ambience_" .. slot
-	s.SoundId = id
-	s.Looped = true
-	s.Volume = 0
-	s.Parent = SoundService
 	s:Play()
 	layers[slot] = s
 	return s
@@ -58,18 +53,12 @@ end
 local function attachSpots(town: Instance)
 	for _, d in town:GetDescendants() do
 		local slot = d:GetAttribute("AmbientSound")
-		if typeof(slot) == "string" and d:IsA("BasePart") then
-			local id = (Config.Sounds :: any)[slot] :: string?
-			if id and id ~= "" and slot ~= "Jukebox" then
-				local s = Instance.new("Sound")
-				s.Name = "Ambient_" .. slot
-				s.SoundId = id
-				s.Looped = true
-				s.Volume = 0
+		if typeof(slot) == "string" and d:IsA("BasePart") and slot ~= "Jukebox" then
+			local s = Sounds.Make(slot, d, { Name = "Ambient_" .. slot, Looped = true, Volume = 0 })
+			if s then
 				s.RollOffMode = Enum.RollOffMode.InverseTapered
 				s.RollOffMinDistance = 8
 				s.RollOffMaxDistance = 60
-				s.Parent = d
 				s:Play()
 				table.insert(spots, { sound = s, slot = slot })
 			end
@@ -78,15 +67,12 @@ local function attachSpots(town: Instance)
 end
 
 function Ambience.Thunder(strength: number)
-	local id = Config.Sounds.Thunder
-	if id == "" then
-		return
-	end
+	-- The rumble arrives a moment after the flash (later and softer when it's further away).
 	task.delay(1 + (1 - strength) * 3, function()
-		local s = Instance.new("Sound")
-		s.SoundId = id
-		s.Volume = 0.5 + strength * 0.4
-		s.Parent = SoundService
+		local s = Sounds.Make("Thunder", SoundService, { Volume = 0.5 + strength * 0.4 })
+		if not s then
+			return
+		end
 		s:Play()
 		s.Ended:Once(function()
 			s:Destroy()
@@ -133,7 +119,8 @@ function Ambience.Init(useCamera: boolean?)
 				if spot.slot == "StoreHum" then
 					target = if power and storeOpen then 0.35 else 0
 				elseif spot.slot == "DinerChatter" then
-					target = if clock > 6 and clock < 22 then 0.4 else 0
+					-- A little hush when the lights go out, then everyone carries on.
+					target = if clock > 6 and clock < 22 then (if power then 0.4 else 0.25) else 0
 				end
 				spot.sound.Volume += (target - spot.sound.Volume) * 0.3
 			end

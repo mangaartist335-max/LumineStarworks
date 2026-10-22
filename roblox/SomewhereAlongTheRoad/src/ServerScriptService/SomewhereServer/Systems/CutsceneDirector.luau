@@ -7,6 +7,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Cutscene = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Cutscene"))
+local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
 
 local CutsceneDirector = {}
 
@@ -153,7 +154,8 @@ function CutsceneDirector.Init(context: any)
 			table.insert(seats, d)
 		end
 	end
-	print("[Somewhere] Cutscene mode: the trailer starts in a moment. Tap or click to skip ahead, R to restart.")
+	local view = if Cutscene.Settings.FirstPerson then "First-person cutscene" else "Cutscene"
+	print(`[Somewhere] {view} (v{Config.Version}): the trailer starts in a moment. Tap or click to skip ahead, R to restart.`)
 	remote.OnServerEvent:Connect(function(player: Player, action: any, arg: any)
 		if action == "Ready" then
 			if not started then

@@ -8,7 +8,7 @@
 	  2. runs the real World/Builder module to bake the town into Workspace,
 	  3. records the terrain calls with a stand-in Terrain (terrain is filled in at Play time),
 	  4. checks that every interactable, anchor and text id the game relies on exists,
-	  5. writes dist/SomewhereAlongTheRoad_Cutscene.rbxl, dist/Bootstrap_CommandBar.lua,
+	  5. writes dist/SomewhereAlongTheRoad_FirstPerson.rbxl, dist/Bootstrap_CommandBar.lua,
 	     sourcemap.json and dist/map.json (for the top-down preview).
 ]]
 
@@ -221,6 +221,7 @@ starterPlayer.CharacterWalkSpeed = Config.Player.WalkSpeed
 starterPlayer.CameraMaxZoomDistance = Config.Player.CameraMaxZoom
 
 local town = Builder.Build()
+Builder.SetupSounds()
 
 -- Stand-in terrain that records what would be filled.
 local terrainOps = {}
@@ -355,6 +356,35 @@ local requiredAnchors = {
 	"DinerStool",
 	"DinerBehindCounter",
 }
+-- Every sound slot has an empty Sound waiting in SoundService, and a file in audio/ to upload.
+local soundFolder = game:GetService("SoundService"):FindFirstChild("SomewhereSounds")
+for slot in Config.Sounds do
+	if not (soundFolder and soundFolder:FindFirstChild(slot)) then
+		problem(`SoundService.SomewhereSounds is missing a Sound for {slot}`)
+	end
+	if not fs.isFile(`audio/{slot}.ogg`) then
+		problem(`audio/{slot}.ogg is missing (run python3 tools/make_sounds.py)`)
+	end
+end
+do
+	-- Filling a slot in Studio works, a bare number is fine, and re-running the installer keeps it.
+	local Sounds = emulatedRequire(game:GetService("ReplicatedStorage").SomewhereShared.Sounds)
+	local wind = soundFolder and soundFolder:FindFirstChild("Wind")
+	if Sounds.Id("Wind") ~= nil then
+		problem("Sounds.Id should be empty before any audio is added")
+	end
+	if wind then
+		wind.SoundId = "12345"
+		Builder.SetupSounds()
+		if Sounds.Id("Wind") ~= "rbxassetid://12345" then
+			problem(`Sounds.Id("Wind") gave {Sounds.Id("Wind")} after setting the slot`)
+		end
+		if Sounds.Make("Rain", workspace) ~= nil then
+			problem("Sounds.Make should skip empty slots")
+		end
+		wind.SoundId = ""
+	end
+end
 for _, name in requiredAnchors do
 	if not anchors[name] then
 		problem(`missing anchor {name}`)
@@ -401,7 +431,15 @@ for i, shot in Cutscene.Shots do
 		end
 	end
 	local function key(k)
-		return { pos = { k.Pos.X, k.Pos.Y, k.Pos.Z }, look = { k.Look.X, k.Look.Y, k.Look.Z } }
+		return {
+			pos = if k.Pos then { k.Pos.X, k.Pos.Y, k.Pos.Z } else nil,
+			look = { k.Look.X, k.Look.Y, k.Look.Z },
+		}
+	end
+	local settings = Cutscene.Settings
+	local pov = settings.StarAvatar and settings.FirstPerson and shot.Avatar ~= nil
+	if not shot.Avatar and not (shot.From.Pos and shot.To.Pos) then
+		problem(`{where}: a shot without your avatar needs a camera Pos in From and To`)
 	end
 	local avatar = nil
 	if shot.Avatar then
@@ -417,8 +455,12 @@ for i, shot in Cutscene.Shots do
 			speed = shot.Avatar.Speed or 8,
 			sit = sit ~= nil,
 			sitAt = if sit then { sit.X, sit.Y, sit.Z } else nil,
+			crouch = shot.Avatar.Crouch == true,
+			eyeHeight = settings.EyeHeight,
+			crouchDrop = settings.CrouchDrop,
 		}
 	end
+	local defaultFov = if pov then settings.PovFov else settings.DefaultFov
 	table.insert(shotExport, {
 		name = shot.Name,
 		duration = shot.Duration,
@@ -426,8 +468,9 @@ for i, shot in Cutscene.Shots do
 		from = key(shot.From),
 		to = key(shot.To),
 		avatar = avatar,
+		pov = pov,
 		-- The tighter of the two lenses, so the frame check is never too generous.
-		fov = math.min(shot.From.Fov or Cutscene.Settings.DefaultFov, shot.To.Fov or shot.From.Fov or Cutscene.Settings.DefaultFov),
+		fov = math.min(shot.From.Fov or defaultFov, shot.To.Fov or shot.From.Fov or defaultFov),
 	})
 end
 print(`Cutscene: {#Cutscene.Shots} shots, {math.floor(totalTime / 60)}:{string.format("%02d", math.floor(totalTime % 60))} long`)
@@ -457,7 +500,7 @@ if not fs.isDir(DIST) then
 	fs.writeDir(DIST)
 end
 
-fs.writeFile(`{DIST}/SomewhereAlongTheRoad_Cutscene.rbxl`, roblox.serializePlace(game))
+fs.writeFile(`{DIST}/SomewhereAlongTheRoad_FirstPerson.rbxl`, roblox.serializePlace(game))
 fs.writeFile("sourcemap.json", serde.encode("json", sourcemap, true))
 
 -- Map data for the preview renderer.
@@ -531,6 +574,7 @@ emit("workspace.Terrain:Clear()")
 emit("Builder.BuildTerrain(workspace.Terrain)")
 emit("Builder.TintTerrain(workspace.Terrain)")
 emit("Builder.SetupLighting(game:GetService(\"Lighting\"), workspace.Terrain)")
+emit("Builder.SetupSounds()")
 emit("end)")
 emit("if ok then")
 emit("\tprint(\"Somewhere Along the Road is installed. Press Play (F5) to visit.\")")
@@ -586,6 +630,9 @@ for _, d in fresh:GetDescendants() do
 	end
 end
 assert(freshScripts == #scriptFiles, `bootstrap installed {freshScripts} scripts, expected {#scriptFiles}`)
-print(`Bootstrap dry run: installed {freshScripts} scripts, built {freshParts} parts and {terrainCalls} terrain fills ("{printed[#printed] or ""}")`)
+local freshSounds = fresh:GetService("SoundService"):FindFirstChild("SomewhereSounds")
+local freshSlots = if freshSounds then #freshSounds:GetChildren() else 0
+assert(soundFolder and freshSlots == #soundFolder:GetChildren(), `bootstrap made {freshSlots} sound slots`)
+print(`Bootstrap dry run: installed {freshScripts} scripts, built {freshParts} parts, {terrainCalls} terrain fills and {freshSlots} sound slots ("{printed[#printed] or ""}")`)
 
-print(`Wrote {DIST}/SomewhereAlongTheRoad_Cutscene.rbxl, {DIST}/Bootstrap_CommandBar.lua ({math.floor(#bootstrap / 1024)} KB), sourcemap.json, {DIST}/map.json`)
+print(`Wrote {DIST}/SomewhereAlongTheRoad_FirstPerson.rbxl, {DIST}/Bootstrap_CommandBar.lua ({math.floor(#bootstrap / 1024)} KB), sourcemap.json, {DIST}/map.json`)

@@ -5,7 +5,7 @@
 local Config = {}
 
 Config.GameName = "Somewhere Along the Road"
-Config.Version = "0.3.0"
+Config.Version = "0.4.0"
 
 -- "Cutscene": press Play and the trailer runs by itself (shots live in Cutscene.luau).
 -- "Game": the explorable version, with your own character, the objective and the Director panel.
@@ -47,10 +47,11 @@ Config.Events = {
 	},
 }
 
--- Optional audio. Every slot is blank on purpose: no unverified assets ship with the game.
--- To add sound: Studio > Toolbox > Audio, pick a track uploaded by "Roblox",
--- right-click > Copy Asset ID, and paste it here as "rbxassetid://123456".
--- Empty slots are simply skipped, and the game still plays fine.
+-- Sound. The project's audio/ folder has an original file for every slot below (made by
+-- tools/make_sounds.py). Upload them in Studio (Asset Manager > Import), then either:
+--   * click each Sound in SoundService > SomewhereSounds and pick its SoundId, or
+--   * paste the ids here as "rbxassetid://123456" (these win if both are set).
+-- Empty slots are simply skipped, and everything still plays fine.
 Config.Sounds = {
 	DayBirds = "",
 	NightCrickets = "",

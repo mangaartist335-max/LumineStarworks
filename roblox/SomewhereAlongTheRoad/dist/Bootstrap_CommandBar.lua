@@ -22,7 +22,7 @@ local i2 = make("ModuleScript", "Config", i1, [======[
 local Config = {}
 
 Config.GameName = "Somewhere Along the Road"
-Config.Version = "0.3.0"
+Config.Version = "0.4.0"
 
 -- "Cutscene": press Play and the trailer runs by itself (shots live in Cutscene.luau).
 -- "Game": the explorable version, with your own character, the objective and the Director panel.
@@ -64,10 +64,11 @@ Config.Events = {
 	},
 }
 
--- Optional audio. Every slot is blank on purpose: no unverified assets ship with the game.
--- To add sound: Studio > Toolbox > Audio, pick a track uploaded by "Roblox",
--- right-click > Copy Asset ID, and paste it here as "rbxassetid://123456".
--- Empty slots are simply skipped, and the game still plays fine.
+-- Sound. The project's audio/ folder has an original file for every slot below (made by
+-- tools/make_sounds.py). Upload them in Studio (Asset Manager > Import), then either:
+--   * click each Sound in SoundService > SomewhereSounds and pick its SoundId, or
+--   * paste the ids here as "rbxassetid://123456" (these win if both are set).
+-- Empty slots are simply skipped, and everything still plays fine.
 Config.Sounds = {
 	DayBirds = "",
 	NightCrickets = "",
@@ -128,11 +129,12 @@ return Config
 ]======])
 local i3 = make("ModuleScript", "Cutscene", i1, [======[
 --!strict
--- The trailer, shot by shot. Press Play and it runs from top to bottom by itself, starring
--- your own avatar. Tap or click to jump ahead to the next scene.
+-- The trailer, shot by shot, seen through your own eyes. Press Play and it runs from top to
+-- bottom by itself. Tap or click to jump ahead to the next scene.
 --
--- Every shot moves the camera from `From` to `To` over `Duration` seconds.
---   Pos  = where the camera is,  Look = the point it aims at,  Fov = lens (smaller = more zoom)
+-- First person: the camera sits at your avatar's eyes (your body is hidden from you).
+-- Each shot says where you are and what you do (Avatar), and where you look (From.Look -> To.Look).
+--   Look = the point you're looking at,  Fov = how wide you see (smaller = more zoom)
 -- Optional per shot:
 --   Clock        time of day (0-24) set at the start of the shot
 --   Weather      Clear, PartlyCloudy, Overcast, Drizzle, Fog or Storm (set instantly)
@@ -141,20 +143,20 @@ local i3 = make("ModuleScript", "Cutscene", i1, [======[
 --   Event        { Id, Options, Lead } one of the ten events, staged for the camera.
 --                Lead starts it that many seconds before the shot so it's ready on screen.
 --   Cues         { { At = seconds, Do = "Flash" | "Say", ... } } little things on a timer
---   Track        { Model, Offset, Weight } keep the camera pointed at a moving thing
+--   Track        { Model, Offset, Weight } turn your head to follow a moving thing
 --   Captions     { { Text, From, To, Small } } words on screen
 --   Title        { Text, Sub, From } the big title card
 --   FadeIn / FadeOut  seconds of fade from / to black
---   Avatar       what your character does in this shot (leave it out and you're off camera):
---                  At    = CFrame on the ground where you stand, facing the way you look
---                  Walk  = { points } to stroll through, at Speed studs per second
---                  Sit   = a point next to the seat to sit on (bench, booth...)
---                  Emote = { At = seconds, Name = "Wave" | "Point" | "Laugh" | "Cheer" }
+--   Avatar       what you do in this shot:
+--                  At     = CFrame on the ground where you start, facing the way you're headed
+--                  Walk   = { points } to stroll through, at Speed studs per second
+--                  Sit    = a point next to the seat to sit on (bench, booth...)
+--                  Crouch = true to crouch down (for looking at small things)
+--   From.Pos / To.Pos  only used for a shot without an Avatar (a free-floating camera)
 --
--- Tip: to grab a camera position in Studio, line up the editor camera and run this in the
--- Command Bar:  local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVector * 30)
+-- Tip: to find a spot to look at, click a part in Studio and copy its Position.
 
-export type Key = { Pos: Vector3, Look: Vector3, Fov: number? }
+export type Key = { Pos: Vector3?, Look: Vector3, Fov: number? }
 export type Caption = { Text: string, From: number, To: number, Small: boolean? }
 export type Cue = { At: number, Do: string, Npc: string?, Text: string?, Strength: number?, Seconds: number? }
 export type Avatar = {
@@ -162,6 +164,7 @@ export type Avatar = {
 	Walk: { Vector3 }?,
 	Speed: number?,
 	Sit: Vector3?,
+	Crouch: boolean?,
 	Emote: { At: number, Name: string }?,
 }
 export type Shot = {
@@ -197,7 +200,12 @@ Cutscene.Settings = {
 	StartDelay = 2, -- seconds of black before the first shot, once your screen is ready
 	Letterbox = true, -- cinematic black bars
 	LetterboxRatio = 2.39,
-	DefaultFov = 50,
+	FirstPerson = true, -- see through your avatar's eyes (false: the camera follows behind you)
+	PovFov = 66, -- how wide you see in first person, unless a shot says otherwise
+	DefaultFov = 50, -- for shots without an Avatar
+	EyeHeight = 4.7, -- studs above the ground when standing
+	CrouchDrop = 1.9, -- how much lower you are when crouching
+	HeadSway = 1, -- gentle handheld feel (0 = perfectly steady)
 	Loop = false, -- play again after the end card
 	LoopDelay = 6,
 	HideCursor = true,
@@ -209,49 +217,51 @@ Cutscene.Settings = {
 
 Cutscene.Shots = {
 	{
-		Name = "Morning mist",
+		Name = "Morning walk",
 		Duration = 12,
-		Clock = 6.25,
+		Clock = 6.3,
 		Weather = "Fog",
 		FadeIn = 3,
-		From = { Pos = V(330, 62, 60), Look = V(120, 10, 0), Fov = 60 },
-		To = { Pos = V(170, 36, 28), Look = V(0, 8, 0), Fov = 58 },
+		-- Walking the shoulder of the road at dawn, toward a town you can't see yet.
+		Avatar = { At = stand(-330, 0, 14.4, -200, 14.4), Walk = { V(-268, 0, 14.4) }, Speed = 5.2 },
+		From = { Look = V(-230, 4.5, 14) },
+		To = { Look = V(-180, 4.3, 11) },
 		Captions = { { Text = "Somewhere along the road,", From = 3, To = 10.5 } },
 	},
 	{
 		Name = "Welcome sign",
-		Duration = 10,
-		Clock = 7.8,
+		Duration = 9,
+		Clock = 7.2,
 		Weather = "PartlyCloudy",
-		From = { Pos = V(-268, 6, 13), Look = V(-236, 5.5, 22) },
-		To = { Pos = V(-244, 7.5, 9), Look = V(-40, 9, 0) },
+		Avatar = { At = stand(-262, 0, 14.4, -200, 14.4), Walk = { V(-214, 0, 14.6) }, Speed = 5.4 },
+		From = { Look = V(-236, 5.4, 22) },
+		To = { Look = V(-120, 6, 4) },
 		Captions = {
-			{ Text = "there's a little town called Halfway.", From = 1, To = 8.5 },
-			{ Text = "Population: enough.", From = 4.5, To = 9, Small = true },
+			{ Text = "there's a little town called Halfway.", From = 1, To = 8.3 },
+			{ Text = "Population: enough.", From = 4.5, To = 8.8, Small = true },
 		},
-		-- You walk into town along the shoulder, past the sign.
-		Avatar = { At = stand(-258, 0, 15.5, -200, 15.5), Walk = { V(-205, 0, 16) }, Speed = 6 },
 	},
 	{
 		Name = "Bus stop",
 		Duration = 9,
 		Clock = 8.4,
 		Weather = "Clear",
-		From = { Pos = V(-21, 4.2, 15), Look = V(-30, 3.6, 26.5) },
-		To = { Pos = V(-37, 4.2, 15.5), Look = V(-30, 3.6, 26.5) },
+		-- Sitting on the bench, looking across the road at the store.
+		Avatar = { At = stand(-30, 0.6, 24, -30, 18), Sit = V(-30, 2.5, 27.3) },
+		From = { Look = V(-70, 4, -20) },
+		To = { Look = V(-44, 7, -62) },
 		Captions = { { Text = "Nothing much happens here.", From = 2, To = 8 } },
-		Avatar = { At = stand(-30, 0.6, 24, -30, 20), Sit = V(-30, 2.5, 27.3) },
 	},
 	{
 		Name = "Halfway Mart",
-		Duration = 7,
+		Duration = 8,
 		Clock = 9.3,
 		Weather = "Clear",
-		From = { Pos = V(-50, 5.5, -26), Look = V(-50, 7.5, -62) },
-		To = { Pos = V(-50, 5, -40), Look = V(-50, 8, -62) },
-		Captions = { { Text = "Mostly.", From = 4, To = 7 } },
-		-- The automatic doors open as you walk up, and you head inside.
-		Avatar = { At = stand(-50, 0.25, -39, -50, -70), Walk = { V(-50, 0.6, -56), V(-50, 0.6, -68) }, Speed = 7 },
+		-- Up to the doors, they slide open, and in you go.
+		Avatar = { At = stand(-50, 0.25, -38, -50, -70), Walk = { V(-50, 0.6, -57), V(-50, 0.6, -70), V(-56, 0.6, -76) }, Speed = 6 },
+		From = { Look = V(-50, 7, -62) },
+		To = { Look = V(-44, 4.5, -90) },
+		Captions = { { Text = "Mostly.", From = 4.5, To = 8 } },
 	},
 	{
 		Name = "The duck",
@@ -259,10 +269,11 @@ Cutscene.Shots = {
 		Clock = 11.2,
 		Weather = "Clear",
 		Event = { Id = "UnusualVehicle", Options = { Variant = "duck", StartX = -120, Speed = 20 } },
-		From = { Pos = V(36, 3.2, 18.5), Look = V(-60, 7, 4), Fov = 55 },
-		To = { Pos = V(33, 3.4, 18.5), Look = V(-60, 7, 4), Fov = 55 },
-		Track = { Model = "Event_DuckTruck", Offset = V(0, 8, 0), Weight = 0.85 },
-		Avatar = { At = stand(25, 0.55, 15.5, -60, 8), Emote = { At = 7.2, Name = "Wave" } },
+		-- On the sidewalk as it rolls past. Your head follows it.
+		Avatar = { At = stand(25, 0.55, 15.5, -60, 8) },
+		From = { Look = V(-60, 6, 6) },
+		To = { Look = V(-60, 6, 6) },
+		Track = { Model = "Event_DuckTruck", Offset = V(0, 7, 0), Weight = 0.9 },
 	},
 	{
 		Name = "Gerald",
@@ -270,8 +281,10 @@ Cutscene.Shots = {
 		Clock = 12.1,
 		Weather = "Clear",
 		Event = { Id = "RoadsideObject", Options = { Kind = "gnome", Spot = CFrame.new(-6, 0.55, 19.5) } },
-		From = { Pos = V(-1.5, 2.4, 20.6), Look = V(-9, 2.2, 12), Fov = 42 },
-		To = { Pos = V(-2.4, 2.2, 20.4), Look = V(-9, 2.1, 12), Fov = 40 },
+		-- Crouching down to say hello.
+		Avatar = { At = stand(-6, 0.55, 14.4, -6, 19.5), Crouch = true },
+		From = { Look = V(-6, 1.4, 19.5), Fov = 55 },
+		To = { Look = V(-6, 2, 19.5), Fov = 52 },
 	},
 	{
 		Name = "Why it crossed",
@@ -289,10 +302,11 @@ Cutscene.Shots = {
 				DotLineAt = 3.2,
 			},
 		},
-		From = { Pos = V(52, 2.8, -17), Look = V(40, 2.4, 16) },
-		To = { Pos = V(50.5, 2.6, -15.5), Look = V(40, 2, 12) },
+		Avatar = { At = stand(46, 0.2, -10, 40, 20) },
+		From = { Look = V(41, 3.5, 22) },
+		To = { Look = V(40, 2, 6) },
+		Track = { Model = "Event_Chicken", Offset = V(0, 1, 0), Weight = 0.55 },
 		FadeOut = 0.8,
-		Avatar = { At = stand(45, 0.2, -11, 40, 10), Emote = { At = 4, Name = "Point" } },
 	},
 	{
 		Name = "The trail",
@@ -300,29 +314,31 @@ Cutscene.Shots = {
 		Clock = 16.7,
 		Weather = "Clear",
 		FadeIn = 0.8,
-		From = { Pos = V(-113, 4.4, 20), Look = V(-111, 4, 70) },
-		To = { Pos = V(-111.5, 4.8, 58), Look = V(-106, 4, 100) },
+		Avatar = { At = stand(-113, 0, 22, -114, 50), Walk = { V(-114, 0, 50), V(-109, 0, 72) }, Speed = 5.6 },
+		From = { Look = V(-115, 4.5, 95) },
+		To = { Look = V(-103, 4, 135) },
 		Captions = { { Text = "Take the trail sometime.", From = 2, To = 7.5 } },
-		Avatar = { At = stand(-113, 0, 31, -114, 50), Walk = { V(-114, 0, 50), V(-109, 0, 75) }, Speed = 5.5 },
 	},
 	{
 		Name = "The tiny door",
-		Duration = 6,
+		Duration = 7,
 		Clock = 16.9,
 		Weather = "Clear",
-		From = { Pos = V(-106, 1.9, 123.5), Look = V(-100.8, 1.2, 120), Fov = 42 },
-		To = { Pos = V(-104, 1.5, 121.6), Look = V(-100.8, 1.1, 120), Fov = 40 },
+		-- Crouching closer to the old oak to see what that little door is.
+		Avatar = { At = stand(-109, 0, 121, -100, 120), Walk = { V(-104.8, 0, 120.5) }, Speed = 1.6, Crouch = true },
+		From = { Look = V(-98, 7, 120), Fov = 58 },
+		To = { Look = V(-100.8, 0.9, 120), Fov = 52 },
 	},
 	{
 		Name = "Wendell",
 		Duration = 7,
 		Clock = 17,
 		Weather = "Clear",
-		From = { Pos = V(-128, 3.5, 177.5), Look = V(-148, 4.2, 184) },
-		To = { Pos = V(-131, 3.2, 179.5), Look = V(-148, 4, 184) },
-		Cues = { { At = 1, Do = "Say", Npc = "Wendell", Text = "Haven't caught a fish in years. Best hobby I ever picked up.", Seconds = 5.5 } },
-		-- Leaning on the rail next to Wendell.
+		-- On the bridge next to Wendell, then gazing downstream.
 		Avatar = { At = stand(-147.6, 1.1, 180.6, -140, 180.6) },
+		From = { Look = V(-147.8, 5.4, 184) },
+		To = { Look = V(-128, 3, 187) },
+		Cues = { { At = 1, Do = "Say", Npc = "Wendell", Text = "Haven't caught a fish in years. Best hobby I ever picked up.", Seconds = 5.5 } },
 	},
 	{
 		Name = "The deer",
@@ -336,13 +352,14 @@ Cutscene.Shots = {
 				Spot = CFrame.lookAt(V(-128, 0, 74), V(-110, 0, 66)),
 				RevealAfter = 2.5,
 				LeaveAfter = 2,
-				FaceToward = V(-110, 4, 66),
+				FaceToward = V(-110.5, 4.7, 66),
 			},
 		},
-		From = { Pos = V(-110, 4, 65), Look = V(-128, 3.5, 74), Fov = 45 },
-		To = { Pos = V(-111.5, 4, 66.5), Look = V(-130, 3.5, 75), Fov = 45 },
+		Avatar = { At = stand(-110.5, 0, 66, -128, 74) },
+		From = { Look = V(-128, 3.5, 74), Fov = 58 },
+		To = { Look = V(-130, 3.5, 75), Fov = 58 },
+		Track = { Model = "Event_Deer", Offset = V(0, 4, 0), Weight = 0.8 },
 		FadeOut = 0.8,
-		Avatar = { At = stand(-117, 0, 71.5, -128, 74) },
 	},
 	{
 		Name = "The lookout",
@@ -351,12 +368,12 @@ Cutscene.Shots = {
 		Weather = "Clear",
 		Mood = { Name = "Sunset", Value = 1, Seconds = 3 },
 		FadeIn = 0.8,
-		-- A slow rise from behind the bench: you, the sunset, and the town past the treetops.
-		From = { Pos = V(-146, 34.6, 356), Look = V(-60, 12, -10), Fov = 55 },
-		To = { Pos = V(-150, 40, 362), Look = V(-60, 12, -10), Fov = 52 },
+		-- On the bench at the top of the hill, looking down the slope and out over the town.
+		Avatar = { At = stand(-150, 29.2, 345.5, -150, 330), Sit = V(-150, 30.8, 344) },
+		From = { Look = V(-128, 20, 290), Fov = 62 },
+		To = { Look = V(-60, 10, -10), Fov = 60 },
 		Captions = { { Text = "Stay for the sunset.", From = 3, To = 10 } },
 		FadeOut = 0.8,
-		Avatar = { At = stand(-150, 29.2, 345.5, -150, 330), Sit = V(-150, 30.8, 344) },
 	},
 	{
 		Name = "Storm",
@@ -365,8 +382,10 @@ Cutscene.Shots = {
 		Weather = "Overcast",
 		WeatherRamp = { Name = "Storm", Seconds = 6 },
 		FadeIn = 0.8,
-		From = { Pos = V(-30, 24, -46), Look = V(40, 6, 24), Fov = 55 },
-		To = { Pos = V(-14, 22, -38), Look = V(40, 6, 24), Fov = 55 },
+		-- Out in the store's parking lot, looking up as the sky turns.
+		Avatar = { At = stand(-46, 0.25, -50, -40, 0) },
+		From = { Look = V(-10, 40, 30) },
+		To = { Look = V(10, 8, 20) },
 		Cues = { { At = 5.5, Do = "Flash", Strength = 1 }, { At = 9.6, Do = "Flash", Strength = 0.7 } },
 		Captions = { { Text = "Some days it rains.", From = 4, To = 10 } },
 	},
@@ -376,12 +395,12 @@ Cutscene.Shots = {
 		Clock = 19.4,
 		Weather = "Drizzle",
 		Event = { Id = "PowerOutage", Options = { OffAfter = 2.5, Duration = 4.5 } },
-		From = { Pos = V(40, 5.5, 6), Look = V(40, 13, 50) },
-		To = { Pos = V(40, 5, 12), Look = V(40, 14, 50) },
+		-- In a window booth at the diner when the lights go out.
+		Avatar = { At = stand(41, 0.6, 46.2, 30, 46.2), Sit = V(41, 1.6, 46.2) },
+		From = { Look = V(20, 8, 52) },
+		To = { Look = V(42, 8, 64) },
 		Captions = { { Text = "Some nights the lights take a little nap.", From = 3.5, To = 9 } },
 		FadeOut = 0.8,
-		-- In a window booth when the lights go out.
-		Avatar = { At = stand(41, 0.6, 46.2, 30, 46.2), Sit = V(41, 1.6, 46.2) },
 	},
 	{
 		Name = "Main street at night",
@@ -389,10 +408,10 @@ Cutscene.Shots = {
 		Clock = 21.6,
 		Weather = "Clear",
 		FadeIn = 0.8,
-		From = { Pos = V(190, 6, -2), Look = V(60, 6, 0) },
-		To = { Pos = V(112, 6, -4), Look = V(-40, 5, -8) },
-		Ease = "Linear",
-		Avatar = { At = stand(140, 0.55, -16.5, 70, -16.5), Walk = { V(75, 0.55, -16.5) }, Speed = 7 },
+		-- Walking home under the streetlights.
+		Avatar = { At = stand(140, 0.55, -16.5, 70, -16.5), Walk = { V(80, 0.55, -16.5) }, Speed = 6.5 },
+		From = { Look = V(60, 6, -12) },
+		To = { Look = V(-10, 5, -6) },
 	},
 	{
 		Name = "Something rare",
@@ -400,14 +419,15 @@ Cutscene.Shots = {
 		Clock = 22.3,
 		Weather = "Clear",
 		Event = { Id = "RareOccurrence", Options = { Fast = true } },
-		From = { Pos = V(-193, 4.5, 228), Look = V(-210, 4, 242), Fov = 48 },
-		To = { Pos = V(-198.5, 4.2, 233), Look = V(-210, 4.5, 242), Fov = 46 },
+		-- Stepping slowly into the clearing toward the glow.
+		Avatar = { At = stand(-186, 0, 232.5, -210, 242), Walk = { V(-200.5, 0, 238.2) }, Speed = 1.5 },
+		From = { Look = V(-210, 4.5, 242), Fov = 60 },
+		To = { Look = V(-206.6, 1.2, 238.7), Fov = 56 },
 		Captions = {
 			{ Text = "And sometimes…", From = 1, To = 4.5 },
 			{ Text = "…something you can't quite explain.", From = 6, To = 11.8 },
 		},
 		FadeOut = 1,
-		Avatar = { At = stand(-201.5, 0, 239.5, -210, 242) },
 	},
 	{
 		Name = "Title",
@@ -415,18 +435,115 @@ Cutscene.Shots = {
 		Clock = 6.35,
 		Weather = "Fog",
 		FadeIn = 1.5,
-		From = { Pos = V(-38, 4.5, 13), Look = V(-30, 3.8, 26.5), Fov = 55 },
-		To = { Pos = V(-34, 22, -10), Look = V(-29, 3, 28), Fov = 58 },
+		-- Back on the bus stop bench at dawn, where it all started.
+		Avatar = { At = stand(-30, 0.6, 24, -30, 18), Sit = V(-30, 2.5, 27.3) },
+		From = { Look = V(-30, 4, -20) },
+		To = { Look = V(-38, 9, -70) },
 		Title = { Text = "Somewhere Along the Road", Sub = "Coming soon to Roblox", From = 2.5 },
 		FadeOut = 3,
-		-- Back on the bus stop bench, where it all started.
-		Avatar = { At = stand(-30, 0.6, 24, -30, 20), Sit = V(-30, 2.5, 27.3) },
 	},
 } :: { Shot }
 
 return Cutscene
 ]======])
-local i4 = make("ModuleScript", "Text", i1, [======[
+local i4 = make("ModuleScript", "Sounds", i1, [======[
+--!strict
+-- Where the town's sounds come from. Each sound has a slot (Wind, Rain, DayBirds...), and a
+-- slot can be filled in either of two ways:
+--   * in Studio: SoundService > SomewhereSounds > click the Sound with the slot's name and
+--     set its SoundId (the dropdown lists the audio you've uploaded), or
+--   * in code: paste the id into Config.Sounds (this wins if both are set).
+-- The matching files are in the project's audio/ folder (made by tools/make_sounds.py).
+-- Empty slots just stay quiet, so the town works with any mix of sounds filled in.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local SoundService = game:GetService("SoundService")
+
+local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+
+local Sounds = {}
+
+Sounds.FolderName = "SomewhereSounds"
+
+-- Accepts "rbxassetid://123", a plain "123", or nothing.
+local function normalize(id: string?): string?
+	if not id then
+		return nil
+	end
+	local trimmed = string.gsub(id, "^%s*(.-)%s*$", "%1")
+	if trimmed == "" or trimmed == "rbxassetid://" or trimmed == "rbxassetid://0" then
+		return nil
+	end
+	if string.match(trimmed, "^%d+$") then
+		return "rbxassetid://" .. trimmed
+	end
+	return trimmed
+end
+
+-- The sound id for a slot, or nil while it's still empty.
+function Sounds.Id(slot: string): string?
+	local fromConfig = normalize((Config.Sounds :: any)[slot])
+	if fromConfig then
+		return fromConfig
+	end
+	local folder = SoundService:FindFirstChild(Sounds.FolderName)
+	local holder = folder and folder:FindFirstChild(slot)
+	if holder and holder:IsA("Sound") then
+		return normalize(holder.SoundId)
+	end
+	return nil
+end
+
+export type Props = { Looped: boolean?, Volume: number?, Name: string? }
+
+-- A new Sound for a slot, or nil if the slot is empty. Doesn't start playing.
+function Sounds.Make(slot: string, parent: Instance, props: Props?): Sound?
+	local id = Sounds.Id(slot)
+	if not id then
+		return nil
+	end
+	local p: Props = props or {}
+	local s = Instance.new("Sound")
+	s.Name = p.Name or slot
+	s.SoundId = id
+	s.Looped = p.Looped == true
+	s.Volume = p.Volume or 0.5
+	s.Parent = parent
+	return s
+end
+
+-- Makes SoundService.SomewhereSounds with one empty Sound per slot, so filling them in is
+-- just a matter of clicking each one. Never touches a slot that's already there (so your ids
+-- survive re-running the installer).
+function Sounds.EnsureSlots(): Folder
+	local folder = SoundService:FindFirstChild(Sounds.FolderName)
+	if not folder then
+		local f = Instance.new("Folder")
+		f.Name = Sounds.FolderName
+		f.Parent = SoundService
+		folder = f
+	end
+	local slots = {}
+	for slot in Config.Sounds :: any do
+		table.insert(slots, slot)
+	end
+	table.sort(slots)
+	for _, slot in slots do
+		if not (folder :: Folder):FindFirstChild(slot) then
+			local s = Instance.new("Sound")
+			s.Name = slot
+			s.SoundId = ""
+			s.Volume = 0.5
+			s:SetAttribute("File", `audio/{slot}.ogg`)
+			s.Parent = folder
+		end
+	end
+	return folder :: Folder
+end
+
+return Sounds
+]======])
+local i5 = make("ModuleScript", "Text", i1, [======[
 --!strict
 -- All the words in town. Edit freely; nothing here is load-bearing code.
 
@@ -662,7 +779,7 @@ Text.Hints = {
 
 return Text
 ]======])
-local i5 = make("Script", "SomewhereServer", game:GetService("ServerScriptService"), [======[
+local i6 = make("Script", "SomewhereServer", game:GetService("ServerScriptService"), [======[
 --!strict
 -- Somewhere Along the Road: server entry point.
 -- Builds whatever part of the town is missing, then starts the systems in order.
@@ -722,9 +839,9 @@ end
 
 print(`[Somewhere] {Config.GameName} v{Config.Version} is running. Have a nice walk.`)
 ]======])
-local i6 = make("Folder", "Events", i5, nil)
-local i7 = make("Folder", "Catalog", i6, nil)
-local i8 = make("ModuleScript", "BusStopStranger", i7, [======[
+local i7 = make("Folder", "Events", i6, nil)
+local i8 = make("Folder", "Catalog", i7, nil)
+local i9 = make("ModuleScript", "BusStopStranger", i8, [======[
 --!strict
 -- 4. A traveler walks in off the trail and waits at the bus stop. Eventually the Route 9 bus
 --    shows up, they climb aboard, and the bus carries on east.
@@ -853,7 +970,7 @@ return {
 	end,
 }
 ]======])
-local i9 = make("ModuleScript", "FunnyIncident", i7, [======[
+local i10 = make("ModuleScript", "FunnyIncident", i8, [======[
 --!strict
 -- 9. A small, harmless, funny moment with the locals:
 --    Hollis's lawn mower makes a run for it, or a chicken crosses the road (Dot has questions).
@@ -1048,7 +1165,7 @@ return {
 	end,
 }
 ]======])
-local i10 = make("ModuleScript", "GoldenSunset", i7, [======[
+local i11 = make("ModuleScript", "GoldenSunset", i8, [======[
 --!strict
 -- 8. A quiet, beautiful sunset. The sky clears and goes gold and pink. Hollis sits on his porch.
 --    Anyone who stands still for a little while to watch it gets a small discovery.
@@ -1136,7 +1253,7 @@ return {
 	end,
 }
 ]======])
-local i11 = make("ModuleScript", "PowerOutage", i7, [======[
+local i12 = make("ModuleScript", "PowerOutage", i8, [======[
 --!strict
 -- 5. A brief power outage. Everything electric flickers, goes quiet, then hums back to life.
 
@@ -1195,7 +1312,7 @@ return {
 	end,
 }
 ]======])
-local i12 = make("ModuleScript", "Rainstorm", i7, [======[
+local i13 = make("ModuleScript", "Rainstorm", i8, [======[
 --!strict
 -- 1. A sudden rainstorm: the sky goes dark, it pours for a few minutes, then eases off.
 
@@ -1229,7 +1346,7 @@ return {
 	end,
 }
 ]======])
-local i13 = make("ModuleScript", "RareOccurrence", i7, [======[
+local i14 = make("ModuleScript", "RareOccurrence", i8, [======[
 --!strict
 -- 10. Something rare and gentle, on a clear night: the streetlights blink in a wave toward the
 --     trail, fireflies gather in the clearing, the old standing stone glows softly, and a small
@@ -1360,7 +1477,7 @@ return {
 	end,
 }
 ]======])
-local i14 = make("ModuleScript", "RoadsideObject", i7, [======[
+local i15 = make("ModuleScript", "RoadsideObject", i8, [======[
 --!strict
 -- 7. Something turns up on the shoulder while nobody's looking: Gerald the gnome, a red umbrella,
 --    a suitcase full of snacks, a jar of sunflowers... It quietly disappears later, also unobserved.
@@ -1445,7 +1562,7 @@ return {
 	end,
 }
 ]======])
-local i15 = make("ModuleScript", "StoreClosing", i7, [======[
+local i16 = make("ModuleScript", "StoreClosing", i8, [======[
 --!strict
 -- 3. The store closes for a bit. Marv tapes a note to the door and wanders over to the diner.
 
@@ -1571,7 +1688,7 @@ return {
 	end,
 }
 ]======])
-local i16 = make("ModuleScript", "UnusualVehicle", i7, [======[
+local i17 = make("ModuleScript", "UnusualVehicle", i8, [======[
 --!strict
 -- 2. Something unusual drives through town: an ice cream truck (it stops at the store),
 --    a flatbed carrying a giant rubber duck, or a tractor hauling hay at walking pace.
@@ -1718,7 +1835,7 @@ return {
 	end,
 }
 ]======])
-local i17 = make("ModuleScript", "WoodsNoise", i7, [======[
+local i18 = make("ModuleScript", "WoodsNoise", i8, [======[
 --!strict
 -- 6. Something is rustling in the woods. Go and look: it's a deer, an owl, or a raccoon
 --    with a sandwich. Never anything to worry about.
@@ -1862,7 +1979,7 @@ return {
 	end,
 }
 ]======])
-local i18 = make("ModuleScript", "EventContext", i6, [======[
+local i19 = make("ModuleScript", "EventContext", i7, [======[
 --!strict
 -- What every event gets while it runs: the game's systems, a random stream, and cleanup
 -- helpers so an event can never leave a truck parked forever or the power switched off.
@@ -2020,26 +2137,21 @@ function EventContext.Hint(self: Context, text: string, near: Vector3?, radius: 
 	end
 end
 
--- A positional sound from Config.Sounds, if that slot has an id. Returns nil otherwise.
+-- A positional sound for a slot (see SomewhereShared/Sounds), if it has an id. Returns nil otherwise.
 function EventContext.Sound(self: Context, slot: string, parent: Instance, looped: boolean?, volume: number?): Sound?
-	local Config = require(game:GetService("ReplicatedStorage"):WaitForChild("SomewhereShared"):WaitForChild("Config"))
-	local id = (Config.Sounds :: any)[slot] :: string?
-	if not id or id == "" then
+	local Sounds = require(game:GetService("ReplicatedStorage"):WaitForChild("SomewhereShared"):WaitForChild("Sounds"))
+	local s = Sounds.Make(slot, parent, { Looped = looped, Volume = volume or 0.6 })
+	if not s then
 		return nil
 	end
-	local s = Instance.new("Sound")
-	s.SoundId = id
-	s.Looped = looped == true
-	s.Volume = volume or 0.6
 	s.RollOffMaxDistance = 140
-	s.Parent = parent
 	s:Play()
 	return self:Track(s)
 end
 
 return EventContext
 ]======])
-local i19 = make("ModuleScript", "EventDirector", i6, [======[
+local i20 = make("ModuleScript", "EventDirector", i7, [======[
 --!strict
 -- Decides when something happens. Each in-game day rolls a mood (quiet, ordinary, lively)
 -- that sets how many events it gets. Events claim "resources" (the road, the weather, the store)
@@ -2281,7 +2393,7 @@ end
 
 return EventDirector
 ]======])
-local i20 = make("ModuleScript", "Motion", i6, [======[
+local i21 = make("ModuleScript", "Motion", i7, [======[
 --!strict
 -- Smooth movement for vehicles and animals. The model becomes one welded, unanchored assembly
 -- held by AlignPosition/AlignOrientation, so clients see interpolated physics instead of
@@ -2415,8 +2527,8 @@ end
 
 return Motion
 ]======])
-local i21 = make("Folder", "Systems", i5, nil)
-local i22 = make("ModuleScript", "CutsceneDirector", i21, [======[
+local i22 = make("Folder", "Systems", i6, nil)
+local i23 = make("ModuleScript", "CutsceneDirector", i22, [======[
 --!strict
 -- Runs the trailer. The server owns the timeline: for each shot it sets the time of day, the
 -- weather and the mood, stages that shot's event, then tells every screen which shot is live
@@ -2426,6 +2538,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Cutscene = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Cutscene"))
+local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
 
 local CutsceneDirector = {}
 
@@ -2572,7 +2685,8 @@ function CutsceneDirector.Init(context: any)
 			table.insert(seats, d)
 		end
 	end
-	print("[Somewhere] Cutscene mode: the trailer starts in a moment. Tap or click to skip ahead, R to restart.")
+	local view = if Cutscene.Settings.FirstPerson then "First-person cutscene" else "Cutscene"
+	print(`[Somewhere] {view} (v{Config.Version}): the trailer starts in a moment. Tap or click to skip ahead, R to restart.`)
 	remote.OnServerEvent:Connect(function(player: Player, action: any, arg: any)
 		if action == "Ready" then
 			if not started then
@@ -2609,7 +2723,7 @@ end
 
 return CutsceneDirector
 ]======])
-local i23 = make("ModuleScript", "DayNight", i21, [======[
+local i24 = make("ModuleScript", "DayNight", i22, [======[
 --!strict
 -- The clock, and the light that comes with it. Each step it blends the time-of-day look,
 -- then layers weather and any "mood" (a golden sunset, something rare) on top.
@@ -2817,7 +2931,7 @@ end
 
 return DayNight
 ]======])
-local i24 = make("ModuleScript", "Director", i21, [======[
+local i25 = make("ModuleScript", "Director", i22, [======[
 --!strict
 -- Trailer tools: trigger any event, set the time, pin the weather, jump to landmarks.
 -- Only players allowed by Config.Director (always you, in Studio) can use them.
@@ -2886,7 +3000,7 @@ end
 
 return Director
 ]======])
-local i25 = make("ModuleScript", "Discoveries", i21, [======[
+local i26 = make("ModuleScript", "Discoveries", i22, [======[
 --!strict
 -- "Discover three interesting things." Tracks what each visitor has found this session.
 
@@ -2977,7 +3091,7 @@ end
 
 return Discoveries
 ]======])
-local i26 = make("ModuleScript", "Interactions", i21, [======[
+local i27 = make("ModuleScript", "Interactions", i22, [======[
 --!strict
 -- Turns every part marked with an "Interact" attribute into a ProximityPrompt.
 -- Prompts work the same with a tap (mobile), E (keyboard) or X (gamepad).
@@ -2988,6 +3102,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
 local Config = require(Shared:WaitForChild("Config"))
+local Sounds = require(Shared:WaitForChild("Sounds"))
 local Text = require(Shared:WaitForChild("Text"))
 
 local Interactions = {}
@@ -3067,6 +3182,17 @@ function Interactions.SetDoor(door: BasePart, open: boolean)
 	local target = if open then hinge * CFrame.Angles(0, side * angle, 0) * hinge:Inverse() * st.closed else st.closed
 	TweenService:Create(door, TweenInfo.new(0.7, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), { CFrame = target }):Play()
 	door.CanCollide = not open
+	local creak = door:FindFirstChild("Door")
+	if not (creak and creak:IsA("Sound")) then
+		local made = Sounds.Make("Door", door, { Volume = 0.45 })
+		if made then
+			made.RollOffMaxDistance = 50
+		end
+		creak = made
+	end
+	if creak and creak:IsA("Sound") then
+		creak:Play()
+	end
 	if open then
 		local token = st.token
 		task.delay(18, function()
@@ -3124,18 +3250,10 @@ handlers.Give = function(player, part)
 end
 
 handlers.Bell = function(player, part)
-	if Config.Sounds.CounterBell ~= "" then
-		local existing = part:FindFirstChild("Ding")
-		if existing and existing:IsA("Sound") then
-			existing:Play()
-		else
-			local s = Instance.new("Sound")
-			s.Name = "Ding"
-			s.SoundId = Config.Sounds.CounterBell
-			s.Volume = 0.5
-			s.Parent = part
-			s:Play()
-		end
+	local existing = part:FindFirstChild("Ding")
+	local ding = if existing and existing:IsA("Sound") then existing else Sounds.Make("CounterBell", part, { Name = "Ding", Volume = 0.5 })
+	if ding then
+		ding:Play()
 	else
 		toast(player, "Ding!")
 	end
@@ -3146,17 +3264,13 @@ handlers.Bell = function(player, part)
 end
 
 handlers.Jukebox = function(player, part)
-	if Config.Sounds.Jukebox == "" then
-		toast(player, Text.Lines.JukeboxNoMusic)
-		return
-	end
 	if not jukeboxSound then
-		local s = Instance.new("Sound")
-		s.SoundId = Config.Sounds.Jukebox
-		s.Looped = true
-		s.Volume = 0.45
+		local s = Sounds.Make("Jukebox", part, { Looped = true, Volume = 0.45 })
+		if not s then
+			toast(player, Text.Lines.JukeboxNoMusic)
+			return
+		end
 		s.RollOffMaxDistance = 45
-		s.Parent = part
 		jukeboxSound = s
 	end
 	local s = jukeboxSound :: Sound
@@ -3243,14 +3357,14 @@ end
 
 return Interactions
 ]======])
-local i27 = make("ModuleScript", "Items", i21, [======[
+local i28 = make("ModuleScript", "Items", i22, [======[
 --!strict
 -- Small things people hand you: coffee, pie, a soda, chips, ice cream. Tap to have a bite or a sip.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
-local Config = require(Shared:WaitForChild("Config"))
+local Sounds = require(Shared:WaitForChild("Sounds"))
 local Text = require(Shared:WaitForChild("Text"))
 
 local Items = {}
@@ -3355,14 +3469,7 @@ local function build(name: string): Tool?
 
 	local usesLeft = def.uses
 	local busy = false
-	local sip: Sound? = nil
-	if Config.Sounds.Sip ~= "" and handle then
-		local s = Instance.new("Sound")
-		s.SoundId = Config.Sounds.Sip
-		s.Volume = 0.5
-		s.Parent = handle
-		sip = s
-	end
+	local sip: Sound? = if handle then Sounds.Make("Sip", handle, { Volume = 0.5 }) else nil
 	tool.Activated:Connect(function()
 		if busy then
 			return
@@ -3409,7 +3516,7 @@ end
 
 return Items
 ]======])
-local i28 = make("ModuleScript", "Lights", i21, [======[
+local i29 = make("ModuleScript", "Lights", i22, [======[
 --!strict
 -- Every switchable light in town: streetlights, the store, the diner's neon, house windows.
 -- Fixtures are parts with a "LightGroup" attribute (see World/Kit.fixture).
@@ -3605,7 +3712,7 @@ end
 
 return Lights
 ]======])
-local i29 = make("ModuleScript", "NPCs", i21, [======[
+local i30 = make("ModuleScript", "NPCs", i22, [======[
 --!strict
 -- Townspeople. Marv runs the store, Dot runs the diner, Hollis gardens, Wendell fishes.
 -- Event visitors (like the traveler) are spawned through the same API.
@@ -4123,7 +4230,7 @@ end
 
 return NPCs
 ]======])
-local i30 = make("ModuleScript", "Net", i21, [======[
+local i31 = make("ModuleScript", "Net", i22, [======[
 --!strict
 -- Remotes and shared world state. State lives as attributes on ReplicatedStorage.SomewhereState,
 -- so clients can read it and listen with GetAttributeChangedSignal.
@@ -4196,7 +4303,7 @@ end
 
 return Net
 ]======])
-local i31 = make("ModuleScript", "Spawning", i21, [======[
+local i32 = make("ModuleScript", "Spawning", i22, [======[
 --!strict
 -- Player arrival: everyone starts at the bus stop at an easy walking pace.
 
@@ -4238,7 +4345,7 @@ end
 
 return Spawning
 ]======])
-local i32 = make("ModuleScript", "StoreService", i21, [======[
+local i33 = make("ModuleScript", "StoreService", i22, [======[
 --!strict
 -- The Halfway Mart's automatic doors and its open/closed state.
 
@@ -4246,7 +4353,7 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+local Sounds = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Sounds"))
 
 local StoreService = {}
 
@@ -4330,7 +4437,8 @@ function StoreService.Init(context: any)
 			if d:GetAttribute("AutoDoor") == "Store" then
 				local slide = (d:GetAttribute("SlideX") :: number?) or 4
 				table.insert(doors, { part = d, closed = d.CFrame, opened = d.CFrame * CFrame.new(slide, 0, 0), isOpen = false })
-			elseif d.Name == "StoreFloor" then
+			end
+			if d.Name == "StoreFloor" then
 				floor = d
 			elseif d:GetAttribute("StoreDoorSign") then
 				local gui = d:FindFirstChildWhichIsA("SurfaceGui")
@@ -4338,23 +4446,23 @@ function StoreService.Init(context: any)
 			end
 		end
 	end
-	if #doors > 0 and Config.Sounds.StoreChime ~= "" then
-		local s = Instance.new("Sound")
-		s.SoundId = Config.Sounds.StoreChime
-		s.Volume = 0.4
-		s.RollOffMaxDistance = 50
-		s.Parent = doors[1].part
-		chime = s
+	if #doors > 0 then
+		chime = Sounds.Make("StoreChime", doors[1].part, { Volume = 0.4 })
+		if chime then
+			chime.RollOffMaxDistance = 50
+		end
 	end
 	if #doors == 0 then
 		return
 	end
 
-	local center = Vector3.zero
+	-- The middle of the doorway (the sign rides on one door, so take the middle of them all).
+	local low, high = doors[1].closed.Position, doors[1].closed.Position
 	for _, door in doors do
-		center += door.closed.Position
+		low = low:Min(door.closed.Position)
+		high = high:Max(door.closed.Position)
 	end
-	center /= #doors
+	local center = (low + high) / 2
 
 	task.spawn(function()
 		while true do
@@ -4375,7 +4483,7 @@ end
 
 return StoreService
 ]======])
-local i33 = make("ModuleScript", "Weather", i21, [======[
+local i34 = make("ModuleScript", "Weather", i22, [======[
 --!strict
 -- Weather drifts on its own (clear, cloudy, the odd drizzle, morning fog).
 -- Events can push an override (a storm, a clear sky for the sunset) and release it later.
@@ -4555,8 +4663,8 @@ end
 
 return Weather
 ]======])
-local i34 = make("Folder", "World", i5, nil)
-local i35 = make("ModuleScript", "Builder", i34, [======[
+local i35 = make("Folder", "World", i6, nil)
+local i36 = make("ModuleScript", "Builder", i35, [======[
 --!strict
 -- Builds the whole town. Used three ways:
 --   * the offline place builder (tools/build.luau) bakes the parts into the .rbxl file,
@@ -4692,6 +4800,12 @@ function Builder.TintTerrain(terrain: Terrain)
 end
 
 -- Called by the server on startup: only builds what's missing, so Studio edits survive.
+-- SoundService.SomewhereSounds: one empty Sound per slot, ready for your uploaded audio.
+function Builder.SetupSounds()
+	local Sounds = require(game:GetService("ReplicatedStorage"):WaitForChild("SomewhereShared"):WaitForChild("Sounds"))
+	Sounds.EnsureSlots()
+end
+
 function Builder.EnsureBuilt()
 	if not workspace:FindFirstChild(Config.World.FolderName) then
 		Builder.Build()
@@ -4702,11 +4816,12 @@ function Builder.EnsureBuilt()
 	end
 	Builder.TintTerrain(terrain)
 	Builder.SetupLighting(game:GetService("Lighting"), terrain)
+	Builder.SetupSounds()
 end
 
 return Builder
 ]======])
-local i36 = make("ModuleScript", "Diner", i34, [======[
+local i37 = make("ModuleScript", "Diner", i35, [======[
 --!strict
 -- The Mile Marker Diner: steel, red trim, booths by the windows, pie under glass.
 -- Local space: x along the front, z from the front windows (-) to the kitchen (+).
@@ -4928,7 +5043,7 @@ end
 
 return Diner
 ]======])
-local i37 = make("ModuleScript", "Ground", i34, [======[
+local i38 = make("ModuleScript", "Ground", i35, [======[
 --!strict
 -- Terrain: grass, the hill, the creek, the dirt trail, and paved ground under roads and lots.
 -- `terrain` is workspace.Terrain in a live game (the offline builder passes a recorder instead).
@@ -5075,7 +5190,7 @@ end
 
 return Ground
 ]======])
-local i38 = make("ModuleScript", "Houses", i34, [======[
+local i39 = make("ModuleScript", "Houses", i35, [======[
 --!strict
 -- Modest one-storey houses with porches. One of them (Hollis's yellow house) is open to visit.
 -- Local space: x along the front, z from the front door (-) to the back wall (+).
@@ -5322,7 +5437,7 @@ end
 
 return Houses
 ]======])
-local i39 = make("ModuleScript", "Kit", i34, [======[
+local i40 = make("ModuleScript", "Kit", i35, [======[
 --!strict
 -- Small building blocks for the town: parts, walls with openings, roofs, signs, lights.
 -- Runs both in a live server and in the offline place builder, so it only sets CFrame
@@ -5796,7 +5911,7 @@ end
 
 return Kit
 ]======])
-local i40 = make("ModuleScript", "Layout", i34, [======[
+local i41 = make("ModuleScript", "Layout", i35, [======[
 --!strict
 -- Where everything is. One stud is roughly 28 cm; a person is about 5.5 studs tall.
 -- The main road runs east-west along Z = 0. North is -Z (store side), south is +Z (diner side).
@@ -5961,7 +6076,7 @@ Layout.WoodsSpots = {
 
 return Layout
 ]======])
-local i41 = make("ModuleScript", "Nature", i34, [======[
+local i42 = make("ModuleScript", "Nature", i35, [======[
 --!strict
 -- Woods, fields and the special places out there: the old oak, the clearing,
 -- the creek bridge, the lookout and the sunflower truck.
@@ -6303,7 +6418,7 @@ end
 
 return Nature
 ]======])
-local i42 = make("ModuleScript", "Palette", i34, [======[
+local i43 = make("ModuleScript", "Palette", i35, [======[
 --!strict
 -- The town's colours. Muted, warm, a little faded by the sun.
 
@@ -6350,7 +6465,7 @@ return {
 	CoolLight = rgb(236, 244, 255),
 }
 ]======])
-local i43 = make("ModuleScript", "Props", i34, [======[
+local i44 = make("ModuleScript", "Props", i35, [======[
 --!strict
 -- Small things that show up during events: animals, lost objects, hats, a compass.
 -- Every builder returns a Model with PrimaryPart "Root" at ground level, front facing -Z.
@@ -6581,7 +6696,7 @@ end
 
 return Props
 ]======])
-local i44 = make("ModuleScript", "Roads", i34, [======[
+local i45 = make("ModuleScript", "Roads", i35, [======[
 --!strict
 -- The main road, its paint, sidewalks, lots, driveways and the crosswalk by the bus stop.
 
@@ -6696,7 +6811,7 @@ end
 
 return Roads
 ]======])
-local i45 = make("ModuleScript", "Store", i34, [======[
+local i46 = make("ModuleScript", "Store", i35, [======[
 --!strict
 -- The Halfway Mart: a small convenience store with aisles, fridges, a counter and a community board.
 -- Local space: x across the storefront, z from the front door (-) to the back wall (+).
@@ -6768,8 +6883,11 @@ function Store.build(parent: Instance, rng: Kit.Rng)
 		panel:SetAttribute("SlideX", side * 3.9)
 		Kit.block(model, "DoorRail", Vector3.new(0.2, 8.6, 0.3), L(side * 4.05, 4.9, -D / 2 + t + 0.2), Palette.MetalDark, Enum.Material.Metal, { Decor = true })
 	end
-	local doorSign = Kit.block(model, "DoorSign", Vector3.new(2.6, 1.6, 0.1), L(0, 6.2, -D / 2 + t + 0.42), Palette.Cream, Enum.Material.SmoothPlastic, { Decor = true })
+	-- The sign hangs on the left door and slides along with it.
+	local doorSign = Kit.block(model, "DoorSign", Vector3.new(2.6, 1.6, 0.1), L(-2.02, 6.2, -D / 2 + t + 0.42), Palette.Cream, Enum.Material.SmoothPlastic, { Decor = true })
 	doorSign:SetAttribute("StoreDoorSign", true)
+	doorSign:SetAttribute("AutoDoor", "Store")
+	doorSign:SetAttribute("SlideX", -3.9)
 	local doorLabel = Kit.label(doorSign, Enum.NormalId.Front, "OPEN\n24 hrs-ish", { Font = Enum.Font.PatrickHand, TextColor = Palette.StoreGreen, Padding = 2 })
 	doorLabel.Name = "DoorSignLabel"
 	Kit.block(model, "Mat", Vector3.new(7, 0.06, 4), L(0, 0.63, -D / 2 + 3.2), rgb(70, 64, 60), Enum.Material.Fabric, { Decor = true })
@@ -6930,7 +7048,7 @@ end
 
 return Store
 ]======])
-local i46 = make("ModuleScript", "Streetside", i34, [======[
+local i47 = make("ModuleScript", "Streetside", i35, [======[
 --!strict
 -- Street furniture: the bus stop and spawn, streetlights, power lines, signs, parked cars, fences.
 
@@ -7169,7 +7287,7 @@ end
 
 return Streetside
 ]======])
-local i47 = make("ModuleScript", "Vehicles", i34, [======[
+local i48 = make("ModuleScript", "Vehicles", i35, [======[
 --!strict
 -- Vehicles made of plain parts. Every builder returns a Model whose PrimaryPart ("Root")
 -- sits at ground level under the vehicle's centre, with the front of the vehicle facing -Z.
@@ -7344,7 +7462,7 @@ end
 
 return Vehicles
 ]======])
-local i48 = make("LocalScript", "SomewhereClient", sps, [======[
+local i49 = make("LocalScript", "SomewhereClient", sps, [======[
 --!strict
 -- Somewhere Along the Road: client entry point.
 
@@ -7401,11 +7519,11 @@ end)
 
 DirectorPanel.Init(UI.Gui())
 ]======])
-local i49 = make("ModuleScript", "Ambience", i48, [======[
+local i50 = make("ModuleScript", "Ambience", i49, [======[
 --!strict
 -- Background sound: birds by day, crickets at night, wind, rain (muffled indoors), the store's
--- fridge hum, diner chatter, the creek. Every layer is optional; blank slots in Config.Sounds
--- are skipped, so the game is simply quieter until you add audio you trust.
+-- fridge hum, diner chatter, the creek. Every layer is optional: an empty slot (see Sounds) is
+-- simply skipped, so the town is just quieter until you add the audio.
 
 local Lighting = game:GetService("Lighting")
 local Players = game:GetService("Players")
@@ -7414,6 +7532,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
 local Config = require(Shared:WaitForChild("Config"))
+local Sounds = require(Shared:WaitForChild("Sounds"))
 
 local Ambience = {}
 
@@ -7431,16 +7550,10 @@ local function smooth(a: number, b: number, x: number): number
 end
 
 local function layer(slot: string): Sound?
-	local id = (Config.Sounds :: any)[slot] :: string
-	if id == "" then
+	local s = Sounds.Make(slot, SoundService, { Name = "Ambience_" .. slot, Looped = true, Volume = 0 })
+	if not s then
 		return nil
 	end
-	local s = Instance.new("Sound")
-	s.Name = "Ambience_" .. slot
-	s.SoundId = id
-	s.Looped = true
-	s.Volume = 0
-	s.Parent = SoundService
 	s:Play()
 	layers[slot] = s
 	return s
@@ -7462,18 +7575,12 @@ end
 local function attachSpots(town: Instance)
 	for _, d in town:GetDescendants() do
 		local slot = d:GetAttribute("AmbientSound")
-		if typeof(slot) == "string" and d:IsA("BasePart") then
-			local id = (Config.Sounds :: any)[slot] :: string?
-			if id and id ~= "" and slot ~= "Jukebox" then
-				local s = Instance.new("Sound")
-				s.Name = "Ambient_" .. slot
-				s.SoundId = id
-				s.Looped = true
-				s.Volume = 0
+		if typeof(slot) == "string" and d:IsA("BasePart") and slot ~= "Jukebox" then
+			local s = Sounds.Make(slot, d, { Name = "Ambient_" .. slot, Looped = true, Volume = 0 })
+			if s then
 				s.RollOffMode = Enum.RollOffMode.InverseTapered
 				s.RollOffMinDistance = 8
 				s.RollOffMaxDistance = 60
-				s.Parent = d
 				s:Play()
 				table.insert(spots, { sound = s, slot = slot })
 			end
@@ -7482,15 +7589,12 @@ local function attachSpots(town: Instance)
 end
 
 function Ambience.Thunder(strength: number)
-	local id = Config.Sounds.Thunder
-	if id == "" then
-		return
-	end
+	-- The rumble arrives a moment after the flash (later and softer when it's further away).
 	task.delay(1 + (1 - strength) * 3, function()
-		local s = Instance.new("Sound")
-		s.SoundId = id
-		s.Volume = 0.5 + strength * 0.4
-		s.Parent = SoundService
+		local s = Sounds.Make("Thunder", SoundService, { Volume = 0.5 + strength * 0.4 })
+		if not s then
+			return
+		end
 		s:Play()
 		s.Ended:Once(function()
 			s:Destroy()
@@ -7537,7 +7641,8 @@ function Ambience.Init(useCamera: boolean?)
 				if spot.slot == "StoreHum" then
 					target = if power and storeOpen then 0.35 else 0
 				elseif spot.slot == "DinerChatter" then
-					target = if clock > 6 and clock < 22 then 0.4 else 0
+					-- A little hush when the lights go out, then everyone carries on.
+					target = if clock > 6 and clock < 22 then (if power then 0.4 else 0.25) else 0
 				end
 				spot.sound.Volume += (target - spot.sound.Volume) * 0.3
 			end
@@ -7548,7 +7653,7 @@ end
 
 return Ambience
 ]======])
-local i50 = make("ModuleScript", "Cinematic", i48, [======[
+local i51 = make("ModuleScript", "Cinematic", i49, [======[
 --!strict
 -- The camera operator. Follows the server's timeline and flies the camera through each shot,
 -- with letterbox bars, fades, captions and the title card. Also directs your avatar (where to
@@ -7585,6 +7690,9 @@ local trackedLook: Vector3? = nil
 local remote: RemoteEvent
 local avatarThread: thread? = nil
 local directedIndex = 0
+local placedIndex = 0 -- the shot whose mark the avatar has actually reached
+local eyeSmoothed: Vector3? = nil
+local eyeIndex = 0
 local lastTap = 0
 local PARKED = CFrame.new(0, -60, 0) -- out of sight, under the town, for shots you're not in
 
@@ -7724,6 +7832,48 @@ local function setText(label: TextLabel, text: string, alpha: number)
 	label.TextStrokeTransparency = 1 - alpha * 0.35
 end
 
+-- Where your eyes would be for this shot's plan, before the avatar has got there.
+local function plannedEye(plan: Cutscene.Avatar): Vector3
+	local eye = if plan.Sit then plan.Sit + Vector3.new(0, 2.9, 0) else plan.At.Position + Vector3.new(0, settings.EyeHeight, 0)
+	return if plan.Crouch then eye - Vector3.new(0, settings.CrouchDrop, 0) else eye
+end
+
+-- Where your eyes actually are: just above the centre of your avatar's head. For a seated
+-- shot this waits until you're actually on the seat, so the view doesn't dip on the way down.
+local function headEye(plan: Cutscene.Avatar): Vector3?
+	local char = player.Character
+	local head = char and char:FindFirstChild("Head")
+	if not char or not head or not head:IsA("BasePart") then
+		return nil
+	end
+	if plan.Sit then
+		local humanoid = char:FindFirstChildOfClass("Humanoid")
+		if not humanoid or not humanoid.SeatPart then
+			return nil
+		end
+	end
+	local eye = head.Position + Vector3.new(0, 0.25, 0)
+	return if plan.Crouch then eye - Vector3.new(0, settings.CrouchDrop, 0) else eye
+end
+
+-- In first person you don't see your own body. Your shadow stays (it's nice to see it walk
+-- along beside you), except when you're crouching, where a standing shadow would look odd.
+local function hideBody(hide: boolean, noShadow: boolean)
+	local char = player.Character
+	if not char then
+		return
+	end
+	local value = if hide then 1 else 0
+	for _, d in char:GetDescendants() do
+		if d:IsA("BasePart") then
+			d.LocalTransparencyModifier = value
+			d.CastShadow = not noShadow
+		elseif d:IsA("Decal") then
+			d.LocalTransparencyModifier = value
+		end
+	end
+end
+
 local function step(dt: number)
 	local camera = workspace.CurrentCamera
 	camera.CameraType = Enum.CameraType.Scriptable
@@ -7745,7 +7895,6 @@ local function step(dt: number)
 	local t = math.clamp(workspace:GetServerTimeNow() - live.startedAt, 0, duration)
 	local e = ease(t / duration, shot.Ease)
 
-	local pos = shot.From.Pos:Lerp(shot.To.Pos, e)
 	local look = shot.From.Look:Lerp(shot.To.Look, e)
 	local track = shot.Track
 	if track then
@@ -7759,8 +7908,48 @@ local function step(dt: number)
 			look = trackedLook :: Vector3
 		end
 	end
-	camera.CFrame = CFrame.lookAt(pos, look)
-	local fov0 = shot.From.Fov or settings.DefaultFov
+
+	local plan = if settings.StarAvatar then shot.Avatar else nil
+	local pov = plan ~= nil and settings.FirstPerson
+	local pos: Vector3
+	if plan then
+		-- Your eyes: the planned spot until the avatar reaches its mark, then the real head,
+		-- smoothed so footsteps give a gentle bob rather than a shake.
+		local target = (placedIndex == live.index and headEye(plan)) or plannedEye(plan)
+		if eyeIndex ~= live.index or not eyeSmoothed then
+			eyeIndex = live.index
+			eyeSmoothed = target
+		else
+			eyeSmoothed = (eyeSmoothed :: Vector3):Lerp(target, 1 - math.exp(-dt * 12))
+		end
+		local eye = eyeSmoothed :: Vector3
+		if pov then
+			pos = eye
+		else
+			-- Third person: hang back behind your shoulder.
+			local flat = Vector3.new(look.X - eye.X, 0, look.Z - eye.Z)
+			local back = if flat.Magnitude > 0.1 then flat.Unit else Vector3.zAxis
+			pos = eye - back * 9 + Vector3.new(0, 2, 0)
+		end
+	else
+		local from = shot.From.Pos or Vector3.new(0, 20, 0)
+		pos = from:Lerp(shot.To.Pos or from, e)
+	end
+	hideBody(pov, pov and plan ~= nil and plan.Crouch == true)
+
+	local frame = CFrame.lookAt(pos, look)
+	if pov and settings.HeadSway > 0 then
+		local s = settings.HeadSway
+		local clock = os.clock()
+		frame *= CFrame.Angles(
+			(math.sin(clock * 1.1) * 0.0035 + math.sin(clock * 2.3) * 0.0012) * s,
+			(math.sin(clock * 0.8 + 1) * 0.005) * s,
+			math.sin(clock * 0.6 + 2) * 0.002 * s
+		)
+	end
+	camera.CFrame = frame
+	local defaultFov = if pov then settings.PovFov else settings.DefaultFov
+	local fov0 = shot.From.Fov or defaultFov
 	local fov1 = shot.To.Fov or fov0
 	camera.FieldOfView = fov0 + (fov1 - fov0) * e
 
@@ -7861,12 +8050,14 @@ local function direct(index: number)
 		if not plan then
 			root.Anchored = true
 			char:PivotTo(PARKED)
+			placedIndex = index
 			return
 		end
 		local standHeight = if humanoid.RigType == Enum.HumanoidRigType.R15 then humanoid.HipHeight + root.Size.Y / 2 else 3
 		root.Anchored = false
 		char:PivotTo(plan.At * CFrame.new(0, standHeight, 0))
 		root.AssemblyLinearVelocity = Vector3.zero
+		placedIndex = index
 
 		if plan.Sit then
 			remote:FireServer("Sit", plan.Sit)
@@ -7948,7 +8139,7 @@ end
 
 return Cinematic
 ]======])
-local i51 = make("ModuleScript", "Controls", i48, [======[
+local i52 = make("ModuleScript", "Controls", i49, [======[
 --!strict
 -- A relaxed walk by default. Hold Shift (or tap the Run button on a phone) to hurry.
 
@@ -8001,7 +8192,7 @@ end
 
 return Controls
 ]======])
-local i52 = make("ModuleScript", "DirectorPanel", i48, [======[
+local i53 = make("ModuleScript", "DirectorPanel", i49, [======[
 --!strict
 -- Trailer tools for whoever owns the game (and for you, in Studio): trigger events, set the hour,
 -- pin the weather, jump to landmarks, hide every bit of UI for clean footage.
@@ -8327,7 +8518,7 @@ end
 
 return DirectorPanel
 ]======])
-local i53 = make("ModuleScript", "Rain", i48, [======[
+local i54 = make("ModuleScript", "Rain", i49, [======[
 --!strict
 -- Rain you can see: a sheet of streaks that follows the camera (and stops under a roof),
 -- plus the lightning flash during storms. Everything here is local to each player.
@@ -8410,7 +8601,7 @@ end
 
 return Rain
 ]======])
-local i54 = make("ModuleScript", "UI", i48, [======[
+local i55 = make("ModuleScript", "UI", i49, [======[
 --!strict
 -- The little bit of UI there is: an opening title, a quiet objective line, a journal,
 -- note cards for things you read, and soft toasts. Sized for phones first.
@@ -8841,6 +9032,7 @@ workspace.Terrain:Clear()
 Builder.BuildTerrain(workspace.Terrain)
 Builder.TintTerrain(workspace.Terrain)
 Builder.SetupLighting(game:GetService("Lighting"), workspace.Terrain)
+Builder.SetupSounds()
 end)
 if ok then
 	print("Somewhere Along the Road is installed. Press Play (F5) to visit.")

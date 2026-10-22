@@ -8,6 +8,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
 local Config = require(Shared:WaitForChild("Config"))
+local Sounds = require(Shared:WaitForChild("Sounds"))
 local Text = require(Shared:WaitForChild("Text"))
 
 local Interactions = {}
@@ -87,6 +88,17 @@ function Interactions.SetDoor(door: BasePart, open: boolean)
 	local target = if open then hinge * CFrame.Angles(0, side * angle, 0) * hinge:Inverse() * st.closed else st.closed
 	TweenService:Create(door, TweenInfo.new(0.7, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), { CFrame = target }):Play()
 	door.CanCollide = not open
+	local creak = door:FindFirstChild("Door")
+	if not (creak and creak:IsA("Sound")) then
+		local made = Sounds.Make("Door", door, { Volume = 0.45 })
+		if made then
+			made.RollOffMaxDistance = 50
+		end
+		creak = made
+	end
+	if creak and creak:IsA("Sound") then
+		creak:Play()
+	end
 	if open then
 		local token = st.token
 		task.delay(18, function()
@@ -144,18 +156,10 @@ handlers.Give = function(player, part)
 end
 
 handlers.Bell = function(player, part)
-	if Config.Sounds.CounterBell ~= "" then
-		local existing = part:FindFirstChild("Ding")
-		if existing and existing:IsA("Sound") then
-			existing:Play()
-		else
-			local s = Instance.new("Sound")
-			s.Name = "Ding"
-			s.SoundId = Config.Sounds.CounterBell
-			s.Volume = 0.5
-			s.Parent = part
-			s:Play()
-		end
+	local existing = part:FindFirstChild("Ding")
+	local ding = if existing and existing:IsA("Sound") then existing else Sounds.Make("CounterBell", part, { Name = "Ding", Volume = 0.5 })
+	if ding then
+		ding:Play()
 	else
 		toast(player, "Ding!")
 	end
@@ -166,17 +170,13 @@ handlers.Bell = function(player, part)
 end
 
 handlers.Jukebox = function(player, part)
-	if Config.Sounds.Jukebox == "" then
-		toast(player, Text.Lines.JukeboxNoMusic)
-		return
-	end
 	if not jukeboxSound then
-		local s = Instance.new("Sound")
-		s.SoundId = Config.Sounds.Jukebox
-		s.Looped = true
-		s.Volume = 0.45
+		local s = Sounds.Make("Jukebox", part, { Looped = true, Volume = 0.45 })
+		if not s then
+			toast(player, Text.Lines.JukeboxNoMusic)
+			return
+		end
 		s.RollOffMaxDistance = 45
-		s.Parent = part
 		jukeboxSound = s
 	end
 	local s = jukeboxSound :: Sound

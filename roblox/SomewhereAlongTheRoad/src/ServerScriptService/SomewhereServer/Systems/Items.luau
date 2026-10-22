@@ -4,7 +4,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
-local Config = require(Shared:WaitForChild("Config"))
+local Sounds = require(Shared:WaitForChild("Sounds"))
 local Text = require(Shared:WaitForChild("Text"))
 
 local Items = {}
@@ -109,14 +109,7 @@ local function build(name: string): Tool?
 
 	local usesLeft = def.uses
 	local busy = false
-	local sip: Sound? = nil
-	if Config.Sounds.Sip ~= "" and handle then
-		local s = Instance.new("Sound")
-		s.SoundId = Config.Sounds.Sip
-		s.Volume = 0.5
-		s.Parent = handle
-		sip = s
-	end
+	local sip: Sound? = if handle then Sounds.Make("Sip", handle, { Volume = 0.5 }) else nil
 	tool.Activated:Connect(function()
 		if busy then
 			return

@@ -133,6 +133,12 @@ function Builder.TintTerrain(terrain: Terrain)
 end
 
 -- Called by the server on startup: only builds what's missing, so Studio edits survive.
+-- SoundService.SomewhereSounds: one empty Sound per slot, ready for your uploaded audio.
+function Builder.SetupSounds()
+	local Sounds = require(game:GetService("ReplicatedStorage"):WaitForChild("SomewhereShared"):WaitForChild("Sounds"))
+	Sounds.EnsureSlots()
+end
+
 function Builder.EnsureBuilt()
 	if not workspace:FindFirstChild(Config.World.FolderName) then
 		Builder.Build()
@@ -143,6 +149,7 @@ function Builder.EnsureBuilt()
 	end
 	Builder.TintTerrain(terrain)
 	Builder.SetupLighting(game:GetService("Lighting"), terrain)
+	Builder.SetupSounds()
 end
 
 return Builder

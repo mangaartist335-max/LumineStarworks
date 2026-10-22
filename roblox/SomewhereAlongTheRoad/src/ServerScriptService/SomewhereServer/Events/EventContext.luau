@@ -155,19 +155,14 @@ function EventContext.Hint(self: Context, text: string, near: Vector3?, radius: 
 	end
 end
 
--- A positional sound from Config.Sounds, if that slot has an id. Returns nil otherwise.
+-- A positional sound for a slot (see SomewhereShared/Sounds), if it has an id. Returns nil otherwise.
 function EventContext.Sound(self: Context, slot: string, parent: Instance, looped: boolean?, volume: number?): Sound?
-	local Config = require(game:GetService("ReplicatedStorage"):WaitForChild("SomewhereShared"):WaitForChild("Config"))
-	local id = (Config.Sounds :: any)[slot] :: string?
-	if not id or id == "" then
+	local Sounds = require(game:GetService("ReplicatedStorage"):WaitForChild("SomewhereShared"):WaitForChild("Sounds"))
+	local s = Sounds.Make(slot, parent, { Looped = looped, Volume = volume or 0.6 })
+	if not s then
 		return nil
 	end
-	local s = Instance.new("Sound")
-	s.SoundId = id
-	s.Looped = looped == true
-	s.Volume = volume or 0.6
 	s.RollOffMaxDistance = 140
-	s.Parent = parent
 	s:Play()
 	return self:Track(s)
 end
