@@ -5,8 +5,9 @@ store's fridge hum, diner chatter, a little jukebox tune and the rest. Nothing i
 sampled, so it's all yours to upload to Roblox.
 
 Usage (from the project folder):  python3 tools/make_sounds.py
-Writes audio/<Slot>.ogg (one per Config.Sounds slot) and audio/spectrograms.png (a picture of
-every sound, handy for a quick look). Needs numpy, Pillow and ffmpeg.
+Writes audio/<Slot>.ogg (one per Config.Sounds slot), audio/spectrograms.png (a picture of
+every sound, handy for a quick look) and dist/SomewhereSounds.zip (all of them in one download).
+Needs numpy, Pillow and ffmpeg.
 
 The loops are built to repeat seamlessly: noise is made in the frequency domain (so it wraps
 around), and anything that rings past the end carries on from the start.
@@ -17,6 +18,7 @@ import subprocess
 import sys
 import tempfile
 import wave
+import zipfile
 import zlib
 
 import numpy as np
@@ -24,6 +26,7 @@ import numpy as np
 SR = 44100
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(HERE), "audio")
+DIST = os.path.join(os.path.dirname(HERE), "dist")
 TAU = 2 * np.pi
 
 
@@ -853,7 +856,9 @@ def write_ogg(path, x):
             w.setframerate(SR)
             w.writeframes(pcm.tobytes())
         subprocess.run(
-            ["ffmpeg", "-y", "-loglevel", "error", "-i", wav_path, "-c:a", "libvorbis", "-q:a", "5", path],
+            # bitexact: the same sound always makes the same file.
+            ["ffmpeg", "-y", "-loglevel", "error", "-i", wav_path, "-fflags", "+bitexact", "-flags:a", "+bitexact",
+             "-c:a", "libvorbis", "-q:a", "5", path],
             check=True,
         )
     finally:
@@ -916,6 +921,13 @@ def main():
             d.text((x0, y0), slot, fill=(230, 226, 214))
             sheet.paste(Image.fromarray(img).convert("RGB"), (x0, y0 + 16))
         sheet.save(os.path.join(OUT, "spectrograms.png"))
+        # Everything in one zip, ready for Studio's bulk import.
+        os.makedirs(DIST, exist_ok=True)
+        with zipfile.ZipFile(os.path.join(DIST, "SomewhereSounds.zip"), "w", zipfile.ZIP_STORED) as z:
+            for slot in PACK:
+                info = zipfile.ZipInfo(f"SomewhereSounds/{slot}.ogg", date_time=(2026, 1, 1, 0, 0, 0))
+                with open(os.path.join(OUT, f"{slot}.ogg"), "rb") as f:
+                    z.writestr(info, f.read())
     print(f"Wrote {len(pictures)} sounds to {OUT}")
 
 

@@ -203,9 +203,9 @@ at night with the streetlights on, and the rare event in the clearing.
 Roblox can only play audio that's been uploaded to Roblox, so this is the one step that needs
 you. The game plays fine without it, just quieter.
 
-1. **Upload the files.** In Studio, open the **Asset Manager** (on the View tab, or the Window
-   menu in newer Studio), click **Bulk Import**, and pick the `.ogg` files in this project's
-   `audio/` folder. You can also upload them at create.roblox.com, under Creations →
+1. **Upload the files.** Download `dist/SomewhereSounds.zip` (all 22 sounds in one file) and
+   unzip it. In Studio, open the **Asset Manager** (on the View tab, or the Window menu in newer
+   Studio), click **Bulk Import**, and pick the `.ogg` files. You can also upload them at create.roblox.com, under Creations →
    Development Items → Audio. Roblox reviews each upload, which usually takes a few minutes.
 2. **Put each one in its slot.** In the Explorer, open **SoundService → SomewhereSounds**. There's
    a Sound for every slot, named the same as its file. Click one (say `Wind`), then in Properties
@@ -263,7 +263,7 @@ tools/
   build.luau        builds dist/ (place file, bootstrap) and runs the checks
   render_map.py     draws dist/map_overview.png and dist/map_town.png
   check_shots.py    checks every scene from your avatar's eyes and draws dist/shot_map.png
-  make_sounds.py    makes the sound pack in audio/
+  make_sounds.py    makes the sound pack in audio/ (and dist/SomewhereSounds.zip)
 audio/              the 22 original sounds, ready to upload (plus spectrograms.png)
 default.project.json                   for Rojo users
 ```
