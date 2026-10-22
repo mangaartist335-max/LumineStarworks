@@ -206,7 +206,7 @@ Cutscene.Settings = {
 	EyeHeight = 4.7, -- studs above the ground when standing
 	CrouchDrop = 1.9, -- how much lower you are when crouching
 	HeadSway = 1, -- gentle handheld feel (0 = perfectly steady)
-	Loop = false, -- play again after the end card
+	Loop = true, -- play again after the end card (nice for a public game: visitors see it from the top)
 	LoopDelay = 6,
 	HideCursor = true,
 	StarAvatar = true, -- your own Roblox character walks through the scenes
@@ -2534,6 +2534,7 @@ local i23 = make("ModuleScript", "CutsceneDirector", i22, [======[
 -- weather and the mood, stages that shot's event, then tells every screen which shot is live
 -- (and exactly when it started) so the cameras all move in step.
 
+local PhysicsService = game:GetService("PhysicsService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -2669,9 +2670,41 @@ function CutsceneDirector.Play()
 	end)
 end
 
+-- Everyone walks the same marks, so avatars pass through each other instead of bumping.
+local STARS = "SomewhereStars"
+local function letAvatarsOverlap()
+	pcall(function()
+		PhysicsService:RegisterCollisionGroup(STARS)
+		PhysicsService:CollisionGroupSetCollidable(STARS, STARS, false)
+	end)
+	local function join(d: Instance)
+		if d:IsA("BasePart") then
+			d.CollisionGroup = STARS
+		end
+	end
+	local function watch(player: Player)
+		player.CharacterAdded:Connect(function(char)
+			for _, d in char:GetDescendants() do
+				join(d)
+			end
+			char.DescendantAdded:Connect(join)
+		end)
+		if player.Character then
+			for _, d in player.Character:GetDescendants() do
+				join(d)
+			end
+		end
+	end
+	for _, player in Players:GetPlayers() do
+		watch(player)
+	end
+	Players.PlayerAdded:Connect(watch)
+end
+
 function CutsceneDirector.Init(context: any)
 	ctx = context
 	remote = ctx.Net.Remote("Cutscene")
+	letAvatarsOverlap()
 	if not Cutscene.Settings.StarAvatar then
 		-- Anyone who slipped in before character spawning was switched off loses their avatar.
 		for _, player in Players:GetPlayers() do
@@ -2706,8 +2739,10 @@ function CutsceneDirector.Init(context: any)
 			-- Seats can only be taken from the server, so the camera asks us to sit the star down.
 			local character = player.Character
 			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			-- Only the seat the shot means (if a friend already has it, you just stay standing
+			-- there, and your view is the same).
 			local best: Seat? = nil
-			local bestDist = 6
+			local bestDist = 2
 			for _, seat in seats do
 				local dist = (seat.Position - arg).Magnitude
 				if dist < bestDist and not seat.Occupant then
@@ -7661,6 +7696,7 @@ local i51 = make("ModuleScript", "Cinematic", i49, [======[
 -- UI so the screen is ready to record.
 
 local GuiService = game:GetService("GuiService")
+local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
 local ProximityPromptService = game:GetService("ProximityPromptService")
 local RunService = game:GetService("RunService")
@@ -8090,6 +8126,45 @@ local function direct(index: number)
 	end)
 end
 
+-- With friends (or strangers) in the same server, everyone walks the same marks. Each screen
+-- shows only the town, so other people's avatars, name tags and chat bubbles are hidden here.
+local function hideOthers()
+	local function hideCharacter(char: Model)
+		local function hide(d: Instance)
+			if d:IsA("BasePart") then
+				d.LocalTransparencyModifier = 1
+			elseif d:IsA("Decal") then
+				d.LocalTransparencyModifier = 1
+			elseif d:IsA("Humanoid") then
+				d.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+			end
+		end
+		for _, d in char:GetDescendants() do
+			hide(d)
+		end
+		char.DescendantAdded:Connect(hide)
+	end
+	local function watch(other: Player)
+		if other == player then
+			return
+		end
+		if other.Character then
+			hideCharacter(other.Character)
+		end
+		other.CharacterAdded:Connect(hideCharacter)
+	end
+	for _, other in Players:GetPlayers() do
+		watch(other)
+	end
+	Players.PlayerAdded:Connect(watch)
+	pcall(function()
+		local bubbles = TextChatService:FindFirstChildOfClass("BubbleChatConfiguration")
+		if bubbles then
+			bubbles.Enabled = false
+		end
+	end)
+end
+
 local function takeOverControls()
 	pcall(function()
 		local playerModule = require(player:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule") :: ModuleScript) :: any
@@ -8107,6 +8182,7 @@ function Cinematic.Init()
 	build()
 	task.spawn(hideRobloxUI)
 	task.spawn(takeOverControls)
+	hideOthers()
 	remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
 	remote.OnClientEvent:Connect(function(payload: { kind: string, index: number?, startedAt: number? })
 		if payload.kind == "shot" and payload.index and payload.startedAt then

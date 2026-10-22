@@ -76,7 +76,7 @@ Cutscene.Settings = {
 	EyeHeight = 4.7, -- studs above the ground when standing
 	CrouchDrop = 1.9, -- how much lower you are when crouching
 	HeadSway = 1, -- gentle handheld feel (0 = perfectly steady)
-	Loop = false, -- play again after the end card
+	Loop = true, -- play again after the end card (nice for a public game: visitors see it from the top)
 	LoopDelay = 6,
 	HideCursor = true,
 	StarAvatar = true, -- your own Roblox character walks through the scenes

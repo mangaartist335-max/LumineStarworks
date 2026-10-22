@@ -3,6 +3,7 @@
 -- weather and the mood, stages that shot's event, then tells every screen which shot is live
 -- (and exactly when it started) so the cameras all move in step.
 
+local PhysicsService = game:GetService("PhysicsService")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -138,9 +139,41 @@ function CutsceneDirector.Play()
 	end)
 end
 
+-- Everyone walks the same marks, so avatars pass through each other instead of bumping.
+local STARS = "SomewhereStars"
+local function letAvatarsOverlap()
+	pcall(function()
+		PhysicsService:RegisterCollisionGroup(STARS)
+		PhysicsService:CollisionGroupSetCollidable(STARS, STARS, false)
+	end)
+	local function join(d: Instance)
+		if d:IsA("BasePart") then
+			d.CollisionGroup = STARS
+		end
+	end
+	local function watch(player: Player)
+		player.CharacterAdded:Connect(function(char)
+			for _, d in char:GetDescendants() do
+				join(d)
+			end
+			char.DescendantAdded:Connect(join)
+		end)
+		if player.Character then
+			for _, d in player.Character:GetDescendants() do
+				join(d)
+			end
+		end
+	end
+	for _, player in Players:GetPlayers() do
+		watch(player)
+	end
+	Players.PlayerAdded:Connect(watch)
+end
+
 function CutsceneDirector.Init(context: any)
 	ctx = context
 	remote = ctx.Net.Remote("Cutscene")
+	letAvatarsOverlap()
 	if not Cutscene.Settings.StarAvatar then
 		-- Anyone who slipped in before character spawning was switched off loses their avatar.
 		for _, player in Players:GetPlayers() do
@@ -175,8 +208,10 @@ function CutsceneDirector.Init(context: any)
 			-- Seats can only be taken from the server, so the camera asks us to sit the star down.
 			local character = player.Character
 			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			-- Only the seat the shot means (if a friend already has it, you just stay standing
+			-- there, and your view is the same).
 			local best: Seat? = nil
-			local bestDist = 6
+			local bestDist = 2
 			for _, seat in seats do
 				local dist = (seat.Position - arg).Magnitude
 				if dist < bestDist and not seat.Occupant then

@@ -5,6 +5,7 @@
 -- UI so the screen is ready to record.
 
 local GuiService = game:GetService("GuiService")
+local TextChatService = game:GetService("TextChatService")
 local Players = game:GetService("Players")
 local ProximityPromptService = game:GetService("ProximityPromptService")
 local RunService = game:GetService("RunService")
@@ -434,6 +435,45 @@ local function direct(index: number)
 	end)
 end
 
+-- With friends (or strangers) in the same server, everyone walks the same marks. Each screen
+-- shows only the town, so other people's avatars, name tags and chat bubbles are hidden here.
+local function hideOthers()
+	local function hideCharacter(char: Model)
+		local function hide(d: Instance)
+			if d:IsA("BasePart") then
+				d.LocalTransparencyModifier = 1
+			elseif d:IsA("Decal") then
+				d.LocalTransparencyModifier = 1
+			elseif d:IsA("Humanoid") then
+				d.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+			end
+		end
+		for _, d in char:GetDescendants() do
+			hide(d)
+		end
+		char.DescendantAdded:Connect(hide)
+	end
+	local function watch(other: Player)
+		if other == player then
+			return
+		end
+		if other.Character then
+			hideCharacter(other.Character)
+		end
+		other.CharacterAdded:Connect(hideCharacter)
+	end
+	for _, other in Players:GetPlayers() do
+		watch(other)
+	end
+	Players.PlayerAdded:Connect(watch)
+	pcall(function()
+		local bubbles = TextChatService:FindFirstChildOfClass("BubbleChatConfiguration")
+		if bubbles then
+			bubbles.Enabled = false
+		end
+	end)
+end
+
 local function takeOverControls()
 	pcall(function()
 		local playerModule = require(player:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule") :: ModuleScript) :: any
@@ -451,6 +491,7 @@ function Cinematic.Init()
 	build()
 	task.spawn(hideRobloxUI)
 	task.spawn(takeOverControls)
+	hideOthers()
 	remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
 	remote.OnClientEvent:Connect(function(payload: { kind: string, index: number?, startedAt: number? })
 		if payload.kind == "shot" and payload.index and payload.startedAt then
