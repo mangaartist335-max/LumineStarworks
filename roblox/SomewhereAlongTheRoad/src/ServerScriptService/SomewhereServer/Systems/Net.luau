@@ -19,7 +19,7 @@ function Net.Init()
 		f.Parent = ReplicatedStorage
 		remotes = f
 	end
-	for _, name in { "Notify", "Flash", "Director" } do
+	for _, name in { "Notify", "Flash", "Director", "Cutscene" } do
 		if not remotes:FindFirstChild(name) then
 			local r = Instance.new("RemoteEvent")
 			r.Name = name

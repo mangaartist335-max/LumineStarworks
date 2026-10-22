@@ -26,6 +26,7 @@ local natural = "Clear"
 local nextNatural = 0
 local overrides: { Override } = {}
 local forced: string? = nil
+local forcedRate = 3 / 20
 local nextThunder = 0
 local wetParts: { BasePart } = {}
 local lastWet = -1
@@ -33,7 +34,7 @@ local rng = Random.new()
 
 local function targetName(): (string, number)
 	if forced then
-		return forced, 3 / 20
+		return forced, forcedRate
 	end
 	local top = overrides[#overrides]
 	if top then
@@ -68,12 +69,34 @@ function Weather.Release(o: Override?)
 	end
 end
 
--- Director control: pin a state, or nil to go back to automatic.
-function Weather.Force(name: string?)
+-- Director control: pin a state (changing over `seconds`), or nil to go back to automatic.
+function Weather.Force(name: string?, seconds: number?)
 	if name and not STATES[name] then
 		return
 	end
 	forced = name
+	forcedRate = 3 / math.max(seconds or 20, 0.5)
+end
+
+-- Pins a state and jumps straight to it, with no transition (used between cutscene shots).
+function Weather.Snap(name: string)
+	if not STATES[name] then
+		return
+	end
+	forced = name
+	current = table.clone(STATES[name])
+	if ctx then
+		local Net = ctx.Net
+		Net.Set("Weather", name)
+		Net.Set("Rain", current.Rain)
+		Net.Set("Wind", current.Wind)
+		Net.Set("Storm", current.Storm)
+		Net.Set("Fog", current.Fog)
+		for _, p in wetParts do
+			p.Reflectance = 0.14 * current.Rain
+		end
+		lastWet = current.Rain
+	end
 end
 
 local function pickNatural(): string

@@ -101,6 +101,10 @@ function Ground.buildTerrain(terrain: any)
 	terrain:FillCylinder(CFrame.new(pondCenter.X, -creek.Depth / 2, pondCenter.Z), creek.Depth, 16, Enum.Material.Air)
 	terrain:FillCylinder(CFrame.new(pondCenter.X, -(creek.Depth + 1.4) / 2, pondCenter.Z), creek.Depth - 1.4, 15, Enum.Material.Water)
 
+	-- Bare earth around the old oak's roots, so its tiny door isn't lost in tall grass.
+	local oak = Layout.OldOak
+	terrain:FillCylinder(CFrame.new(oak.X, -1.5, oak.Z), 3, 9, Enum.Material.Ground)
+
 	-- The clearing: soft leafy ground.
 	local clearing = Layout.Clearing
 	terrain:FillCylinder(CFrame.new(clearing.Center.X, -1.5, clearing.Center.Z), 3, clearing.Radius, Enum.Material.LeafyGrass)

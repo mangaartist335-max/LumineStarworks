@@ -47,6 +47,7 @@ local day = 1
 local moods: { [string]: number } = {}
 local moodTargets: { [string]: { target: number, rate: number } } = {}
 local newDayCallbacks: { (number) -> () } = {}
+local apply: () -> ()
 
 local function lookAt(h: number): Look
 	for i = 1, #KEYS - 1 do
@@ -76,6 +77,9 @@ end
 function DayNight.SetClock(h: number)
 	clock = h % 24
 	Lighting.ClockTime = clock
+	if ctx then
+		apply()
+	end
 end
 
 function DayNight.SetTimeScale(scale: number)
@@ -104,11 +108,19 @@ function DayNight.SetMood(name: string, target: number, seconds: number?)
 	moodTargets[name] = { target = target, rate = 1 / math.max(seconds or 20, 0.5) }
 end
 
+-- Drops every mood at once (the cutscene uses this between shots).
+function DayNight.ResetMoods()
+	for name in moods do
+		moods[name] = 0
+	end
+	table.clear(moodTargets)
+end
+
 function DayNight.OnNewDay(callback: (number) -> ())
 	table.insert(newDayCallbacks, callback)
 end
 
-local function apply()
+function apply()
 	local look = lookAt(clock)
 	local w = ctx.Weather.Get()
 	local sunset = moods.Sunset or 0

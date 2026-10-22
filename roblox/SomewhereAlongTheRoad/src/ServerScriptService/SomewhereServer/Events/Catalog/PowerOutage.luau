@@ -28,6 +28,10 @@ return {
 		ctx:OnCleanup(function()
 			S.Net.Set("PowerOn", true)
 		end)
+		local offAfter = ctx.Options.OffAfter :: number?
+		if offAfter and not ctx:Wait(offAfter) then
+			return
+		end
 		S.Lights.Flicker(1.6)
 		S.Net.Set("PowerOn", false)
 		local marv = nearSomeone(ctx, "Marv", 40)
@@ -40,7 +44,7 @@ return {
 				dot:Say(Text.Lines.DotOutage)
 			end)
 		end
-		if not ctx:Wait(ctx.Rng:NextNumber(25, 55)) then
+		if not ctx:Wait((ctx.Options.Duration :: number?) or ctx.Rng:NextNumber(25, 55)) then
 			return
 		end
 		S.Net.Set("PowerOn", true)

@@ -111,14 +111,16 @@ function EventDirector.Stop(id: string)
 	end
 end
 
-function EventDirector.StopAll()
+function EventDirector.StopAll(except: string?)
 	for id in running do
-		EventDirector.Stop(id)
+		if id ~= except then
+			EventDirector.Stop(id)
+		end
 	end
 end
 
 -- Starts an event. `forced` (from the director panel) clears anything in its way.
-function EventDirector.Trigger(id: string, forced: boolean?): boolean
+function EventDirector.Trigger(id: string, forced: boolean?, options: { [string]: any }?): boolean
 	local e = events[id]
 	if not e or running[id] then
 		return false
@@ -132,7 +134,7 @@ function EventDirector.Trigger(id: string, forced: boolean?): boolean
 			EventDirector.Stop(other)
 		end
 	end
-	local context = EventContext.new(id, systems, forced == true)
+	local context = EventContext.new(id, systems, forced == true, options)
 	running[id] = { context = context, resources = e.Resources }
 	lastStartedId = id
 	if not forced then

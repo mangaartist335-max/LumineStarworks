@@ -87,7 +87,8 @@ end
 
 local function chicken(ctx: EventContext.Context)
 	local S = ctx.Systems
-	local from = Vector3.new(66, 0, 32)
+	local o = ctx.Options
+	local from = (o.From :: Vector3?) or Vector3.new(66, 0, 32)
 	local cf = CFrame.lookAt(from, from + Vector3.new(0, 0, -1))
 	local model = ctx:Track(Props.chicken(workspace, cf))
 	model.Name = "Event_Chicken"
@@ -98,7 +99,22 @@ local function chicken(ctx: EventContext.Context)
 	end, 45, "chicken_crossing")
 
 	local dot = S.NPCs.Get("Dot")
-	if dot and not dot.Busy then
+	local dotSpot = o.DotSpot :: CFrame?
+	if dot and dotSpot then
+		-- Staged: Dot is already out front, watching.
+		dot.Busy = true
+		ctx:OnCleanup(function()
+			dot.Busy = false
+			dot:GoHome()
+		end)
+		dot:Stand()
+		dot.Model:PivotTo(dotSpot)
+		task.delay((o.DotLineAt :: number?) or 2.5, function()
+			if not ctx.Cancelled then
+				dot:Say(Text.Lines.DotChicken, 5)
+			end
+		end)
+	elseif dot and not dot.Busy then
 		dot.Busy = true
 		ctx:OnCleanup(function()
 			dot.Busy = false
@@ -128,13 +144,21 @@ local function chicken(ctx: EventContext.Context)
 	end
 
 	-- Little hops, little pauses, all the way across.
-	local waypoints = { Vector3.new(65, 0, 14), Vector3.new(63, 0, 2), Vector3.new(62, 0, -10), Vector3.new(60, 0, -22), Vector3.new(57, 0, -40) }
-	for _, p in waypoints do
-		if not Motion.MoveTo(rig, p, 3.2, cancelled(ctx), 0.6) then
+	local to = o.To :: Vector3?
+	if to then
+		-- Staged: one steady trot to the far side.
+		if not Motion.MoveTo(rig, to, (o.Speed :: number?) or 5, cancelled(ctx), 0.6) then
 			return
 		end
-		if not ctx:Wait(ctx.Rng:NextNumber(0.5, 2)) then
-			return
+	else
+		local waypoints = { Vector3.new(65, 0, 14), Vector3.new(63, 0, 2), Vector3.new(62, 0, -10), Vector3.new(60, 0, -22), Vector3.new(57, 0, -40) }
+		for _, p in waypoints do
+			if not Motion.MoveTo(rig, p, 3.2, cancelled(ctx), 0.6) then
+				return
+			end
+			if not ctx:Wait(ctx.Rng:NextNumber(0.5, 2)) then
+				return
+			end
 		end
 	end
 	if not ctx:Wait(6) then
@@ -154,6 +178,12 @@ return {
 		return clock > 8 and clock < 19
 	end,
 	Run = function(ctx: EventContext.Context)
+		local variant = ctx.Options.Variant
+		if variant == "chicken" then
+			return chicken(ctx)
+		elseif variant == "mower" then
+			return mower(ctx)
+		end
 		if ctx.Systems.NPCs.Available("Hollis") and ctx.Rng:NextNumber() < 0.5 then
 			mower(ctx)
 		else

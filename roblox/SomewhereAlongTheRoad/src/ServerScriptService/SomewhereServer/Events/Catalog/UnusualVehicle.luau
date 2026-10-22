@@ -19,7 +19,9 @@ local function lane(x: number, eastbound: boolean): Vector3
 end
 
 local function spawnVehicle(ctx: EventContext.Context, builder: (Instance, CFrame) -> Model, eastbound: boolean): Motion.Rig
-	local start = lane(if eastbound then -END_X else END_X, eastbound)
+	-- The cutscene can start a vehicle closer in (StartX) so it reaches the camera on cue.
+	local startX = ctx.Options.StartX :: number?
+	local start = lane(startX or (if eastbound then -END_X else END_X), eastbound)
 	local cf = CFrame.new(start - Vector3.new(0, 0.5, 0)) * (if eastbound then EAST else WEST)
 	local model = ctx:Track(builder(workspace, cf))
 	model.Name = "Event_" .. model.Name
@@ -89,14 +91,14 @@ local function duck(ctx: EventContext.Context)
 	ctx:AwardNearby(function()
 		return rig.Root.Position
 	end, 55, "big_duck")
-	if not Motion.MoveTo(rig, lane(-60, true), 20, cancelled(ctx)) then
+	if not Motion.MoveTo(rig, lane(-60, true), (ctx.Options.Speed :: number?) or 20, cancelled(ctx)) then
 		return
 	end
 	if not ctx:Sound("Horn", rig.Root, false, 0.6) then
 		ctx:Hint(Text.Hints.Horn, rig.Root.Position, 240)
 	end
 	say(ctx, rig, Text.Lines.DuckDriver)
-	Motion.MoveTo(rig, lane(END_X, true), 20, cancelled(ctx))
+	Motion.MoveTo(rig, lane(END_X, true), (ctx.Options.Speed :: number?) or 20, cancelled(ctx))
 end
 
 local function tractor(ctx: EventContext.Context)
@@ -123,6 +125,14 @@ return {
 		return clock > 7 and clock < 20.5
 	end,
 	Run = function(ctx: EventContext.Context)
+		local variant = ctx.Options.Variant
+		if variant == "duck" then
+			return duck(ctx)
+		elseif variant == "icecream" then
+			return iceCream(ctx)
+		elseif variant == "tractor" then
+			return tractor(ctx)
+		end
 		local clock = ctx.Systems.DayNight.GetClock()
 		local options = { tractor }
 		if clock > 9.5 and clock < 19.5 then

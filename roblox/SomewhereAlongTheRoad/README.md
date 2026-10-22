@@ -4,8 +4,57 @@ A small, quiet roadside town in Roblox. You step off at the bus stop and wander:
 store, a diner with pie, a few houses, a trail into the woods, a creek, a hill with the best view
 in the county. Now and then the town does something unexpected. Some days, nothing happens at all.
 
-**Version 0.1.** This is the first playable build: the whole town, the interiors, day and night,
-weather, ten random events and four townspeople.
+**Version 0.2: it's a cutscene now.** Press Play and a 2:42 trailer runs by itself. The camera
+flies through 17 shots of the town with captions and a title card, and the events happen on cue:
+the duck truck, the chicken, the storm, the fireflies. Nobody gets a character, and the Roblox
+buttons are hidden, so the screen is ready to record.
+
+The explorable version is still in there. Set `Config.Mode = "Game"` to walk around yourself.
+
+---
+
+## The trailer, shot by shot
+
+| # | Shot | Time | What happens | On screen |
+|---|------|------|--------------|-----------|
+| 1 | Morning mist | 0:00 | Aerial push over the fields toward town | *Somewhere along the road,* |
+| 2 | Welcome sign | 0:12 | The Halfway sign, then a pan to town | *there's a little town called Halfway.* / Population: enough. |
+| 3 | Bus stop | 0:22 | A traveler waiting on the bench | *Nothing much happens here.* |
+| 4 | Halfway Mart | 0:31 | Slow push toward the store | *Mostly.* |
+| 5 | The duck | 0:38 | The giant rubber duck truck rolls past, and the driver yells "Don't ask!" | |
+| 6 | Gerald | 0:49 | Gerald the gnome watching the road | |
+| 7 | Why it crossed | 0:55 | A chicken crosses the road. Dot: "I'm not even going to ask." | |
+| 8 | The trail | 1:04 | Golden hour down the dirt trail | *Take the trail sometime.* |
+| 9 | The tiny door | 1:13 | Close-up of the door in the old oak | |
+| 10 | Wendell | 1:19 | Wendell fishing from the bridge | |
+| 11 | The deer | 1:26 | A deer looks up at the camera, then trots off | |
+| 12 | The lookout | 1:34 | Crane up from the bench at sunset to reveal the town | *Stay for the sunset.* |
+| 13 | Storm | 1:46 | Clouds roll in, rain, lightning | *Some days it rains.* |
+| 14 | Lights out | 1:58 | The diner's lights flicker off and back on | *Some nights the lights take a little nap.* |
+| 15 | Main street at night | 2:09 | Drifting down the road under the streetlights | |
+| 16 | Something rare | 2:18 | Fireflies and a glowing stone in the clearing | *And sometimes…* / *…something you can't quite explain.* |
+| 17 | Title | 2:31 | Rising over the bus stop in morning mist | **Somewhere Along the Road** / Coming soon to Roblox |
+
+Every shot, line of text and timing lives in `src/ReplicatedStorage/SomewhereShared/Cutscene.luau`.
+Change the words, swap the order, delete shots, or add your own.
+
+**To grab a camera position for a new shot:** line up Studio's editor camera, then run this in
+the Command Bar. It prints a `Pos` and a `Look` you can paste into a shot.
+
+```lua
+local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVector * 30)
+```
+
+### Recording it
+
+- **In Studio:** press Play. The trailer starts after a couple of seconds of black. Press **R** to
+  roll it again from the top.
+- **For the cleanest video:** publish the place (File → Publish to Roblox, and keep it private),
+  open it in the Roblox app, go full screen, and record with Xbox Game Bar (**Win + Alt + R**) or
+  OBS. Studio's own window has panels around the game view, so the Roblox app gives a cleaner
+  frame.
+- The letterbox bars, captions and title are drawn by the game. To turn the bars off, set
+  `Letterbox = false` in `Cutscene.luau`.
 
 ---
 
@@ -13,17 +62,23 @@ weather, ten random events and four townspeople.
 
 Checked here:
 
-- All 46 scripts compile, and they type-check with **zero errors** in strict mode against the
+- All 49 scripts compile, and they type-check with **zero errors** in strict mode against the
   full Roblox API definitions (luau-lsp).
+- Every cutscene camera was checked against the built town: none of the 17 shots starts inside
+  a wall or a tree, and nothing solid blocks its subject. `tools/check_shots.py` runs the check,
+  and `dist/shot_map.png` shows where each shot sits.
 - The real world-builder code runs offline (with Lune) and builds the town: about 3,000 parts,
   26 lights, 30 things to interact with, 20 seats, and 602 terrain fills.
 - An automatic check confirms every note, discovery, item and route marker the scripts
   look for actually exists in the town.
 - The Command Bar bootstrap gets a dry run against an empty place, where it installs all 46
   scripts and builds the same 3,000 parts.
+- The first version was opened in Studio and ran: the terrain, buildings, grass, power lines and
+  interface all loaded.
 
-**Not checked yet:** nobody has pressed Play in Roblox Studio. NPC walking, vehicles, rain
-and lighting run on Roblox's physics and renderer, and those only exist inside Studio. Expect a
+**Not checked yet:** the cutscene version hasn't been played in Studio. Camera moves, NPC
+walking, vehicles, rain and lighting run on Roblox's physics and renderer, and those only exist
+inside Studio. Expect a
 few small things to need tuning on the first run, like an NPC standing a little too high, or a
 light that's too bright. The game hasn't been published anywhere.
 
@@ -57,7 +112,7 @@ use Option A.
 
 ---
 
-## Playing
+## Playing it as a game (`Config.Mode = "Game"`)
 
 - You spawn at the bus stop, facing the Halfway Mart across the road.
 - **Walk** with the stick or WASD. **Run** with Shift, or the Run button on a phone.
@@ -89,7 +144,7 @@ repeats back to back.
 
 ---
 
-## Making the trailer
+## Director tools (game mode)
 
 In Studio (or as the game's owner once it's published), a **🎬 Director** button sits in the
 top-right corner. From there you can:
@@ -125,7 +180,8 @@ paste it into the slot as `"rbxassetid://123456"`.
 
 | Want to change… | Edit |
 |---|---|
-| Day length, walk speed, how often events happen | `src/ReplicatedStorage/SomewhereShared/Config.luau` |
+| Cutscene or game, day length, walk speed, how often events happen | `src/ReplicatedStorage/SomewhereShared/Config.luau` |
+| The trailer's shots, captions and timing | `src/ReplicatedStorage/SomewhereShared/Cutscene.luau` |
 | Any words: notes, dialogue, discoveries | `src/ReplicatedStorage/SomewhereShared/Text.luau` |
 | Where buildings and landmarks sit | `src/ServerScriptService/SomewhereServer/World/Layout.luau` |
 | Colours | `src/ServerScriptService/SomewhereServer/World/Palette.luau` |
@@ -139,17 +195,18 @@ example `RoadsideSpot` or `WoodsSpot`) moves where an event happens.
 
 ```
 src/
-  ReplicatedStorage/SomewhereShared/   Config + Text (shared by server and players)
+  ReplicatedStorage/SomewhereShared/   Config, Text and Cutscene (shared by server and players)
   ServerScriptService/SomewhereServer/
     init.server.luau                   starts everything
     World/                             builds the town (Kit, Layout, Store, Diner, Houses…)
-    Systems/                           day/night, weather, lights, NPCs, interactions, items…
+    Systems/                           day/night, weather, lights, NPCs, the cutscene timeline…
     Events/                            the event director, helpers, and Catalog/ (the 10 events)
   StarterPlayer/StarterPlayerScripts/SomewhereClient/
-                                       UI, rain, ambience, run button, director panel
+                                       Cinematic (the cutscene camera), rain, ambience, game UI
 tools/
   build.luau        builds dist/ (place file, bootstrap) and runs the checks
   render_map.py     draws dist/map_overview.png and dist/map_town.png
+  check_shots.py    checks every cutscene camera and draws dist/shot_map.png
 default.project.json                   for Rojo users
 ```
 
@@ -160,6 +217,7 @@ With [Lune](https://github.com/lune-org/lune) installed, run from this folder:
 ```
 lune run tools/build.luau
 python3 tools/render_map.py
+python3 tools/check_shots.py
 ```
 
 ---
@@ -172,7 +230,8 @@ python3 tools/render_map.py
 | 2. Interiors and interactions | Done: store, diner, Hollis's house |
 | 3. Day/night, weather, ambience | Done (sounds are blank slots for now) |
 | 4. Random events | Done: all ten |
-| 5. NPCs, polish, mobile | Four residents and phone-sized UI are in. Playtesting and tuning in Studio come next |
+| 5. NPCs, polish, mobile | Four residents and phone-sized UI are in |
+| Trailer cutscene | Done: 17 shots, 2:42. Tuning after the first watch in Studio |
 
 Ideas for later: saving discoveries between visits (DataStore), more houses to step inside,
 a radio station in the diner, and a proper bus timetable.

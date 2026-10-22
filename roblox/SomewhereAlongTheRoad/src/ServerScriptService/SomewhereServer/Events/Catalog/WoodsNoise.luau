@@ -47,16 +47,23 @@ return {
 	Weight = 8,
 	Run = function(ctx: EventContext.Context)
 		local S = ctx.Systems
-		local spots = ctx:Anchors("WoodsSpot")
-		if #spots == 0 then
-			return
+		local o = ctx.Options
+		local staged = o.Spot :: CFrame?
+		local spot: CFrame
+		if staged then
+			spot = staged
+		else
+			local spots = ctx:Anchors("WoodsSpot")
+			if #spots == 0 then
+				return
+			end
+			spot = ctx:Pick(spots).CFrame
 		end
-		local spot = ctx:Pick(spots).CFrame
 		local clock = S.DayNight.GetClock()
 		local night = clock >= 19.5 or clock < 6
 		local kinds = if night then { "owl", "owl", "raccoon" } else { "deer", "deer", "raccoon" }
-		local kind = ctx:Pick(kinds)
-		local facing = spot * CFrame.Angles(0, ctx.Rng:NextNumber(0, math.pi * 2), 0)
+		local kind = (o.Kind :: string?) or ctx:Pick(kinds)
+		local facing = if staged then staged else spot * CFrame.Angles(0, ctx.Rng:NextNumber(0, math.pi * 2), 0)
 
 		local model: Model
 		if kind == "owl" then
@@ -88,10 +95,12 @@ return {
 		local leaves = rustle(ctx, spot.Position)
 		local slot = if kind == "owl" then "Owl" else "Rustle"
 		local sound = ctx:Sound(slot, rig.Root, kind ~= "owl", 0.8)
-		if not sound then
+		if not sound and not staged then
 			ctx:Hint(Text.Hints.WoodsNoise, spot.Position, 170)
 		end
 
+		-- Staged reveals happen on a timer and look toward a given point (the camera).
+		local revealAt = if o.RevealAfter then os.clock() + (o.RevealAfter :: number) else math.huge
 		local revealed = false
 		local deadline = os.clock() + ctx.Rng:NextNumber(200, 260)
 		local nextBurst = 0
@@ -103,19 +112,22 @@ return {
 				end
 				nextBurst = os.clock() + ctx.Rng:NextNumber(3, 7)
 			end
-			if not revealed and ctx:NearestPlayerDistance(rig.Root.Position) < 24 then
+			if not revealed and (ctx:NearestPlayerDistance(rig.Root.Position) < 24 or os.clock() >= revealAt) then
 				revealed = true
 				S.Discoveries.AwardNear(rig.Root.Position, 30, "woods_" .. kind)
 				deadline = math.min(deadline, os.clock() + 20)
 				-- Look at the visitor, then go about its business.
 				local positions = ctx:PlayerPositions()
-				if positions[1] then
-					Motion.Face(rig, positions[1])
+				local watcher = (o.FaceToward :: Vector3?) or positions[1]
+				if watcher then
+					Motion.Face(rig, watcher)
 				end
 				if kind ~= "owl" then
 					ctx:Spawn(function()
-						task.wait(2.5)
-						local away = rig.Root.Position + (rig.Root.Position - (positions[1] or rig.Root.Position)).Unit * 40
+						task.wait((o.LeaveAfter :: number?) or 2.5)
+						local from = watcher or (rig.Root.Position - rig.Root.CFrame.LookVector)
+						local flat = Vector3.new(rig.Root.Position.X - from.X, 0, rig.Root.Position.Z - from.Z)
+						local away = rig.Root.Position + (if flat.Magnitude > 0.1 then flat.Unit else Vector3.xAxis) * 40
 						Motion.MoveTo(rig, away, if kind == "deer" then 11 else 5, function()
 							return ctx.Cancelled
 						end)

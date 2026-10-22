@@ -2,9 +2,15 @@
 -- Somewhere Along the Road: server entry point.
 -- Builds whatever part of the town is missing, then starts the systems in order.
 
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+local cutscene = Config.Mode == "Cutscene"
+
+-- In cutscene mode nobody gets a character: the camera is the only one on set.
+-- This has to happen before anyone joins, so it's the very first thing we do.
+Players.CharacterAutoLoads = not cutscene
 
 local World = script:WaitForChild("World")
 local Systems = script:WaitForChild("Systems")
@@ -41,5 +47,10 @@ ctx.Spawning.Init(ctx)
 ctx.NPCs.Init(ctx)
 ctx.Events.Init(ctx)
 ctx.Director.Init(ctx)
+
+if cutscene then
+	ctx.Events.SetAuto(false)
+	require(Systems.CutsceneDirector).Init(ctx)
+end
 
 print(`[Somewhere] {Config.GameName} v{Config.Version} is running. Have a nice walk.`)

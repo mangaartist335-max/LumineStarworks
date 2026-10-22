@@ -37,6 +37,8 @@ return {
 				S.DayNight.SetClock(21.3)
 			end
 		end
+		-- The cutscene asks for a quicker build-up so it fits in one shot.
+		local pace = if ctx.Options.Fast then 0.3 else 1
 		local center = ctx:Anchor("ClearingCenter")
 		if not center then
 			return
@@ -77,7 +79,7 @@ return {
 		light.Brightness = 0
 		light.Shadows = false
 		light.Parent = holder
-		fade(light, { Brightness = 1.4 }, 10)
+		fade(light, { Brightness = 1.4 }, 10 * pace)
 		local flies = Instance.new("ParticleEmitter")
 		flies.Texture = Config.Textures.Sparkle
 		flies.Color = ColorSequence.new(Color3.fromRGB(230, 255, 150), SOFT)
@@ -92,7 +94,7 @@ return {
 		flies.Rate = 26
 		flies.Parent = holder
 		for _, g in glyphs do
-			fade(g, { Transparency = 0.15 }, 12)
+			fade(g, { Transparency = 0.15 }, 12 * pace)
 		end
 
 		if not ctx:Sound("SoftHum", holder, true, 0.4) then

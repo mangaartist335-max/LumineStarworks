@@ -29,23 +29,28 @@ return {
 	Weight = 8,
 	Run = function(ctx: EventContext.Context)
 		local S = ctx.Systems
-		-- Pick a spot nobody is looking at right now.
-		local spots = ctx:Anchors("RoadsideSpot")
-		local free = {}
-		for _, spot in spots do
-			if ctx:NearestPlayerDistance(spot.Position) > 70 then
-				table.insert(free, spot)
+		local o = ctx.Options
+		local spotCF = o.Spot :: CFrame?
+		if not spotCF then
+			-- Pick a spot nobody is looking at right now.
+			local spots = ctx:Anchors("RoadsideSpot")
+			local free = {}
+			for _, spot in spots do
+				if ctx:NearestPlayerDistance(spot.Position) > 70 then
+					table.insert(free, spot)
+				end
 			end
-		end
-		if #free == 0 then
-			if not ctx.Forced or #spots == 0 then
-				return
+			if #free == 0 then
+				if not ctx.Forced or #spots == 0 then
+					return
+				end
+				free = spots
 			end
-			free = spots
+			spotCF = ctx:Pick(free).CFrame
 		end
-		local spot = ctx:Pick(free)
-		local kind = ctx:Pick(KINDS)
-		local model = ctx:Track(BUILDERS[kind](workspace, spot.CFrame))
+		local placed = spotCF :: CFrame
+		local kind = (o.Kind :: string?) or ctx:Pick(KINDS)
+		local model = ctx:Track(BUILDERS[kind](workspace, placed))
 		model.Name = "Event_" .. model.Name
 
 		local target = model.PrimaryPart :: BasePart
@@ -69,7 +74,7 @@ return {
 		end
 		-- Leave the same way it arrived: when nobody's around.
 		local giveUp = os.clock() + 150
-		while os.clock() < giveUp and ctx:NearestPlayerDistance(spot.Position) < 60 do
+		while os.clock() < giveUp and ctx:NearestPlayerDistance(placed.Position) < 60 do
 			if not ctx:Wait(5) then
 				return
 			end

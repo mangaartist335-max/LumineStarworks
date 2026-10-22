@@ -11,6 +11,7 @@ export type Context = typeof(setmetatable(
 	{} :: {
 		Id: string,
 		Forced: boolean,
+		Options: { [string]: any }, -- staging hints from the cutscene (where, which variant, how fast)
 		Cancelled: boolean,
 		Systems: any,
 		Rng: Random,
@@ -19,10 +20,11 @@ export type Context = typeof(setmetatable(
 	EventContext
 ))
 
-function EventContext.new(id: string, systems: any, forced: boolean): Context
+function EventContext.new(id: string, systems: any, forced: boolean, options: { [string]: any }?): Context
 	return setmetatable({
 		Id = id,
 		Forced = forced,
+		Options = options or {},
 		Cancelled = false,
 		Systems = systems,
 		Rng = Random.new(),

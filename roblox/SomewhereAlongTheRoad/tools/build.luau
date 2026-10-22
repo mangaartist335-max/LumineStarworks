@@ -135,6 +135,21 @@ print(`Compiled {#scriptFiles} scripts`)
 
 local makeEnv
 
+-- Enough of Roblox's Random for modules that create one at load time.
+local RandomShim = {
+	new = function(_seed: number?)
+		return {
+			NextNumber = function(_, lo: number?, hi: number?)
+				local a, b = lo or 0, hi or 1
+				return a + (b - a) * math.random()
+			end,
+			NextInteger = function(_, lo: number, hi: number)
+				return math.random(lo, hi)
+			end,
+		}
+	end,
+}
+
 local InstanceShim = {
 	new = function(className: string, parent: any?)
 		local inst = Instance.new(className)
@@ -184,6 +199,7 @@ function makeEnv(dataModel: any, scriptInstance: any, requireFn: any)
 		ColorSequenceKeypoint = roblox.ColorSequenceKeypoint,
 		NumberRange = roblox.NumberRange,
 		PhysicalProperties = roblox.PhysicalProperties,
+		Random = RandomShim,
 		typeof = typeof,
 		print = print,
 		warn = print,
@@ -344,6 +360,53 @@ for _, name in requiredAnchors do
 		problem(`missing anchor {name}`)
 	end
 end
+-- The cutscene: every shot must point at real events, weather and people, and fit its timing.
+local Cutscene = emulatedRequire(game:GetService("ReplicatedStorage").SomewhereShared.Cutscene)
+local Weather = emulatedRequire(server.Systems.Weather)
+local eventIds = {}
+for _, m in server.Events.Catalog:GetChildren() do
+	eventIds[m.Name] = true
+end
+local residents = { Marv = true, Dot = true, Hollis = true, Wendell = true }
+local totalTime = 0
+local shotExport = {}
+for i, shot in Cutscene.Shots do
+	local where = `Cutscene shot {i} ({shot.Name})`
+	totalTime += shot.Duration
+	if shot.Duration <= 0 then
+		problem(`{where}: Duration must be positive`)
+	end
+	for _, w in { shot.Weather, shot.WeatherRamp and shot.WeatherRamp.Name } do
+		if w and not Weather.States[w] then
+			problem(`{where}: unknown weather {w}`)
+		end
+	end
+	if shot.Event and not eventIds[shot.Event.Id] then
+		problem(`{where}: unknown event {shot.Event.Id}`)
+	end
+	for _, cue in shot.Cues or {} do
+		if cue.Do ~= "Flash" and cue.Do ~= "Say" then
+			problem(`{where}: unknown cue {cue.Do}`)
+		end
+		if cue.Do == "Say" and not residents[cue.Npc] then
+			problem(`{where}: nobody called {cue.Npc}`)
+		end
+		if cue.At > shot.Duration then
+			problem(`{where}: cue at {cue.At}s is after the shot ends`)
+		end
+	end
+	for _, c in shot.Captions or {} do
+		if c.To > shot.Duration + 0.01 or c.From >= c.To then
+			problem(`{where}: caption "{c.Text}" doesn't fit inside the shot`)
+		end
+	end
+	local function key(k)
+		return { pos = { k.Pos.X, k.Pos.Y, k.Pos.Z }, look = { k.Look.X, k.Look.Y, k.Look.Z } }
+	end
+	table.insert(shotExport, { name = shot.Name, duration = shot.Duration, ease = shot.Ease or "InOut", from = key(shot.From), to = key(shot.To) })
+end
+print(`Cutscene: {#Cutscene.Shots} shots, {math.floor(totalTime / 60)}:{string.format("%02d", math.floor(totalTime % 60))} long`)
+
 print(`Town: {counts.parts} parts, {counts.lights} lights, {counts.fixtures} switchable fixtures, {counts.seats} seats, {counts.interact} interactables`)
 local kindsList = {}
 for k, n in interactKinds do
@@ -392,7 +455,7 @@ for _, d in town:GetDescendants() do
 		})
 	end
 end
-fs.writeFile(`{DIST}/map.json`, serde.encode("json", { parts = mapParts, terrain = terrainOps }, false))
+fs.writeFile(`{DIST}/map.json`, serde.encode("json", { parts = mapParts, terrain = terrainOps, shots = shotExport }, false))
 
 -- The Command Bar bootstrap: recreates every script, then builds the town and terrain.
 local LEVEL = string.rep("=", 6)

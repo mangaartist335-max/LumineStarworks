@@ -22,7 +22,11 @@ local i2 = make("ModuleScript", "Config", i1, [======[
 local Config = {}
 
 Config.GameName = "Somewhere Along the Road"
-Config.Version = "0.1.0"
+Config.Version = "0.2.0"
+
+-- "Cutscene": press Play and the trailer runs by itself (shots live in Cutscene.luau).
+-- "Game": the explorable version, with your own character, the objective and the Director panel.
+Config.Mode = "Cutscene"
 
 Config.World = {
 	Seed = 20261022, -- same seed = same trees, same town, every time
@@ -122,7 +126,267 @@ Config.SubtleHints = true
 
 return Config
 ]======])
-local i3 = make("ModuleScript", "Text", i1, [======[
+local i3 = make("ModuleScript", "Cutscene", i1, [======[
+--!strict
+-- The trailer, shot by shot. Press Play and it runs from top to bottom by itself.
+--
+-- Every shot moves the camera from `From` to `To` over `Duration` seconds.
+--   Pos  = where the camera is,  Look = the point it aims at,  Fov = lens (smaller = more zoom)
+-- Optional per shot:
+--   Clock        time of day (0-24) set at the start of the shot
+--   Weather      Clear, PartlyCloudy, Overcast, Drizzle, Fog or Storm (set instantly)
+--   WeatherRamp  { Name, Seconds } to change weather during the shot
+--   Mood         { Name = "Sunset" or "Rare", Value = 0..1, Seconds }
+--   Event        { Id, Options, Lead } one of the ten events, staged for the camera.
+--                Lead starts it that many seconds before the shot so it's ready on screen.
+--   Cues         { { At = seconds, Do = "Flash" | "Say", ... } } little things on a timer
+--   Track        { Model, Offset, Weight } keep the camera pointed at a moving thing
+--   Captions     { { Text, From, To, Small } } words on screen
+--   Title        { Text, Sub, From } the big title card
+--   FadeIn / FadeOut  seconds of fade from / to black
+--
+-- Tip: to grab a camera position in Studio, line up the editor camera and run this in the
+-- Command Bar:  local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVector * 30)
+
+export type Key = { Pos: Vector3, Look: Vector3, Fov: number? }
+export type Caption = { Text: string, From: number, To: number, Small: boolean? }
+export type Cue = { At: number, Do: string, Npc: string?, Text: string?, Strength: number?, Seconds: number? }
+export type Shot = {
+	Name: string,
+	Duration: number,
+	From: Key,
+	To: Key,
+	Ease: string?,
+	Clock: number?,
+	Weather: string?,
+	WeatherRamp: { Name: string, Seconds: number }?,
+	Mood: { Name: string, Value: number, Seconds: number }?,
+	Event: { Id: string, Options: { [string]: any }?, Lead: number? }?,
+	Cues: { Cue }?,
+	Track: { Model: string, Offset: Vector3?, Weight: number? }?,
+	Captions: { Caption }?,
+	Title: { Text: string, Sub: string?, From: number }?,
+	FadeIn: number?,
+	FadeOut: number?,
+}
+
+local V = Vector3.new
+
+local Cutscene = {}
+
+Cutscene.Settings = {
+	StartDelay = 2, -- seconds of black before the first shot, once your screen is ready
+	Letterbox = true, -- cinematic black bars
+	LetterboxRatio = 2.39,
+	DefaultFov = 50,
+	Loop = false, -- play again after the end card
+	LoopDelay = 6,
+	HideCursor = true,
+}
+
+Cutscene.Shots = {
+	{
+		Name = "Morning mist",
+		Duration = 12,
+		Clock = 6.25,
+		Weather = "Fog",
+		FadeIn = 3,
+		From = { Pos = V(330, 62, 60), Look = V(120, 10, 0), Fov = 60 },
+		To = { Pos = V(170, 36, 28), Look = V(0, 8, 0), Fov = 58 },
+		Captions = { { Text = "Somewhere along the road,", From = 3, To = 10.5 } },
+	},
+	{
+		Name = "Welcome sign",
+		Duration = 10,
+		Clock = 7.8,
+		Weather = "PartlyCloudy",
+		From = { Pos = V(-268, 6, 13), Look = V(-236, 5.5, 22) },
+		To = { Pos = V(-244, 7.5, 9), Look = V(-40, 9, 0) },
+		Captions = {
+			{ Text = "there's a little town called Halfway.", From = 1, To = 8.5 },
+			{ Text = "Population: enough.", From = 4.5, To = 9, Small = true },
+		},
+	},
+	{
+		Name = "Bus stop",
+		Duration = 9,
+		Clock = 8.4,
+		Weather = "Clear",
+		Event = { Id = "BusStopStranger", Options = { Seated = true, NoBus = true }, Lead = 2.5 },
+		From = { Pos = V(-21, 4.2, 15), Look = V(-30, 3.6, 26.5) },
+		To = { Pos = V(-37, 4.2, 15.5), Look = V(-30, 3.6, 26.5) },
+		Captions = { { Text = "Nothing much happens here.", From = 2, To = 8 } },
+	},
+	{
+		Name = "Halfway Mart",
+		Duration = 7,
+		Clock = 9.3,
+		Weather = "Clear",
+		From = { Pos = V(-50, 5.5, -26), Look = V(-50, 9, -62) },
+		To = { Pos = V(-50, 5, -40), Look = V(-50, 8, -62) },
+		Captions = { { Text = "Mostly.", From = 4, To = 7 } },
+	},
+	{
+		Name = "The duck",
+		Duration = 11,
+		Clock = 11.2,
+		Weather = "Clear",
+		Event = { Id = "UnusualVehicle", Options = { Variant = "duck", StartX = -120, Speed = 20 } },
+		From = { Pos = V(36, 3.2, 18.5), Look = V(-60, 7, 4), Fov = 55 },
+		To = { Pos = V(33, 3.4, 18.5), Look = V(-60, 7, 4), Fov = 55 },
+		Track = { Model = "Event_DuckTruck", Offset = V(0, 8, 0), Weight = 0.85 },
+	},
+	{
+		Name = "Gerald",
+		Duration = 6,
+		Clock = 12.1,
+		Weather = "Clear",
+		Event = { Id = "RoadsideObject", Options = { Kind = "gnome", Spot = CFrame.new(-6, 0.55, 19.5) } },
+		From = { Pos = V(-1.5, 2.4, 20.6), Look = V(-9, 2.2, 12), Fov = 42 },
+		To = { Pos = V(-2.4, 2.2, 20.4), Look = V(-9, 2.1, 12), Fov = 40 },
+	},
+	{
+		Name = "Why it crossed",
+		Duration = 9.5,
+		Clock = 13.2,
+		Weather = "Clear",
+		Event = {
+			Id = "FunnyIncident",
+			Options = {
+				Variant = "chicken",
+				From = V(40, 0, 27),
+				To = V(40, 0, -36),
+				Speed = 5.5,
+				DotSpot = CFrame.new(40, 3.6, 39.2),
+				DotLineAt = 3.2,
+			},
+		},
+		From = { Pos = V(52, 2.8, -17), Look = V(40, 2.4, 16) },
+		To = { Pos = V(50.5, 2.6, -15.5), Look = V(40, 2, 12) },
+		FadeOut = 0.8,
+	},
+	{
+		Name = "The trail",
+		Duration = 9,
+		Clock = 16.7,
+		Weather = "Clear",
+		FadeIn = 0.8,
+		From = { Pos = V(-113, 4.4, 20), Look = V(-111, 4, 70) },
+		To = { Pos = V(-111.5, 4.8, 58), Look = V(-106, 4, 100) },
+		Captions = { { Text = "Take the trail sometime.", From = 2, To = 7.5 } },
+	},
+	{
+		Name = "The tiny door",
+		Duration = 6,
+		Clock = 16.9,
+		Weather = "Clear",
+		From = { Pos = V(-106, 1.9, 123.5), Look = V(-100.8, 1.2, 120), Fov = 42 },
+		To = { Pos = V(-104, 1.5, 121.6), Look = V(-100.8, 1.1, 120), Fov = 40 },
+	},
+	{
+		Name = "Wendell",
+		Duration = 7,
+		Clock = 17,
+		Weather = "Clear",
+		From = { Pos = V(-128, 3.5, 177.5), Look = V(-148, 4.2, 184) },
+		To = { Pos = V(-131, 3.2, 179.5), Look = V(-148, 4, 184) },
+		Cues = { { At = 1, Do = "Say", Npc = "Wendell", Text = "Haven't caught a fish in years. Best hobby I ever picked up.", Seconds = 5.5 } },
+	},
+	{
+		Name = "The deer",
+		Duration = 8,
+		Clock = 17.2,
+		Weather = "Clear",
+		Event = {
+			Id = "WoodsNoise",
+			Options = {
+				Kind = "deer",
+				Spot = CFrame.lookAt(V(-128, 0, 74), V(-110, 0, 66)),
+				RevealAfter = 2.5,
+				LeaveAfter = 2,
+				FaceToward = V(-110, 4, 66),
+			},
+		},
+		From = { Pos = V(-110, 4, 65), Look = V(-128, 3.5, 74), Fov = 45 },
+		To = { Pos = V(-111.5, 4, 66.5), Look = V(-130, 3.5, 75), Fov = 45 },
+		FadeOut = 0.8,
+	},
+	{
+		Name = "The lookout",
+		Duration = 12,
+		Clock = 17.75,
+		Weather = "Clear",
+		Mood = { Name = "Sunset", Value = 1, Seconds = 3 },
+		FadeIn = 0.8,
+		-- A slow crane up from behind the bench until the town shows over the treetops.
+		From = { Pos = V(-146, 34.6, 356), Look = V(-60, 12, -10), Fov = 55 },
+		To = { Pos = V(-150, 58, 368), Look = V(-40, 8, -10), Fov = 52 },
+		Captions = { { Text = "Stay for the sunset.", From = 3, To = 10 } },
+		FadeOut = 0.8,
+	},
+	{
+		Name = "Storm",
+		Duration = 12,
+		Clock = 18.6,
+		Weather = "Overcast",
+		WeatherRamp = { Name = "Storm", Seconds = 6 },
+		FadeIn = 0.8,
+		From = { Pos = V(-30, 24, -46), Look = V(40, 6, 24), Fov = 55 },
+		To = { Pos = V(-14, 22, -38), Look = V(40, 6, 24), Fov = 55 },
+		Cues = { { At = 5.5, Do = "Flash", Strength = 1 }, { At = 9.6, Do = "Flash", Strength = 0.7 } },
+		Captions = { { Text = "Some days it rains.", From = 4, To = 10 } },
+	},
+	{
+		Name = "Lights out",
+		Duration = 11,
+		Clock = 19.4,
+		Weather = "Drizzle",
+		Event = { Id = "PowerOutage", Options = { OffAfter = 2.5, Duration = 4.5 } },
+		From = { Pos = V(40, 5.5, 6), Look = V(40, 13, 50) },
+		To = { Pos = V(40, 5, 12), Look = V(40, 14, 50) },
+		Captions = { { Text = "Some nights the lights take a little nap.", From = 3.5, To = 9 } },
+		FadeOut = 0.8,
+	},
+	{
+		Name = "Main street at night",
+		Duration = 9,
+		Clock = 21.6,
+		Weather = "Clear",
+		FadeIn = 0.8,
+		From = { Pos = V(190, 6, -2), Look = V(60, 6, 0) },
+		To = { Pos = V(95, 6, -2), Look = V(-40, 6, 0) },
+		Ease = "Linear",
+	},
+	{
+		Name = "Something rare",
+		Duration = 13,
+		Clock = 22.3,
+		Weather = "Clear",
+		Event = { Id = "RareOccurrence", Options = { Fast = true } },
+		From = { Pos = V(-193, 4.5, 228), Look = V(-210, 4, 242), Fov = 48 },
+		To = { Pos = V(-198.5, 4.2, 233), Look = V(-210, 4.5, 242), Fov = 46 },
+		Captions = {
+			{ Text = "And sometimes…", From = 1, To = 4.5 },
+			{ Text = "…something you can't quite explain.", From = 6, To = 11.8 },
+		},
+		FadeOut = 1,
+	},
+	{
+		Name = "Title",
+		Duration = 11,
+		Clock = 6.35,
+		Weather = "Fog",
+		FadeIn = 1.5,
+		From = { Pos = V(-10, 6, 32), Look = V(-30, 4, 12), Fov = 55 },
+		To = { Pos = V(-4, 40, 64), Look = V(-30, 0, -12), Fov = 58 },
+		Title = { Text = "Somewhere Along the Road", Sub = "Coming soon to Roblox", From = 2.5 },
+		FadeOut = 3,
+	},
+} :: { Shot }
+
+return Cutscene
+]======])
+local i4 = make("ModuleScript", "Text", i1, [======[
 --!strict
 -- All the words in town. Edit freely; nothing here is load-bearing code.
 
@@ -358,14 +622,20 @@ Text.Hints = {
 
 return Text
 ]======])
-local i4 = make("Script", "SomewhereServer", game:GetService("ServerScriptService"), [======[
+local i5 = make("Script", "SomewhereServer", game:GetService("ServerScriptService"), [======[
 --!strict
 -- Somewhere Along the Road: server entry point.
 -- Builds whatever part of the town is missing, then starts the systems in order.
 
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+local cutscene = Config.Mode == "Cutscene"
+
+-- In cutscene mode nobody gets a character: the camera is the only one on set.
+-- This has to happen before anyone joins, so it's the very first thing we do.
+Players.CharacterAutoLoads = not cutscene
 
 local World = script:WaitForChild("World")
 local Systems = script:WaitForChild("Systems")
@@ -403,11 +673,16 @@ ctx.NPCs.Init(ctx)
 ctx.Events.Init(ctx)
 ctx.Director.Init(ctx)
 
+if cutscene then
+	ctx.Events.SetAuto(false)
+	require(Systems.CutsceneDirector).Init(ctx)
+end
+
 print(`[Somewhere] {Config.GameName} v{Config.Version} is running. Have a nice walk.`)
 ]======])
-local i5 = make("Folder", "Events", i4, nil)
-local i6 = make("Folder", "Catalog", i5, nil)
-local i7 = make("ModuleScript", "BusStopStranger", i6, [======[
+local i6 = make("Folder", "Events", i5, nil)
+local i7 = make("Folder", "Catalog", i6, nil)
+local i8 = make("ModuleScript", "BusStopStranger", i7, [======[
 --!strict
 -- 4. A traveler walks in off the trail and waits at the bus stop. Eventually the Route 9 bus
 --    shows up, they climb aboard, and the bus carries on east.
@@ -476,16 +751,29 @@ return {
 			S.Discoveries.Award(player, "traveler")
 		end)
 
-		traveler:WalkTo(curb.Position, 30)
+		local staged = ctx.Options.Seated == true
+		if not staged then
+			traveler:WalkTo(curb.Position, 30)
+		end
 		if ctx.Cancelled then
 			return
 		end
 		local suitcase = ctx:Track(Props.suitcase(workspace, bench.CFrame * CFrame.new(4.9, -1.9, 0.3) * CFrame.Angles(0, math.rad(80), 0), rgb(120, 80, 60)))
 		if bench:IsA("Seat") and not bench.Occupant then
-			traveler:WalkTo(bench.Position, 6)
+			if staged then
+				-- Already waiting when the camera arrives.
+				traveler.Model:PivotTo(bench.CFrame * CFrame.new(0, 2, 0))
+			else
+				traveler:WalkTo(bench.Position, 6)
+			end
 			traveler:SitOn(bench)
 		end
 
+		if ctx.Options.NoBus then
+			while ctx:Wait(1) do
+			end
+			return
+		end
 		if not ctx:Wait(ctx.Rng:NextNumber(150, 240)) then
 			return
 		end
@@ -523,7 +811,7 @@ return {
 	end,
 }
 ]======])
-local i8 = make("ModuleScript", "FunnyIncident", i6, [======[
+local i9 = make("ModuleScript", "FunnyIncident", i7, [======[
 --!strict
 -- 9. A small, harmless, funny moment with the locals:
 --    Hollis's lawn mower makes a run for it, or a chicken crosses the road (Dot has questions).
@@ -613,7 +901,8 @@ end
 
 local function chicken(ctx: EventContext.Context)
 	local S = ctx.Systems
-	local from = Vector3.new(66, 0, 32)
+	local o = ctx.Options
+	local from = (o.From :: Vector3?) or Vector3.new(66, 0, 32)
 	local cf = CFrame.lookAt(from, from + Vector3.new(0, 0, -1))
 	local model = ctx:Track(Props.chicken(workspace, cf))
 	model.Name = "Event_Chicken"
@@ -624,7 +913,22 @@ local function chicken(ctx: EventContext.Context)
 	end, 45, "chicken_crossing")
 
 	local dot = S.NPCs.Get("Dot")
-	if dot and not dot.Busy then
+	local dotSpot = o.DotSpot :: CFrame?
+	if dot and dotSpot then
+		-- Staged: Dot is already out front, watching.
+		dot.Busy = true
+		ctx:OnCleanup(function()
+			dot.Busy = false
+			dot:GoHome()
+		end)
+		dot:Stand()
+		dot.Model:PivotTo(dotSpot)
+		task.delay((o.DotLineAt :: number?) or 2.5, function()
+			if not ctx.Cancelled then
+				dot:Say(Text.Lines.DotChicken, 5)
+			end
+		end)
+	elseif dot and not dot.Busy then
 		dot.Busy = true
 		ctx:OnCleanup(function()
 			dot.Busy = false
@@ -654,13 +958,21 @@ local function chicken(ctx: EventContext.Context)
 	end
 
 	-- Little hops, little pauses, all the way across.
-	local waypoints = { Vector3.new(65, 0, 14), Vector3.new(63, 0, 2), Vector3.new(62, 0, -10), Vector3.new(60, 0, -22), Vector3.new(57, 0, -40) }
-	for _, p in waypoints do
-		if not Motion.MoveTo(rig, p, 3.2, cancelled(ctx), 0.6) then
+	local to = o.To :: Vector3?
+	if to then
+		-- Staged: one steady trot to the far side.
+		if not Motion.MoveTo(rig, to, (o.Speed :: number?) or 5, cancelled(ctx), 0.6) then
 			return
 		end
-		if not ctx:Wait(ctx.Rng:NextNumber(0.5, 2)) then
-			return
+	else
+		local waypoints = { Vector3.new(65, 0, 14), Vector3.new(63, 0, 2), Vector3.new(62, 0, -10), Vector3.new(60, 0, -22), Vector3.new(57, 0, -40) }
+		for _, p in waypoints do
+			if not Motion.MoveTo(rig, p, 3.2, cancelled(ctx), 0.6) then
+				return
+			end
+			if not ctx:Wait(ctx.Rng:NextNumber(0.5, 2)) then
+				return
+			end
 		end
 	end
 	if not ctx:Wait(6) then
@@ -680,6 +992,12 @@ return {
 		return clock > 8 and clock < 19
 	end,
 	Run = function(ctx: EventContext.Context)
+		local variant = ctx.Options.Variant
+		if variant == "chicken" then
+			return chicken(ctx)
+		elseif variant == "mower" then
+			return mower(ctx)
+		end
 		if ctx.Systems.NPCs.Available("Hollis") and ctx.Rng:NextNumber() < 0.5 then
 			mower(ctx)
 		else
@@ -688,7 +1006,7 @@ return {
 	end,
 }
 ]======])
-local i9 = make("ModuleScript", "GoldenSunset", i6, [======[
+local i10 = make("ModuleScript", "GoldenSunset", i7, [======[
 --!strict
 -- 8. A quiet, beautiful sunset. The sky clears and goes gold and pink. Hollis sits on his porch.
 --    Anyone who stands still for a little while to watch it gets a small discovery.
@@ -776,7 +1094,7 @@ return {
 	end,
 }
 ]======])
-local i10 = make("ModuleScript", "PowerOutage", i6, [======[
+local i11 = make("ModuleScript", "PowerOutage", i7, [======[
 --!strict
 -- 5. A brief power outage. Everything electric flickers, goes quiet, then hums back to life.
 
@@ -807,6 +1125,10 @@ return {
 		ctx:OnCleanup(function()
 			S.Net.Set("PowerOn", true)
 		end)
+		local offAfter = ctx.Options.OffAfter :: number?
+		if offAfter and not ctx:Wait(offAfter) then
+			return
+		end
 		S.Lights.Flicker(1.6)
 		S.Net.Set("PowerOn", false)
 		local marv = nearSomeone(ctx, "Marv", 40)
@@ -819,7 +1141,7 @@ return {
 				dot:Say(Text.Lines.DotOutage)
 			end)
 		end
-		if not ctx:Wait(ctx.Rng:NextNumber(25, 55)) then
+		if not ctx:Wait((ctx.Options.Duration :: number?) or ctx.Rng:NextNumber(25, 55)) then
 			return
 		end
 		S.Net.Set("PowerOn", true)
@@ -831,7 +1153,7 @@ return {
 	end,
 }
 ]======])
-local i11 = make("ModuleScript", "Rainstorm", i6, [======[
+local i12 = make("ModuleScript", "Rainstorm", i7, [======[
 --!strict
 -- 1. A sudden rainstorm: the sky goes dark, it pours for a few minutes, then eases off.
 
@@ -865,7 +1187,7 @@ return {
 	end,
 }
 ]======])
-local i12 = make("ModuleScript", "RareOccurrence", i6, [======[
+local i13 = make("ModuleScript", "RareOccurrence", i7, [======[
 --!strict
 -- 10. Something rare and gentle, on a clear night: the streetlights blink in a wave toward the
 --     trail, fireflies gather in the clearing, the old standing stone glows softly, and a small
@@ -905,6 +1227,8 @@ return {
 				S.DayNight.SetClock(21.3)
 			end
 		end
+		-- The cutscene asks for a quicker build-up so it fits in one shot.
+		local pace = if ctx.Options.Fast then 0.3 else 1
 		local center = ctx:Anchor("ClearingCenter")
 		if not center then
 			return
@@ -945,7 +1269,7 @@ return {
 		light.Brightness = 0
 		light.Shadows = false
 		light.Parent = holder
-		fade(light, { Brightness = 1.4 }, 10)
+		fade(light, { Brightness = 1.4 }, 10 * pace)
 		local flies = Instance.new("ParticleEmitter")
 		flies.Texture = Config.Textures.Sparkle
 		flies.Color = ColorSequence.new(Color3.fromRGB(230, 255, 150), SOFT)
@@ -960,7 +1284,7 @@ return {
 		flies.Rate = 26
 		flies.Parent = holder
 		for _, g in glyphs do
-			fade(g, { Transparency = 0.15 }, 12)
+			fade(g, { Transparency = 0.15 }, 12 * pace)
 		end
 
 		if not ctx:Sound("SoftHum", holder, true, 0.4) then
@@ -994,7 +1318,7 @@ return {
 	end,
 }
 ]======])
-local i13 = make("ModuleScript", "RoadsideObject", i6, [======[
+local i14 = make("ModuleScript", "RoadsideObject", i7, [======[
 --!strict
 -- 7. Something turns up on the shoulder while nobody's looking: Gerald the gnome, a red umbrella,
 --    a suitcase full of snacks, a jar of sunflowers... It quietly disappears later, also unobserved.
@@ -1026,23 +1350,28 @@ return {
 	Weight = 8,
 	Run = function(ctx: EventContext.Context)
 		local S = ctx.Systems
-		-- Pick a spot nobody is looking at right now.
-		local spots = ctx:Anchors("RoadsideSpot")
-		local free = {}
-		for _, spot in spots do
-			if ctx:NearestPlayerDistance(spot.Position) > 70 then
-				table.insert(free, spot)
+		local o = ctx.Options
+		local spotCF = o.Spot :: CFrame?
+		if not spotCF then
+			-- Pick a spot nobody is looking at right now.
+			local spots = ctx:Anchors("RoadsideSpot")
+			local free = {}
+			for _, spot in spots do
+				if ctx:NearestPlayerDistance(spot.Position) > 70 then
+					table.insert(free, spot)
+				end
 			end
-		end
-		if #free == 0 then
-			if not ctx.Forced or #spots == 0 then
-				return
+			if #free == 0 then
+				if not ctx.Forced or #spots == 0 then
+					return
+				end
+				free = spots
 			end
-			free = spots
+			spotCF = ctx:Pick(free).CFrame
 		end
-		local spot = ctx:Pick(free)
-		local kind = ctx:Pick(KINDS)
-		local model = ctx:Track(BUILDERS[kind](workspace, spot.CFrame))
+		local placed = spotCF :: CFrame
+		local kind = (o.Kind :: string?) or ctx:Pick(KINDS)
+		local model = ctx:Track(BUILDERS[kind](workspace, placed))
 		model.Name = "Event_" .. model.Name
 
 		local target = model.PrimaryPart :: BasePart
@@ -1066,7 +1395,7 @@ return {
 		end
 		-- Leave the same way it arrived: when nobody's around.
 		local giveUp = os.clock() + 150
-		while os.clock() < giveUp and ctx:NearestPlayerDistance(spot.Position) < 60 do
+		while os.clock() < giveUp and ctx:NearestPlayerDistance(placed.Position) < 60 do
 			if not ctx:Wait(5) then
 				return
 			end
@@ -1074,7 +1403,7 @@ return {
 	end,
 }
 ]======])
-local i14 = make("ModuleScript", "StoreClosing", i6, [======[
+local i15 = make("ModuleScript", "StoreClosing", i7, [======[
 --!strict
 -- 3. The store closes for a bit. Marv tapes a note to the door and wanders over to the diner.
 
@@ -1200,7 +1529,7 @@ return {
 	end,
 }
 ]======])
-local i15 = make("ModuleScript", "UnusualVehicle", i6, [======[
+local i16 = make("ModuleScript", "UnusualVehicle", i7, [======[
 --!strict
 -- 2. Something unusual drives through town: an ice cream truck (it stops at the store),
 --    a flatbed carrying a giant rubber duck, or a tractor hauling hay at walking pace.
@@ -1222,7 +1551,9 @@ local function lane(x: number, eastbound: boolean): Vector3
 end
 
 local function spawnVehicle(ctx: EventContext.Context, builder: (Instance, CFrame) -> Model, eastbound: boolean): Motion.Rig
-	local start = lane(if eastbound then -END_X else END_X, eastbound)
+	-- The cutscene can start a vehicle closer in (StartX) so it reaches the camera on cue.
+	local startX = ctx.Options.StartX :: number?
+	local start = lane(startX or (if eastbound then -END_X else END_X), eastbound)
 	local cf = CFrame.new(start - Vector3.new(0, 0.5, 0)) * (if eastbound then EAST else WEST)
 	local model = ctx:Track(builder(workspace, cf))
 	model.Name = "Event_" .. model.Name
@@ -1292,14 +1623,14 @@ local function duck(ctx: EventContext.Context)
 	ctx:AwardNearby(function()
 		return rig.Root.Position
 	end, 55, "big_duck")
-	if not Motion.MoveTo(rig, lane(-60, true), 20, cancelled(ctx)) then
+	if not Motion.MoveTo(rig, lane(-60, true), (ctx.Options.Speed :: number?) or 20, cancelled(ctx)) then
 		return
 	end
 	if not ctx:Sound("Horn", rig.Root, false, 0.6) then
 		ctx:Hint(Text.Hints.Horn, rig.Root.Position, 240)
 	end
 	say(ctx, rig, Text.Lines.DuckDriver)
-	Motion.MoveTo(rig, lane(END_X, true), 20, cancelled(ctx))
+	Motion.MoveTo(rig, lane(END_X, true), (ctx.Options.Speed :: number?) or 20, cancelled(ctx))
 end
 
 local function tractor(ctx: EventContext.Context)
@@ -1326,6 +1657,14 @@ return {
 		return clock > 7 and clock < 20.5
 	end,
 	Run = function(ctx: EventContext.Context)
+		local variant = ctx.Options.Variant
+		if variant == "duck" then
+			return duck(ctx)
+		elseif variant == "icecream" then
+			return iceCream(ctx)
+		elseif variant == "tractor" then
+			return tractor(ctx)
+		end
 		local clock = ctx.Systems.DayNight.GetClock()
 		local options = { tractor }
 		if clock > 9.5 and clock < 19.5 then
@@ -1337,7 +1676,7 @@ return {
 	end,
 }
 ]======])
-local i16 = make("ModuleScript", "WoodsNoise", i6, [======[
+local i17 = make("ModuleScript", "WoodsNoise", i7, [======[
 --!strict
 -- 6. Something is rustling in the woods. Go and look: it's a deer, an owl, or a raccoon
 --    with a sandwich. Never anything to worry about.
@@ -1387,16 +1726,23 @@ return {
 	Weight = 8,
 	Run = function(ctx: EventContext.Context)
 		local S = ctx.Systems
-		local spots = ctx:Anchors("WoodsSpot")
-		if #spots == 0 then
-			return
+		local o = ctx.Options
+		local staged = o.Spot :: CFrame?
+		local spot: CFrame
+		if staged then
+			spot = staged
+		else
+			local spots = ctx:Anchors("WoodsSpot")
+			if #spots == 0 then
+				return
+			end
+			spot = ctx:Pick(spots).CFrame
 		end
-		local spot = ctx:Pick(spots).CFrame
 		local clock = S.DayNight.GetClock()
 		local night = clock >= 19.5 or clock < 6
 		local kinds = if night then { "owl", "owl", "raccoon" } else { "deer", "deer", "raccoon" }
-		local kind = ctx:Pick(kinds)
-		local facing = spot * CFrame.Angles(0, ctx.Rng:NextNumber(0, math.pi * 2), 0)
+		local kind = (o.Kind :: string?) or ctx:Pick(kinds)
+		local facing = if staged then staged else spot * CFrame.Angles(0, ctx.Rng:NextNumber(0, math.pi * 2), 0)
 
 		local model: Model
 		if kind == "owl" then
@@ -1428,10 +1774,12 @@ return {
 		local leaves = rustle(ctx, spot.Position)
 		local slot = if kind == "owl" then "Owl" else "Rustle"
 		local sound = ctx:Sound(slot, rig.Root, kind ~= "owl", 0.8)
-		if not sound then
+		if not sound and not staged then
 			ctx:Hint(Text.Hints.WoodsNoise, spot.Position, 170)
 		end
 
+		-- Staged reveals happen on a timer and look toward a given point (the camera).
+		local revealAt = if o.RevealAfter then os.clock() + (o.RevealAfter :: number) else math.huge
 		local revealed = false
 		local deadline = os.clock() + ctx.Rng:NextNumber(200, 260)
 		local nextBurst = 0
@@ -1443,19 +1791,22 @@ return {
 				end
 				nextBurst = os.clock() + ctx.Rng:NextNumber(3, 7)
 			end
-			if not revealed and ctx:NearestPlayerDistance(rig.Root.Position) < 24 then
+			if not revealed and (ctx:NearestPlayerDistance(rig.Root.Position) < 24 or os.clock() >= revealAt) then
 				revealed = true
 				S.Discoveries.AwardNear(rig.Root.Position, 30, "woods_" .. kind)
 				deadline = math.min(deadline, os.clock() + 20)
 				-- Look at the visitor, then go about its business.
 				local positions = ctx:PlayerPositions()
-				if positions[1] then
-					Motion.Face(rig, positions[1])
+				local watcher = (o.FaceToward :: Vector3?) or positions[1]
+				if watcher then
+					Motion.Face(rig, watcher)
 				end
 				if kind ~= "owl" then
 					ctx:Spawn(function()
-						task.wait(2.5)
-						local away = rig.Root.Position + (rig.Root.Position - (positions[1] or rig.Root.Position)).Unit * 40
+						task.wait((o.LeaveAfter :: number?) or 2.5)
+						local from = watcher or (rig.Root.Position - rig.Root.CFrame.LookVector)
+						local flat = Vector3.new(rig.Root.Position.X - from.X, 0, rig.Root.Position.Z - from.Z)
+						local away = rig.Root.Position + (if flat.Magnitude > 0.1 then flat.Unit else Vector3.xAxis) * 40
 						Motion.MoveTo(rig, away, if kind == "deer" then 11 else 5, function()
 							return ctx.Cancelled
 						end)
@@ -1469,7 +1820,7 @@ return {
 	end,
 }
 ]======])
-local i17 = make("ModuleScript", "EventContext", i5, [======[
+local i18 = make("ModuleScript", "EventContext", i6, [======[
 --!strict
 -- What every event gets while it runs: the game's systems, a random stream, and cleanup
 -- helpers so an event can never leave a truck parked forever or the power switched off.
@@ -1483,6 +1834,7 @@ export type Context = typeof(setmetatable(
 	{} :: {
 		Id: string,
 		Forced: boolean,
+		Options: { [string]: any }, -- staging hints from the cutscene (where, which variant, how fast)
 		Cancelled: boolean,
 		Systems: any,
 		Rng: Random,
@@ -1491,10 +1843,11 @@ export type Context = typeof(setmetatable(
 	EventContext
 ))
 
-function EventContext.new(id: string, systems: any, forced: boolean): Context
+function EventContext.new(id: string, systems: any, forced: boolean, options: { [string]: any }?): Context
 	return setmetatable({
 		Id = id,
 		Forced = forced,
+		Options = options or {},
 		Cancelled = false,
 		Systems = systems,
 		Rng = Random.new(),
@@ -1644,7 +1997,7 @@ end
 
 return EventContext
 ]======])
-local i18 = make("ModuleScript", "EventDirector", i5, [======[
+local i19 = make("ModuleScript", "EventDirector", i6, [======[
 --!strict
 -- Decides when something happens. Each in-game day rolls a mood (quiet, ordinary, lively)
 -- that sets how many events it gets. Events claim "resources" (the road, the weather, the store)
@@ -1758,14 +2111,16 @@ function EventDirector.Stop(id: string)
 	end
 end
 
-function EventDirector.StopAll()
+function EventDirector.StopAll(except: string?)
 	for id in running do
-		EventDirector.Stop(id)
+		if id ~= except then
+			EventDirector.Stop(id)
+		end
 	end
 end
 
 -- Starts an event. `forced` (from the director panel) clears anything in its way.
-function EventDirector.Trigger(id: string, forced: boolean?): boolean
+function EventDirector.Trigger(id: string, forced: boolean?, options: { [string]: any }?): boolean
 	local e = events[id]
 	if not e or running[id] then
 		return false
@@ -1779,7 +2134,7 @@ function EventDirector.Trigger(id: string, forced: boolean?): boolean
 			EventDirector.Stop(other)
 		end
 	end
-	local context = EventContext.new(id, systems, forced == true)
+	local context = EventContext.new(id, systems, forced == true, options)
 	running[id] = { context = context, resources = e.Resources }
 	lastStartedId = id
 	if not forced then
@@ -1884,7 +2239,7 @@ end
 
 return EventDirector
 ]======])
-local i19 = make("ModuleScript", "Motion", i5, [======[
+local i20 = make("ModuleScript", "Motion", i6, [======[
 --!strict
 -- Smooth movement for vehicles and animals. The model becomes one welded, unanchored assembly
 -- held by AlignPosition/AlignOrientation, so clients see interpolated physics instead of
@@ -2018,8 +2373,157 @@ end
 
 return Motion
 ]======])
-local i20 = make("Folder", "Systems", i4, nil)
-local i21 = make("ModuleScript", "DayNight", i20, [======[
+local i21 = make("Folder", "Systems", i5, nil)
+local i22 = make("ModuleScript", "CutsceneDirector", i21, [======[
+--!strict
+-- Runs the trailer. The server owns the timeline: for each shot it sets the time of day, the
+-- weather and the mood, stages that shot's event, then tells every screen which shot is live
+-- (and exactly when it started) so the cameras all move in step.
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Cutscene = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Cutscene"))
+
+local CutsceneDirector = {}
+
+type Live = { kind: string, index: number?, startedAt: number? }
+
+local ctx: any
+local remote: RemoteEvent
+local runToken = 0
+local live: Live = { kind = "waiting" }
+local started = false
+
+local function send(payload: Live, player: Player?)
+	if player then
+		remote:FireClient(player, payload)
+	else
+		remote:FireAllClients(payload)
+	end
+end
+
+local function runCue(cue: Cutscene.Cue)
+	if cue.Do == "Flash" then
+		ctx.Net.Remote("Flash"):FireAllClients(cue.Strength or 1)
+	elseif cue.Do == "Say" and cue.Npc and cue.Text then
+		local npc = ctx.NPCs.Get(cue.Npc)
+		if npc then
+			npc:Say(cue.Text, cue.Seconds)
+		end
+	end
+end
+
+-- Sets the scene for a shot: weather first (the lighting reads it), then the clock and mood.
+local function prepare(shot: Cutscene.Shot)
+	ctx.DayNight.SetTimeScale(0)
+	ctx.DayNight.ResetMoods()
+	ctx.Net.Set("PowerOn", true)
+	if shot.Weather then
+		ctx.Weather.Snap(shot.Weather)
+	end
+	if shot.WeatherRamp then
+		ctx.Weather.Force(shot.WeatherRamp.Name, shot.WeatherRamp.Seconds)
+	end
+	if shot.Clock then
+		ctx.DayNight.SetClock(shot.Clock)
+	end
+	if shot.Mood then
+		ctx.DayNight.SetMood(shot.Mood.Name, shot.Mood.Value, shot.Mood.Seconds)
+	end
+	ctx.Lights.Refresh()
+end
+
+local function stage(shot: Cutscene.Shot)
+	local e = shot.Event
+	if e then
+		ctx.Events.Trigger(e.Id, true, e.Options)
+	end
+end
+
+function CutsceneDirector.Play()
+	runToken += 1
+	local token = runToken
+	local shots = Cutscene.Shots
+	task.spawn(function()
+		ctx.Events.StopAll()
+		local staged: { [number]: boolean } = {}
+		for i, shot in shots do
+			if token ~= runToken then
+				return
+			end
+			-- Clear the stage, keeping this shot's event if it was started early.
+			ctx.Events.StopAll(if staged[i] and shot.Event then shot.Event.Id else nil)
+			prepare(shot)
+			if not staged[i] then
+				stage(shot)
+			end
+			live = { kind = "shot", index = i, startedAt = workspace:GetServerTimeNow() }
+			send(live)
+
+			local cues: { Cutscene.Cue } = shot.Cues or {}
+			for _, cue in cues do
+				task.delay(cue.At, function()
+					if token == runToken then
+						runCue(cue)
+					end
+				end)
+			end
+			-- Some events need a moment to get into place (someone sitting down, say),
+			-- so they start a little before their shot.
+			local nextShot = shots[i + 1]
+			local lead = nextShot and nextShot.Event and nextShot.Event.Lead
+			if nextShot and lead then
+				task.delay(math.max(0, shot.Duration - lead), function()
+					if token == runToken then
+						staged[i + 1] = true
+						stage(nextShot)
+					end
+				end)
+			end
+			task.wait(shot.Duration)
+		end
+		if token ~= runToken then
+			return
+		end
+		live = { kind = "end" }
+		send(live)
+		ctx.Events.StopAll()
+		if Cutscene.Settings.Loop then
+			task.wait(Cutscene.Settings.LoopDelay)
+			if token == runToken then
+				CutsceneDirector.Play()
+			end
+		end
+	end)
+end
+
+function CutsceneDirector.Init(context: any)
+	ctx = context
+	remote = ctx.Net.Remote("Cutscene")
+	-- Anyone who slipped in before character spawning was switched off loses their avatar.
+	for _, player in Players:GetPlayers() do
+		if player.Character then
+			player.Character:Destroy()
+		end
+	end
+	remote.OnServerEvent:Connect(function(player: Player, action: any)
+		if action == "Ready" then
+			if not started then
+				started = true
+				task.delay(Cutscene.Settings.StartDelay, CutsceneDirector.Play)
+			else
+				send(live, player)
+			end
+		elseif action == "Restart" and player:GetAttribute("IsDirector") then
+			CutsceneDirector.Play()
+		end
+	end)
+end
+
+return CutsceneDirector
+]======])
+local i23 = make("ModuleScript", "DayNight", i21, [======[
 --!strict
 -- The clock, and the light that comes with it. Each step it blends the time-of-day look,
 -- then layers weather and any "mood" (a golden sunset, something rare) on top.
@@ -2069,6 +2573,7 @@ local day = 1
 local moods: { [string]: number } = {}
 local moodTargets: { [string]: { target: number, rate: number } } = {}
 local newDayCallbacks: { (number) -> () } = {}
+local apply: () -> ()
 
 local function lookAt(h: number): Look
 	for i = 1, #KEYS - 1 do
@@ -2098,6 +2603,9 @@ end
 function DayNight.SetClock(h: number)
 	clock = h % 24
 	Lighting.ClockTime = clock
+	if ctx then
+		apply()
+	end
 end
 
 function DayNight.SetTimeScale(scale: number)
@@ -2126,11 +2634,19 @@ function DayNight.SetMood(name: string, target: number, seconds: number?)
 	moodTargets[name] = { target = target, rate = 1 / math.max(seconds or 20, 0.5) }
 end
 
+-- Drops every mood at once (the cutscene uses this between shots).
+function DayNight.ResetMoods()
+	for name in moods do
+		moods[name] = 0
+	end
+	table.clear(moodTargets)
+end
+
 function DayNight.OnNewDay(callback: (number) -> ())
 	table.insert(newDayCallbacks, callback)
 end
 
-local function apply()
+function apply()
 	local look = lookAt(clock)
 	local w = ctx.Weather.Get()
 	local sunset = moods.Sunset or 0
@@ -2215,7 +2731,7 @@ end
 
 return DayNight
 ]======])
-local i22 = make("ModuleScript", "Director", i20, [======[
+local i24 = make("ModuleScript", "Director", i21, [======[
 --!strict
 -- Trailer tools: trigger any event, set the time, pin the weather, jump to landmarks.
 -- Only players allowed by Config.Director (always you, in Studio) can use them.
@@ -2284,7 +2800,7 @@ end
 
 return Director
 ]======])
-local i23 = make("ModuleScript", "Discoveries", i20, [======[
+local i25 = make("ModuleScript", "Discoveries", i21, [======[
 --!strict
 -- "Discover three interesting things." Tracks what each visitor has found this session.
 
@@ -2375,7 +2891,7 @@ end
 
 return Discoveries
 ]======])
-local i24 = make("ModuleScript", "Interactions", i20, [======[
+local i26 = make("ModuleScript", "Interactions", i21, [======[
 --!strict
 -- Turns every part marked with an "Interact" attribute into a ProximityPrompt.
 -- Prompts work the same with a tap (mobile), E (keyboard) or X (gamepad).
@@ -2641,7 +3157,7 @@ end
 
 return Interactions
 ]======])
-local i25 = make("ModuleScript", "Items", i20, [======[
+local i27 = make("ModuleScript", "Items", i21, [======[
 --!strict
 -- Small things people hand you: coffee, pie, a soda, chips, ice cream. Tap to have a bite or a sip.
 
@@ -2807,7 +3323,7 @@ end
 
 return Items
 ]======])
-local i26 = make("ModuleScript", "Lights", i20, [======[
+local i28 = make("ModuleScript", "Lights", i21, [======[
 --!strict
 -- Every switchable light in town: streetlights, the store, the diner's neon, house windows.
 -- Fixtures are parts with a "LightGroup" attribute (see World/Kit.fixture).
@@ -3003,7 +3519,7 @@ end
 
 return Lights
 ]======])
-local i27 = make("ModuleScript", "NPCs", i20, [======[
+local i29 = make("ModuleScript", "NPCs", i21, [======[
 --!strict
 -- Townspeople. Marv runs the store, Dot runs the diner, Hollis gardens, Wendell fishes.
 -- Event visitors (like the traveler) are spawned through the same API.
@@ -3521,7 +4037,7 @@ end
 
 return NPCs
 ]======])
-local i28 = make("ModuleScript", "Net", i20, [======[
+local i30 = make("ModuleScript", "Net", i21, [======[
 --!strict
 -- Remotes and shared world state. State lives as attributes on ReplicatedStorage.SomewhereState,
 -- so clients can read it and listen with GetAttributeChangedSignal.
@@ -3543,7 +4059,7 @@ function Net.Init()
 		f.Parent = ReplicatedStorage
 		remotes = f
 	end
-	for _, name in { "Notify", "Flash", "Director" } do
+	for _, name in { "Notify", "Flash", "Director", "Cutscene" } do
 		if not remotes:FindFirstChild(name) then
 			local r = Instance.new("RemoteEvent")
 			r.Name = name
@@ -3594,7 +4110,7 @@ end
 
 return Net
 ]======])
-local i29 = make("ModuleScript", "Spawning", i20, [======[
+local i31 = make("ModuleScript", "Spawning", i21, [======[
 --!strict
 -- Player arrival: everyone starts at the bus stop at an easy walking pace.
 
@@ -3636,7 +4152,7 @@ end
 
 return Spawning
 ]======])
-local i30 = make("ModuleScript", "StoreService", i20, [======[
+local i32 = make("ModuleScript", "StoreService", i21, [======[
 --!strict
 -- The Halfway Mart's automatic doors and its open/closed state.
 
@@ -3773,7 +4289,7 @@ end
 
 return StoreService
 ]======])
-local i31 = make("ModuleScript", "Weather", i20, [======[
+local i33 = make("ModuleScript", "Weather", i21, [======[
 --!strict
 -- Weather drifts on its own (clear, cloudy, the odd drizzle, morning fog).
 -- Events can push an override (a storm, a clear sky for the sunset) and release it later.
@@ -3802,6 +4318,7 @@ local natural = "Clear"
 local nextNatural = 0
 local overrides: { Override } = {}
 local forced: string? = nil
+local forcedRate = 3 / 20
 local nextThunder = 0
 local wetParts: { BasePart } = {}
 local lastWet = -1
@@ -3809,7 +4326,7 @@ local rng = Random.new()
 
 local function targetName(): (string, number)
 	if forced then
-		return forced, 3 / 20
+		return forced, forcedRate
 	end
 	local top = overrides[#overrides]
 	if top then
@@ -3844,12 +4361,34 @@ function Weather.Release(o: Override?)
 	end
 end
 
--- Director control: pin a state, or nil to go back to automatic.
-function Weather.Force(name: string?)
+-- Director control: pin a state (changing over `seconds`), or nil to go back to automatic.
+function Weather.Force(name: string?, seconds: number?)
 	if name and not STATES[name] then
 		return
 	end
 	forced = name
+	forcedRate = 3 / math.max(seconds or 20, 0.5)
+end
+
+-- Pins a state and jumps straight to it, with no transition (used between cutscene shots).
+function Weather.Snap(name: string)
+	if not STATES[name] then
+		return
+	end
+	forced = name
+	current = table.clone(STATES[name])
+	if ctx then
+		local Net = ctx.Net
+		Net.Set("Weather", name)
+		Net.Set("Rain", current.Rain)
+		Net.Set("Wind", current.Wind)
+		Net.Set("Storm", current.Storm)
+		Net.Set("Fog", current.Fog)
+		for _, p in wetParts do
+			p.Reflectance = 0.14 * current.Rain
+		end
+		lastWet = current.Rain
+	end
 end
 
 local function pickNatural(): string
@@ -3930,8 +4469,8 @@ end
 
 return Weather
 ]======])
-local i32 = make("Folder", "World", i4, nil)
-local i33 = make("ModuleScript", "Builder", i32, [======[
+local i34 = make("Folder", "World", i5, nil)
+local i35 = make("ModuleScript", "Builder", i34, [======[
 --!strict
 -- Builds the whole town. Used three ways:
 --   * the offline place builder (tools/build.luau) bakes the parts into the .rbxl file,
@@ -4081,7 +4620,7 @@ end
 
 return Builder
 ]======])
-local i34 = make("ModuleScript", "Diner", i32, [======[
+local i36 = make("ModuleScript", "Diner", i34, [======[
 --!strict
 -- The Mile Marker Diner: steel, red trim, booths by the windows, pie under glass.
 -- Local space: x along the front, z from the front windows (-) to the kitchen (+).
@@ -4303,7 +4842,7 @@ end
 
 return Diner
 ]======])
-local i35 = make("ModuleScript", "Ground", i32, [======[
+local i37 = make("ModuleScript", "Ground", i34, [======[
 --!strict
 -- Terrain: grass, the hill, the creek, the dirt trail, and paved ground under roads and lots.
 -- `terrain` is workspace.Terrain in a live game (the offline builder passes a recorder instead).
@@ -4407,6 +4946,10 @@ function Ground.buildTerrain(terrain: any)
 	terrain:FillCylinder(CFrame.new(pondCenter.X, -creek.Depth / 2, pondCenter.Z), creek.Depth, 16, Enum.Material.Air)
 	terrain:FillCylinder(CFrame.new(pondCenter.X, -(creek.Depth + 1.4) / 2, pondCenter.Z), creek.Depth - 1.4, 15, Enum.Material.Water)
 
+	-- Bare earth around the old oak's roots, so its tiny door isn't lost in tall grass.
+	local oak = Layout.OldOak
+	terrain:FillCylinder(CFrame.new(oak.X, -1.5, oak.Z), 3, 9, Enum.Material.Ground)
+
 	-- The clearing: soft leafy ground.
 	local clearing = Layout.Clearing
 	terrain:FillCylinder(CFrame.new(clearing.Center.X, -1.5, clearing.Center.Z), 3, clearing.Radius, Enum.Material.LeafyGrass)
@@ -4446,7 +4989,7 @@ end
 
 return Ground
 ]======])
-local i36 = make("ModuleScript", "Houses", i32, [======[
+local i38 = make("ModuleScript", "Houses", i34, [======[
 --!strict
 -- Modest one-storey houses with porches. One of them (Hollis's yellow house) is open to visit.
 -- Local space: x along the front, z from the front door (-) to the back wall (+).
@@ -4693,7 +5236,7 @@ end
 
 return Houses
 ]======])
-local i37 = make("ModuleScript", "Kit", i32, [======[
+local i39 = make("ModuleScript", "Kit", i34, [======[
 --!strict
 -- Small building blocks for the town: parts, walls with openings, roofs, signs, lights.
 -- Runs both in a live server and in the offline place builder, so it only sets CFrame
@@ -5167,7 +5710,7 @@ end
 
 return Kit
 ]======])
-local i38 = make("ModuleScript", "Layout", i32, [======[
+local i40 = make("ModuleScript", "Layout", i34, [======[
 --!strict
 -- Where everything is. One stud is roughly 28 cm; a person is about 5.5 studs tall.
 -- The main road runs east-west along Z = 0. North is -Z (store side), south is +Z (diner side).
@@ -5332,7 +5875,7 @@ Layout.WoodsSpots = {
 
 return Layout
 ]======])
-local i39 = make("ModuleScript", "Nature", i32, [======[
+local i41 = make("ModuleScript", "Nature", i34, [======[
 --!strict
 -- Woods, fields and the special places out there: the old oak, the clearing,
 -- the creek bridge, the lookout and the sunflower truck.
@@ -5674,7 +6217,7 @@ end
 
 return Nature
 ]======])
-local i40 = make("ModuleScript", "Palette", i32, [======[
+local i42 = make("ModuleScript", "Palette", i34, [======[
 --!strict
 -- The town's colours. Muted, warm, a little faded by the sun.
 
@@ -5721,7 +6264,7 @@ return {
 	CoolLight = rgb(236, 244, 255),
 }
 ]======])
-local i41 = make("ModuleScript", "Props", i32, [======[
+local i43 = make("ModuleScript", "Props", i34, [======[
 --!strict
 -- Small things that show up during events: animals, lost objects, hats, a compass.
 -- Every builder returns a Model with PrimaryPart "Root" at ground level, front facing -Z.
@@ -5952,7 +6495,7 @@ end
 
 return Props
 ]======])
-local i42 = make("ModuleScript", "Roads", i32, [======[
+local i44 = make("ModuleScript", "Roads", i34, [======[
 --!strict
 -- The main road, its paint, sidewalks, lots, driveways and the crosswalk by the bus stop.
 
@@ -6067,7 +6610,7 @@ end
 
 return Roads
 ]======])
-local i43 = make("ModuleScript", "Store", i32, [======[
+local i45 = make("ModuleScript", "Store", i34, [======[
 --!strict
 -- The Halfway Mart: a small convenience store with aisles, fridges, a counter and a community board.
 -- Local space: x across the storefront, z from the front door (-) to the back wall (+).
@@ -6300,7 +6843,7 @@ end
 
 return Store
 ]======])
-local i44 = make("ModuleScript", "Streetside", i32, [======[
+local i46 = make("ModuleScript", "Streetside", i34, [======[
 --!strict
 -- Street furniture: the bus stop and spawn, streetlights, power lines, signs, parked cars, fences.
 
@@ -6539,7 +7082,7 @@ end
 
 return Streetside
 ]======])
-local i45 = make("ModuleScript", "Vehicles", i32, [======[
+local i47 = make("ModuleScript", "Vehicles", i34, [======[
 --!strict
 -- Vehicles made of plain parts. Every builder returns a Model whose PrimaryPart ("Root")
 -- sits at ground level under the vehicle's centre, with the front of the vehicle facing -Z.
@@ -6714,29 +7257,45 @@ end
 
 return Vehicles
 ]======])
-local i46 = make("LocalScript", "SomewhereClient", sps, [======[
+local i48 = make("LocalScript", "SomewhereClient", sps, [======[
 --!strict
 -- Somewhere Along the Road: client entry point.
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local UI = require(script:WaitForChild("UI"))
+local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
 local Ambience = require(script:WaitForChild("Ambience"))
 local Rain = require(script:WaitForChild("Rain"))
-local Controls = require(script:WaitForChild("Controls"))
-local DirectorPanel = require(script:WaitForChild("DirectorPanel"))
 
 -- The camera can be a frame or two late on slower phones.
 if not workspace.CurrentCamera then
 	workspace:GetPropertyChangedSignal("CurrentCamera"):Wait()
 end
 
-UI.Init()
-Controls.Init()
 Ambience.Init()
 Rain.Init(Ambience.IsIndoors)
 
 local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
+
+;(remotes:WaitForChild("Flash") :: RemoteEvent).OnClientEvent:Connect(function(strength: number)
+	Rain.Flash(strength)
+	Ambience.Thunder(strength)
+end)
+
+if Config.Mode == "Cutscene" then
+	-- The trailer plays by itself: no character, no buttons, just the camera.
+	local notify = remotes:WaitForChild("Notify") :: RemoteEvent
+	notify.OnClientEvent:Connect(function() end)
+	require(script:WaitForChild("Cinematic")).Init()
+	return
+end
+
+local UI = require(script:WaitForChild("UI"))
+local Controls = require(script:WaitForChild("Controls"))
+local DirectorPanel = require(script:WaitForChild("DirectorPanel"))
+
+UI.Init()
+Controls.Init()
 
 ;(remotes:WaitForChild("Notify") :: RemoteEvent).OnClientEvent:Connect(function(payload: { [string]: any })
 	local kind = payload.kind
@@ -6753,14 +7312,9 @@ local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
 	end
 end)
 
-;(remotes:WaitForChild("Flash") :: RemoteEvent).OnClientEvent:Connect(function(strength: number)
-	Rain.Flash(strength)
-	Ambience.Thunder(strength)
-end)
-
 DirectorPanel.Init(UI.Gui())
 ]======])
-local i47 = make("ModuleScript", "Ambience", i46, [======[
+local i49 = make("ModuleScript", "Ambience", i48, [======[
 --!strict
 -- Background sound: birds by day, crickets at night, wind, rain (muffled indoors), the store's
 -- fridge hum, diner chatter, the creek. Every layer is optional; blank slots in Config.Sounds
@@ -6903,7 +7457,272 @@ end
 
 return Ambience
 ]======])
-local i48 = make("ModuleScript", "Controls", i46, [======[
+local i50 = make("ModuleScript", "Cinematic", i48, [======[
+--!strict
+-- The camera operator. Follows the server's timeline and flies the camera through each shot,
+-- with letterbox bars, fades, captions and the title card. Hides every bit of Roblox UI so the
+-- screen is ready to record.
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
+local Cutscene = require(Shared:WaitForChild("Cutscene"))
+
+local Cinematic = {}
+
+local rgb = Color3.fromRGB
+local player = Players.LocalPlayer
+local settings = Cutscene.Settings
+local shots = Cutscene.Shots
+
+local TITLE_FONT = Font.new("rbxasset://fonts/families/Merriweather.json", Enum.FontWeight.Bold)
+local CAPTION_FONT = Font.new("rbxasset://fonts/families/Merriweather.json", Enum.FontWeight.Regular, Enum.FontStyle.Italic)
+local SUB_FONT = Font.new("rbxasset://fonts/families/Merriweather.json", Enum.FontWeight.Light)
+
+local current: { index: number, startedAt: number }? = nil
+local ended = false
+local lastIndex = 0
+local trackedLook: Vector3? = nil
+
+local gui: ScreenGui
+local topBar: Frame
+local bottomBar: Frame
+local fade: Frame
+local caption: TextLabel
+local smallCaption: TextLabel
+local title: TextLabel
+local subtitle: TextLabel
+
+local function ease(a: number, style: string?): number
+	if style == "Linear" then
+		return a
+	elseif style == "Out" then
+		return 1 - (1 - a) * (1 - a)
+	end
+	return 0.5 - math.cos(a * math.pi) / 2
+end
+
+-- 0 outside the window, 1 inside it, with soft edges.
+local function window(t: number, from: number, to: number, edge: number): number
+	if t < from or t > to then
+		return 0
+	end
+	return math.min(1, (t - from) / edge, (to - t) / edge)
+end
+
+local function hideRobloxUI()
+	for _ = 1, 20 do
+		local ok = pcall(function()
+			StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
+			StarterGui:SetCore("TopbarEnabled", false)
+		end)
+		if ok then
+			break
+		end
+		task.wait(0.25)
+	end
+	if settings.HideCursor then
+		UserInputService.MouseIconEnabled = false
+	end
+end
+
+local function textLabel(name: string, font: Font, color: Color3): TextLabel
+	local l = Instance.new("TextLabel")
+	l.Name = name
+	l.BackgroundTransparency = 1
+	l.AnchorPoint = Vector2.new(0.5, 0.5)
+	l.FontFace = font
+	l.TextColor3 = color
+	l.TextTransparency = 1
+	l.TextStrokeColor3 = rgb(0, 0, 0)
+	l.TextStrokeTransparency = 1
+	l.TextWrapped = true
+	l.TextScaled = true
+	l.ZIndex = 10
+	l.Parent = gui
+	return l
+end
+
+local function layout()
+	local view = workspace.CurrentCamera.ViewportSize
+	local bar = 0
+	if settings.Letterbox and view.Y > 0 then
+		bar = math.max(0, (1 - (view.X / view.Y) / settings.LetterboxRatio) / 2)
+	end
+	topBar.Size = UDim2.fromScale(1, bar)
+	bottomBar.Size = UDim2.fromScale(1, bar)
+	caption.Position = UDim2.fromScale(0.5, 1 - bar - 0.11)
+	smallCaption.Position = UDim2.fromScale(0.5, 1 - bar - 0.055)
+end
+
+local function build()
+	gui = Instance.new("ScreenGui")
+	gui.Name = "SomewhereCinematic"
+	gui.IgnoreGuiInset = true
+	gui.ScreenInsets = Enum.ScreenInsets.None
+	gui.ResetOnSpawn = false
+	gui.DisplayOrder = 100
+	gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	gui.Parent = player:WaitForChild("PlayerGui")
+
+	local function bar(name: string, anchorY: number): Frame
+		local f = Instance.new("Frame")
+		f.Name = name
+		f.AnchorPoint = Vector2.new(0, anchorY)
+		f.Position = UDim2.fromScale(0, anchorY)
+		f.BackgroundColor3 = rgb(0, 0, 0)
+		f.BorderSizePixel = 0
+		f.ZIndex = 5
+		f.Parent = gui
+		return f
+	end
+	topBar = bar("TopBar", 0)
+	bottomBar = bar("BottomBar", 1)
+
+	fade = Instance.new("Frame")
+	fade.Name = "Fade"
+	fade.Size = UDim2.fromScale(1, 1)
+	fade.BackgroundColor3 = rgb(0, 0, 0)
+	fade.BorderSizePixel = 0
+	fade.ZIndex = 8
+	fade.Parent = gui
+
+	caption = textLabel("Caption", CAPTION_FONT, rgb(255, 250, 240))
+	caption.Size = UDim2.fromScale(0.8, 0.06)
+	smallCaption = textLabel("SmallCaption", SUB_FONT, rgb(236, 230, 218))
+	smallCaption.Size = UDim2.fromScale(0.6, 0.038)
+
+	title = textLabel("Title", TITLE_FONT, rgb(255, 250, 238))
+	title.Position = UDim2.fromScale(0.5, 0.46)
+	title.Size = UDim2.fromScale(0.8, 0.11)
+	subtitle = textLabel("Subtitle", SUB_FONT, rgb(236, 228, 214))
+	subtitle.Position = UDim2.fromScale(0.5, 0.56)
+	subtitle.Size = UDim2.fromScale(0.5, 0.04)
+
+	workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(layout)
+	layout()
+end
+
+local function setText(label: TextLabel, text: string, alpha: number)
+	if label.Text ~= text then
+		label.Text = text
+	end
+	label.TextTransparency = 1 - alpha
+	label.TextStrokeTransparency = 1 - alpha * 0.35
+end
+
+local function step(dt: number)
+	local camera = workspace.CurrentCamera
+	camera.CameraType = Enum.CameraType.Scriptable
+
+	local live = current
+	if not live then
+		fade.BackgroundTransparency = 0
+		return
+	end
+	local shot = shots[live.index]
+	if not shot then
+		return
+	end
+	if live.index ~= lastIndex then
+		lastIndex = live.index
+		trackedLook = nil
+	end
+	local duration = shot.Duration
+	local t = math.clamp(workspace:GetServerTimeNow() - live.startedAt, 0, duration)
+	local e = ease(t / duration, shot.Ease)
+
+	local pos = shot.From.Pos:Lerp(shot.To.Pos, e)
+	local look = shot.From.Look:Lerp(shot.To.Look, e)
+	local track = shot.Track
+	if track then
+		local model = workspace:FindFirstChild(track.Model)
+		local root = if model and model:IsA("Model") then model.PrimaryPart else nil
+		if root then
+			local target = look:Lerp(root.Position + (track.Offset or Vector3.zero), track.Weight or 1)
+			-- Ease the aim toward the moving thing so the camera glides rather than snaps.
+			local k = 1 - math.exp(-dt * 5)
+			trackedLook = if trackedLook then trackedLook:Lerp(target, k) else target
+			look = trackedLook :: Vector3
+		end
+	end
+	camera.CFrame = CFrame.lookAt(pos, look)
+	local fov0 = shot.From.Fov or settings.DefaultFov
+	local fov1 = shot.To.Fov or fov0
+	camera.FieldOfView = fov0 + (fov1 - fov0) * e
+
+	-- Fades.
+	local black = 0
+	if shot.FadeIn and t < shot.FadeIn then
+		black = 1 - t / shot.FadeIn
+	end
+	if shot.FadeOut and t > duration - shot.FadeOut then
+		black = math.max(black, (t - (duration - shot.FadeOut)) / shot.FadeOut)
+	end
+	if ended then
+		black = 1
+	end
+	fade.BackgroundTransparency = 1 - black
+
+	-- Captions.
+	local main, mainAlpha, small, smallAlpha = "", 0, "", 0
+	if not ended then
+		local captions: { Cutscene.Caption } = shot.Captions or {}
+		for _, c in captions do
+			local a = window(t, c.From, c.To, 0.8)
+			if a > 0 then
+				if c.Small then
+					small, smallAlpha = c.Text, a
+				else
+					main, mainAlpha = c.Text, a
+				end
+			end
+		end
+	end
+	setText(caption, main, mainAlpha)
+	setText(smallCaption, small, smallAlpha)
+
+	-- Title card (stays up on the black after the last shot).
+	local card = shot.Title
+	if card then
+		local a = if t >= card.From then math.min(1, (t - card.From) / 1.6) else 0
+		setText(title, card.Text, a)
+		setText(subtitle, card.Sub or "", math.clamp((t - card.From - 1.2) / 1.6, 0, 1))
+	else
+		setText(title, "", 0)
+		setText(subtitle, "", 0)
+	end
+end
+
+function Cinematic.Init()
+	build()
+	task.spawn(hideRobloxUI)
+	local remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
+	remote.OnClientEvent:Connect(function(payload: { kind: string, index: number?, startedAt: number? })
+		if payload.kind == "shot" and payload.index and payload.startedAt then
+			current = { index = payload.index, startedAt = payload.startedAt }
+			ended = false
+		elseif payload.kind == "end" then
+			ended = true
+		end
+	end)
+	RunService:BindToRenderStep("SomewhereCinematic", Enum.RenderPriority.Camera.Value + 1, step)
+	-- Directors can press R to roll the whole thing again (handy for retakes).
+	UserInputService.InputBegan:Connect(function(input, processed)
+		if not processed and input.KeyCode == Enum.KeyCode.R and player:GetAttribute("IsDirector") then
+			remote:FireServer("Restart")
+		end
+	end)
+	remote:FireServer("Ready")
+end
+
+return Cinematic
+]======])
+local i51 = make("ModuleScript", "Controls", i48, [======[
 --!strict
 -- A relaxed walk by default. Hold Shift (or tap the Run button on a phone) to hurry.
 
@@ -6956,7 +7775,7 @@ end
 
 return Controls
 ]======])
-local i49 = make("ModuleScript", "DirectorPanel", i46, [======[
+local i52 = make("ModuleScript", "DirectorPanel", i48, [======[
 --!strict
 -- Trailer tools for whoever owns the game (and for you, in Studio): trigger events, set the hour,
 -- pin the weather, jump to landmarks, hide every bit of UI for clean footage.
@@ -7282,7 +8101,7 @@ end
 
 return DirectorPanel
 ]======])
-local i50 = make("ModuleScript", "Rain", i46, [======[
+local i53 = make("ModuleScript", "Rain", i48, [======[
 --!strict
 -- Rain you can see: a sheet of streaks that follows the camera (and stops under a roof),
 -- plus the lightning flash during storms. Everything here is local to each player.
@@ -7365,7 +8184,7 @@ end
 
 return Rain
 ]======])
-local i51 = make("ModuleScript", "UI", i46, [======[
+local i54 = make("ModuleScript", "UI", i48, [======[
 --!strict
 -- The little bit of UI there is: an opening title, a quiet objective line, a journal,
 -- note cards for things you read, and soft toasts. Sized for phones first.

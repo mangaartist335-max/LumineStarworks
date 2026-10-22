@@ -66,16 +66,29 @@ return {
 			S.Discoveries.Award(player, "traveler")
 		end)
 
-		traveler:WalkTo(curb.Position, 30)
+		local staged = ctx.Options.Seated == true
+		if not staged then
+			traveler:WalkTo(curb.Position, 30)
+		end
 		if ctx.Cancelled then
 			return
 		end
 		local suitcase = ctx:Track(Props.suitcase(workspace, bench.CFrame * CFrame.new(4.9, -1.9, 0.3) * CFrame.Angles(0, math.rad(80), 0), rgb(120, 80, 60)))
 		if bench:IsA("Seat") and not bench.Occupant then
-			traveler:WalkTo(bench.Position, 6)
+			if staged then
+				-- Already waiting when the camera arrives.
+				traveler.Model:PivotTo(bench.CFrame * CFrame.new(0, 2, 0))
+			else
+				traveler:WalkTo(bench.Position, 6)
+			end
 			traveler:SitOn(bench)
 		end
 
+		if ctx.Options.NoBus then
+			while ctx:Wait(1) do
+			end
+			return
+		end
 		if not ctx:Wait(ctx.Rng:NextNumber(150, 240)) then
 			return
 		end

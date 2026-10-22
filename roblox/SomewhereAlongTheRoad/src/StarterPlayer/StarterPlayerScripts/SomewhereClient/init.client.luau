@@ -3,23 +3,39 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local UI = require(script:WaitForChild("UI"))
+local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
 local Ambience = require(script:WaitForChild("Ambience"))
 local Rain = require(script:WaitForChild("Rain"))
-local Controls = require(script:WaitForChild("Controls"))
-local DirectorPanel = require(script:WaitForChild("DirectorPanel"))
 
 -- The camera can be a frame or two late on slower phones.
 if not workspace.CurrentCamera then
 	workspace:GetPropertyChangedSignal("CurrentCamera"):Wait()
 end
 
-UI.Init()
-Controls.Init()
 Ambience.Init()
 Rain.Init(Ambience.IsIndoors)
 
 local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
+
+;(remotes:WaitForChild("Flash") :: RemoteEvent).OnClientEvent:Connect(function(strength: number)
+	Rain.Flash(strength)
+	Ambience.Thunder(strength)
+end)
+
+if Config.Mode == "Cutscene" then
+	-- The trailer plays by itself: no character, no buttons, just the camera.
+	local notify = remotes:WaitForChild("Notify") :: RemoteEvent
+	notify.OnClientEvent:Connect(function() end)
+	require(script:WaitForChild("Cinematic")).Init()
+	return
+end
+
+local UI = require(script:WaitForChild("UI"))
+local Controls = require(script:WaitForChild("Controls"))
+local DirectorPanel = require(script:WaitForChild("DirectorPanel"))
+
+UI.Init()
+Controls.Init()
 
 ;(remotes:WaitForChild("Notify") :: RemoteEvent).OnClientEvent:Connect(function(payload: { [string]: any })
 	local kind = payload.kind
@@ -34,11 +50,6 @@ local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
 	elseif kind == "objective" then
 		UI.SetObjective(payload.count, payload.goal)
 	end
-end)
-
-;(remotes:WaitForChild("Flash") :: RemoteEvent).OnClientEvent:Connect(function(strength: number)
-	Rain.Flash(strength)
-	Ambience.Thunder(strength)
 end)
 
 DirectorPanel.Init(UI.Gui())
