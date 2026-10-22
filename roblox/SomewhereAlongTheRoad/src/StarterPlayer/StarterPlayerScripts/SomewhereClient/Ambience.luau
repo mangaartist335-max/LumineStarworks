@@ -17,6 +17,7 @@ local state: Folder
 local layers: { [string]: Sound } = {}
 local spots: { { sound: Sound, slot: string } } = {}
 local indoor = false
+local fromCamera = false
 local rayParams = RaycastParams.new()
 rayParams.FilterType = Enum.RaycastFilterType.Exclude
 
@@ -49,7 +50,8 @@ local function updateIndoor()
 	local camera = workspace.CurrentCamera
 	local character = Players.LocalPlayer.Character
 	rayParams.FilterDescendantsInstances = if character then { character } else {}
-	local origin = if character and character:FindFirstChild("Head") then (character:FindFirstChild("Head") :: BasePart).Position else camera.CFrame.Position
+	local head = if character and not fromCamera then character:FindFirstChild("Head") else nil
+	local origin = if head and head:IsA("BasePart") then head.Position else camera.CFrame.Position
 	indoor = workspace:Raycast(origin, Vector3.new(0, 60, 0), rayParams) ~= nil
 end
 
@@ -92,7 +94,9 @@ function Ambience.Thunder(strength: number)
 	end)
 end
 
-function Ambience.Init()
+-- `useCamera`: judge "indoors" from the camera, not the character (the cutscene uses this).
+function Ambience.Init(useCamera: boolean?)
+	fromCamera = useCamera == true
 	state = ReplicatedStorage:WaitForChild("SomewhereState") :: Folder
 	for _, slot in { "DayBirds", "NightCrickets", "Wind", "Rain" } do
 		layer(slot)

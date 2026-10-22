@@ -115,6 +115,65 @@ def segment_hits(part, a, b):
     return True
 
 
+def avatar_at(avatar, seconds):
+    """Where the avatar is `seconds` into the shot (walking at its speed through its points)."""
+    pos = avatar["at"]
+    left = seconds * avatar["speed"]
+    for p in avatar["walk"]:
+        d = sub(p, pos)
+        length = math.sqrt(dot(d, d))
+        if left <= length:
+            return lerp(pos, p, left / length if length else 1)
+        left -= length
+        pos = p
+    return pos
+
+
+def check_avatar(shot, avatar, samples, parts):
+    notes = []
+    duration = shot["duration"]
+    for i, (cam, look) in enumerate(samples):
+        t = duration * i / (len(samples) - 1)
+        feet = avatar_at(avatar, t)
+        if avatar["sit"]:
+            seat = avatar["sitAt"]
+            body = (seat[0], seat[1] + 3.0, seat[2])  # roughly head height when seated
+        else:
+            body = (feet[0], feet[1] + 3, feet[2])
+        if not avatar["sit"]:
+            for part in parts:
+                if part["n"] not in FOLIAGE and inside(part, body, margin=-0.2):
+                    notes.append(f"avatar stands inside {part['n']} at {tuple(round(v, 1) for v in feet)}")
+        # Is the avatar in front of the camera, roughly within the picture?
+        to_avatar = sub(body, cam)
+        la = math.sqrt(dot(to_avatar, to_avatar))
+        # Camera basis, then the avatar's angle across and up/down in the picture.
+        fwd = sub(look, cam)
+        n = math.sqrt(dot(fwd, fwd))
+        fwd = (fwd[0] / n, fwd[1] / n, fwd[2] / n)
+        right = (-fwd[2], 0.0, fwd[0])
+        rn = math.sqrt(dot(right, right)) or 1
+        right = (right[0] / rn, 0.0, right[2] / rn)
+        up = (right[1] * fwd[2] - right[2] * fwd[1], right[2] * fwd[0] - right[0] * fwd[2], right[0] * fwd[1] - right[1] * fwd[0])
+        z = dot(to_avatar, fwd)
+        if z <= 0:
+            notes.append(f"avatar behind the camera at {t:.0f}s")
+            continue
+        across = math.degrees(math.atan2(abs(dot(to_avatar, right)), z))
+        updown = math.degrees(math.atan2(abs(dot(to_avatar, up)), z))
+        fov = shot["fov"]
+        half_v = math.degrees(math.atan(math.tan(math.radians(fov / 2)) * 0.744))  # letterboxed picture
+        half_h = math.degrees(math.atan(math.tan(math.radians(fov / 2)) * 1.778))
+        if across > half_h * 0.95 or updown > half_v * 0.95:
+            notes.append(f"avatar out of frame at {t:.0f}s ({across:.0f} across, {updown:.0f} up/down)")
+            continue
+        end = lerp(cam, body, max(0.0, (la - 1.5) / la))
+        solid = sorted({p["n"] for p in parts if p["n"] not in FOLIAGE and p["t"] < 0.3 and segment_hits(p, cam, end)})
+        if solid:
+            notes.append(f"avatar hidden behind {', '.join(solid)} at {t:.0f}s")
+    return notes
+
+
 def main():
     with open(os.path.join(DIST, "map.json")) as f:
         data = json.load(f)
@@ -152,6 +211,9 @@ def main():
                     notes.append(f"view of subject blocked by {', '.join(solid)} from {tuple(round(v, 1) for v in pos)}")
                 if soft:
                     notes.append(f"(leaves in the way: {', '.join(soft)} from {tuple(round(v, 1) for v in pos)})")
+        avatar = shot.get("avatar")
+        if avatar:
+            notes.extend(check_avatar(shot, avatar, samples, parts))
         unique = list(dict.fromkeys(notes))
         status = "ok" if not [u for u in unique if not u.startswith("(")] else "CHECK"
         if status != "ok":

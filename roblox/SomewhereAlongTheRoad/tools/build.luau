@@ -8,7 +8,7 @@
 	  2. runs the real World/Builder module to bake the town into Workspace,
 	  3. records the terrain calls with a stand-in Terrain (terrain is filled in at Play time),
 	  4. checks that every interactable, anchor and text id the game relies on exists,
-	  5. writes dist/SomewhereAlongTheRoad.rbxl, dist/Bootstrap_CommandBar.lua,
+	  5. writes dist/SomewhereAlongTheRoad_Cutscene.rbxl, dist/Bootstrap_CommandBar.lua,
 	     sourcemap.json and dist/map.json (for the top-down preview).
 ]]
 
@@ -403,7 +403,32 @@ for i, shot in Cutscene.Shots do
 	local function key(k)
 		return { pos = { k.Pos.X, k.Pos.Y, k.Pos.Z }, look = { k.Look.X, k.Look.Y, k.Look.Z } }
 	end
-	table.insert(shotExport, { name = shot.Name, duration = shot.Duration, ease = shot.Ease or "InOut", from = key(shot.From), to = key(shot.To) })
+	local avatar = nil
+	if shot.Avatar then
+		local at = shot.Avatar.At.Position
+		local walk = {}
+		for _, w in shot.Avatar.Walk or {} do
+			table.insert(walk, { w.X, w.Y, w.Z })
+		end
+		local sit = shot.Avatar.Sit
+		avatar = {
+			at = { at.X, at.Y, at.Z },
+			walk = walk,
+			speed = shot.Avatar.Speed or 8,
+			sit = sit ~= nil,
+			sitAt = if sit then { sit.X, sit.Y, sit.Z } else nil,
+		}
+	end
+	table.insert(shotExport, {
+		name = shot.Name,
+		duration = shot.Duration,
+		ease = shot.Ease or "InOut",
+		from = key(shot.From),
+		to = key(shot.To),
+		avatar = avatar,
+		-- The tighter of the two lenses, so the frame check is never too generous.
+		fov = math.min(shot.From.Fov or Cutscene.Settings.DefaultFov, shot.To.Fov or shot.From.Fov or Cutscene.Settings.DefaultFov),
+	})
 end
 print(`Cutscene: {#Cutscene.Shots} shots, {math.floor(totalTime / 60)}:{string.format("%02d", math.floor(totalTime % 60))} long`)
 
@@ -432,7 +457,7 @@ if not fs.isDir(DIST) then
 	fs.writeDir(DIST)
 end
 
-fs.writeFile(`{DIST}/SomewhereAlongTheRoad.rbxl`, roblox.serializePlace(game))
+fs.writeFile(`{DIST}/SomewhereAlongTheRoad_Cutscene.rbxl`, roblox.serializePlace(game))
 fs.writeFile("sourcemap.json", serde.encode("json", sourcemap, true))
 
 -- Map data for the preview renderer.
@@ -563,4 +588,4 @@ end
 assert(freshScripts == #scriptFiles, `bootstrap installed {freshScripts} scripts, expected {#scriptFiles}`)
 print(`Bootstrap dry run: installed {freshScripts} scripts, built {freshParts} parts and {terrainCalls} terrain fills ("{printed[#printed] or ""}")`)
 
-print(`Wrote {DIST}/SomewhereAlongTheRoad.rbxl, {DIST}/Bootstrap_CommandBar.lua ({math.floor(#bootstrap / 1024)} KB), sourcemap.json, {DIST}/map.json`)
+print(`Wrote {DIST}/SomewhereAlongTheRoad_Cutscene.rbxl, {DIST}/Bootstrap_CommandBar.lua ({math.floor(#bootstrap / 1024)} KB), sourcemap.json, {DIST}/map.json`)

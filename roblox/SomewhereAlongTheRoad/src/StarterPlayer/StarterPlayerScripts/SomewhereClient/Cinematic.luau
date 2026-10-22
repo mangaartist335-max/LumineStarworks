@@ -1,9 +1,12 @@
 --!strict
 -- The camera operator. Follows the server's timeline and flies the camera through each shot,
--- with letterbox bars, fades, captions and the title card. Hides every bit of Roblox UI so the
--- screen is ready to record.
+-- with letterbox bars, fades, captions and the title card. Also directs your avatar (where to
+-- stand, walk, sit, wave) and lets a tap or click move things along. Hides every bit of Roblox
+-- UI so the screen is ready to record.
 
+local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local ProximityPromptService = game:GetService("ProximityPromptService")
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
@@ -11,6 +14,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
 local Cutscene = require(Shared:WaitForChild("Cutscene"))
+local Config = require(Shared:WaitForChild("Config"))
 
 local Cinematic = {}
 
@@ -27,6 +31,11 @@ local current: { index: number, startedAt: number }? = nil
 local ended = false
 local lastIndex = 0
 local trackedLook: Vector3? = nil
+local remote: RemoteEvent
+local avatarThread: thread? = nil
+local directedIndex = 0
+local lastTap = 0
+local PARKED = CFrame.new(0, -60, 0) -- out of sight, under the town, for shots you're not in
 
 local gui: ScreenGui
 local topBar: Frame
@@ -36,6 +45,7 @@ local caption: TextLabel
 local smallCaption: TextLabel
 local title: TextLabel
 local subtitle: TextLabel
+local hint: TextLabel
 
 local function ease(a: number, style: string?): number
 	if style == "Linear" then
@@ -97,6 +107,8 @@ local function layout()
 	bottomBar.Size = UDim2.fromScale(1, bar)
 	caption.Position = UDim2.fromScale(0.5, 1 - bar - 0.11)
 	smallCaption.Position = UDim2.fromScale(0.5, 1 - bar - 0.055)
+	-- The hint sits on the bottom black bar, out of the picture.
+	hint.Position = UDim2.fromScale(0.97, if bar > 0.03 then 1 - bar / 2 else 0.96)
 end
 
 local function build()
@@ -142,6 +154,12 @@ local function build()
 	subtitle = textLabel("Subtitle", SUB_FONT, rgb(236, 228, 214))
 	subtitle.Position = UDim2.fromScale(0.5, 0.56)
 	subtitle.Size = UDim2.fromScale(0.5, 0.04)
+
+	hint = textLabel("TapHint", SUB_FONT, rgb(220, 214, 204))
+	hint.AnchorPoint = Vector2.new(1, 0.5)
+	hint.Size = UDim2.fromScale(0.22, 0.03)
+	hint.TextXAlignment = Enum.TextXAlignment.Right
+	hint.ZIndex = 9
 
 	workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(layout)
 	layout()
@@ -226,6 +244,17 @@ local function step(dt: number)
 	setText(caption, main, mainAlpha)
 	setText(smallCaption, small, smallAlpha)
 
+	-- "Tap to continue": while a scene waits for a tap, or briefly at the start as a reminder.
+	local hintText, hintAlpha = "", 0
+	if settings.TapToSkip and not ended then
+		if settings.WaitForTap and t >= duration then
+			hintText, hintAlpha = "tap to continue  ›", 0.55 + 0.35 * math.sin(os.clock() * 3)
+		elseif settings.TapHint and live.index == 1 then
+			hintText, hintAlpha = "tap to skip ahead  ›", window(t, 3, 10, 1) * 0.8
+		end
+	end
+	setText(hint, hintText, hintAlpha)
+
 	-- Title card (stays up on the black after the last shot).
 	local card = shot.Title
 	if card then
@@ -238,16 +267,122 @@ local function step(dt: number)
 	end
 end
 
+-- Your avatar's part in a shot -----------------------------------------------------------
+
+local function playEmote(humanoid: Humanoid, name: string)
+	local id = (Config.Animations :: any)[name] :: string?
+	local animator = humanoid:FindFirstChildOfClass("Animator")
+	if not id or not animator then
+		return
+	end
+	pcall(function()
+		local anim = Instance.new("Animation")
+		anim.AnimationId = id
+		animator:LoadAnimation(anim):Play()
+	end)
+end
+
+local function direct(index: number)
+	directedIndex = index
+	if avatarThread then
+		local old = avatarThread
+		pcall(function()
+			task.cancel(old)
+		end)
+	end
+	local shot = shots[index]
+	avatarThread = task.spawn(function()
+		local char = player.Character or player.CharacterAdded:Wait()
+		local humanoid = char:WaitForChild("Humanoid") :: Humanoid
+		local root = char:WaitForChild("HumanoidRootPart") :: BasePart
+		local plan = if settings.StarAvatar and shot then shot.Avatar else nil
+
+		-- Stand up from any seat before moving to the next mark.
+		if humanoid.SeatPart then
+			humanoid.Sit = false
+			local giveUp = os.clock() + 1
+			while humanoid.SeatPart and os.clock() < giveUp do
+				task.wait()
+			end
+		end
+		humanoid:Move(Vector3.zero)
+
+		if not plan then
+			root.Anchored = true
+			char:PivotTo(PARKED)
+			return
+		end
+		local standHeight = if humanoid.RigType == Enum.HumanoidRigType.R15 then humanoid.HipHeight + root.Size.Y / 2 else 3
+		root.Anchored = false
+		char:PivotTo(plan.At * CFrame.new(0, standHeight, 0))
+		root.AssemblyLinearVelocity = Vector3.zero
+
+		if plan.Sit then
+			remote:FireServer("Sit", plan.Sit)
+		end
+		local emote = plan.Emote
+		if emote then
+			task.delay(emote.At, function()
+				if directedIndex == index then
+					playEmote(humanoid, emote.Name)
+				end
+			end)
+		end
+		local walk = plan.Walk
+		if walk then
+			local speed = plan.Speed or 8
+			humanoid.WalkSpeed = speed
+			for _, point in walk do
+				local reached = false
+				local conn = humanoid.MoveToFinished:Connect(function()
+					reached = true
+				end)
+				humanoid:MoveTo(point)
+				local giveUp = os.clock() + (point - root.Position).Magnitude / speed + 3
+				while not reached and os.clock() < giveUp do
+					task.wait(0.1)
+				end
+				conn:Disconnect()
+			end
+		end
+	end)
+end
+
+local function takeOverControls()
+	pcall(function()
+		local playerModule = require(player:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule") :: ModuleScript) :: any
+		playerModule:GetControls():Disable()
+	end)
+	pcall(function()
+		GuiService.TouchControlsEnabled = false
+	end)
+	pcall(function()
+		ProximityPromptService.Enabled = false
+	end)
+end
+
 function Cinematic.Init()
 	build()
 	task.spawn(hideRobloxUI)
-	local remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
+	task.spawn(takeOverControls)
+	remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
 	remote.OnClientEvent:Connect(function(payload: { kind: string, index: number?, startedAt: number? })
 		if payload.kind == "shot" and payload.index and payload.startedAt then
 			current = { index = payload.index, startedAt = payload.startedAt }
 			ended = false
+			if payload.index ~= directedIndex then
+				direct(payload.index)
+			end
 		elseif payload.kind == "end" then
 			ended = true
+		end
+	end)
+	-- A tap or click moves on to the next scene.
+	UserInputService.InputBegan:Connect(function(input, processed)
+		local tap = input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch
+		if tap and not processed and settings.TapToSkip and current and not ended and os.clock() - lastTap > 0.6 then
+			lastTap = os.clock()
+			remote:FireServer("Next")
 		end
 	end)
 	RunService:BindToRenderStep("SomewhereCinematic", Enum.RenderPriority.Camera.Value + 1, step)

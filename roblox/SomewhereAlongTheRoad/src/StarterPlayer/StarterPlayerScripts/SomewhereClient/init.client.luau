@@ -12,7 +12,7 @@ if not workspace.CurrentCamera then
 	workspace:GetPropertyChangedSignal("CurrentCamera"):Wait()
 end
 
-Ambience.Init()
+Ambience.Init(Config.Mode == "Cutscene")
 Rain.Init(Ambience.IsIndoors)
 
 local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
@@ -23,7 +23,7 @@ local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
 end)
 
 if Config.Mode == "Cutscene" then
-	-- The trailer plays by itself: no character, no buttons, just the camera.
+	-- The trailer plays by itself, starring your avatar. Tap to move it along.
 	local notify = remotes:WaitForChild("Notify") :: RemoteEvent
 	notify.OnClientEvent:Connect(function() end)
 	require(script:WaitForChild("Cinematic")).Init()

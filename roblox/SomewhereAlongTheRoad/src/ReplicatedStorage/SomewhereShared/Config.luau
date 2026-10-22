@@ -5,7 +5,7 @@
 local Config = {}
 
 Config.GameName = "Somewhere Along the Road"
-Config.Version = "0.2.0"
+Config.Version = "0.3.0"
 
 -- "Cutscene": press Play and the trailer runs by itself (shots live in Cutscene.luau).
 -- "Game": the explorable version, with your own character, the objective and the Director panel.

@@ -4,10 +4,12 @@ A small, quiet roadside town in Roblox. You step off at the bus stop and wander:
 store, a diner with pie, a few houses, a trail into the woods, a creek, a hill with the best view
 in the county. Now and then the town does something unexpected. Some days, nothing happens at all.
 
-**Version 0.2: it's a cutscene now.** Press Play and a 2:42 trailer runs by itself. The camera
-flies through 17 shots of the town with captions and a title card, and the events happen on cue:
-the duck truck, the chicken, the storm, the fireflies. Nobody gets a character, and the Roblox
-buttons are hidden, so the screen is ready to record.
+**Version 0.3: an interactive cutscene starring your avatar.** Press Play and a 2:42 trailer
+runs by itself. Your own Roblox character is the main character: you walk into town past the
+welcome sign, wait at the bus stop, wave at the duck truck, sit at the lookout for the sunset,
+and end up back on the bus stop bench. The camera films it all across 17 shots with captions and
+a title card, and the events happen on cue. **Tap or click to jump to the next scene.** Your
+controls and the Roblox buttons are switched off, so the screen is ready to record.
 
 The explorable version is still in there. Set `Config.Mode = "Game"` to walk around yourself.
 
@@ -18,25 +20,34 @@ The explorable version is still in there. Set `Config.Mode = "Game"` to walk aro
 | # | Shot | Time | What happens | On screen |
 |---|------|------|--------------|-----------|
 | 1 | Morning mist | 0:00 | Aerial push over the fields toward town | *Somewhere along the road,* |
-| 2 | Welcome sign | 0:12 | The Halfway sign, then a pan to town | *there's a little town called Halfway.* / Population: enough. |
-| 3 | Bus stop | 0:22 | A traveler waiting on the bench | *Nothing much happens here.* |
-| 4 | Halfway Mart | 0:31 | Slow push toward the store | *Mostly.* |
-| 5 | The duck | 0:38 | The giant rubber duck truck rolls past, and the driver yells "Don't ask!" | |
+| 2 | Welcome sign | 0:12 | You walk past the Halfway sign toward town | *there's a little town called Halfway.* / Population: enough. |
+| 3 | Bus stop | 0:22 | You wait on the bus stop bench | *Nothing much happens here.* |
+| 4 | Halfway Mart | 0:31 | You walk up, the automatic doors open, and you head inside | *Mostly.* |
+| 5 | The duck | 0:38 | The giant rubber duck truck rolls past and you wave. The driver yells "Don't ask!" | |
 | 6 | Gerald | 0:49 | Gerald the gnome watching the road | |
-| 7 | Why it crossed | 0:55 | A chicken crosses the road. Dot: "I'm not even going to ask." | |
-| 8 | The trail | 1:04 | Golden hour down the dirt trail | *Take the trail sometime.* |
+| 7 | Why it crossed | 0:55 | A chicken crosses the road and you point at it. Dot: "I'm not even going to ask." | |
+| 8 | The trail | 1:04 | You stroll down the dirt trail at golden hour | *Take the trail sometime.* |
 | 9 | The tiny door | 1:13 | Close-up of the door in the old oak | |
-| 10 | Wendell | 1:19 | Wendell fishing from the bridge | |
-| 11 | The deer | 1:26 | A deer looks up at the camera, then trots off | |
-| 12 | The lookout | 1:34 | Crane up from the bench at sunset to reveal the town | *Stay for the sunset.* |
+| 10 | Wendell | 1:19 | You lean on the bridge rail next to Wendell while he fishes | |
+| 11 | The deer | 1:26 | A deer looks up at you, then trots off | |
+| 12 | The lookout | 1:34 | You sit on the lookout bench at sunset, the town far below | *Stay for the sunset.* |
 | 13 | Storm | 1:46 | Clouds roll in, rain, lightning | *Some days it rains.* |
-| 14 | Lights out | 1:58 | The diner's lights flicker off and back on | *Some nights the lights take a little nap.* |
-| 15 | Main street at night | 2:09 | Drifting down the road under the streetlights | |
-| 16 | Something rare | 2:18 | Fireflies and a glowing stone in the clearing | *And sometimes…* / *…something you can't quite explain.* |
-| 17 | Title | 2:31 | Rising over the bus stop in morning mist | **Somewhere Along the Road** / Coming soon to Roblox |
+| 14 | Lights out | 1:58 | You're in a diner booth when the lights flicker off and back on | *Some nights the lights take a little nap.* |
+| 15 | Main street at night | 2:09 | You walk home under the streetlights | |
+| 16 | Something rare | 2:18 | You find fireflies and a glowing stone in the clearing | *And sometimes…* / *…something you can't quite explain.* |
+| 17 | Title | 2:31 | Back on the bus stop bench, the camera rises over the road | **Somewhere Along the Road** / Coming soon to Roblox |
 
-Every shot, line of text and timing lives in `src/ReplicatedStorage/SomewhereShared/Cutscene.luau`.
-Change the words, swap the order, delete shots, or add your own.
+Every shot, line of text, timing and avatar move lives in
+`src/ReplicatedStorage/SomewhereShared/Cutscene.luau`. Change the words, swap the order, delete
+shots, or add your own. Settings at the top of that file:
+
+| Setting | What it does |
+|---|---|
+| `StarAvatar = true` | Your character stars. Set `false` for scenery only. |
+| `TapToSkip = true` | A tap or click jumps to the next scene. |
+| `WaitForTap = false` | Set `true` to make every scene wait for a tap before moving on. |
+| `TapHint = true` | A small "tap to skip ahead" note shows during the first shot. Set `false` for recording. |
+| `Letterbox = true` | Cinematic black bars. |
 
 **To grab a camera position for a new shot:** line up Studio's editor camera, then run this in
 the Command Bar. It prints a `Pos` and a `Look` you can paste into a shot.
@@ -47,14 +58,15 @@ local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVe
 
 ### Recording it
 
-- **In Studio:** press Play. The trailer starts after a couple of seconds of black. Press **R** to
-  roll it again from the top.
+- **In Studio:** press Play. The trailer starts after a couple of seconds of black. Click to skip
+  ahead, or press **R** to roll it again from the top. The Output window shows "Cutscene mode"
+  when the right version is running.
 - **For the cleanest video:** publish the place (File → Publish to Roblox, and keep it private),
   open it in the Roblox app, go full screen, and record with Xbox Game Bar (**Win + Alt + R**) or
   OBS. Studio's own window has panels around the game view, so the Roblox app gives a cleaner
   frame.
-- The letterbox bars, captions and title are drawn by the game. To turn the bars off, set
-  `Letterbox = false` in `Cutscene.luau`.
+- The letterbox bars, captions and title are drawn by the game. For a clean take, set
+  `TapHint = false` and don't click while recording.
 
 ---
 
@@ -65,7 +77,10 @@ Checked here:
 - All 49 scripts compile, and they type-check with **zero errors** in strict mode against the
   full Roblox API definitions (luau-lsp).
 - Every cutscene camera was checked against the built town: none of the 17 shots starts inside
-  a wall or a tree, and nothing solid blocks its subject. `tools/check_shots.py` runs the check,
+  a wall or a tree, and nothing solid blocks its subject. Your avatar's marks were checked the
+  same way: never inside anything, never hidden behind a wall, always inside the letterboxed
+  picture. This check also caught a pane of glass that had been placed across the store's front
+  door in the first version. It's fixed. `tools/check_shots.py` runs the check,
   and `dist/shot_map.png` shows where each shot sits.
 - The real world-builder code runs offline (with Lune) and builds the town: about 3,000 parts,
   26 lights, 30 things to interact with, 20 seats, and 602 terrain fills.
@@ -76,7 +91,7 @@ Checked here:
 - The first version was opened in Studio and ran: the terrain, buildings, grass, power lines and
   interface all loaded.
 
-**Not checked yet:** the cutscene version hasn't been played in Studio. Camera moves, NPC
+**Not checked yet:** the avatar cutscene hasn't been played in Studio. Camera moves, NPC
 walking, vehicles, rain and lighting run on Roblox's physics and renderer, and those only exist
 inside Studio. Expect a
 few small things to need tuning on the first run, like an NPC standing a little too high, or a
@@ -88,10 +103,12 @@ light that's too bright. The game hasn't been published anywhere.
 
 ### Option A: open the place file (easiest)
 
-1. Download `dist/SomewhereAlongTheRoad.rbxl` from this folder on GitHub (click the file, then the
-   download button).
+1. Download `dist/SomewhereAlongTheRoad_Cutscene.rbxl` from this folder on GitHub (click the file,
+   then the download button). The old `SomewhereAlongTheRoad.rbxl` is the first version. Delete it
+   so it can't be opened by mistake.
 2. Open Roblox Studio, then **File → Open from File…** and pick it.
-3. Press **Play** (F5). The terrain (grass, creek, hill, trail) fills in when the game starts.
+3. Press **Play** (F5). The terrain (grass, creek, hill, trail) fills in when the game starts, then
+   the trailer begins.
 
 To see the terrain in edit mode too, paste this one line into **View → Command Bar** and press
 Enter, then save:
@@ -231,7 +248,7 @@ python3 tools/check_shots.py
 | 3. Day/night, weather, ambience | Done (sounds are blank slots for now) |
 | 4. Random events | Done: all ten |
 | 5. NPCs, polish, mobile | Four residents and phone-sized UI are in |
-| Trailer cutscene | Done: 17 shots, 2:42. Tuning after the first watch in Studio |
+| Trailer cutscene | Done: 17 shots, 2:42, starring your avatar, tap to skip ahead. Tuning after the first watch in Studio |
 
 Ideas for later: saving discoveries between visits (DataStore), more houses to step inside,
 a radio station in the diner, and a proper bus timetable.

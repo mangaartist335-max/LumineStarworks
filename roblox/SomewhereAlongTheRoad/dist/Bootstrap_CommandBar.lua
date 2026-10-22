@@ -22,7 +22,7 @@ local i2 = make("ModuleScript", "Config", i1, [======[
 local Config = {}
 
 Config.GameName = "Somewhere Along the Road"
-Config.Version = "0.2.0"
+Config.Version = "0.3.0"
 
 -- "Cutscene": press Play and the trailer runs by itself (shots live in Cutscene.luau).
 -- "Game": the explorable version, with your own character, the objective and the Director panel.
@@ -128,7 +128,8 @@ return Config
 ]======])
 local i3 = make("ModuleScript", "Cutscene", i1, [======[
 --!strict
--- The trailer, shot by shot. Press Play and it runs from top to bottom by itself.
+-- The trailer, shot by shot. Press Play and it runs from top to bottom by itself, starring
+-- your own avatar. Tap or click to jump ahead to the next scene.
 --
 -- Every shot moves the camera from `From` to `To` over `Duration` seconds.
 --   Pos  = where the camera is,  Look = the point it aims at,  Fov = lens (smaller = more zoom)
@@ -144,6 +145,11 @@ local i3 = make("ModuleScript", "Cutscene", i1, [======[
 --   Captions     { { Text, From, To, Small } } words on screen
 --   Title        { Text, Sub, From } the big title card
 --   FadeIn / FadeOut  seconds of fade from / to black
+--   Avatar       what your character does in this shot (leave it out and you're off camera):
+--                  At    = CFrame on the ground where you stand, facing the way you look
+--                  Walk  = { points } to stroll through, at Speed studs per second
+--                  Sit   = a point next to the seat to sit on (bench, booth...)
+--                  Emote = { At = seconds, Name = "Wave" | "Point" | "Laugh" | "Cheer" }
 --
 -- Tip: to grab a camera position in Studio, line up the editor camera and run this in the
 -- Command Bar:  local c = workspace.CurrentCamera.CFrame print(c.Position, c.Position + c.LookVector * 30)
@@ -151,6 +157,13 @@ local i3 = make("ModuleScript", "Cutscene", i1, [======[
 export type Key = { Pos: Vector3, Look: Vector3, Fov: number? }
 export type Caption = { Text: string, From: number, To: number, Small: boolean? }
 export type Cue = { At: number, Do: string, Npc: string?, Text: string?, Strength: number?, Seconds: number? }
+export type Avatar = {
+	At: CFrame,
+	Walk: { Vector3 }?,
+	Speed: number?,
+	Sit: Vector3?,
+	Emote: { At: number, Name: string }?,
+}
 export type Shot = {
 	Name: string,
 	Duration: number,
@@ -168,9 +181,15 @@ export type Shot = {
 	Title: { Text: string, Sub: string?, From: number }?,
 	FadeIn: number?,
 	FadeOut: number?,
+	Avatar: Avatar?,
 }
 
 local V = Vector3.new
+
+-- Stand at `x, y, z` facing toward `tx, tz` (a point on the same level).
+local function stand(x: number, y: number, z: number, tx: number, tz: number): CFrame
+	return CFrame.lookAt(V(x, y, z), V(tx, y, tz))
+end
 
 local Cutscene = {}
 
@@ -182,6 +201,10 @@ Cutscene.Settings = {
 	Loop = false, -- play again after the end card
 	LoopDelay = 6,
 	HideCursor = true,
+	StarAvatar = true, -- your own Roblox character walks through the scenes
+	TapToSkip = true, -- a tap or click jumps to the next scene
+	WaitForTap = false, -- true: every scene waits for a tap before moving on
+	TapHint = true, -- a small "tap to continue" note on the black bar (turn off for recording)
 }
 
 Cutscene.Shots = {
@@ -206,25 +229,29 @@ Cutscene.Shots = {
 			{ Text = "there's a little town called Halfway.", From = 1, To = 8.5 },
 			{ Text = "Population: enough.", From = 4.5, To = 9, Small = true },
 		},
+		-- You walk into town along the shoulder, past the sign.
+		Avatar = { At = stand(-258, 0, 15.5, -200, 15.5), Walk = { V(-205, 0, 16) }, Speed = 6 },
 	},
 	{
 		Name = "Bus stop",
 		Duration = 9,
 		Clock = 8.4,
 		Weather = "Clear",
-		Event = { Id = "BusStopStranger", Options = { Seated = true, NoBus = true }, Lead = 2.5 },
 		From = { Pos = V(-21, 4.2, 15), Look = V(-30, 3.6, 26.5) },
 		To = { Pos = V(-37, 4.2, 15.5), Look = V(-30, 3.6, 26.5) },
 		Captions = { { Text = "Nothing much happens here.", From = 2, To = 8 } },
+		Avatar = { At = stand(-30, 0.6, 24, -30, 20), Sit = V(-30, 2.5, 27.3) },
 	},
 	{
 		Name = "Halfway Mart",
 		Duration = 7,
 		Clock = 9.3,
 		Weather = "Clear",
-		From = { Pos = V(-50, 5.5, -26), Look = V(-50, 9, -62) },
+		From = { Pos = V(-50, 5.5, -26), Look = V(-50, 7.5, -62) },
 		To = { Pos = V(-50, 5, -40), Look = V(-50, 8, -62) },
 		Captions = { { Text = "Mostly.", From = 4, To = 7 } },
+		-- The automatic doors open as you walk up, and you head inside.
+		Avatar = { At = stand(-50, 0.25, -39, -50, -70), Walk = { V(-50, 0.6, -56), V(-50, 0.6, -68) }, Speed = 7 },
 	},
 	{
 		Name = "The duck",
@@ -235,6 +262,7 @@ Cutscene.Shots = {
 		From = { Pos = V(36, 3.2, 18.5), Look = V(-60, 7, 4), Fov = 55 },
 		To = { Pos = V(33, 3.4, 18.5), Look = V(-60, 7, 4), Fov = 55 },
 		Track = { Model = "Event_DuckTruck", Offset = V(0, 8, 0), Weight = 0.85 },
+		Avatar = { At = stand(25, 0.55, 15.5, -60, 8), Emote = { At = 7.2, Name = "Wave" } },
 	},
 	{
 		Name = "Gerald",
@@ -264,6 +292,7 @@ Cutscene.Shots = {
 		From = { Pos = V(52, 2.8, -17), Look = V(40, 2.4, 16) },
 		To = { Pos = V(50.5, 2.6, -15.5), Look = V(40, 2, 12) },
 		FadeOut = 0.8,
+		Avatar = { At = stand(45, 0.2, -11, 40, 10), Emote = { At = 4, Name = "Point" } },
 	},
 	{
 		Name = "The trail",
@@ -274,6 +303,7 @@ Cutscene.Shots = {
 		From = { Pos = V(-113, 4.4, 20), Look = V(-111, 4, 70) },
 		To = { Pos = V(-111.5, 4.8, 58), Look = V(-106, 4, 100) },
 		Captions = { { Text = "Take the trail sometime.", From = 2, To = 7.5 } },
+		Avatar = { At = stand(-113, 0, 31, -114, 50), Walk = { V(-114, 0, 50), V(-109, 0, 75) }, Speed = 5.5 },
 	},
 	{
 		Name = "The tiny door",
@@ -291,6 +321,8 @@ Cutscene.Shots = {
 		From = { Pos = V(-128, 3.5, 177.5), Look = V(-148, 4.2, 184) },
 		To = { Pos = V(-131, 3.2, 179.5), Look = V(-148, 4, 184) },
 		Cues = { { At = 1, Do = "Say", Npc = "Wendell", Text = "Haven't caught a fish in years. Best hobby I ever picked up.", Seconds = 5.5 } },
+		-- Leaning on the rail next to Wendell.
+		Avatar = { At = stand(-147.6, 1.1, 180.6, -140, 180.6) },
 	},
 	{
 		Name = "The deer",
@@ -310,6 +342,7 @@ Cutscene.Shots = {
 		From = { Pos = V(-110, 4, 65), Look = V(-128, 3.5, 74), Fov = 45 },
 		To = { Pos = V(-111.5, 4, 66.5), Look = V(-130, 3.5, 75), Fov = 45 },
 		FadeOut = 0.8,
+		Avatar = { At = stand(-117, 0, 71.5, -128, 74) },
 	},
 	{
 		Name = "The lookout",
@@ -318,11 +351,12 @@ Cutscene.Shots = {
 		Weather = "Clear",
 		Mood = { Name = "Sunset", Value = 1, Seconds = 3 },
 		FadeIn = 0.8,
-		-- A slow crane up from behind the bench until the town shows over the treetops.
+		-- A slow rise from behind the bench: you, the sunset, and the town past the treetops.
 		From = { Pos = V(-146, 34.6, 356), Look = V(-60, 12, -10), Fov = 55 },
-		To = { Pos = V(-150, 58, 368), Look = V(-40, 8, -10), Fov = 52 },
+		To = { Pos = V(-150, 40, 362), Look = V(-60, 12, -10), Fov = 52 },
 		Captions = { { Text = "Stay for the sunset.", From = 3, To = 10 } },
 		FadeOut = 0.8,
+		Avatar = { At = stand(-150, 29.2, 345.5, -150, 330), Sit = V(-150, 30.8, 344) },
 	},
 	{
 		Name = "Storm",
@@ -346,6 +380,8 @@ Cutscene.Shots = {
 		To = { Pos = V(40, 5, 12), Look = V(40, 14, 50) },
 		Captions = { { Text = "Some nights the lights take a little nap.", From = 3.5, To = 9 } },
 		FadeOut = 0.8,
+		-- In a window booth when the lights go out.
+		Avatar = { At = stand(41, 0.6, 46.2, 30, 46.2), Sit = V(41, 1.6, 46.2) },
 	},
 	{
 		Name = "Main street at night",
@@ -354,8 +390,9 @@ Cutscene.Shots = {
 		Weather = "Clear",
 		FadeIn = 0.8,
 		From = { Pos = V(190, 6, -2), Look = V(60, 6, 0) },
-		To = { Pos = V(95, 6, -2), Look = V(-40, 6, 0) },
+		To = { Pos = V(112, 6, -4), Look = V(-40, 5, -8) },
 		Ease = "Linear",
+		Avatar = { At = stand(140, 0.55, -16.5, 70, -16.5), Walk = { V(75, 0.55, -16.5) }, Speed = 7 },
 	},
 	{
 		Name = "Something rare",
@@ -370,6 +407,7 @@ Cutscene.Shots = {
 			{ Text = "…something you can't quite explain.", From = 6, To = 11.8 },
 		},
 		FadeOut = 1,
+		Avatar = { At = stand(-201.5, 0, 239.5, -210, 242) },
 	},
 	{
 		Name = "Title",
@@ -377,10 +415,12 @@ Cutscene.Shots = {
 		Clock = 6.35,
 		Weather = "Fog",
 		FadeIn = 1.5,
-		From = { Pos = V(-10, 6, 32), Look = V(-30, 4, 12), Fov = 55 },
-		To = { Pos = V(-4, 40, 64), Look = V(-30, 0, -12), Fov = 58 },
+		From = { Pos = V(-38, 4.5, 13), Look = V(-30, 3.8, 26.5), Fov = 55 },
+		To = { Pos = V(-34, 22, -10), Look = V(-29, 3, 28), Fov = 58 },
 		Title = { Text = "Somewhere Along the Road", Sub = "Coming soon to Roblox", From = 2.5 },
 		FadeOut = 3,
+		-- Back on the bus stop bench, where it all started.
+		Avatar = { At = stand(-30, 0.6, 24, -30, 20), Sit = V(-30, 2.5, 27.3) },
 	},
 } :: { Shot }
 
@@ -630,12 +670,14 @@ local i5 = make("Script", "SomewhereServer", game:GetService("ServerScriptServic
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
+local Config = require(Shared:WaitForChild("Config"))
+local Cutscene = require(Shared:WaitForChild("Cutscene"))
 local cutscene = Config.Mode == "Cutscene"
 
--- In cutscene mode nobody gets a character: the camera is the only one on set.
--- This has to happen before anyone joins, so it's the very first thing we do.
-Players.CharacterAutoLoads = not cutscene
+-- In cutscene mode your avatar is the star (unless StarAvatar is off, then only the camera is
+-- on set). This has to be decided before anyone joins, so it's the very first thing we do.
+Players.CharacterAutoLoads = not cutscene or Cutscene.Settings.StarAvatar
 
 local World = script:WaitForChild("World")
 local Systems = script:WaitForChild("Systems")
@@ -2394,6 +2436,8 @@ local remote: RemoteEvent
 local runToken = 0
 local live: Live = { kind = "waiting" }
 local started = false
+local skipRequested = false
+local seats: { Seat } = {}
 
 local function send(payload: Live, player: Player?)
 	if player then
@@ -2461,10 +2505,15 @@ function CutsceneDirector.Play()
 			live = { kind = "shot", index = i, startedAt = workspace:GetServerTimeNow() }
 			send(live)
 
+			-- Cues and early staging only count while this shot is still the live one
+			-- (a tap can move things along before their timers come up).
+			local function stillHere(): boolean
+				return token == runToken and live.index == i
+			end
 			local cues: { Cutscene.Cue } = shot.Cues or {}
 			for _, cue in cues do
 				task.delay(cue.At, function()
-					if token == runToken then
+					if stillHere() then
 						runCue(cue)
 					end
 				end)
@@ -2475,13 +2524,22 @@ function CutsceneDirector.Play()
 			local lead = nextShot and nextShot.Event and nextShot.Event.Lead
 			if nextShot and lead then
 				task.delay(math.max(0, shot.Duration - lead), function()
-					if token == runToken then
+					if stillHere() then
 						staged[i + 1] = true
 						stage(nextShot)
 					end
 				end)
 			end
-			task.wait(shot.Duration)
+			-- Play the shot out, or move on early if someone taps. With WaitForTap the last
+			-- frame holds until a tap.
+			skipRequested = false
+			local deadline = os.clock() + shot.Duration
+			while token == runToken and not skipRequested do
+				if os.clock() >= deadline and not Cutscene.Settings.WaitForTap then
+					break
+				end
+				task.wait(0.05)
+			end
 		end
 		if token ~= runToken then
 			return
@@ -2501,13 +2559,21 @@ end
 function CutsceneDirector.Init(context: any)
 	ctx = context
 	remote = ctx.Net.Remote("Cutscene")
-	-- Anyone who slipped in before character spawning was switched off loses their avatar.
-	for _, player in Players:GetPlayers() do
-		if player.Character then
-			player.Character:Destroy()
+	if not Cutscene.Settings.StarAvatar then
+		-- Anyone who slipped in before character spawning was switched off loses their avatar.
+		for _, player in Players:GetPlayers() do
+			if player.Character then
+				player.Character:Destroy()
+			end
 		end
 	end
-	remote.OnServerEvent:Connect(function(player: Player, action: any)
+	for _, d in (ctx.Town :: Instance):GetDescendants() do
+		if d:IsA("Seat") then
+			table.insert(seats, d)
+		end
+	end
+	print("[Somewhere] Cutscene mode: the trailer starts in a moment. Tap or click to skip ahead, R to restart.")
+	remote.OnServerEvent:Connect(function(player: Player, action: any, arg: any)
 		if action == "Ready" then
 			if not started then
 				started = true
@@ -2517,6 +2583,26 @@ function CutsceneDirector.Init(context: any)
 			end
 		elseif action == "Restart" and player:GetAttribute("IsDirector") then
 			CutsceneDirector.Play()
+		elseif action == "Next" and Cutscene.Settings.TapToSkip then
+			-- With friends watching, only the director moves the story along.
+			if #Players:GetPlayers() == 1 or player:GetAttribute("IsDirector") then
+				skipRequested = true
+			end
+		elseif action == "Sit" and typeof(arg) == "Vector3" then
+			-- Seats can only be taken from the server, so the camera asks us to sit the star down.
+			local character = player.Character
+			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			local best: Seat? = nil
+			local bestDist = 6
+			for _, seat in seats do
+				local dist = (seat.Position - arg).Magnitude
+				if dist < bestDist and not seat.Occupant then
+					best, bestDist = seat, dist
+				end
+			end
+			if humanoid and best then
+				best:Sit(humanoid)
+			end
 		end
 	end)
 end
@@ -6651,7 +6737,8 @@ function Store.build(parent: Instance, rng: Kit.Rng)
 	})
 	Kit.wall(model, "Wall", origin, Vector3.new(-W / 2 + t / 2, 0, D / 2 - t), Vector3.new(-W / 2 + t / 2, 0, -D / 2 + t), H, t, Palette.StoreWall, Enum.Material.Plaster)
 
-	Kit.window(model, front[2], 13, 7.4, t, { Frame = Palette.MetalDark, Mullion = true })
+	-- Kit.wall returns openings sorted left to right: [1] left window, [2] the door, [3] right window.
+	Kit.window(model, front[1], 13, 7.4, t, { Frame = Palette.MetalDark, Mullion = true })
 	Kit.window(model, front[3], 13, 7.4, t, { Frame = Palette.MetalDark, Mullion = true })
 
 	Kit.block(model, "Roof", Vector3.new(W + 1, 1, D + 1), L(0, H + 0.5, 0), rgb(120, 118, 114), Enum.Material.Concrete)
@@ -7272,7 +7359,7 @@ if not workspace.CurrentCamera then
 	workspace:GetPropertyChangedSignal("CurrentCamera"):Wait()
 end
 
-Ambience.Init()
+Ambience.Init(Config.Mode == "Cutscene")
 Rain.Init(Ambience.IsIndoors)
 
 local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
@@ -7283,7 +7370,7 @@ local remotes = ReplicatedStorage:WaitForChild("SomewhereRemotes")
 end)
 
 if Config.Mode == "Cutscene" then
-	-- The trailer plays by itself: no character, no buttons, just the camera.
+	-- The trailer plays by itself, starring your avatar. Tap to move it along.
 	local notify = remotes:WaitForChild("Notify") :: RemoteEvent
 	notify.OnClientEvent:Connect(function() end)
 	require(script:WaitForChild("Cinematic")).Init()
@@ -7334,6 +7421,7 @@ local state: Folder
 local layers: { [string]: Sound } = {}
 local spots: { { sound: Sound, slot: string } } = {}
 local indoor = false
+local fromCamera = false
 local rayParams = RaycastParams.new()
 rayParams.FilterType = Enum.RaycastFilterType.Exclude
 
@@ -7366,7 +7454,8 @@ local function updateIndoor()
 	local camera = workspace.CurrentCamera
 	local character = Players.LocalPlayer.Character
 	rayParams.FilterDescendantsInstances = if character then { character } else {}
-	local origin = if character and character:FindFirstChild("Head") then (character:FindFirstChild("Head") :: BasePart).Position else camera.CFrame.Position
+	local head = if character and not fromCamera then character:FindFirstChild("Head") else nil
+	local origin = if head and head:IsA("BasePart") then head.Position else camera.CFrame.Position
 	indoor = workspace:Raycast(origin, Vector3.new(0, 60, 0), rayParams) ~= nil
 end
 
@@ -7409,7 +7498,9 @@ function Ambience.Thunder(strength: number)
 	end)
 end
 
-function Ambience.Init()
+-- `useCamera`: judge "indoors" from the camera, not the character (the cutscene uses this).
+function Ambience.Init(useCamera: boolean?)
+	fromCamera = useCamera == true
 	state = ReplicatedStorage:WaitForChild("SomewhereState") :: Folder
 	for _, slot in { "DayBirds", "NightCrickets", "Wind", "Rain" } do
 		layer(slot)
@@ -7460,10 +7551,13 @@ return Ambience
 local i50 = make("ModuleScript", "Cinematic", i48, [======[
 --!strict
 -- The camera operator. Follows the server's timeline and flies the camera through each shot,
--- with letterbox bars, fades, captions and the title card. Hides every bit of Roblox UI so the
--- screen is ready to record.
+-- with letterbox bars, fades, captions and the title card. Also directs your avatar (where to
+-- stand, walk, sit, wave) and lets a tap or click move things along. Hides every bit of Roblox
+-- UI so the screen is ready to record.
 
+local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local ProximityPromptService = game:GetService("ProximityPromptService")
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
@@ -7471,6 +7565,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
 local Cutscene = require(Shared:WaitForChild("Cutscene"))
+local Config = require(Shared:WaitForChild("Config"))
 
 local Cinematic = {}
 
@@ -7487,6 +7582,11 @@ local current: { index: number, startedAt: number }? = nil
 local ended = false
 local lastIndex = 0
 local trackedLook: Vector3? = nil
+local remote: RemoteEvent
+local avatarThread: thread? = nil
+local directedIndex = 0
+local lastTap = 0
+local PARKED = CFrame.new(0, -60, 0) -- out of sight, under the town, for shots you're not in
 
 local gui: ScreenGui
 local topBar: Frame
@@ -7496,6 +7596,7 @@ local caption: TextLabel
 local smallCaption: TextLabel
 local title: TextLabel
 local subtitle: TextLabel
+local hint: TextLabel
 
 local function ease(a: number, style: string?): number
 	if style == "Linear" then
@@ -7557,6 +7658,8 @@ local function layout()
 	bottomBar.Size = UDim2.fromScale(1, bar)
 	caption.Position = UDim2.fromScale(0.5, 1 - bar - 0.11)
 	smallCaption.Position = UDim2.fromScale(0.5, 1 - bar - 0.055)
+	-- The hint sits on the bottom black bar, out of the picture.
+	hint.Position = UDim2.fromScale(0.97, if bar > 0.03 then 1 - bar / 2 else 0.96)
 end
 
 local function build()
@@ -7602,6 +7705,12 @@ local function build()
 	subtitle = textLabel("Subtitle", SUB_FONT, rgb(236, 228, 214))
 	subtitle.Position = UDim2.fromScale(0.5, 0.56)
 	subtitle.Size = UDim2.fromScale(0.5, 0.04)
+
+	hint = textLabel("TapHint", SUB_FONT, rgb(220, 214, 204))
+	hint.AnchorPoint = Vector2.new(1, 0.5)
+	hint.Size = UDim2.fromScale(0.22, 0.03)
+	hint.TextXAlignment = Enum.TextXAlignment.Right
+	hint.ZIndex = 9
 
 	workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(layout)
 	layout()
@@ -7686,6 +7795,17 @@ local function step(dt: number)
 	setText(caption, main, mainAlpha)
 	setText(smallCaption, small, smallAlpha)
 
+	-- "Tap to continue": while a scene waits for a tap, or briefly at the start as a reminder.
+	local hintText, hintAlpha = "", 0
+	if settings.TapToSkip and not ended then
+		if settings.WaitForTap and t >= duration then
+			hintText, hintAlpha = "tap to continue  ›", 0.55 + 0.35 * math.sin(os.clock() * 3)
+		elseif settings.TapHint and live.index == 1 then
+			hintText, hintAlpha = "tap to skip ahead  ›", window(t, 3, 10, 1) * 0.8
+		end
+	end
+	setText(hint, hintText, hintAlpha)
+
 	-- Title card (stays up on the black after the last shot).
 	local card = shot.Title
 	if card then
@@ -7698,16 +7818,122 @@ local function step(dt: number)
 	end
 end
 
+-- Your avatar's part in a shot -----------------------------------------------------------
+
+local function playEmote(humanoid: Humanoid, name: string)
+	local id = (Config.Animations :: any)[name] :: string?
+	local animator = humanoid:FindFirstChildOfClass("Animator")
+	if not id or not animator then
+		return
+	end
+	pcall(function()
+		local anim = Instance.new("Animation")
+		anim.AnimationId = id
+		animator:LoadAnimation(anim):Play()
+	end)
+end
+
+local function direct(index: number)
+	directedIndex = index
+	if avatarThread then
+		local old = avatarThread
+		pcall(function()
+			task.cancel(old)
+		end)
+	end
+	local shot = shots[index]
+	avatarThread = task.spawn(function()
+		local char = player.Character or player.CharacterAdded:Wait()
+		local humanoid = char:WaitForChild("Humanoid") :: Humanoid
+		local root = char:WaitForChild("HumanoidRootPart") :: BasePart
+		local plan = if settings.StarAvatar and shot then shot.Avatar else nil
+
+		-- Stand up from any seat before moving to the next mark.
+		if humanoid.SeatPart then
+			humanoid.Sit = false
+			local giveUp = os.clock() + 1
+			while humanoid.SeatPart and os.clock() < giveUp do
+				task.wait()
+			end
+		end
+		humanoid:Move(Vector3.zero)
+
+		if not plan then
+			root.Anchored = true
+			char:PivotTo(PARKED)
+			return
+		end
+		local standHeight = if humanoid.RigType == Enum.HumanoidRigType.R15 then humanoid.HipHeight + root.Size.Y / 2 else 3
+		root.Anchored = false
+		char:PivotTo(plan.At * CFrame.new(0, standHeight, 0))
+		root.AssemblyLinearVelocity = Vector3.zero
+
+		if plan.Sit then
+			remote:FireServer("Sit", plan.Sit)
+		end
+		local emote = plan.Emote
+		if emote then
+			task.delay(emote.At, function()
+				if directedIndex == index then
+					playEmote(humanoid, emote.Name)
+				end
+			end)
+		end
+		local walk = plan.Walk
+		if walk then
+			local speed = plan.Speed or 8
+			humanoid.WalkSpeed = speed
+			for _, point in walk do
+				local reached = false
+				local conn = humanoid.MoveToFinished:Connect(function()
+					reached = true
+				end)
+				humanoid:MoveTo(point)
+				local giveUp = os.clock() + (point - root.Position).Magnitude / speed + 3
+				while not reached and os.clock() < giveUp do
+					task.wait(0.1)
+				end
+				conn:Disconnect()
+			end
+		end
+	end)
+end
+
+local function takeOverControls()
+	pcall(function()
+		local playerModule = require(player:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule") :: ModuleScript) :: any
+		playerModule:GetControls():Disable()
+	end)
+	pcall(function()
+		GuiService.TouchControlsEnabled = false
+	end)
+	pcall(function()
+		ProximityPromptService.Enabled = false
+	end)
+end
+
 function Cinematic.Init()
 	build()
 	task.spawn(hideRobloxUI)
-	local remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
+	task.spawn(takeOverControls)
+	remote = ReplicatedStorage:WaitForChild("SomewhereRemotes"):WaitForChild("Cutscene") :: RemoteEvent
 	remote.OnClientEvent:Connect(function(payload: { kind: string, index: number?, startedAt: number? })
 		if payload.kind == "shot" and payload.index and payload.startedAt then
 			current = { index = payload.index, startedAt = payload.startedAt }
 			ended = false
+			if payload.index ~= directedIndex then
+				direct(payload.index)
+			end
 		elseif payload.kind == "end" then
 			ended = true
+		end
+	end)
+	-- A tap or click moves on to the next scene.
+	UserInputService.InputBegan:Connect(function(input, processed)
+		local tap = input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch
+		if tap and not processed and settings.TapToSkip and current and not ended and os.clock() - lastTap > 0.6 then
+			lastTap = os.clock()
+			remote:FireServer("Next")
 		end
 	end)
 	RunService:BindToRenderStep("SomewhereCinematic", Enum.RenderPriority.Camera.Value + 1, step)

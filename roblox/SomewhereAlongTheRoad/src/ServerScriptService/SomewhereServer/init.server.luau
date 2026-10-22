@@ -5,12 +5,14 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Config = require(ReplicatedStorage:WaitForChild("SomewhereShared"):WaitForChild("Config"))
+local Shared = ReplicatedStorage:WaitForChild("SomewhereShared")
+local Config = require(Shared:WaitForChild("Config"))
+local Cutscene = require(Shared:WaitForChild("Cutscene"))
 local cutscene = Config.Mode == "Cutscene"
 
--- In cutscene mode nobody gets a character: the camera is the only one on set.
--- This has to happen before anyone joins, so it's the very first thing we do.
-Players.CharacterAutoLoads = not cutscene
+-- In cutscene mode your avatar is the star (unless StarAvatar is off, then only the camera is
+-- on set). This has to be decided before anyone joins, so it's the very first thing we do.
+Players.CharacterAutoLoads = not cutscene or Cutscene.Settings.StarAvatar
 
 local World = script:WaitForChild("World")
 local Systems = script:WaitForChild("Systems")

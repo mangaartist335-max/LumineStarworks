@@ -38,7 +38,8 @@ function Store.build(parent: Instance, rng: Kit.Rng)
 	})
 	Kit.wall(model, "Wall", origin, Vector3.new(-W / 2 + t / 2, 0, D / 2 - t), Vector3.new(-W / 2 + t / 2, 0, -D / 2 + t), H, t, Palette.StoreWall, Enum.Material.Plaster)
 
-	Kit.window(model, front[2], 13, 7.4, t, { Frame = Palette.MetalDark, Mullion = true })
+	-- Kit.wall returns openings sorted left to right: [1] left window, [2] the door, [3] right window.
+	Kit.window(model, front[1], 13, 7.4, t, { Frame = Palette.MetalDark, Mullion = true })
 	Kit.window(model, front[3], 13, 7.4, t, { Frame = Palette.MetalDark, Mullion = true })
 
 	Kit.block(model, "Roof", Vector3.new(W + 1, 1, D + 1), L(0, H + 0.5, 0), rgb(120, 118, 114), Enum.Material.Concrete)

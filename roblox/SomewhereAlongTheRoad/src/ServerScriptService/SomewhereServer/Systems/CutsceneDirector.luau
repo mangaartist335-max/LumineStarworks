@@ -17,6 +17,8 @@ local remote: RemoteEvent
 local runToken = 0
 local live: Live = { kind = "waiting" }
 local started = false
+local skipRequested = false
+local seats: { Seat } = {}
 
 local function send(payload: Live, player: Player?)
 	if player then
@@ -84,10 +86,15 @@ function CutsceneDirector.Play()
 			live = { kind = "shot", index = i, startedAt = workspace:GetServerTimeNow() }
 			send(live)
 
+			-- Cues and early staging only count while this shot is still the live one
+			-- (a tap can move things along before their timers come up).
+			local function stillHere(): boolean
+				return token == runToken and live.index == i
+			end
 			local cues: { Cutscene.Cue } = shot.Cues or {}
 			for _, cue in cues do
 				task.delay(cue.At, function()
-					if token == runToken then
+					if stillHere() then
 						runCue(cue)
 					end
 				end)
@@ -98,13 +105,22 @@ function CutsceneDirector.Play()
 			local lead = nextShot and nextShot.Event and nextShot.Event.Lead
 			if nextShot and lead then
 				task.delay(math.max(0, shot.Duration - lead), function()
-					if token == runToken then
+					if stillHere() then
 						staged[i + 1] = true
 						stage(nextShot)
 					end
 				end)
 			end
-			task.wait(shot.Duration)
+			-- Play the shot out, or move on early if someone taps. With WaitForTap the last
+			-- frame holds until a tap.
+			skipRequested = false
+			local deadline = os.clock() + shot.Duration
+			while token == runToken and not skipRequested do
+				if os.clock() >= deadline and not Cutscene.Settings.WaitForTap then
+					break
+				end
+				task.wait(0.05)
+			end
 		end
 		if token ~= runToken then
 			return
@@ -124,13 +140,21 @@ end
 function CutsceneDirector.Init(context: any)
 	ctx = context
 	remote = ctx.Net.Remote("Cutscene")
-	-- Anyone who slipped in before character spawning was switched off loses their avatar.
-	for _, player in Players:GetPlayers() do
-		if player.Character then
-			player.Character:Destroy()
+	if not Cutscene.Settings.StarAvatar then
+		-- Anyone who slipped in before character spawning was switched off loses their avatar.
+		for _, player in Players:GetPlayers() do
+			if player.Character then
+				player.Character:Destroy()
+			end
 		end
 	end
-	remote.OnServerEvent:Connect(function(player: Player, action: any)
+	for _, d in (ctx.Town :: Instance):GetDescendants() do
+		if d:IsA("Seat") then
+			table.insert(seats, d)
+		end
+	end
+	print("[Somewhere] Cutscene mode: the trailer starts in a moment. Tap or click to skip ahead, R to restart.")
+	remote.OnServerEvent:Connect(function(player: Player, action: any, arg: any)
 		if action == "Ready" then
 			if not started then
 				started = true
@@ -140,6 +164,26 @@ function CutsceneDirector.Init(context: any)
 			end
 		elseif action == "Restart" and player:GetAttribute("IsDirector") then
 			CutsceneDirector.Play()
+		elseif action == "Next" and Cutscene.Settings.TapToSkip then
+			-- With friends watching, only the director moves the story along.
+			if #Players:GetPlayers() == 1 or player:GetAttribute("IsDirector") then
+				skipRequested = true
+			end
+		elseif action == "Sit" and typeof(arg) == "Vector3" then
+			-- Seats can only be taken from the server, so the camera asks us to sit the star down.
+			local character = player.Character
+			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			local best: Seat? = nil
+			local bestDist = 6
+			for _, seat in seats do
+				local dist = (seat.Position - arg).Magnitude
+				if dist < bestDist and not seat.Occupant then
+					best, bestDist = seat, dist
+				end
+			end
+			if humanoid and best then
+				best:Sit(humanoid)
+			end
 		end
 	end)
 end
