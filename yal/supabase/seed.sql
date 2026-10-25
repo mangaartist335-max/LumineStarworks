@@ -291,7 +291,7 @@ on conflict do nothing;
 
 insert into public.anime_broadcasts (anime_id, position, label, at, note, visible_from) values
   (19815, 1, 'Episode 0 special', '2013-09-25T15:00:00Z', 'Aired ahead of the season premiere. Broadcast time not documented.', '2013-09-14T15:00:00Z'),
-  (19815, 2, 'Advance premiere', '2013-10-01T15:00:00Z', 'Season 1 advance broadcast. Broadcast time not documented.', '2013-09-14T15:00:00Z'),
+  (19815, 2, 'Advance premiere', '2013-09-30T15:00:00Z', 'Season 1 advance broadcast, late on the night of Monday, Sep 30 (the early hours of Oct 1 JST). Exact time not documented.', '2013-09-14T15:00:00Z'),
   (19815, 3, 'Japanese TV premiere (VBS/KBS)', '2013-10-05T16:58:00Z', 'Regular broadcast, weekly at the same slot.', '2013-09-14T15:00:00Z'),
   (19815, 4, 'Subtitled simulcast (MunchyRoll)', '2013-10-05T16:58:00Z', 'Subtitled releases follow MunchyRoll''s standard simulcast schedule, roughly two days after broadcast.', '2013-09-14T15:00:00Z'),
   (19815, 5, 'English dub (AdultDrift)', null, 'Announced for broadcast in early 2015. Dub cast not yet announced.', '2013-10-04T04:00:00Z'),
@@ -1033,11 +1033,11 @@ Thanks to everyone who kept the Iron to Requiem threads lively every Thursday si
   (5, 'studio-burst-profile', 'Who is Studio Burst? The Flow Pictures spin-out behind Impact of Eden', '2013-09-28T05:00:00Z', 'YALBot', '[b]Studio Burst[/b] has no earlier credits at all: Impact of Eden is its first animated work. The studio formed out of [b]Flow Pictures[/b]'' late-era cinematic unit after Sinful Apex, and much of that staff came along, including director Kaihatsu Miura.
 
 Studio and staff pages are now linked in the Industry database.', 'reconstructed', 'AniFanWiki, "Impact of Eden (2013)" (last edited Oct 8, 2013)'),
-  (6, 'impact-of-eden-advance-premiere', 'Impact of Eden advance premiere today', '2013-10-02T03:00:00Z', 'YALBot', 'The [b]Impact of Eden[/b] Season 1 advance premiere is today, October 2. The regular TV broadcast begins Saturday, October 5 at 25:58 JST.
+  (6, 'impact-of-eden-advance-premiere', 'Impact of Eden advance premiere tonight', '2013-09-30T03:00:00Z', 'YALBot', 'The [b]Impact of Eden[/b] Season 1 advance premiere airs tonight, late Monday night, September 30 (the early hours of Tuesday, October 1 JST). The regular TV broadcast begins Saturday, October 5 at 25:58 JST.
 
 Episode discussion threads open after the regular broadcast. Please keep advance-screening spoilers in spoiler tags until then!', 'reconstructed', 'Lumine StarWorks YAL development brief (established production data)'),
   (7, 'adultdrift-dub-funmaxation', 'AdultDrift picks up Impact of Eden dub for early 2015; Funmaxation to license', '2013-10-04T15:00:00Z', 'YALBot', '[b]Funmaxation[/b] is the North American licensor for [b]Impact of Eden[/b], and an English-dubbed broadcast is slated for [b]AdultDrift[/b] in early 2015. Dub cast has not been announced yet.', 'reconstructed', 'AniWire, "AdultDrift Acquires ''Impact of Eden'' for Early 2015 Dub Broadcast" (Oct 4, 2013)'),
-  (8, 'impact-of-eden-premiere-thread-open', 'Impact of Eden premieres; Episode 1 discussion is open', '2013-10-05T17:35:00Z', 'YALBot', 'Episode 1 of [b]Impact of Eden[/b], "Where the Wind Ran First", aired on VBS/KBS at 25:58 JST. The discussion thread is now open in Episode Discussion.
+  (8, 'impact-of-eden-premiere-thread-open', 'Impact of Eden premieres; Episode 1 discussion is open', '2013-10-05T17:35:00Z', 'YALBot', 'Episode 1 of [b]Impact of Eden[/b], "Where the Wind Ran First", aired on VBS/KBS on Saturday, October 5 at 25:58 JST. The discussion thread is now open in Episode Discussion.
 
 Subtitled streams follow on MunchyRoll. As always: no future-episode spoilers, and use spoiler tags for manga talk.', 'reconstructed', 'YAL Impact of Eden Episode 1 Discussion (archived Oct 9, 2013)'),
   (9, 'human-x-inhuman-single', '"Human x Inhuman" single out today', '2013-10-16T03:00:00Z', 'YALBot', 'The Impact of Eden opening theme, [b]"Human x Inhuman"[/b] by T.M.Revolution (Takanori Nishikawa), is out today from Sony Music Japan. Head to the Music board to share your first impressions.', 'reconstructed', 'AniFanWiki, "Impact of Eden (2013)" (last edited Oct 8, 2013)'),
@@ -1055,7 +1055,7 @@ on conflict do nothing;
 
 insert into public.historical_events (id, at, label, subject_type, subject_id, provenance, source) values
   ('anime-19815-broadcast-1', '2013-09-25T15:00:00Z', 'Impact of Eden: Episode 0 special', 'anime', 19815, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-19815-broadcast-2', '2013-10-01T15:00:00Z', 'Impact of Eden: Advance premiere', 'anime', 19815, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
+  ('anime-19815-broadcast-2', '2013-09-30T15:00:00Z', 'Impact of Eden: Advance premiere', 'anime', 19815, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
   ('anime-19815-broadcast-3', '2013-10-05T16:58:00Z', 'Impact of Eden: Japanese TV premiere (VBS/KBS)', 'anime', 19815, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
   ('anime-19815-broadcast-4', '2013-10-05T16:58:00Z', 'Impact of Eden: Subtitled simulcast (MunchyRoll)', 'anime', 19815, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
   ('anime-16592-broadcast-1', '2013-04-03T15:00:00Z', 'Iron to Requiem: Japanese TV premiere', 'anime', 16592, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),

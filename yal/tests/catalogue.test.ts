@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { anime } from "../data/anime";
 import { characters } from "../data/characters";
 import { animeUrl, airedEpisodes, characterFacts, getAnime, getCharacter, nextEpisodeSlot, seasonalAnime } from "../lib/catalog";
-import { formatAirDate } from "../lib/time";
+import { formatAirDate, formatBroadcastSlot } from "../lib/time";
 import { IOE_EP0_ID, IOE_ID, IRON_ID, NIGHTPOLIS_ID } from "../data/anime";
 
 const BUILT_OUT = [10380, 7741, 5120, 8452, 9133, 4407, 9608, 9871, 6811, 3390, 6230];
@@ -106,4 +106,17 @@ test("built-out titles are voiced by actors who were already working when they a
       assert.ok(main ? debut < premiered : debut <= premiered, `${a.title}: actor ${v.personId} (debut ${debut}) cast in ${premiered}`);
     }
   }
+});
+
+test("Impact of Eden dates: advance late on Sep 30, Season 1 on Saturday Oct 5 (25:58)", () => {
+  const ioe = anime.find((a) => a.id === IOE_ID)!;
+  const slot = formatBroadcastSlot(ioe.airedFrom!);
+  assert.deepEqual([slot.date, slot.weekday, slot.time], ["Oct 5, 2013", "Saturday", "25:58"]);
+  assert.equal(formatAirDate(ioe.airedFrom!), "Oct 5, 2013");
+  const advance = ioe.broadcasts.find((b) => b.label === "Advance premiere")!;
+  assert.equal(Date.parse(advance.at!), Date.parse(jst("2013-10-01T00:00:00")));
+  assert.match(advance.note!, /Sep 30/);
+  // The advance comes before the Season 1 premiere, after the Episode 0 special.
+  const ep0 = ioe.broadcasts.find((b) => b.label === "Episode 0 special")!;
+  assert.ok(Date.parse(ep0.at!) < Date.parse(advance.at!) && Date.parse(advance.at!) < Date.parse(ioe.airedFrom!));
 });

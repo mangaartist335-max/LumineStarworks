@@ -22,7 +22,7 @@ export const IOE_MANGA_ID = 2101;
 const DUB_ANNOUNCED = "2013-10-04T04:00:00Z";
 // Episode 0 special and the advance premiere: dates documented, times not.
 const IOE_EP0_AIRED = "2013-09-25T15:00:00Z"; // Sep 26, 2013 (JST)
-const IOE_ADVANCE = "2013-10-01T15:00:00Z"; // Oct 2, 2013 (JST)
+const IOE_ADVANCE = "2013-09-30T15:00:00Z"; // late night of Mon Sep 30 (Oct 1, 2013 JST)
 
 
 export const anime: Anime[] = [
@@ -45,7 +45,7 @@ export const anime: Anime[] = [
     broadcast: "Saturdays at 25:58 (JST)",
     broadcasts: [
       { label: "Episode 0 special", at: IOE_EP0_AIRED, note: "Aired ahead of the season premiere. Broadcast time not documented." },
-      { label: "Advance premiere", at: IOE_ADVANCE, note: "Season 1 advance broadcast. Broadcast time not documented." },
+      { label: "Advance premiere", at: IOE_ADVANCE, note: "Season 1 advance broadcast, late on the night of Monday, Sep 30 (the early hours of Oct 1 JST). Exact time not documented." },
       { label: "Japanese TV premiere (VBS/KBS)", at: IOE_EP1, note: "Regular broadcast, weekly at the same slot." },
       { label: "Subtitled simulcast (MunchyRoll)", at: IOE_EP1, note: "Subtitled releases follow MunchyRoll's standard simulcast schedule, roughly two days after broadcast." },
       { label: "English dub (AdultDrift)", at: null, note: "Announced for broadcast in early 2015. Dub cast not yet announced.", visibleFrom: DUB_ANNOUNCED },

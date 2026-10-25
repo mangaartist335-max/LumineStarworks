@@ -72,11 +72,11 @@ export const news: NewsItem[] = [
   {
     id: 6,
     slug: "impact-of-eden-advance-premiere",
-    title: "Impact of Eden advance premiere today",
-    publishedAt: "2013-10-02T03:00:00Z",
+    title: "Impact of Eden advance premiere tonight",
+    publishedAt: "2013-09-30T03:00:00Z",
     author: "YALBot",
     body:
-      "The [b]Impact of Eden[/b] Season 1 advance premiere is today, October 2. The regular TV broadcast begins Saturday, October 5 at 25:58 JST.\n\nEpisode discussion threads open after the regular broadcast. Please keep advance-screening spoilers in spoiler tags until then!",
+      "The [b]Impact of Eden[/b] Season 1 advance premiere airs tonight, late Monday night, September 30 (the early hours of Tuesday, October 1 JST). The regular TV broadcast begins Saturday, October 5 at 25:58 JST.\n\nEpisode discussion threads open after the regular broadcast. Please keep advance-screening spoilers in spoiler tags until then!",
     related: [{ type: "anime", id: IOE_ID }],
     provenance: "reconstructed",
     source: SRC.brief,
@@ -100,7 +100,7 @@ export const news: NewsItem[] = [
     publishedAt: "2013-10-05T17:35:00Z",
     author: "YALBot",
     body:
-      "Episode 1 of [b]Impact of Eden[/b], \"Where the Wind Ran First\", aired on VBS/KBS at 25:58 JST. The discussion thread is now open in Episode Discussion.\n\nSubtitled streams follow on MunchyRoll. As always: no future-episode spoilers, and use spoiler tags for manga talk.",
+      "Episode 1 of [b]Impact of Eden[/b], \"Where the Wind Ran First\", aired on VBS/KBS on Saturday, October 5 at 25:58 JST. The discussion thread is now open in Episode Discussion.\n\nSubtitled streams follow on MunchyRoll. As always: no future-episode spoilers, and use spoiler tags for manga talk.",
     related: [{ type: "anime", id: IOE_ID }],
     provenance: "reconstructed",
     source: SRC.yalEp1,
