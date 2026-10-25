@@ -91,6 +91,8 @@ function useCatalog() {
   const [uploads] = useCollection<MtUpload>(COL.uploads, { allUsers: true });
   const [views] = useCollection<MtView>(COL.views, { allUsers: true });
   const t = now();
+  // Recompute once a minute of computer time, not on every render.
+  const minute = Math.floor(t / 60000);
   return useMemo(() => {
     const localViews = new Map<string, number>();
     for (const v of views) localViews.set(v.videoId, (localViews.get(v.videoId) ?? 0) + v.count);
@@ -100,31 +102,33 @@ function useCatalog() {
     ].map((v) => ({ ...v, views: v.baseViews + (localViews.get(v.id) ?? 0) }));
     return list.sort((a, b) => b.uploadedAt.localeCompare(a.uploadedAt));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploads, views, computer.region, Math.floor(t / 60000)]);
+  }, [uploads, views, computer.region, minute]);
 }
 
 type CatalogVid = ReturnType<typeof useCatalog>[number];
 
 function useVideoSrc(v: Vid | undefined): string | null {
   const { store } = useSystem();
-  const [url, setUrl] = useState<string | null>(v?.src ?? null);
+  // Uploaded videos play from a blob URL tagged with the video it belongs to.
+  const [blob, setBlob] = useState<{ id: string; url: string } | null>(null);
   useEffect(() => {
-    if (!v) return;
-    if (v.src) return setUrl(v.src);
+    if (!v || v.src) return;
     let revoke = () => {};
     let alive = true;
     store.getBlob(v.blobId!).then((b) => {
       if (!b || !alive) return;
       const u = URL.createObjectURL(b);
       revoke = () => URL.revokeObjectURL(u);
-      setUrl(u);
+      setBlob({ id: v.id, url: u });
     });
     return () => {
       alive = false;
       revoke();
     };
   }, [v, store]);
-  return url;
+  if (!v) return null;
+  if (v.src) return v.src;
+  return blob && blob.id === v.id ? blob.url : null;
 }
 
 function Header() {

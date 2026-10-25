@@ -3,7 +3,7 @@
 // Brings in mail as it becomes due on the computer's clock and lets you
 // know when something new lands in your inbox.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useEffectEvent, useRef } from "react";
 import { useSystem } from "@/components/system/system";
 import { useCollection } from "@/components/system/hooks";
 import { COL_MAIL, deliverArchiveMail, type MailMessage } from "@/lib/mail";
@@ -12,8 +12,10 @@ export function MailService() {
   const { store, user, now, notify, openApp, wm } = useSystem();
   const [mail, , loaded] = useCollection<MailMessage>(COL_MAIL);
   const seen = useRef<Set<string> | null>(null);
-  const wmRef = useRef(wm);
-  wmRef.current = wm;
+  const isMailFocused = useEffectEvent(() => {
+    const w = wm.windows.find((x) => x.appId === "mail");
+    return Boolean(w && wm.focused === w.id);
+  });
 
   useEffect(() => {
     if (!user) return;
@@ -33,8 +35,7 @@ export function MailService() {
     for (const m of fresh) seen.current.add(m.id);
     const incoming = fresh.filter((m) => m.folder === "inbox" && !m.read);
     if (!incoming.length) return;
-    const mailWin = wmRef.current.windows.find((w) => w.appId === "mail");
-    if (mailWin && wmRef.current.focused === mailWin.id) return;
+    if (isMailFocused()) return;
     const first = incoming[0];
     notify({
       title: incoming.length > 1 ? `${incoming.length} new emails` : `New email from ${first.from.name ?? first.from.email}`,

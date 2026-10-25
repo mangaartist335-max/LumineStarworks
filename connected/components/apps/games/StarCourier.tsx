@@ -222,7 +222,9 @@ export default function StarCourier({ win }: AppProps) {
   const installed = isInstalled(gameById("game_star_courier")!);
   const beep = useBeep();
   const fx = useRef({ beep, unlock, recordScore, save });
-  fx.current = { beep, unlock, recordScore, save };
+  useEffect(() => {
+    fx.current = { beep, unlock, recordScore, save };
+  });
 
   useArgs(win, async (args) => {
     if (user && !args.fromLauncher) void recordLaunch(store, user.id, "game_star_courier", now());
@@ -237,8 +239,10 @@ export default function StarCourier({ win }: AppProps) {
   });
 
   const setState = useCallback((s: World["state"]) => {
-    world.current.state = s;
+    const w = world.current;
+    w.state = s;
     setUi(s);
+    setHud({ score: Math.round(w.score), level: w.level, lives: w.lives });
   }, []);
 
   const startLevel = useCallback((w: World, level: number) => {
@@ -274,10 +278,11 @@ export default function StarCourier({ win }: AppProps) {
     const up = (e: KeyboardEvent) => keys.current.delete(e.key.toLowerCase());
     window.addEventListener("keydown", down);
     window.addEventListener("keyup", up);
+    const pressed = keys.current;
     return () => {
       window.removeEventListener("keydown", down);
       window.removeEventListener("keyup", up);
-      keys.current.clear();
+      pressed.clear();
     };
   }, [focused, setState, startLevel]);
 
@@ -499,7 +504,7 @@ export default function StarCourier({ win }: AppProps) {
                 <h1>Star Courier</h1>
                 <p>Collect {PARCELS_PER_LEVEL} parcels to finish each level. On level 4, deliver parcels at the Rock Crab to beat it. Hide behind blue rocks!</p>
                 <button className="btn primary" onClick={begin} autoFocus>
-                  {world.current.level > 1 || world.current.score > 0 ? `Continue from level ${world.current.level}` : "Start game"}
+                  {hud.level > 1 || hud.score > 0 ? `Continue from level ${hud.level}` : "Start game"}
                 </button>
               </>
             )}
@@ -545,7 +550,7 @@ export default function StarCourier({ win }: AppProps) {
             {ui === "won" && (
               <>
                 <h1>Mission complete! 🎉</h1>
-                <p>The Rock Crab is beaten and every parcel got delivered. Final score: {Math.round(world.current.score).toLocaleString("en-US")}.</p>
+                <p>The Rock Crab is beaten and every parcel got delivered. Final score: {hud.score.toLocaleString("en-US")}.</p>
                 <button className="btn primary" onClick={begin} autoFocus>
                   Play again
                 </button>

@@ -20,7 +20,9 @@ export default function FieldSweeper({ win }: AppProps) {
   const [pressing, setPressing] = useState(false);
   const { unlock, recordScore } = useGameRecords("game_field_sweeper");
   const beep = useBeep();
-  const finished = useRef(false);
+  // The finished board whose result was already recorded.
+  const recorded = useRef<Board | null>(null);
+  const [boardFor, setBoardFor] = useState<Difficulty>("beginner");
 
   // Opening the game straight from Freeware Corner or the Start menu counts as a launch.
   useArgs(win, (args) => {
@@ -31,10 +33,13 @@ export default function FieldSweeper({ win }: AppProps) {
     setBoard(fresh(d));
     setStarted(null);
     setElapsed(0);
-    finished.current = false;
   };
 
-  useEffect(() => restart(difficulty), [difficulty]); // eslint-disable-line react-hooks/exhaustive-deps
+  // A new board whenever the difficulty changes (including when the saved choice loads).
+  if (boardFor !== difficulty) {
+    setBoardFor(difficulty);
+    restart(difficulty);
+  }
 
   useEffect(() => {
     if (started === null || board.state !== "playing") return;
@@ -43,8 +48,8 @@ export default function FieldSweeper({ win }: AppProps) {
   }, [started, board.state]);
 
   useEffect(() => {
-    if (finished.current || (board.state !== "won" && board.state !== "lost")) return;
-    finished.current = true;
+    if (recorded.current === board || (board.state !== "won" && board.state !== "lost")) return;
+    recorded.current = board;
     const secs = started ? Math.max(1, Math.round((Date.now() - started) / 1000)) : 1;
     setElapsed(Math.min(999, secs));
     if (board.state === "won") {
@@ -55,11 +60,11 @@ export default function FieldSweeper({ win }: AppProps) {
       if (secs < 60) void unlock("fast_win");
       if (difficulty === "expert") void unlock("expert_win");
     } else beep(140, 260, "sawtooth");
-  }, [board.state, started, difficulty, beep, recordScore, unlock]);
+  }, [board, started, difficulty, beep, recordScore, unlock]);
 
-  const click = (i: number) => {
+  const click = (i: number, at: number) => {
     if (board.state === "won" || board.state === "lost") return;
-    if (started === null) setStarted(Date.now());
+    if (started === null) setStarted(at);
     const c = board.cells[i];
     const next = c.open ? chord(board, i) : reveal(board, i);
     if (next !== board && next.state === "playing") beep(520, 30);
@@ -94,7 +99,7 @@ export default function FieldSweeper({ win }: AppProps) {
             <button
               key={i}
               className={`sw-cell${c.open ? " open" : ""}${board.hit === i ? " hit" : ""}`}
-              onClick={() => click(i)}
+              onClick={(e) => click(i, performance.timeOrigin + e.timeStamp)}
               onContextMenu={(e) => {
                 e.preventDefault();
                 setBoard(toggleMark(board, i));

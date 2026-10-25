@@ -364,12 +364,28 @@ function Chat({ conv, onBack, showBack, draft, clearDraft, onRemoveContact, isCo
   const others = conv.members.filter((m) => m !== user?.id);
   const other = !conv.group ? resolve(others[0]) : null;
 
+  // A link shared into this chat while it's open fills in the message box.
+  const [shownDraft, setShownDraft] = useState(draft);
+  if (draft !== shownDraft) {
+    setShownDraft(draft);
+    if (draft) setText(draft);
+  }
   useEffect(() => {
-    if (draft) {
-      setText(draft);
-      input.current?.focus();
-    }
+    if (draft) input.current?.focus();
   }, [draft]);
+
+  // Which messages start a new day or a new speaker.
+  const rows = useMemo(
+    () =>
+      thread.map((m, i) => {
+        const prev = thread[i - 1];
+        const day = formatDate(Date.parse(m.at), computer.timeZone);
+        const showDay = !prev || formatDate(Date.parse(prev.at), computer.timeZone) !== day;
+        const showName = showDay || prev.kind !== "text" || prev.from !== m.from || m.kind !== "text";
+        return { m, day, showDay, showName };
+      }),
+    [thread, computer.timeZone],
+  );
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight });
@@ -411,8 +427,6 @@ function Chat({ conv, onBack, showBack, draft, clearDraft, onRemoveContact, isCo
     }
   };
 
-  let lastDay = "";
-  let lastFrom = "";
   return (
     <div className={`im-chat${shake ? " shake" : ""}`} data-conversation={conv.id}>
       <div className="im-chat-head">
@@ -461,12 +475,7 @@ function Chat({ conv, onBack, showBack, draft, clearDraft, onRemoveContact, isCo
       {other && !other.sample && other.presence === "offline" && <div className="im-note">{other.name} is offline. They&apos;ll see your messages next time they sign in on this computer.</div>}
       <div className="im-messages" ref={scroller} aria-live="polite">
         {thread.length === 0 && <div className="empty">Say hello! 👋</div>}
-        {thread.map((m) => {
-          const day = formatDate(Date.parse(m.at), computer.timeZone);
-          const showDay = day !== lastDay;
-          const showName = showDay || m.from !== lastFrom || m.kind !== "text";
-          lastDay = day;
-          lastFrom = m.kind === "text" ? m.from : "";
+        {rows.map(({ m, day, showDay, showName }) => {
           const who = resolve(m.from);
           return (
             <div key={m.id}>

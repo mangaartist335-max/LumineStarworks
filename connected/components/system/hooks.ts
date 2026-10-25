@@ -21,11 +21,22 @@ export function useCollection<T extends StoredDoc>(collection: string, opts: { a
   }, [store, collection, user, allUsers]);
   useEffect(() => {
     // Load once now and again whenever this collection changes.
-    void reload();
-    return store.subscribe((e) => {
-      if (e.kind === "doc" && e.collection === collection) void reload();
+    let alive = true;
+    const load = () =>
+      store.list<T>(collection).then((all) => {
+        if (!alive) return;
+        setItems(allUsers ? all : all.filter((d) => (d as unknown as { owner?: string }).owner === user?.id));
+        setLoaded(true);
+      });
+    void load();
+    const off = store.subscribe((e) => {
+      if (e.kind === "doc" && e.collection === collection) void load();
     });
-  }, [store, collection, reload]);
+    return () => {
+      alive = false;
+      off();
+    };
+  }, [store, collection, user, allUsers]);
   return [items, reload, loaded];
 }
 

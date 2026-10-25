@@ -42,7 +42,6 @@ function hostIcon(url: string) {
 }
 
 function PageView({ url, tabId, active, reloadKey, dispatchNav, setStatus }: { url: string; tabId: string; active: boolean; reloadKey: number; dispatchNav: (a: Parameters<typeof browserReducer>[1]) => void; setStatus: (s: string | null) => void }) {
-  const { openApp } = useSystem();
   const parsed = useMemo(() => parseUrl(url), [url]);
   const navigate = useCallback<SiteContextValue["navigate"]>(
     (href, opts) => {
@@ -59,7 +58,7 @@ function PageView({ url, tabId, active, reloadKey, dispatchNav, setStatus }: { u
   if (!parsed || !ctx) return <NotFoundPage url={url} navigate={navigate} setTitle={setTitle} />;
   let content: React.ReactNode;
   if (parsed.protocol === "about:") {
-    content = <AboutPage key={reloadKey} page={parsed.path} openApp={openApp} />;
+    content = <AboutPage key={reloadKey} page={parsed.path} />;
   } else {
     const site = siteForHost(parsed.host);
     if (!site) content = <LivePage key={reloadKey} />;
@@ -136,9 +135,11 @@ export default function Browser({ win }: AppProps) {
   // Keep the address bar and window title in step with the page.
   useEffect(() => {
     if (!entry) return;
-    if (!editing) setAddress(entry.url === NEW_TAB_URL ? "" : entry.url);
     dispatchWm({ type: "setTitle", id: win.id, title: `${entry.title} - Web Browser` });
-  }, [entry, editing, dispatchWm, win.id]);
+  }, [entry, dispatchWm, win.id]);
+  // While you're not typing, the address bar shows the page's address.
+  const pageAddress = entry ? (entry.url === NEW_TAB_URL ? "" : entry.url) : address;
+  const shownAddress = editing ? address : pageAddress;
 
   // Record history: one entry per visit, title filled in when the page reports it.
   const visitIds = useRef(new Map<string, string>());
@@ -246,17 +247,17 @@ export default function Browser({ win }: AppProps) {
           className="address"
           onSubmit={(e) => {
             e.preventDefault();
-            go(address);
+            go(shownAddress);
           }}
         >
           <Icon name={hostIcon(entry.url)} size={16} />
           <input
             ref={addressRef}
-            value={address}
+            value={shownAddress}
             placeholder="Search Goggle or type an address"
             aria-label="Address and search bar"
             onChange={(e) => (setAddress(e.target.value), setEditing(true), setSuggestOpen(true))}
-            onFocus={(e) => (setEditing(true), e.target.select())}
+            onFocus={(e) => (setAddress(pageAddress), setEditing(true), e.target.select())}
             onBlur={() => setTimeout(() => (setEditing(false), setSuggestOpen(false)), 150)}
             onKeyDown={(e) => e.key === "Escape" && (setEditing(false), setSuggestOpen(false), setAddress(entry.url), addressRef.current?.blur())}
             spellCheck={false}

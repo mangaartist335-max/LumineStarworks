@@ -3,7 +3,7 @@
 // Pieces the desktop programs share: live file listings, opening a file as
 // a URL, the Open/Save dialog, the Explorer clipboard and window helpers.
 
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useEffectEvent, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useSystem } from "@/components/system/system";
 import { useCollection } from "@/components/system/hooks";
 import { Icon } from "@/components/desktop/Icon";
@@ -29,12 +29,11 @@ export function useChildren(folderId: string | null | undefined): FileNode[] {
 /** A playable/displayable URL for a file, revoked when it changes or unmounts. */
 export function useFileUrl(fileId: string | null | undefined, version?: string): { url: string | null; error: string | null } {
   const { vfs } = useSystem();
-  const [state, setState] = useState<{ url: string | null; error: string | null }>({ url: null, error: null });
+  const key = fileId ? `${fileId}:${version ?? ""}` : null;
+  // Results are tagged with the file they belong to, so a stale one is never shown.
+  const [state, setState] = useState<{ key: string; url: string | null; error: string | null } | null>(null);
   useEffect(() => {
-    if (!fileId || !vfs) {
-      setState({ url: null, error: null });
-      return;
-    }
+    if (!fileId || !vfs || !key) return;
     let alive = true;
     let revoke = () => {};
     vfs
@@ -42,15 +41,15 @@ export function useFileUrl(fileId: string | null | undefined, version?: string):
       .then((r) => {
         if (!alive) return r.revoke();
         revoke = r.revoke;
-        setState({ url: r.url, error: null });
+        setState({ key, url: r.url, error: null });
       })
-      .catch((e) => alive && setState({ url: null, error: e instanceof Error ? e.message : String(e) }));
+      .catch((e) => alive && setState({ key, url: null, error: e instanceof Error ? e.message : String(e) }));
     return () => {
       alive = false;
       revoke();
     };
-  }, [fileId, vfs, version]);
-  return state;
+  }, [fileId, vfs, key]);
+  return state && state.key === key ? { url: state.url, error: state.error } : { url: null, error: null };
 }
 
 /** Keeps the window's title bar in step with the document. */
@@ -68,13 +67,12 @@ export function useWindowTitle(win: Win, title: string) {
  */
 export function useArgs(win: Win, fn: (args: Record<string, unknown>) => void) {
   const last = useRef<unknown>(Symbol("unset"));
-  const cb = useRef(fn);
-  cb.current = fn;
+  const onArgs = useEffectEvent(fn);
   useEffect(() => {
     const key = win.args?.nonce ?? "first";
     if (last.current === key) return;
     last.current = key;
-    cb.current(win.args ?? {});
+    onArgs(win.args ?? {});
   }, [win.args]);
 }
 

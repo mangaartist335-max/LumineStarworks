@@ -11,7 +11,7 @@ import { Icon } from "./Icon";
 export function StartMenu({ onClose }: { onClose: () => void }) {
   const { user, openApp, folders, vfs, shutDown, restart, logOff } = useSystem();
   const [query, setQuery] = useState("");
-  const [fileHits, setFileHits] = useState<FileNode[]>([]);
+  const [found, setFound] = useState<{ query: string; hits: FileNode[] }>({ query: "", hits: [] });
   const [powerMenu, setPowerMenu] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -31,11 +31,8 @@ export function StartMenu({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     let alive = true;
-    if (!query.trim() || !vfs) {
-      setFileHits([]);
-      return;
-    }
-    vfs.search(query).then((hits) => alive && setFileHits(hits.slice(0, 6)));
+    if (!query.trim() || !vfs) return;
+    vfs.search(query).then((hits) => alive && setFound({ query, hits: hits.slice(0, 6) }));
     return () => {
       alive = false;
     };
@@ -47,6 +44,7 @@ export function StartMenu({ onClose }: { onClose: () => void }) {
   };
   const folder = (which: SpecialFolder) => launch("explorer", { folderId: folders?.[which] });
 
+  const fileHits = query.trim() && found.query === query ? found.hits : [];
   const programs = Object.entries(APPS).filter(([, a]) => a.start);
   const q = query.trim().toLowerCase();
   const matches = q ? programs.filter(([, a]) => a.title.toLowerCase().includes(q) || a.description.toLowerCase().includes(q)) : [];

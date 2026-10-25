@@ -73,6 +73,27 @@ export default function Archive({ win }: AppProps) {
 
   const fail = (e: unknown) => dialog.alert(e instanceof Error ? e.message : String(e), { title: "Archive Manager" });
 
+  const extract = async (id = zipId, list = entries, only?: string[]) => {
+    if (!vfs || !id) return;
+    const node = await vfs.get(id);
+    if (!node?.parentId) return;
+    const base = node.name.replace(/\.(zip|cbz)$/i, "");
+    const name = await dialog.prompt("Extract the files into a new folder named:", base, { title: "Extract", okLabel: "Extract" });
+    if (!name) return;
+    setBusy("Extracting...");
+    try {
+      const target = await vfs.createFolder(node.parentId, name);
+      const chosen = only ? list.filter((e) => only.includes(e.name)) : list;
+      const written = await extractEntries(vfs, chosen, target.id);
+      notify({ title: "Extraction complete", body: `${written.length} file${written.length === 1 ? "" : "s"} extracted to ${target.name}.`, icon: "archive" });
+      openApp("explorer", { folderId: target.id });
+    } catch (e) {
+      await fail(e);
+    } finally {
+      setBusy(null);
+    }
+  };
+
   const open = async (id: string, extractNow = false) => {
     if (!vfs) return;
     try {
@@ -97,27 +118,6 @@ export default function Archive({ win }: AppProps) {
       setZipName(`${first ? first.name.replace(/\.[a-z0-9]+$/i, "") : "Archive"}${ids.length > 1 ? " and more" : ""}.zip`);
     }
   });
-
-  const extract = async (id = zipId, list = entries, only?: string[]) => {
-    if (!vfs || !id) return;
-    const node = await vfs.get(id);
-    if (!node?.parentId) return;
-    const base = node.name.replace(/\.(zip|cbz)$/i, "");
-    const name = await dialog.prompt("Extract the files into a new folder named:", base, { title: "Extract", okLabel: "Extract" });
-    if (!name) return;
-    setBusy("Extracting...");
-    try {
-      const target = await vfs.createFolder(node.parentId, name);
-      const chosen = only ? list.filter((e) => only.includes(e.name)) : list;
-      const written = await extractEntries(vfs, chosen, target.id);
-      notify({ title: "Extraction complete", body: `${written.length} file${written.length === 1 ? "" : "s"} extracted to ${target.name}.`, icon: "archive" });
-      openApp("explorer", { folderId: target.id });
-    } catch (e) {
-      await fail(e);
-    } finally {
-      setBusy(null);
-    }
-  };
 
   const openEntry = async (e: ZipEntry) => {
     if (!vfs || !folders || e.isDirectory) return;

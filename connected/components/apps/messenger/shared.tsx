@@ -27,6 +27,16 @@ export interface TypingState {
   at: number;
 }
 
+/** Real (not simulated) time, refreshed every `interval` ms: presence and typing expire in real time. */
+function useRealClock(interval: number): number {
+  const [t, setT] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setT(Date.now()), interval);
+    return () => clearInterval(id);
+  }, [interval]);
+  return t;
+}
+
 /** Live heartbeats of every account on this computer. */
 export function useHeartbeats(): Record<string, Heartbeat | undefined> {
   const { store, users } = useSystem();
@@ -54,8 +64,7 @@ export function useContactResolver(): (id: string) => ContactInfo {
   const { users, user, settings, computer } = useSystem();
   const beats = useHeartbeats();
   const t = useClock(15_000);
-  const [real, setReal] = useState(() => Date.now());
-  useEffect(() => setReal(Date.now()), [t, beats]);
+  const real = useRealClock(15_000);
   return useCallback(
     (id: string): ContactInfo => {
       const c = sampleContactById(id);
@@ -73,20 +82,18 @@ export function useContactResolver(): (id: string) => ContactInfo {
 export function useTyping(conversationId: string | null): string | null {
   const { store, user } = useSystem();
   const [state, setState] = useState<TypingState | null>(null);
-  const [, tick] = useState(0);
+  const real = useRealClock(1000);
   useEffect(() => {
     if (!conversationId) return;
     let alive = true;
     const load = () => store.kvGet<TypingState>(typingKey(conversationId)).then((v) => alive && setState(v ?? null));
     void load();
     const off = store.subscribe((e) => e.kind === "kv" && e.key === typingKey(conversationId) && void load());
-    const t = setInterval(() => tick((n) => n + 1), 1000);
     return () => {
       alive = false;
       off();
-      clearInterval(t);
     };
   }, [store, conversationId]);
-  if (!state || state.who === user?.id || Date.now() - state.at > 5000) return null;
+  if (!state || state.who === user?.id || real - state.at > 5000) return null;
   return state.who;
 }

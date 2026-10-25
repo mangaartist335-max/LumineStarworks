@@ -122,12 +122,10 @@ function Results() {
   const page = Math.max(1, Number(url.params.get("page") ?? 1));
   const t = now();
   usePageTitle(`${q} - Goggle Search`);
-  const started = performance.now();
   const results = useMemo(
     () => getSearchIndex().search(q, { now: t, kind: kind === "all" ? "all" : kind, since: dateFilter.days ? t - dateFilter.days * 86400_000 : undefined, page, perPage: kind === "image" ? 24 : 10 }),
     [q, t, kind, dateFilter, page],
   );
-  const seconds = ((performance.now() - started) / 1000 + 0.07).toFixed(2);
   const link = (extra: Record<string, string | undefined>) => {
     const p: Record<string, string> = { q };
     const merged = { tbm: tbm ?? undefined, tbs: dateFilter.id === "any" ? undefined : dateFilter.id, ...extra };
@@ -161,7 +159,7 @@ function Results() {
         </span>
       </nav>
       <div className="goggle-stats">
-        About {results.total.toLocaleString("en-US")} result{results.total === 1 ? "" : "s"} ({seconds} seconds)
+        About {results.total.toLocaleString("en-US")} result{results.total === 1 ? "" : "s"}
       </div>
       {results.total === 0 && (
         <div className="goggle-none">

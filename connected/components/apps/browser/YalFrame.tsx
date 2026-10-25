@@ -25,7 +25,8 @@ export function YalFrame() {
   const requested = `${url.path}${url.params.toString() ? `?${url.params.toString()}` : ""}`;
   const shownPath = useRef<string | null>(null);
   const [src, setSrc] = useState(() => frameSrc(requested, now()));
-  const [failed, setFailed] = useState(false);
+  // The frame address that never reported in (YAL's server isn't running).
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const frame = useRef<HTMLIFrameElement>(null);
 
   // Back/Forward to a different YAL page loads it in the frame.
@@ -37,7 +38,7 @@ export function YalFrame() {
     const onMessage = (e: MessageEvent<LocationMessage>) => {
       if (e.origin !== new URL(YAL_ORIGIN).origin || e.source !== frame.current?.contentWindow) return;
       if (e.data?.type !== "yal:location" || typeof e.data.path !== "string") return;
-      setFailed(false);
+      setFailedSrc(null);
       shownPath.current = e.data.path;
       setTitle(e.data.title || "YourAnimeList");
       if (e.data.path !== requested) navigate(`${YAL_PUBLIC}${e.data.path}`);
@@ -48,9 +49,8 @@ export function YalFrame() {
 
   // If YAL never reports in, its server isn't running.
   useEffect(() => {
-    setFailed(false);
     const t = setTimeout(() => {
-      if (shownPath.current === null) setFailed(true);
+      if (shownPath.current === null) setFailedSrc(src);
     }, 8000);
     return () => clearTimeout(t);
   }, [src]);
@@ -64,7 +64,7 @@ export function YalFrame() {
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
         referrerPolicy="strict-origin-when-cross-origin"
       />
-      {failed && (
+      {failedSrc === src && (
         <div className="special-page overlay">
           <h1>YourAnimeList isn&apos;t responding</h1>
           <p>

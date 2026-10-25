@@ -57,6 +57,7 @@ export default function Music({ win }: AppProps) {
 
   const start = (list: FileNode[], id: string) => {
     let order = list.map((f) => f.id);
+    if (!order.includes(id)) order = [id, ...order];
     if (prefs.shuffle) order = [id, ...order.filter((x) => x !== id).sort(() => Math.random() - 0.5)];
     setQueue(order);
     setCurrent(id);
@@ -69,11 +70,6 @@ export default function Music({ win }: AppProps) {
     const siblings = f ? files.filter((x) => x.parentId === f.parentId && x.kind === "file" && isAudio(x)).sort((a, b) => a.name.localeCompare(b.name)) : [];
     start(siblings.length ? siblings : songs, args.fileId);
   });
-
-  // Files arrive asynchronously; retry an opened file once they're loaded.
-  useEffect(() => {
-    if (current && !queue.length && songs.some((s) => s.id === current)) setQueue([current]);
-  }, [current, queue.length, songs]);
 
   useEffect(() => {
     const a = audio.current;
@@ -316,7 +312,6 @@ export default function Music({ win }: AppProps) {
           <input type="range" min={0} max={1} step={0.05} value={settings.volume} onChange={(e) => updateSettings({ volume: Number(e.target.value), muted: false })} aria-label="Volume" />
         </div>
       </div>
-      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio
         ref={audio}
         src={url ?? undefined}

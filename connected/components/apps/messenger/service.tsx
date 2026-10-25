@@ -5,7 +5,7 @@
 // accounts on this computer, lets sample contacts answer (clearly marked as
 // automatic replies), and pops up a notification when a message arrives.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useEffectEvent, useRef } from "react";
 import { useSystem } from "@/components/system/system";
 import { useCollection } from "@/components/system/hooks";
 import { DEFAULT_CONTACTS, sampleContactById } from "@/data/messenger";
@@ -22,8 +22,10 @@ export function MessengerService() {
   const resolve = useContactResolver();
   const scheduled = useRef(new Set<string>());
   const seen = useRef<Set<string> | null>(null);
-  const wmRef = useRef(wm);
-  wmRef.current = wm;
+  const isMessengerFocused = useEffectEvent(() => {
+    const w = wm.windows.find((x) => x.appId === "messenger");
+    return Boolean(w && wm.focused === w.id);
+  });
 
   // Presence heartbeat.
   useEffect(() => {
@@ -107,8 +109,7 @@ export function MessengerService() {
       if (m.from === user.id || m.kind === "system") continue;
       const conv = conversations.find((c) => c.id === m.conversationId);
       if (!conv?.members.includes(user.id)) continue;
-      const messengerWin = wmRef.current.windows.find((w) => w.appId === "messenger");
-      if (messengerWin && wmRef.current.focused === messengerWin.id) continue;
+      if (isMessengerFocused()) continue;
       const who = resolve(m.from);
       notify({
         title: m.kind === "nudge" ? `${who.name} sent you a nudge!` : `${who.name} says:`,

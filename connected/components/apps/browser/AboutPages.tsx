@@ -307,7 +307,7 @@ function PreferencesPage() {
   );
 }
 
-export function AboutPage({ page, openApp }: { page: string; openApp: (id: string, args?: Record<string, unknown>) => void }) {
+export function AboutPage({ page }: { page: string }) {
   switch (page) {
     case "newtab":
       return <NewTab />;

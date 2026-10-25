@@ -51,7 +51,7 @@ export default function Paint({ win }: AppProps) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const undo = useRef<ImageData[]>([]);
   const redo = useRef<ImageData[]>([]);
-  const [, bump] = useState(0);
+  const [hist, setHist] = useState({ undo: 0, redo: 0 });
   const drag = useRef<{ x: number; y: number; lastX: number; lastY: number; button: number } | null>(null);
   const afterSave = useRef<((id: string) => void) | null>(null);
   const file = files.find((f) => f.id === fileId);
@@ -63,10 +63,11 @@ export default function Paint({ win }: AppProps) {
     undo.current.push(ctx().getImageData(0, 0, main.current!.width, main.current!.height));
     if (undo.current.length > HISTORY) undo.current.shift();
     redo.current = [];
-    bump((n) => n + 1);
+    setHist({ undo: undo.current.length, redo: redo.current.length });
   }, []);
 
-  const resetCanvas = useCallback((w: number, h: number, draw?: (g: CanvasRenderingContext2D) => void) => {
+  /** Sizes the canvas and paints it white (then runs `draw`). */
+  const paintCanvas = useCallback((w: number, h: number, draw?: (g: CanvasRenderingContext2D) => void) => {
     const c = main.current!;
     c.width = w;
     c.height = h;
@@ -76,13 +77,26 @@ export default function Paint({ win }: AppProps) {
     g.fillStyle = "#ffffff";
     g.fillRect(0, 0, w, h);
     draw?.(g);
-    setSize({ w, h });
-    setSelection(null);
   }, []);
 
+  const resetCanvas = useCallback(
+    (w: number, h: number, draw?: (g: CanvasRenderingContext2D) => void) => {
+      paintCanvas(w, h, draw);
+      setSize({ w, h });
+      setSelection(null);
+    },
+    [paintCanvas],
+  );
+
   useEffect(() => {
-    resetCanvas(800, 520);
-  }, [resetCanvas]);
+    paintCanvas(800, 520);
+  }, [paintCanvas]);
+
+  const clearHistory = () => {
+    undo.current = [];
+    redo.current = [];
+    setHist({ undo: 0, redo: 0 });
+  };
 
   const openFile = async (id: string) => {
     if (!vfs) return;
@@ -96,8 +110,7 @@ export default function Paint({ win }: AppProps) {
       const h = Math.round(img.naturalHeight * scale);
       resetCanvas(w, h, (g) => g.drawImage(img, 0, 0, w, h));
       revoke();
-      undo.current = [];
-      redo.current = [];
+      clearHistory();
       setFileId(id);
       setDirty(false);
     } catch (e) {
@@ -240,7 +253,7 @@ export default function Paint({ win }: AppProps) {
     if (prev.width !== c.width || prev.height !== c.height) resetCanvas(prev.width, prev.height);
     ctx().putImageData(prev, 0, 0);
     setDirty(true);
-    bump((n) => n + 1);
+    setHist({ undo: undo.current.length, redo: redo.current.length });
   };
   const doRedo = () => {
     const next = redo.current.pop();
@@ -250,7 +263,7 @@ export default function Paint({ win }: AppProps) {
     if (next.width !== c.width || next.height !== c.height) resetCanvas(next.width, next.height);
     ctx().putImageData(next, 0, 0);
     setDirty(true);
-    bump((n) => n + 1);
+    setHist({ undo: undo.current.length, redo: redo.current.length });
   };
 
   const transform = (w: number, h: number, draw: (g: CanvasRenderingContext2D, src: HTMLCanvasElement) => void) => {
@@ -327,7 +340,7 @@ export default function Paint({ win }: AppProps) {
   return (
     <div className="paint">
       <div className="toolbar">
-        <button className="tool" onClick={async () => (await keepChanges()) && (resetCanvas(800, 520), setFileId(null), setDirty(false), (undo.current = []))}>
+        <button className="tool" onClick={async () => (await keepChanges()) && (resetCanvas(800, 520), setFileId(null), setDirty(false), clearHistory())}>
           New
         </button>
         <button className="tool" onClick={async () => (await keepChanges()) && setPicker("open")}>
@@ -340,10 +353,10 @@ export default function Paint({ win }: AppProps) {
           Save As...
         </button>
         <span className="ph-sep" />
-        <button className="tool" onClick={doUndo} disabled={!undo.current.length} title="Undo (Ctrl+Z)">
+        <button className="tool" onClick={doUndo} disabled={!hist.undo} title="Undo (Ctrl+Z)">
           ↶ Undo
         </button>
-        <button className="tool" onClick={doRedo} disabled={!redo.current.length} title="Redo (Ctrl+Y)">
+        <button className="tool" onClick={doRedo} disabled={!hist.redo} title="Redo (Ctrl+Y)">
           ↷ Redo
         </button>
         <span className="ph-sep" />

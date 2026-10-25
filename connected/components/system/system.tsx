@@ -397,7 +397,6 @@ export function useClock(interval = 1000): number {
   const { now } = useSystem();
   const [t, setT] = useState(now);
   useEffect(() => {
-    setT(now());
     const id = setInterval(() => setT(now()), interval);
     return () => clearInterval(id);
   }, [now, interval]);

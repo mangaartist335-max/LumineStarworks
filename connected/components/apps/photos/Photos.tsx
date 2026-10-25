@@ -43,6 +43,31 @@ export default function Photos({ win }: AppProps) {
     setNatural(null);
   };
 
+  // The viewing area's size, for "fit" zoom.
+  const [area, setArea] = useState({ w: 0, h: 0 });
+  useEffect(() => {
+    const el = stage.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setArea({ w: el.clientWidth, h: el.clientHeight }));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const fitScale = () => {
+    if (!natural || !area.w) return 1;
+    const sideways = Math.abs(rotation % 180) === 90;
+    const w = sideways ? natural.h : natural.w;
+    const h = sideways ? natural.w : natural.h;
+    return Math.min(1, (area.w - 20) / w, (area.h - 20) / h);
+  };
+  const scale = zoom === "fit" ? fitScale() : zoom;
+  const zoomBy = (f: number) => setZoom(Math.min(8, Math.max(0.05, (zoom === "fit" ? fitScale() : zoom) * f)));
+
+  const stopSlideshow = () => {
+    setSlideshow(false);
+    if (document.fullscreenElement) void document.exitFullscreen();
+  };
+
   useEffect(() => {
     if (!slideshow) return;
     const t = setInterval(() => step(1), 3500);
@@ -64,22 +89,6 @@ export default function Photos({ win }: AppProps) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
-
-  const fitScale = () => {
-    const el = stage.current;
-    if (!el || !natural) return 1;
-    const sideways = Math.abs(rotation % 180) === 90;
-    const w = sideways ? natural.h : natural.w;
-    const h = sideways ? natural.w : natural.h;
-    return Math.min(1, (el.clientWidth - 20) / w, (el.clientHeight - 20) / h);
-  };
-  const scale = zoom === "fit" ? fitScale() : zoom;
-  const zoomBy = (f: number) => setZoom(Math.min(8, Math.max(0.05, (zoom === "fit" ? fitScale() : zoom) * f)));
-
-  const stopSlideshow = () => {
-    setSlideshow(false);
-    if (document.fullscreenElement) void document.exitFullscreen();
-  };
 
   const isWallpaper = settings.wallpaper.kind === "file" && settings.wallpaper.fileId === fileId;
 

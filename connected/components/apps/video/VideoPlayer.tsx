@@ -46,7 +46,6 @@ export default function VideoPlayer({ win }: AppProps) {
     <div className="videoplayer">
       <div className="vp-stage">
         {url ? (
-          // eslint-disable-next-line jsx-a11y/media-has-caption
           <video ref={video} src={url} controls autoPlay={autoplay} onEnded={() => go(1)} />
         ) : (
           <div className="empty">

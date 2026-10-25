@@ -75,8 +75,10 @@ export default function PdfReader({ win }: AppProps) {
   const { vfs } = useSystem();
   const files = useFiles();
   const [fileId, setFileId] = useState<string | null>(null);
-  const [doc, setDoc] = useState<PDFDocumentProxy | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  // The opened document (or why it couldn't open), tagged with its file.
+  const [loaded, setLoaded] = useState<{ fileId: string; doc: PDFDocumentProxy | null; error: string | null } | null>(null);
+  const doc = loaded?.fileId === fileId ? loaded.doc : null;
+  const error = loaded?.fileId === fileId ? loaded.error : null;
   const [scale, setScale] = useState(1.25);
   const [page, setPage] = useState(1);
   const [picking, setPicking] = useState(false);
@@ -92,8 +94,6 @@ export default function PdfReader({ win }: AppProps) {
     if (!fileId || !vfs) return;
     let alive = true;
     let task: { destroy: () => Promise<void> } | null = null;
-    setError(null);
-    setDoc(null);
     (async () => {
       try {
         const [pdfjs, blob] = await Promise.all([loadPdfjs(), vfs.readBlob(fileId)]);
@@ -102,10 +102,10 @@ export default function PdfReader({ win }: AppProps) {
         task = loading;
         const d = await loading.promise;
         if (!alive) return;
-        setDoc(d);
+        setLoaded({ fileId, doc: d, error: null });
         setPage(1);
       } catch (e) {
-        if (alive) setError(`This PDF couldn't be opened. ${e instanceof Error ? e.message : ""}`);
+        if (alive) setLoaded({ fileId, doc: null, error: `This PDF couldn't be opened. ${e instanceof Error ? e.message : ""}` });
       }
     })();
     return () => {

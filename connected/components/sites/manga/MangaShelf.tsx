@@ -58,6 +58,8 @@ function useLibrary() {
   const { now, computer } = useSystem();
   const [imports] = useCollection<MgImport>(COL.imports);
   const t = now();
+  // Recompute once a minute of computer time, not on every render.
+  const minute = Math.floor(t / 60000);
   return useMemo(() => {
     const titles: (MangaTitle & { imported?: MgImport })[] = mangaTitles
       .map((m) => ({ ...m, chapters: m.chapters.filter((c) => isListed(c.availability, t, computer.region)) }))
@@ -79,7 +81,7 @@ function useLibrary() {
     }
     return titles;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imports, computer.region, Math.floor(t / 60000)]);
+  }, [imports, computer.region, minute]);
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
