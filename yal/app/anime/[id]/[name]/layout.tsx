@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { AnimeTabs } from "@/components/anime/AnimeTabs";
+import { PlannedEntry } from "@/components/anime/PlannedEntry";
 import { Cover, InfoRow, NA, fmtNum } from "@/components/ui";
 import { quickAddAction } from "@/app/actions/list";
 import { airedText, episodesText, loadAnime } from "@/lib/anime-page";
@@ -59,6 +60,7 @@ export default async function AnimeLayout(props: LayoutProps<"/anime/[id]/[name]
     );
   }
   const { anime, asOf } = load;
+  if (anime.pagePlanned) return <PlannedEntry anime={anime} asOf={asOf} />;
   const viewer = await getViewer();
   const base = animeUrl(anime);
   const status = animeStatus(anime, asOf);

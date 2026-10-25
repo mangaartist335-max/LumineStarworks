@@ -39,20 +39,25 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await p2.click('button:has-text("Sign Up")');
     await p2.getByText('already taken').waitFor();
   });
+  await step('Impact of Eden page is coming soon', async () => {
+    await p.goto(BASE + '/anime/19815/Impact_of_Eden/characters');
+    await p.getByText('Page coming soon').waitFor();
+    await p.getByRole('link', { name: 'Impact of Eden Episode 1 Discussion' }).waitFor();
+  });
   await step('add to list', async () => {
-    await p.goto(BASE + '/anime/19815/Impact_of_Eden');
+    await p.goto(BASE + '/anime/10380/Sinful_Apex');
     await p.click('button:has-text("Add to My List")');
     await p.getByText('On your list:').waitFor();
   });
   await step('edit list entry', async () => {
-    await p.goto(BASE + '/ownlist/anime/19815/edit');
+    await p.goto(BASE + '/ownlist/anime/10380/edit');
     await p.fill('#le-eps', '3');
     await p.selectOption('#le-score', '9');
     await p.fill('#le-notes', 'Waiting for Sunday!');
     await p.click('button:has-text("Update")');
     await p.waitForURL(/\/animelist\//);
     await p.getByText('Your list has been updated').waitFor();
-    await p.getByText('3/25').waitFor();
+    await p.getByText('3/24').waitFor();
   });
   await step('spoiler toggle', async () => {
     await p.goto(BASE + '/forum/thread/ioe-ep1');
@@ -100,9 +105,9 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await p.getByText('Your report was sent').waitFor();
   });
   await step('write review', async () => {
-    await p.goto(BASE + '/anime/19815/Impact_of_Eden/reviews');
+    await p.goto(BASE + '/anime/7741/Zero_Latitude/reviews');
     await p.fill('#rv-eps', '3');
-    await p.fill('#rv-body', 'Three episodes in and this is already one of my favourite shows of the year. '.repeat(4));
+    await p.fill('#rv-body', 'Three episodes in and the time skips already have me hooked on this mystery. '.repeat(4));
     await p.click('button:has-text("Submit Review")');
     await p.waitForURL(/reviews#review-/);
     await p.getByRole('link', { name: user, exact: true }).first().waitFor();
@@ -125,12 +130,14 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await p.goto(BASE + '/forum/thread/ioe-ep1');
     await p.getByText('This topic does not exist yet').waitFor();
   });
-  await step('time travel: Oct 5 21:00 anime is Not yet aired', async () => {
-    await p.goto(BASE + '/anime/19815/Impact_of_Eden');
+  await step('time travel: Jan 5, 2012 Glass Cathedral is Not yet aired', async () => {
+    await travel('2012-01-05T12:00');
+    await p.goto(BASE + '/anime/4407/Glass_Cathedral');
     await p.getByText('Not yet aired').first().waitFor();
     const html = await p.content();
-    if (html.includes('8.51')) throw new Error('score leaked before capture');
-    if (html.includes('Human x Inhuman')) throw new Error('OP leaked before ep1');
+    if (html.includes('7.71')) throw new Error('score leaked before capture');
+    if (html.includes('Stained Memory')) throw new Error('OP leaked before premiere');
+    await travel('2013-10-05T21:00');
   });
   await step('time travel: Oct 6 03:00 ep1 thread partial', async () => {
     await travel('2013-10-06T03:00');

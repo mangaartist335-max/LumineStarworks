@@ -453,4 +453,201 @@ export const seedThreads: SeedThread[] = [
       },
     ],
   },
+
+  // ── Episode Discussion: finales of the 2012–2013 back catalogue ─────────
+  {
+    id: "t-21990",
+    board: "episode",
+    title: "Sinful Apex Episode 24 Discussion",
+    author: "YALBot",
+    createdAt: "2012-01-23T16:31:00Z",
+    animeId: SINFUL_APEX_ID,
+    episode: 24,
+    provenance: "reconstructed",
+    posts: [
+      {
+        author: "YALBot",
+        at: "2012-01-23T16:31:00Z",
+        body: "[b]Episode 24 (\"Sinful Apex\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 24.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+      },
+      {
+        author: "ShounenLifer_VHS",
+        at: "2012-01-23T16:52:00Z",
+        body: "Twenty-four weeks and Miura didn't waste a single minute. That last climb up the Apex stairway with the whole city lit up underneath them... I'm out of words. Flow Pictures went out swinging.",
+      },
+      {
+        author: "MahouShoujoLifer",
+        at: "2012-01-23T17:20:00Z",
+        body: "Aria Moonbirth singing [i]Moonbirth[/i] over the final credits while every tower lord shows up in the crowd was SO good. LUNE really did make Aria feel like a real singer all season.",
+      },
+      {
+        author: "StormWallTheory",
+        at: "2012-01-23T18:05:00Z",
+        body: "I said back in October that Nico's wish would be for someone else and I was RIGHT. She was the heart of this show from episode 2 onward. Mariya Ise, thank you.\n\n[spoiler=the wish]The look on Lyle's face when she says it. Perfect ending.[/spoiler]",
+      },
+      {
+        author: "HollowToast",
+        at: "2012-01-24T08:40:00Z",
+        body: "Caught it on the train this morning. Great ending, great show, and now my Mondays are free. Already reading the recommendations board for what to watch next.",
+      },
+      {
+        author: "ED_Appreciator",
+        at: "2012-01-24T11:15:00Z",
+        body: "Full version of Moonbirth when?? The TV size isn't enough, I need all of it.",
+      },
+    ],
+  },
+  {
+    id: "t-24410",
+    board: "episode",
+    title: "Glass Cathedral Episode 12 Discussion",
+    author: "YALBot",
+    createdAt: "2012-03-28T17:00:00Z",
+    animeId: 4407,
+    episode: 12,
+    provenance: "reconstructed",
+    posts: [
+      {
+        author: "YALBot",
+        at: "2012-03-28T17:00:00Z",
+        body: "[b]Episode 12 (\"Glass Cathedral\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 12.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+      },
+      {
+        author: "NovaFanPixel",
+        at: "2012-03-28T17:24:00Z",
+        body: "Every window lighting up again at once during the morning bells. Kinemachi saved the best shot of the season for last. Saori Hayami's narration over it was beautiful.",
+      },
+      {
+        author: "QuietWatcher_X",
+        at: "2012-03-28T18:10:00Z",
+        body: "I've been lurking all season, but I have to post: the reveal of whose memories were fading was set up from the very first episode. Rewatching the whole thing this weekend.",
+      },
+      {
+        author: "KaichouEnjoyer",
+        at: "2012-03-29T02:45:00Z",
+        body: "Tobias finally getting his own window made me so happy. The lamplighter deserved it.",
+      },
+      {
+        author: "NekoToast92",
+        at: "2012-03-29T11:30:00Z",
+        body: "Quiet, gentle, and the ending made me smile for an hour. Easily my favourite show of the winter.",
+      },
+    ],
+  },
+  {
+    id: "t-26890",
+    board: "episode",
+    title: "Circuit Hearts: Reload Episode 12 Discussion",
+    author: "YALBot",
+    createdAt: "2012-06-22T16:01:00Z",
+    animeId: 9608,
+    episode: 12,
+    provenance: "reconstructed",
+    posts: [
+      {
+        author: "YALBot",
+        at: "2012-06-22T16:01:00Z",
+        body: "[b]Episode 12 (\"Circuit Hearts: Reload\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 12.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+      },
+      {
+        author: "RetroBluRay_AMV",
+        at: "2012-06-22T16:30:00Z",
+        body: "THEY FINISHED THE CONCERT. Ten years late and it was worth it. Pulsewave animated the whole final song with no cuts, I'm going to be making AMVs of this until I'm old.",
+      },
+      {
+        author: "JustHereForOPs",
+        at: "2012-06-22T17:05:00Z",
+        body: "[i]Reload My Heart[/i] as the encore instead of the closing song was a great choice. Full-size OP in the finale, the classic move.",
+      },
+      {
+        author: "HyperNekoMimi",
+        at: "2012-06-22T19:40:00Z",
+        body: "Yuu finally singing one (very bad) line on stage and the crowd cheering anyway. I loved that so much.",
+      },
+      {
+        author: "ChibiComet_92",
+        at: "2012-06-23T09:12:00Z",
+        body: "Pico stole every scene she was in. Please give us an OVA of the band's world tour!",
+      },
+    ],
+  },
+  {
+    id: "t-28655",
+    board: "episode",
+    title: "Vacant Crown: Liminal War Episode 24 Discussion",
+    author: "YALBot",
+    createdAt: "2012-12-15T08:31:00Z",
+    animeId: 9871,
+    episode: 24,
+    provenance: "reconstructed",
+    posts: [
+      {
+        author: "YALBot",
+        at: "2012-12-15T08:31:00Z",
+        body: "[b]Episode 24 (\"Vacant No More\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 24.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+      },
+      {
+        author: "StormWallTheory",
+        at: "2012-12-15T08:52:00Z",
+        body: "Twenty-four episodes of setup and the crown speaks in the last ten minutes. Sendo and Tobe planned every map, every banner and every treaty for this moment, and it LANDED.",
+      },
+      {
+        author: "FinalBossu",
+        at: "2012-12-15T09:30:00Z",
+        body: "Mirelle drawing the new border in the final shot while the second OP plays. Show of the year for me, no contest.",
+      },
+      {
+        author: "NodeCoreOmega",
+        at: "2012-12-15T11:02:00Z",
+        body: "Kazane Ichijo's choir track for the coronation gave me chills. Buying the soundtrack the day it's out.",
+      },
+      {
+        author: "SakugaThreadZero",
+        at: "2012-12-15T13:45:00Z",
+        body: "Arc Meridian kept the battle animation consistent across two full cours. The liminal army charge in the finale is going in my sakuga folder.",
+      },
+      {
+        author: "OldSenseiKnees",
+        at: "2012-12-16T01:20:00Z",
+        body: "Pell running the last message across the border made me cheer out loud. Best kid character of 2012.",
+      },
+    ],
+  },
+  {
+    id: "t-30120",
+    board: "episode",
+    title: "Ghost Eater Episode 12 Discussion",
+    author: "YALBot",
+    createdAt: "2013-03-28T16:58:00Z",
+    animeId: 6811,
+    episode: 12,
+    provenance: "reconstructed",
+    posts: [
+      {
+        author: "YALBot",
+        at: "2013-03-28T16:58:00Z",
+        body: "[b]Episode 12 (\"Thanks for the Meal\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 12.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+      },
+      {
+        author: "NekoToast92",
+        at: "2013-03-28T17:15:00Z",
+        body: "Granny Fumi finally finishing her drama and moving on with a smile... and then Kenji saying \"thanks for the meal\" to her. What a sweet ending.",
+      },
+      {
+        author: "PlanetationBro",
+        at: "2013-03-28T17:48:00Z",
+        body: "Tsubaki's business plan actually WORKING in the end is the funniest possible payoff. This show never stopped being fun.",
+      },
+      {
+        author: "AnoneAnoneAnone",
+        at: "2013-03-28T20:30:00Z",
+        body: "Detective Ozaki asking to be transferred to Kenji's cases permanently. Character growth!",
+      },
+      {
+        author: "ToonblockKid",
+        at: "2013-03-29T10:05:00Z",
+        body: "Ashgrove did it again. Azure Sorcerer was my childhood and Ghost Eater just became my winter. Season 2 please!",
+      },
+    ],
+  },
 ];

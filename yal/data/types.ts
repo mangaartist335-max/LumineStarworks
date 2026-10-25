@@ -176,6 +176,12 @@ export interface Anime {
   sources: SourceNote[];
   /** Notes about deliberately missing data, shown on the page. */
   archiveNotes?: string[];
+  /**
+   * The profile page is being planned separately. The entry still exists
+   * (threads, characters and credits link to it) but its page shows a
+   * "coming soon" notice instead of the full profile.
+   */
+  pagePlanned?: boolean;
 }
 
 export interface CharacterFact {

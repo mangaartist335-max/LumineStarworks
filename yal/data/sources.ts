@@ -14,4 +14,5 @@ export const SRC = {
   sakugaThread: { cite: "SakugaThread, \"Impact of Eden EP1 Sakuga Megathread\" (Oct 6, 2013)" },
   munchyRoll: { cite: "MunchyRoll catalogue page for Impact of Eden (2013)" },
   adultDrift: { cite: "AdultDrift programme page for Impact of Eden" },
+  reconstruction: { cite: "Written for the Lumine StarWorks reconstruction" },
 } satisfies Record<string, SourceNote>;

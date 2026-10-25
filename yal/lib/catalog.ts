@@ -35,8 +35,9 @@ export const allManga = manga;
 
 // ── URLs ─────────────────────────────────────────────────────────────────
 
-export const animeUrl = (a: Pick<Anime, "id" | "slug">, tab?: string) =>
-  `/anime/${a.id}/${a.slug}${tab ? `/${tab}` : ""}`;
+/** Profile URL. Entries whose page is being planned have no tabs yet, so tab links go to the entry itself. */
+export const animeUrl = (a: Pick<Anime, "id" | "slug" | "pagePlanned">, tab?: string) =>
+  `/anime/${a.id}/${a.slug}${tab && !a.pagePlanned ? `/${tab}` : ""}`;
 export const mangaUrl = (m: Pick<Manga, "id" | "slug">) => `/manga/${m.id}/${m.slug}`;
 export const characterUrl = (c: Pick<Character, "id" | "slug">) => `/character/${c.id}/${c.slug}`;
 export const personUrl = (p: Pick<Person, "id" | "slug">) => `/people/${p.id}/${p.slug}`;
@@ -88,6 +89,9 @@ export function airedEpisodes(a: Anime, asOf: string): Episode[] {
  * documented weekly schedule. Returns null when it cannot be derived.
  */
 export function nextEpisodeSlot(a: Anime, asOf: string): { number: number; at: string; aired: boolean } | null {
+  // A scheduled episode in the list comes first (its title stays hidden).
+  const upcoming = a.episodeList.find((e) => e.airedAt && !happened(e.airedAt, asOf));
+  if (upcoming && a.type === "TV") return { number: upcoming.number, at: upcoming.airedAt!, aired: false };
   if (!a.weeklyFrom || a.episodeList.length === 0) return null;
   const last = a.episodeList[a.episodeList.length - 1];
   if (!last.airedAt || !happened(last.airedAt, asOf)) return null;

@@ -2,11 +2,12 @@
 
 import type { Company, Person } from "./types";
 import { SRC } from "./sources";
+import { catalogueCompanies, cataloguePeople } from "./catalogue-people";
 
 // The Impact of Eden entry was added to YAL with the Fall 2013 season chart.
 export const IOE_LISTED = "2013-09-14T15:00:00Z"; // Sep 15, 2013 00:00 JST
 
-export const companies: Company[] = [
+const establishedCompanies: Company[] = [
   {
     id: 1,
     slug: "Studio_Burst",
@@ -93,7 +94,7 @@ export const companies: Company[] = [
   },
 ];
 
-export const people: Person[] = [
+const establishedPeople: Person[] = [
   {
     id: 1,
     slug: "Natsuki_Takuya",
@@ -235,3 +236,6 @@ export const people: Person[] = [
   { id: 31, slug: "Yoshimasa_Hosoya", name: "Yoshimasa Hosoya", nativeName: "細谷佳正", occupations: ["Voice actor"], visibleFrom: null, sources: [SRC.aniFanWiki] },
   { id: 32, slug: "Tasuku_Hatanaka", name: "Tasuku Hatanaka", nativeName: "畠中祐", occupations: ["Voice actor"], visibleFrom: null, sources: [SRC.aniFanWiki] },
 ];
+
+export const companies: Company[] = [...establishedCompanies, ...catalogueCompanies];
+export const people: Person[] = [...establishedPeople, ...cataloguePeople];

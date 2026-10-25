@@ -69,6 +69,9 @@ export default async function ThreadPage(props: PageProps<"/forum/thread/[id]">)
   const anime = thread.animeId ? getAnime(thread.animeId, asOf) : null;
   const board = getBoard(thread.board);
   const isEpisode = thread.episode !== undefined && !thread.parentThreadId && anime;
+  // While an anime's page is being planned, only its main URL (the
+  // "coming soon" entry) is linked; its tabs are not.
+  const planned = Boolean(anime?.pagePlanned);
   const base = `/forum/thread/${thread.id}`;
   const pageHref = (p: number) => `${base}?page=${p}${sort === "newest" ? "&sort=newest" : ""}`;
 
@@ -90,7 +93,7 @@ export default async function ThreadPage(props: PageProps<"/forum/thread/[id]">)
     ? [
         { label: "Anime", href: "/anime" },
         { label: `${anime.title} (${anime.year ?? "?"})`, href: animeUrl(anime) },
-        { label: "Episodes", href: animeUrl(anime, "episodes") },
+        { label: "Episodes", href: planned ? undefined : animeUrl(anime, "episodes") },
         { label: `Episode ${thread.episode} Discussion` },
       ]
     : [{ label: "Forums", href: "/forum" }, { label: board?.name ?? "Board", href: `/forum/board/${thread.board}` }, { label: thread.title }];
@@ -211,15 +214,19 @@ export default async function ThreadPage(props: PageProps<"/forum/thread/[id]">)
             </form>
             {isEpisode && (
               <>
-                <Link href={`${animeUrl(anime, "episodes")}/${thread.episode}`} className="btn">
-                  Watch Episode
-                </Link>
+                {!planned && (
+                  <Link href={`${animeUrl(anime, "episodes")}/${thread.episode}`} className="btn">
+                    Watch Episode
+                  </Link>
+                )}
                 <Link href={animeUrl(anime)} className="btn">
                   Anime Page
                 </Link>
-                <Link href={animeUrl(anime, "episodes")} className="btn">
-                  Episode List
-                </Link>
+                {!planned && (
+                  <Link href={animeUrl(anime, "episodes")} className="btn">
+                    Episode List
+                  </Link>
+                )}
                 {otherEpisodes
                   .filter((x) => x.e.number !== thread.episode)
                   .map((x) => (
@@ -400,18 +407,26 @@ export default async function ThreadPage(props: PageProps<"/forum/thread/[id]">)
                   <li>
                     <Link href={animeUrl(anime)}>Anime Page</Link>
                   </li>
-                  <li>
-                    <Link href={animeUrl(anime, "episodes")}>Episode List</Link>
-                  </li>
-                  <li>
-                    <Link href={animeUrl(anime, "characters")}>Characters</Link>
-                  </li>
-                  <li>
-                    <Link href={animeUrl(anime, "reviews")}>Reviews</Link>
-                  </li>
-                  <li>
-                    <Link href={animeUrl(anime, "pics")}>Pictures</Link>
-                  </li>
+                  {planned ? (
+                    <li>
+                      <Link href="/character">Characters</Link>
+                    </li>
+                  ) : (
+                    <>
+                      <li>
+                        <Link href={animeUrl(anime, "episodes")}>Episode List</Link>
+                      </li>
+                      <li>
+                        <Link href={animeUrl(anime, "characters")}>Characters</Link>
+                      </li>
+                      <li>
+                        <Link href={animeUrl(anime, "reviews")}>Reviews</Link>
+                      </li>
+                      <li>
+                        <Link href={animeUrl(anime, "pics")}>Pictures</Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>

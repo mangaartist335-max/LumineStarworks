@@ -280,6 +280,9 @@ export default async function AnimeOverview(props: PageProps<"/anime/[id]/[name]
       {anime.archiveNotes?.map((n) => (
         <ArchiveNote key={n}>{n}</ArchiveNote>
       ))}
+      {anime.provenance === "reconstructed" && (
+        <ArchiveNote>This entry was written for the Lumine StarWorks archive, built around the documented facts about the production.</ArchiveNote>
+      )}
     </>
   );
 }

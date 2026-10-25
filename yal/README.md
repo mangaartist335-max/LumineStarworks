@@ -27,12 +27,13 @@ Things to try:
 
 | Moment | What you see |
 | --- | --- |
-| Sep 14, 2013 | Impact of Eden is not in the database yet |
-| Oct 5, 2013 21:00 | Premiere day: "Not yet aired", no Episode 1 thread |
+| Feb 1, 2012 | Glass Cathedral mid-season: three episodes aired, the next slot listed, later character twists hidden |
+| Aug 1, 2012 | Summer 2012 chart with Vacant Crown: Liminal War airing |
+| Oct 5, 2013 21:00 | Impact of Eden's premiere day: no Episode 1 thread yet |
 | Oct 6, 2013 03:00 | The Episode 1 thread is half an hour old, with 5 replies |
 | Oct 13, 2013 | Episode 2 discussion is open; Episode 3 is not |
 | Oct 24, 2013 | All three threads with their archived totals; Episode 4 "Not aired yet" |
-| Feb 1, 2012 | The Recommendations board while Sinful Apex has just finished |
+| Feb 1, 2012 (Recommendations board) | Fans looking for their next show after Sinful Apex's finale |
 
 Members act in archive time too. Signing up while viewing Oct 24, 2013 gives you that join date, and your replies, list updates and reviews are stamped with the moment you were viewing. They appear in any view from then on and stay hidden before it. Each row also keeps its real `recorded_at` time.
 
@@ -42,8 +43,9 @@ Members act in archive time too. Signing up while viewing Oct 24, 2013 gives you
 | --- | --- |
 | Impact of Eden Episode 1, 2 and 3 discussion threads: 3,126 posts by 218 members across 158 archived pages, with avatars, ranks, join dates, post counts, quotes, spoilers and edit notes | **archived**: recovered from the reference pages |
 | Thread snapshots: reply/view totals, polls, "users viewing", hot subthreads | **archived**: shown only from their capture time |
-| Anime, characters, staff, voice cast, studios and companies | **documented**: from the established references; unknown facts are left blank |
-| 14 general forum threads, 6 reviews, 4 recommendations, and the copy of 10 news posts | **reconstructed**: sample content written for the archive and labelled in every record |
+| Impact of Eden, Iron to Requiem and the Nightpolis Winter OVA: credits, cast, studios and dates | **documented**: from the established references; unknown facts are left blank |
+| Full entries for Sinful Apex, Zero Latitude, Skyfall Chronicle: Black Aegis, River of Sparks, Steelbound Testament, Glass Cathedral, Circuit Hearts: Reload, Vacant Crown: Liminal War, Ghost Eater, Azure Sorcerer and Neon Afterimage: synopses, five new studios, 21 staff, 44 characters with cast, 138 episode titles, theme songs and scores | **reconstructed**: written around the documented facts and labelled on every page |
+| 19 general and finale forum threads, 16 reviews, 9 recommendations, and the copy of 15 news posts | **reconstructed**: sample content written for the archive and labelled in every record |
 | Archive members' anime lists | **derived**: from posting in episode threads |
 | Accounts, lists, replies, reviews and topics made by visitors | **member** |
 
@@ -61,9 +63,10 @@ The Nightpolis Winter OVA page follows the written brief: a separate 2005 OVA re
 
 ### Deliberate gaps
 
+- The Impact of Eden profile page (and its Episode 0 special) shows "Page coming soon" while it is being planned separately. Its episode threads, characters and staff pages are live, and links to its tabs lead to the coming-soon entry. Set `pagePlanned: false` on the entry in `data/anime.ts` to bring the generated profile back.
 - Impact of Eden episode records after Episode 3 are not archived. The episode list derives only the *next* weekly slot from the documented Saturday 25:58 schedule.
 - Nightpolis Winter has no documented release date, studio, staff, cast or episode count.
-- Glass Cathedral, Circuit Hearts: Reload, Vacant Crown: Liminal War, Ghost Eater, Azure Sorcerer and Neon Afterimage are listed by name only.
+- Destiny/Infinite, Blizzard Requiem, Pale Garden Reverie, Garden of Cinders and Iron Halo Brigade are listed with their documented credits only.
 - Posts inside each episode's "hot subthreads" were not recovered. Those threads exist from the snapshot onward with their archived reply totals.
 - Ranks stay "N/A" until at least three titles have archived scores.
 
@@ -98,20 +101,21 @@ The migration and seed were validated against PostgreSQL 16 with a stand-in for 
 
 ## Testing
 
-`npm test` runs 40 checks with Node's test runner. They cover:
+`npm test` runs 46 checks with Node's test runner. They cover:
 
 - **Time:** Saturday 25:58 broadcast notation, JST date handling, and clamping to the archive window.
 - **BBCode:** quotes, spoilers, lists, unclosed tags, literal HTML, and blocking `javascript:` links.
 - **Archive import:** all 1,113 / 945 / 1,068 posts present, thread metadata preserved, post numbers unique, and no post earlier than its thread.
 - **History rules:** the October 5 / 6 / 13 / 20 / 24 checkpoints from the brief, entry listing dates, the Nightpolis OVA staying separate, and no news ahead of the viewed date.
+- **Catalogue:** the planned Impact of Eden page, every built-out entry having a full page's data, established facts surviving the build-out, and 2012–2013 seasons filling in only as shows are listed and aired.
 - **Seed consistency:** every reference resolves, credits match the brief, no back-catalogue title is credited to Studio Burst, reconstructed authors had already joined, and nothing is dated after 2013.
 
 Walkthrough, scripted as `npm run e2e` (Playwright, against a running server):
 
-1. Sign up, then add Impact of Eden to your list and edit progress, score, dates and notes.
+1. Sign up, check that the Impact of Eden page says "Page coming soon", then add Sinful Apex to your list and edit progress, score, dates and notes.
 2. In the Episode 1 thread: open a spoiler, switch to Newest First, page through, quote a post, reply with BBCode, follow the topic, and report a post.
-3. Write a review, start a topic, and favourite a character.
-4. Travel to Oct 5, 2013 21:00 and confirm that the thread, the score and the opening theme are hidden. Then travel to before your join date and confirm you can't post.
+3. Write a Zero Latitude review, start a topic, and favourite a character.
+4. Travel to Oct 5, 2013 21:00 and confirm the Episode 1 thread is hidden, and to Jan 5, 2012 to confirm Glass Cathedral shows "Not yet aired" with no score or opening theme. Then travel to before your join date and confirm you can't post.
 
 ## Screenshot comparison
 

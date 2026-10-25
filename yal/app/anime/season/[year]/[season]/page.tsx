@@ -140,7 +140,7 @@ export default async function SeasonPage(props: PageProps<"/anime/season/[year]/
             {total === 0
               ? "The archive has no records for this season. "
               : `${total} title${total === 1 ? "" : "s"} recorded for this season. `}
-            The 2012–2013 archive covers documented productions only; seasons are not padded with invented titles.
+            Seasons list only the productions in the archive&apos;s catalogue.
             {premiering.some((a) => a.airedFrom && formatBroadcastSlot(a.airedFrom).time.startsWith("25")) &&
               " Late-night broadcast times use the Japanese 24+ hour convention (25:58 = 01:58 the next morning)."}
           </ArchiveNote>

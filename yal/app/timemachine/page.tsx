@@ -66,9 +66,18 @@ export default async function TimeMachinePage() {
                   </td>
                 </tr>
                 <tr>
-                  <td>Anime, characters, staff, studios and companies</td>
+                  <td>Impact of Eden, Iron to Requiem and the Nightpolis Winter OVA: credits, cast, studios and dates</td>
                   <td>
                     <span className="tag teal">documented</span> from the established Lumine StarWorks references; unknown facts are left blank
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Full entries for Sinful Apex, Zero Latitude, Skyfall Chronicle, River of Sparks, Steelbound Testament, Glass Cathedral, Circuit Hearts:
+                    Reload, Vacant Crown, Ghost Eater, Azure Sorcerer and Neon Afterimage
+                  </td>
+                  <td>
+                    <span className="tag gold">reconstructed</span> written around the documented facts (studios, dates, directors and other established credits)
                   </td>
                 </tr>
                 <tr>
@@ -99,9 +108,10 @@ export default async function TimeMachinePage() {
             <div className="box-head">Known gaps</div>
             <div className="box-body">
               <ul className="bb-list">
+                <li>The Impact of Eden profile page is coming soon; its episode threads, characters and staff pages are available now.</li>
                 <li>Impact of Eden episode records after Episode 3 have not been archived.</li>
                 <li>Impact of Eden: Nightpolis Winter (2005 OVA) has no documented staff, cast, release date or episode count yet.</li>
-                <li>Several back-catalogue titles are listed by name only, with credits where the references name them.</li>
+                <li>Destiny/Infinite, Blizzard Requiem, Pale Garden Reverie, Garden of Cinders and Iron Halo Brigade are listed with their documented credits only.</li>
                 <li>Posts inside the &quot;hot subthreads&quot; listed in each episode thread were not recovered.</li>
               </ul>
             </div>
@@ -113,7 +123,10 @@ export default async function TimeMachinePage() {
             <div className="side-body">
               <ul>
                 <li>
-                  <Link href="/anime/19815/Impact_of_Eden?asof=2013-09-14">Sep 14, 2013</Link> &mdash; before Impact of Eden is listed
+                  <Link href="/anime/4407/Glass_Cathedral?asof=2012-02-01">Feb 1, 2012</Link> &mdash; Glass Cathedral mid-season
+                </li>
+                <li>
+                  <Link href="/anime/season/2012/summer?asof=2012-08-01">Aug 1, 2012</Link> &mdash; Summer 2012 chart
                 </li>
                 <li>
                   <Link href="/forum/thread/ioe-ep1?asof=2013-10-06T03:00">Oct 6, 03:00</Link> &mdash; Episode 1 thread, half an hour old

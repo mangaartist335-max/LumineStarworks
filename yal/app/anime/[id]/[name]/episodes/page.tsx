@@ -77,7 +77,7 @@ export default async function AnimeEpisodes(props: PageProps<"/anime/[id]/[name]
                 <td className="muted">Not aired yet</td>
                 <td style={{ whiteSpace: "nowrap" }}>
                   {formatAirDate(next.at)}
-                  <span className="sub">Next weekly slot ({formatBroadcastSlot(next.at).weekday} {formatBroadcastSlot(next.at).time} JST)</span>
+                  <span className="sub">Next airing ({formatBroadcastSlot(next.at).weekday} {formatBroadcastSlot(next.at).time} JST)</span>
                 </td>
                 <td className="num">
                   <NA>-</NA>
@@ -93,7 +93,7 @@ export default async function AnimeEpisodes(props: PageProps<"/anime/[id]/[name]
         </ArchiveNote>
       )}
       {next && !next.aired && (
-        <ArchiveNote>The next air date is derived from the documented weekly broadcast slot.</ArchiveNote>
+        <ArchiveNote>The next air date follows the weekly broadcast slot.</ArchiveNote>
       )}
     </>
   );

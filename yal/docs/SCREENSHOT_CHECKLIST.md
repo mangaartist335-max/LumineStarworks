@@ -10,7 +10,7 @@ Captured with `npm run screenshots` at 1280px wide (the mobile shot is 390px). E
 | Cream breadcrumb `YourAnimeList » Anime » Impact of Eden (2013) » Episodes » Episode N Discussion` | ✅ | ✅ | ✅ Every crumb links to a real page |
 | Teal title bar, "Forum » Anime Discussion » Episode Discussion" | ✅ | ✅ | ✅ |
 | Metadata table: Started by YALBot ★MODERATOR, Created, Replies, Views, Last Reply, Status OPEN | ep1: Oct 6 02:31 JST · 1,113 · 42,806 · Oct 9 23:48 by RetroBluRay_AMV | Same at Oct 24, 2013 | ✅ Before the snapshot, Replies is the live count and Views reads "Not recorded for this date" |
-| Controls: Reply, Follow Topic, Watch Episode, Anime Page, Episode List, other episode discussions, Sort | Varied slightly per page | One reusable template for all three | ✅ Every button works. ep2/ep3 now also show Anime Page and Episode List. |
+| Controls: Reply, Follow Topic, Watch Episode, Anime Page, Episode List, other episode discussions, Sort | Varied slightly per page | One reusable template | ⚠️ While the Impact of Eden page is planned, Watch Episode and Episode List are hidden and Anime Page opens the coming-soon entry |
 | Pagination "Page 1 of 56 « Previous 1 2 3 … 55 56 Next »", top and bottom | ep1 56, ep2 48, ep3 54 | 56 / 48 / 54 at Oct 24 | ✅ |
 | Two-column posts: avatar, username, rank, Joined, Posts, Online/Offline; alternating backgrounds | ✅ | ✅ | ✅ Same avatars (sprite copied verbatim) |
 | YALBot announcement post (yellow left rule) | ✅ | ✅ | ✅ |
@@ -31,14 +31,18 @@ Captured with `npm run screenshots` at 1280px wide (the mobile shot is 390px). E
 
 | Screenshot | Moment | Check |
 | --- | --- | --- |
-| `04-impact-of-eden.png` | Oct 24, 2013 | Sidebar (cover, list actions, alternative titles, information, statistics, streaming) and tabs Overview · Characters & Staff · Episodes · Videos · Reviews · Recommendations · Stats · Forum. Score 8.51 (2,847 users, archived Oct 6). Ranked N/A. |
+| `04-sinful-apex.png` | Oct 24, 2013 | Built-out profile: sidebar (information, statistics), tabs Overview · Characters & Staff · Episodes · Videos · Reviews · Recommendations · Stats · Forum, synopsis, broadcast table, cast, staff, discussions, reviews, and the "written for the archive" note. Established facts kept: Flow Pictures, Aug 15, 2011 – Jan 23, 2012, 24 eps, dir. Kaihatsu Miura, LUNE as Aria Moonbirth. |
 | `05-nightpolis-winter-ova.png` | Oct 24, 2013 | Separate OVA record (ID 1043, 2005). Every undocumented field is marked; the relation to the TV series is labelled as undocumented. |
-| `06-home.png` | Oct 24, 2013 | Fall 2013 strip, news, latest forum posts, reviews, Airing Next (Ep 4, Sat 25:58), Top Anime, newest members |
+| `06-home.png` | Oct 24, 2013 | Fall 2013 strip, news, latest forum posts, reviews, Airing Next, Top Anime, newest members |
 | `07-fall-2013.png` | Oct 24, 2013 | Seasonal chart card, studio, broadcast slot, members |
 | `08-character-miyuki.png` | Oct 24, 2013 | Biography gated by episode, VA, relationships, discussions |
 | `09-forums.png` | Oct 24, 2013 | Board index grouped Anime & Manga / Community / YAL |
 | `10-ep1-at-0300.png` | Oct 6, 2013 03:00 JST | Five replies, "Page 1 of 1", views not recorded yet, Episode 2 absent |
-| `11-ioe-before-premiere.png` | Oct 5, 2013 21:00 JST | "Not yet aired", no score, no opening theme, no reviews |
+| `11-glass-cathedral-before-premiere.png` | Jan 5, 2012 | "Not yet aired", no score, no opening theme, no reviews |
 | `12-ep1-mobile.png` | Oct 24, 2013 | Single column at 390px; the desktop look is kept, no app-style redesign |
+| `13-impact-of-eden-coming-soon.png` | Oct 24, 2013 | Impact of Eden's page while it is being planned: "Page coming soon" plus links to the episode discussions |
+| `14-vacant-crown.png` | Oct 24, 2013 | Two-cour entry with two opening themes, five-character cast and its finale thread |
+| `15-summer-2012.png` | Aug 1, 2012 | Summer 2012 chart while Vacant Crown is airing |
+| `16-vacant-crown-finale-thread.png` | Oct 24, 2013 | A reconstructed finale thread using the same template as the archived episode threads |
 
 Legend: ✅ matches · ⚠️ deliberate difference · ➕ addition outside the original page

@@ -16,15 +16,19 @@ const SHOTS: { name: string; path: string; asof: string; full?: boolean; width?:
   { name: "01-ep1-discussion", path: "/forum/thread/ioe-ep1", asof: "2013-10-24T12:00" },
   { name: "02-ep2-discussion", path: "/forum/thread/ioe-ep2", asof: "2013-10-24T12:00" },
   { name: "03-ep3-discussion", path: "/forum/thread/ioe-ep3", asof: "2013-10-24T12:00" },
-  { name: "04-impact-of-eden", path: "/anime/19815/Impact_of_Eden", asof: "2013-10-24T12:00", full: true },
+  { name: "04-sinful-apex", path: "/anime/10380/Sinful_Apex", asof: "2013-10-24T12:00", full: true },
   { name: "05-nightpolis-winter-ova", path: "/anime/1043/Impact_of_Eden__Nightpolis_Winter", asof: "2013-10-24T12:00", full: true },
   { name: "06-home", path: "/", asof: "2013-10-24T12:00", full: true },
   { name: "07-fall-2013", path: "/anime/season/2013/fall", asof: "2013-10-24T12:00" },
   { name: "08-character-miyuki", path: "/character/4/Miyuki_Kagemitsu", asof: "2013-10-24T12:00" },
   { name: "09-forums", path: "/forum", asof: "2013-10-24T12:00" },
   { name: "10-ep1-at-0300", path: "/forum/thread/ioe-ep1", asof: "2013-10-06T03:00" },
-  { name: "11-ioe-before-premiere", path: "/anime/19815/Impact_of_Eden", asof: "2013-10-05T21:00" },
+  { name: "11-glass-cathedral-before-premiere", path: "/anime/4407/Glass_Cathedral", asof: "2012-01-05T12:00" },
   { name: "12-ep1-mobile", path: "/forum/thread/ioe-ep1", asof: "2013-10-24T12:00", width: 390 },
+  { name: "13-impact-of-eden-coming-soon", path: "/anime/19815/Impact_of_Eden", asof: "2013-10-24T12:00" },
+  { name: "14-vacant-crown", path: "/anime/9871/Vacant_Crown__Liminal_War", asof: "2013-10-24T12:00", full: true },
+  { name: "15-summer-2012", path: "/anime/season/2012/summer", asof: "2012-08-01T12:00" },
+  { name: "16-vacant-crown-finale-thread", path: "/forum/thread/t-28655", asof: "2013-10-24T12:00" },
 ];
 
 // Minimal types for the environment's pre-installed Playwright (not a project dependency).

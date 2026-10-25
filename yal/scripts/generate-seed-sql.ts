@@ -65,12 +65,13 @@ insert(
     "id", "slug", "title", "title_japanese", "title_romaji", "synonyms", "type", "episodes_planned", "aired_from", "aired_to",
     "release_year", "release_note", "weekly_from", "premiered_season", "premiered_year", "broadcast", "source", "duration", "rating",
     "synopsis", "synopsis_source", "cover_url", "franchise_slug", "visible_from", "provenance", "sources", "archive_notes",
+    "page_planned",
   ],
   anime.map((a) => [
     a.id, a.slug, a.title, a.titleJapanese, a.titleRomaji, a.synonyms, a.type, a.episodesPlanned, a.airedFrom, a.airedTo,
     a.year, a.releaseNote, a.weeklyFrom, a.premiered?.season, a.premiered?.year, a.broadcast, a.source, a.duration, a.rating,
     a.synopsis, a.synopsisSource, a.cover, a.franchise ? slugify(a.franchise) : null, a.visibleFrom, a.provenance,
-    a.sources.map((s) => s.cite), a.archiveNotes ?? [],
+    a.sources.map((s) => s.cite), a.archiveNotes ?? [], Boolean(a.pagePlanned),
   ]),
 );
 

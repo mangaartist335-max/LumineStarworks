@@ -7,13 +7,14 @@
 import type { Character } from "./types";
 import { SRC } from "./sources";
 import { IOE_LISTED } from "./industry";
+import { catalogueCharacters } from "./catalogue-people";
 
 // Regular TV broadcasts (Saturday 25:58 JST = Sunday 01:58 JST).
 export const IOE_EP1 = "2013-10-05T16:58:00Z";
 export const IOE_EP2 = "2013-10-12T16:58:00Z";
 export const IOE_EP3 = "2013-10-19T16:58:00Z";
 
-export const characters: Character[] = [
+const ioeCharacters: Character[] = [
   {
     id: 1,
     slug: "Sora_Gauthier",
@@ -274,3 +275,5 @@ export const characters: Character[] = [
     sources: [SRC.aniFanWiki],
   },
 ];
+
+export const characters: Character[] = [...ioeCharacters, ...catalogueCharacters];

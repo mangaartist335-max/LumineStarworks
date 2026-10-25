@@ -1,10 +1,13 @@
 // Anime entries in the 2012–2013 YAL database.
 //
-// Only documented facts are recorded. Anything the references do not state
-// stays null/empty and renders as "N/A" or "Not documented".
+// Documented entries record only what the references state; anything else
+// stays null/empty and renders as "N/A" or "Not documented". The built-out
+// back catalogue in catalogue-anime.ts is reconstructed and labelled so.
 
 import type { Anime } from "./types";
 import { SRC } from "./sources";
+import { entry } from "./entry";
+import { catalogueAnime } from "./catalogue-anime";
 import { IOE_LISTED } from "./industry";
 import { IOE_EP1, IOE_EP2, IOE_EP3 } from "./characters";
 
@@ -21,46 +24,13 @@ const DUB_ANNOUNCED = "2013-10-04T04:00:00Z";
 const IOE_EP0_AIRED = "2013-09-25T15:00:00Z"; // Sep 26, 2013 (JST)
 const IOE_ADVANCE = "2013-10-01T15:00:00Z"; // Oct 2, 2013 (JST)
 
-function entry(e: Partial<Anime> & Pick<Anime, "id" | "slug" | "title">): Anime {
-  return {
-    synonyms: [],
-    type: "Unknown",
-    episodesPlanned: null,
-    airedFrom: null,
-    airedTo: null,
-    year: null,
-    broadcasts: [],
-    studios: [],
-    producers: [],
-    licensors: [],
-    source: null,
-    genres: [],
-    themes: [],
-    duration: null,
-    rating: null,
-    synopsis: null,
-    background: [],
-    visibleFrom: null,
-    staff: [],
-    characters: [],
-    voices: [],
-    themesSongs: [],
-    episodeList: [],
-    relations: [],
-    scores: [],
-    provenance: "documented",
-    sources: [],
-    ...e,
-  };
-}
-
-const UNDOCUMENTED = "Listed in the Lumine StarWorks production archive. Studio, dates, episode count and credits have not been documented yet.";
 
 export const anime: Anime[] = [
   // ── Impact of Eden (2013) ───────────────────────────────────────────────
   entry({
     id: IOE_ID,
     slug: "Impact_of_Eden",
+    pagePlanned: true,
     title: "Impact of Eden",
     titleJapanese: "エデンの衝撃",
     titleRomaji: "Eden no Shōgeki",
@@ -201,6 +171,7 @@ export const anime: Anime[] = [
   entry({
     id: IOE_EP0_ID,
     slug: "Impact_of_Eden__Episode_0",
+    pagePlanned: true,
     title: "Impact of Eden: Episode 0",
     synonyms: ["Impact of Eden Episode 0 special"],
     type: "Special",
@@ -274,67 +245,11 @@ export const anime: Anime[] = [
     ],
   }),
 
-  // ── Sinful Apex ─────────────────────────────────────────────────────────
-  entry({
-    id: SINFUL_APEX_ID,
-    slug: "Sinful_Apex",
-    title: "Sinful Apex",
-    type: "TV",
-    episodesPlanned: 24,
-    airedFrom: "2011-08-14T15:00:00Z",
-    airedTo: "2012-01-22T15:00:00Z",
-    year: 2011,
-    premiered: { season: "summer", year: 2011 },
-    broadcast: "Mondays (derived from air dates; time not documented)",
-    studios: [2],
-    licensors: [{ companyId: 5, visibleFrom: null }],
-    genres: ["Action"],
-    visibleFrom: null,
-    staff: [
-      { personId: 2, role: "Director" },
-      { personId: 14, role: "Appearance", note: "As the fictional singer Aria Moonbirth" },
-    ],
-    background: [
-      {
-        text: "Produced by Flow Pictures' late-era cinematic unit, the production is often described as the studio's \"final breath\". The unit went on to form Studio Burst.",
-        visibleFrom: null,
-      },
-      {
-        text: "Funmaxation is releasing a Complete Collection on Blu-ray on November 19, 2013.",
-        visibleFrom: "2013-10-06T00:00:00Z",
-      },
-    ],
-    sources: [SRC.brief, SRC.archiveBrief, SRC.aniFanWiki, SRC.munchyRoll],
-    archiveNotes: ["Synopsis, source material and the rest of the staff list have not been documented."],
-  }),
+  // The built-out back catalogue (Sinful Apex, Zero Latitude, ...) lives in
+  // catalogue-anime.ts.
+  ...catalogueAnime,
 
-  // ── Back catalogue ──────────────────────────────────────────────────────
-  entry({
-    id: 5120,
-    slug: "Skyfall_Chronicle__Black_Aegis",
-    title: "Skyfall Chronicle: Black Aegis",
-    synonyms: ["Skyfall Chronicle"],
-    year: 2009,
-    releaseNote: "2009",
-    genres: ["Action"],
-    staff: [{ personId: 2, role: "Co-Director", source: SRC.sakugaThread }],
-    sources: [SRC.munchyRoll, SRC.sakugaThread, SRC.yalEp1Page4],
-    archiveNotes: ["Format, studio and episode count have not been documented."],
-  }),
-  entry({
-    id: 7741,
-    slug: "Zero_Latitude",
-    title: "Zero Latitude",
-    year: 2010,
-    releaseNote: "2010",
-    genres: ["Sci-Fi"],
-    staff: [
-      { personId: 2, role: "Director" },
-      { personId: 5, role: "Storyboard", note: "Long-take sequence" },
-    ],
-    sources: [SRC.munchyRoll, SRC.sakugaThread, SRC.yalEp1Page4],
-    archiveNotes: ["Format, studio and episode count have not been documented."],
-  }),
+  // ── Name-and-credit entries ─────────────────────────────────────────────
   entry({
     id: 8016,
     slug: "Destiny_Infinite",
@@ -343,40 +258,6 @@ export const anime: Anime[] = [
     sources: [SRC.sakugaThread, SRC.yalEp1Page4],
     archiveNotes: ["Release year, format, studio and episode count have not been documented."],
   }),
-  entry({
-    id: 8452,
-    slug: "River_of_Sparks",
-    title: "River of Sparks",
-    staff: [
-      { personId: 5, role: "Storyboard", note: "Alley fight sequences" },
-      { personId: 9, role: "Action Choreography" },
-    ],
-    sources: [SRC.sakugaThread, SRC.yalEp1Page4],
-    archiveNotes: ["Release year, format, studio and episode count have not been documented."],
-  }),
-  entry({
-    id: 9133,
-    slug: "Steelbound_Testament",
-    title: "Steelbound Testament",
-    studios: [2],
-    background: [
-      { text: "Produced by the Flow Pictures cinematic unit whose staff culture later carried into Studio Burst.", visibleFrom: null },
-    ],
-    sources: [SRC.aniWirePremiere],
-    archiveNotes: ["Release year, format, episode count and credits have not been documented."],
-  }),
-  entry({
-    id: 6230,
-    slug: "Neon_Afterimage",
-    title: "Neon Afterimage",
-    sources: [SRC.yalEp1Page4],
-    archiveNotes: [UNDOCUMENTED],
-  }),
-  entry({ id: 4407, slug: "Glass_Cathedral", title: "Glass Cathedral", sources: [SRC.brief], archiveNotes: [UNDOCUMENTED] }),
-  entry({ id: 9608, slug: "Circuit_Hearts__Reload", title: "Circuit Hearts: Reload", sources: [SRC.brief], archiveNotes: [UNDOCUMENTED] }),
-  entry({ id: 9871, slug: "Vacant_Crown__Liminal_War", title: "Vacant Crown: Liminal War", sources: [SRC.brief], archiveNotes: [UNDOCUMENTED] }),
-  entry({ id: 6811, slug: "Ghost_Eater", title: "Ghost Eater", sources: [SRC.brief], archiveNotes: [UNDOCUMENTED] }),
-  entry({ id: 3390, slug: "Azure_Sorcerer", title: "Azure Sorcerer", sources: [SRC.brief], archiveNotes: [UNDOCUMENTED] }),
   entry({
     id: 7015,
     slug: "Blizzard_Requiem",

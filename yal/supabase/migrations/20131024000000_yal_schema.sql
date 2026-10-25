@@ -88,6 +88,8 @@ create table if not exists public.anime (
   provenance public.provenance not null default 'documented',
   sources text[] not null default '{}',
   archive_notes text[] not null default '{}',
+  -- The profile page is being planned separately; the entry shows "coming soon".
+  page_planned boolean not null default false,
   check (aired_to is null or aired_from is null or aired_to >= aired_from)
 );
 create index if not exists anime_visible_from_idx on public.anime (visible_from);
