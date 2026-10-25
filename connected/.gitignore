@@ -1,0 +1,27 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# test artifacts
+/test-results/
+
+# media generation scratch
+/scripts/media/.work/
+
+# env files
+.env*
+!.env.example
+
+.DS_Store
+npm-debug.log*
+.vercel
+
+# copied from node_modules by scripts/copy-pdf-worker.mjs
+/public/pdf.worker.min.mjs
+
+__pycache__/

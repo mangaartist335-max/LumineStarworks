@@ -1,0 +1,406 @@
+{
+ "art:courier-ship": {
+  "url": "/media/art/courier-ship.jpg",
+  "size": 24992
+ },
+ "art:mei-fanart": {
+  "url": "/media/art/mei-fanart.jpg",
+  "size": 66710
+ },
+ "art:mochi-sketch": {
+  "url": "/media/art/mochi-sketch.jpg",
+  "size": 24824
+ },
+ "art:paper-plane": {
+  "url": "/media/art/paper-plane.jpg",
+  "size": 48246
+ },
+ "art:pip-doodle": {
+  "url": "/media/art/pip-doodle.jpg",
+  "size": 27102
+ },
+ "art:sunset-painting": {
+  "url": "/media/art/sunset-painting.jpg",
+  "size": 19075
+ },
+ "avatar:ball": {
+  "url": "/media/avatars/ball.png",
+  "size": 967
+ },
+ "avatar:cat": {
+  "url": "/media/avatars/cat.png",
+  "size": 869
+ },
+ "avatar:fish": {
+  "url": "/media/avatars/fish.png",
+  "size": 785
+ },
+ "avatar:flower": {
+  "url": "/media/avatars/flower.png",
+  "size": 798
+ },
+ "avatar:gamepad": {
+  "url": "/media/avatars/gamepad.png",
+  "size": 696
+ },
+ "avatar:guitar": {
+  "url": "/media/avatars/guitar.png",
+  "size": 995
+ },
+ "avatar:leaf": {
+  "url": "/media/avatars/leaf.png",
+  "size": 729
+ },
+ "avatar:palette": {
+  "url": "/media/avatars/palette.png",
+  "size": 1188
+ },
+ "avatar:robot": {
+  "url": "/media/avatars/robot.png",
+  "size": 696
+ },
+ "avatar:rocket": {
+  "url": "/media/avatars/rocket.png",
+  "size": 975
+ },
+ "avatar:star": {
+  "url": "/media/avatars/star.png",
+  "size": 844
+ },
+ "avatar:sun": {
+  "url": "/media/avatars/sun.png",
+  "size": 1233
+ },
+ "doc:shopping-list.txt": {
+  "url": "/media/docs/shopping-list.txt",
+  "size": 133,
+  "name": "shopping-list.txt"
+ },
+ "doc:summer-plans.txt": {
+  "url": "/media/docs/summer-plans.txt",
+  "size": 198,
+  "name": "summer-plans.txt"
+ },
+ "doc:welcome-pdf": {
+  "url": "/media/docs/welcome-to-your-connected-pc.pdf",
+  "size": 3930,
+  "name": "Welcome to your Connected PC.pdf",
+  "pages": 3
+ },
+ "manga-chapter:lantern-street/ch1": {
+  "url": "/media/manga/lantern-street/ch1/01.png",
+  "size": 17948,
+  "pages": 8
+ },
+ "manga-chapter:lantern-street/ch2": {
+  "url": "/media/manga/lantern-street/ch2/01.png",
+  "size": 20158,
+  "pages": 8
+ },
+ "manga-chapter:moonlit-bakery/oneshot": {
+  "url": "/media/manga/moonlit-bakery/oneshot/01.png",
+  "size": 15615,
+  "pages": 6
+ },
+ "manga-chapter:paper-planet/ch1": {
+  "url": "/media/manga/paper-planet/ch1/01.png",
+  "size": 16535,
+  "pages": 8
+ },
+ "manga-chapter:paper-planet/ch2": {
+  "url": "/media/manga/paper-planet/ch2/01.png",
+  "size": 12203,
+  "pages": 5
+ },
+ "manga-cover:lantern-street": {
+  "url": "/media/manga/lantern-street/cover.jpg",
+  "size": 52736
+ },
+ "manga-cover:moonlit-bakery": {
+  "url": "/media/manga/moonlit-bakery/cover.jpg",
+  "size": 23781
+ },
+ "manga-cover:paper-planet": {
+  "url": "/media/manga/paper-planet/cover.jpg",
+  "size": 27321
+ },
+ "music:campfire-strings": {
+  "url": "/media/music/campfire-strings.mp3",
+  "size": 961017,
+  "title": "Campfire Strings",
+  "artist": "Wren & Co.",
+  "duration": 60.0
+ },
+ "music:morning-commute": {
+  "url": "/media/music/morning-commute.mp3",
+  "size": 961018,
+  "title": "Morning Commute",
+  "artist": "Pocket Radio",
+  "duration": 60.0
+ },
+ "music:neon-night-drive": {
+  "url": "/media/music/neon-night-drive.mp3",
+  "size": 961022,
+  "title": "Neon Night Drive",
+  "artist": "Midnight Arcade",
+  "duration": 60.0
+ },
+ "music:summer-rain": {
+  "url": "/media/music/summer-rain.mp3",
+  "size": 961011,
+  "title": "Summer Rain",
+  "artist": "AkiraKeys",
+  "duration": 60.0
+ },
+ "sample-picture:Autumn Walk.jpg": {
+  "url": "/media/samples/pictures/autumn-walk.jpg",
+  "size": 77520,
+  "name": "Autumn Walk.jpg"
+ },
+ "sample-picture:Harbor at Dusk.jpg": {
+  "url": "/media/samples/pictures/harbor-at-dusk.jpg",
+  "size": 119917,
+  "name": "Harbor at Dusk.jpg"
+ },
+ "sample-picture:Northern Lights.jpg": {
+  "url": "/media/samples/pictures/northern-lights.jpg",
+  "size": 35963,
+  "name": "Northern Lights.jpg"
+ },
+ "sample-picture:Spring Hills.jpg": {
+  "url": "/media/samples/pictures/spring-hills.jpg",
+  "size": 35968,
+  "name": "Spring Hills.jpg"
+ },
+ "video-thumb:backyard-trick-shot": {
+  "url": "/media/videos/thumbs/backyard-trick-shot.jpg",
+  "size": 7717
+ },
+ "video-thumb:biscuit-snow-day": {
+  "url": "/media/videos/thumbs/biscuit-snow-day.jpg",
+  "size": 5302
+ },
+ "video-thumb:desktop-tour-2013": {
+  "url": "/media/videos/thumbs/desktop-tour-2013.jpg",
+  "size": 5977
+ },
+ "video-thumb:five-transitions": {
+  "url": "/media/videos/thumbs/five-transitions.jpg",
+  "size": 6674
+ },
+ "video-thumb:iron-to-requiem-first-impressions": {
+  "url": "/media/videos/thumbs/iron-to-requiem-first-impressions.jpg",
+  "size": 5582
+ },
+ "video-thumb:mochi-laser": {
+  "url": "/media/videos/thumbs/mochi-laser.jpg",
+  "size": 5213
+ },
+ "video-thumb:paint-wallpaper-tutorial": {
+  "url": "/media/videos/thumbs/paint-wallpaper-tutorial.jpg",
+  "size": 7671
+ },
+ "video-thumb:paper-plane-challenge": {
+  "url": "/media/videos/thumbs/paper-plane-challenge.jpg",
+  "size": 4592
+ },
+ "video-thumb:rainy-saturday-vlog": {
+  "url": "/media/videos/thumbs/rainy-saturday-vlog.jpg",
+  "size": 4499
+ },
+ "video-thumb:sinful-apex-review": {
+  "url": "/media/videos/thumbs/sinful-apex-review.jpg",
+  "size": 5136
+ },
+ "video-thumb:star-courier-1": {
+  "url": "/media/videos/thumbs/star-courier-1.jpg",
+  "size": 5637
+ },
+ "video-thumb:star-courier-boss": {
+  "url": "/media/videos/thumbs/star-courier-boss.jpg",
+  "size": 6255
+ },
+ "video-thumb:summer-rain": {
+  "url": "/media/videos/thumbs/summer-rain.jpg",
+  "size": 8438
+ },
+ "video:backyard-trick-shot": {
+  "url": "/media/videos/backyard-trick-shot.webm",
+  "size": 265462,
+  "duration": 20.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:biscuit-snow-day": {
+  "url": "/media/videos/biscuit-snow-day.webm",
+  "size": 640678,
+  "duration": 22.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:desktop-tour-2013": {
+  "url": "/media/videos/desktop-tour-2013.webm",
+  "size": 574799,
+  "duration": 27.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:five-transitions": {
+  "url": "/media/videos/five-transitions.webm",
+  "size": 558196,
+  "duration": 28.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:iron-to-requiem-first-impressions": {
+  "url": "/media/videos/iron-to-requiem-first-impressions.webm",
+  "size": 258565,
+  "duration": 16.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:mochi-laser": {
+  "url": "/media/videos/mochi-laser.webm",
+  "size": 405225,
+  "duration": 22.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:paint-wallpaper-tutorial": {
+  "url": "/media/videos/paint-wallpaper-tutorial.webm",
+  "size": 574989,
+  "duration": 32.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:paper-plane-challenge": {
+  "url": "/media/videos/paper-plane-challenge.webm",
+  "size": 384909,
+  "duration": 24.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:rainy-saturday-vlog": {
+  "url": "/media/videos/rainy-saturday-vlog.webm",
+  "size": 620092,
+  "duration": 32.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:sinful-apex-review": {
+  "url": "/media/videos/sinful-apex-review.webm",
+  "size": 340996,
+  "duration": 21.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:star-courier-1": {
+  "url": "/media/videos/star-courier-1.webm",
+  "size": 1565888,
+  "duration": 32.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:star-courier-boss": {
+  "url": "/media/videos/star-courier-boss.webm",
+  "size": 1474584,
+  "duration": 32.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:summer-rain": {
+  "url": "/media/videos/summer-rain.webm",
+  "size": 3452790,
+  "duration": 40.0,
+  "width": 640,
+  "height": 360
+ },
+ "wallpaper-thumb:aurora-lake": {
+  "url": "/media/wallpapers/thumbs/aurora-lake.jpg",
+  "size": 4090
+ },
+ "wallpaper-thumb:autumn-path": {
+  "url": "/media/wallpapers/thumbs/autumn-path.jpg",
+  "size": 10439
+ },
+ "wallpaper-thumb:cherry-hills": {
+  "url": "/media/wallpapers/thumbs/cherry-hills.jpg",
+  "size": 5464
+ },
+ "wallpaper-thumb:connected-blue": {
+  "url": "/media/wallpapers/thumbs/connected-blue.jpg",
+  "size": 6099
+ },
+ "wallpaper-thumb:harbor-lights": {
+  "url": "/media/wallpapers/thumbs/harbor-lights.jpg",
+  "size": 15264
+ },
+ "wallpaper-thumb:ocean-glass": {
+  "url": "/media/wallpapers/thumbs/ocean-glass.jpg",
+  "size": 20425
+ },
+ "wallpaper-thumb:retro-grid": {
+  "url": "/media/wallpapers/thumbs/retro-grid.jpg",
+  "size": 10523
+ },
+ "wallpaper-thumb:starfield": {
+  "url": "/media/wallpapers/thumbs/starfield.jpg",
+  "size": 9219
+ },
+ "wallpaper:aurora-lake": {
+  "url": "/media/wallpapers/aurora-lake.jpg",
+  "size": 71271,
+  "title": "Aurora Lake",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:autumn-path": {
+  "url": "/media/wallpapers/autumn-path.jpg",
+  "size": 149016,
+  "title": "Autumn Path",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:cherry-hills": {
+  "url": "/media/wallpapers/cherry-hills.jpg",
+  "size": 69656,
+  "title": "Cherry Blossom Hills",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:connected-blue": {
+  "url": "/media/wallpapers/connected-blue.jpg",
+  "size": 88064,
+  "title": "Connected Blue",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:harbor-lights": {
+  "url": "/media/wallpapers/harbor-lights.jpg",
+  "size": 218772,
+  "title": "Harbor Lights",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:ocean-glass": {
+  "url": "/media/wallpapers/ocean-glass.jpg",
+  "size": 248524,
+  "title": "Ocean Glass",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:retro-grid": {
+  "url": "/media/wallpapers/retro-grid.jpg",
+  "size": 245063,
+  "title": "Retro Grid",
+  "width": 1920,
+  "height": 1080
+ },
+ "wallpaper:starfield": {
+  "url": "/media/wallpapers/starfield.jpg",
+  "size": 139898,
+  "title": "Starfield",
+  "width": 1920,
+  "height": 1080
+ }
+}

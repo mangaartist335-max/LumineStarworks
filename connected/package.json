@@ -1,0 +1,33 @@
+{
+  "name": "connected-era",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "dev:all": "node scripts/dev-all.mjs",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "e2e": "node scripts/e2e.cjs",
+    "media": "python3 -I scripts/media/generate.py",
+    "index:yal": "tsx scripts/build-yal-index.ts",
+    "postinstall": "node scripts/copy-pdf-worker.mjs"
+  },
+  "dependencies": {
+    "next": "16.3.6",
+    "pdfjs-dist": "6.3.289",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}
