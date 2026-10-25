@@ -8,6 +8,7 @@ import type { Character } from "./types";
 import { SRC } from "./sources";
 import { IOE_LISTED } from "./industry";
 import { catalogueCharacters } from "./catalogue-people";
+import { active, IOE_PHASE } from "./release";
 
 // Regular TV broadcasts (Saturday 25:58 JST = Sunday 01:58 JST).
 export const IOE_EP1 = "2013-10-05T16:58:00Z";
@@ -276,4 +277,5 @@ const ioeCharacters: Character[] = [
   },
 ];
 
-export const characters: Character[] = [...ioeCharacters, ...catalogueCharacters];
+export const allCharacters: Character[] = [...ioeCharacters.map((c) => ({ ...c, phase: IOE_PHASE })), ...catalogueCharacters];
+export const characters: Character[] = active(allCharacters);

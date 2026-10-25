@@ -4,6 +4,8 @@ Captured with `npm run screenshots` at 1280px wide (the mobile shot is 390px). E
 
 ## Episode discussion pages vs. references
 
+Impact of Eden is held back for a later development phase, so these comparisons refer to the shots kept in `screenshots/future-phase/impact-of-eden/` (recapture them with `NEXT_PUBLIC_LUMINE_FUTURE_PHASES=impact-of-eden`). The same thread template is shown with active content in shots 01, 02, 10, 12 and 16 below.
+
 | Element | Reference | Implementation | Match |
 | --- | --- | --- | --- |
 | Dark YAL header: logo badge, nav, search placeholder "Search anime, manga, users...", gold Go button, 4px gold rule | ep1/ep2/ep3 | All pages | ✅ Same CSS, ported verbatim. Login / Sign Up links added at the right edge. |
@@ -27,22 +29,25 @@ Captured with `npm run screenshots` at 1280px wide (the mobile shot is 390px). E
 | Archive toolbar above the header | — | New | ➕ Lumine StarWorks time machine, styled outside YAL's own palette |
 | Archive note under the sidebar | — | New | ➕ Provenance label (archived / reconstructed / member) |
 
-## Other screens
+## Screenshot set (active content)
 
 | Screenshot | Moment | Check |
 | --- | --- | --- |
-| `04-sinful-apex.png` | Oct 24, 2013 | Built-out profile: sidebar (information, statistics), tabs Overview · Characters & Staff · Episodes · Videos · Reviews · Recommendations · Stats · Forum, synopsis, broadcast table, cast, staff, discussions, reviews, and the "written for the archive" note. Established facts kept: Flow Pictures, Aug 15, 2011 – Jan 23, 2012, 24 eps, dir. Kaihatsu Miura, LUNE as Aria Moonbirth. |
-| `05-nightpolis-winter-ova.png` | Oct 24, 2013 | Separate OVA record (ID 1043, 2005). Every undocumented field is marked; the relation to the TV series is labelled as undocumented. |
-| `06-home.png` | Oct 24, 2013 | Fall 2013 strip, news, latest forum posts, reviews, Airing Next, Top Anime, newest members |
-| `07-fall-2013.png` | Oct 24, 2013 | Seasonal chart card, studio, broadcast slot, members |
-| `08-character-miyuki.png` | Oct 24, 2013 | Biography gated by episode, VA, relationships, discussions |
+| `01-sinful-apex-finale-thread.png` | Oct 24, 2013 | The episode-thread template with a reconstructed finale thread: metadata table, controls, posts, spoiler, reply box |
+| `02-glass-cathedral-finale-thread.png` | Oct 24, 2013 | Same template, another finale thread |
+| `03-iron-to-requiem.png` | Jun 1, 2013 | Iron to Requiem mid-season: documented credits, aired episodes, next slot |
+| `04-sinful-apex.png` | Oct 24, 2013 | Built-out profile with every tab; established facts kept (Flow Pictures, Aug 15, 2011 – Jan 23, 2012, 24 eps, dir. Kaihatsu Miura, LUNE as Aria Moonbirth) |
+| `05-character-nico-vale.png` | Oct 24, 2013 | Character page: biography gated by episode, voice actor, relationships |
+| `06-home.png` | Oct 24, 2013 | Home with no Impact of Eden material: news, latest forum posts, reviews, Top Anime, newest members |
+| `07-spring-2013.png` | May 1, 2013 | Seasonal chart with Iron to Requiem airing |
+| `08-company-flow-pictures.png` | Oct 24, 2013 | Company page with its productions |
 | `09-forums.png` | Oct 24, 2013 | Board index grouped Anime & Manga / Community / YAL |
-| `10-ep1-at-0300.png` | Oct 6, 2013 03:00 JST | Five replies, "Page 1 of 1", views not recorded yet, Episode 2 absent |
+| `10-finale-thread-at-0300.png` | Jan 24, 2012 03:00 JST | The Sinful Apex finale thread half an hour after it opened: only the first replies |
 | `11-glass-cathedral-before-premiere.png` | Jan 5, 2012 | "Not yet aired", no score, no opening theme, no reviews |
-| `12-ep1-mobile.png` | Oct 24, 2013 | Single column at 390px; the desktop look is kept, no app-style redesign |
-| `13-impact-of-eden-coming-soon.png` | Oct 24, 2013 | Impact of Eden's page while it is being planned: "Page coming soon" plus links to the episode discussions |
+| `12-thread-mobile.png` | Oct 24, 2013 | Single column at 390px; the desktop look is kept |
+| `13-about-the-archive.png` | Oct 24, 2013 | Provenance table and known gaps, with the held-back phase noted |
 | `14-vacant-crown.png` | Oct 24, 2013 | Two-cour entry with two opening themes, five-character cast and its finale thread |
 | `15-summer-2012.png` | Aug 1, 2012 | Summer 2012 chart while Vacant Crown is airing |
-| `16-vacant-crown-finale-thread.png` | Oct 24, 2013 | A reconstructed finale thread using the same template as the archived episode threads |
+| `16-vacant-crown-finale-thread.png` | Oct 24, 2013 | A reconstructed finale thread using the archived thread template |
 
 Legend: ✅ matches · ⚠️ deliberate difference · ➕ addition outside the original page

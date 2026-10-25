@@ -1,19 +1,23 @@
 import { setAsOf } from "@/app/actions/time";
 import { ARCHIVE_END, ARCHIVE_START, formatToolbar, toDateInput, toTimeInput } from "@/lib/time";
 import Link from "next/link";
+import { active, IOE_PHASE, type FuturePhase } from "@/data/release";
 
 // Quick jumps to documented moments in the archive.
-const JUMPS: { label: string; at: string; title: string }[] = [
+const JUMPS = active<{ label: string; at: string; title: string; phase?: FuturePhase }>([
   { label: "Jan 1, 2012", at: "2012-01-01T12:00:00+09:00", title: "the start of the archive" },
+  { label: "Jan 24, 2012", at: "2012-01-24T12:00:00+09:00", title: "the morning after the Sinful Apex finale" },
+  { label: "Jul 7, 2012", at: "2012-07-07T19:00:00+09:00", title: "Vacant Crown: Liminal War premieres" },
   { label: "Apr 4, 2013", at: "2013-04-04T23:00:00+09:00", title: "Iron to Requiem premieres" },
-  { label: "Sep 15, 2013", at: "2013-09-15T12:00:00+09:00", title: "Impact of Eden joins the Fall chart" },
-  { label: "Oct 5, 2013", at: "2013-10-05T21:00:00+09:00", title: "hours before the TV premiere" },
-  { label: "Oct 6, 2013", at: "2013-10-06T09:00:00+09:00", title: "the morning after the premiere" },
-  { label: "Oct 13, 2013", at: "2013-10-13T12:00:00+09:00", title: "Episode 2 discussion is open" },
-  { label: "Oct 20, 2013", at: "2013-10-20T12:00:00+09:00", title: "Episode 3 discussion is open" },
+  { label: "Sep 15, 2013", at: "2013-09-15T12:00:00+09:00", title: "Impact of Eden joins the Fall chart", phase: IOE_PHASE },
+  { label: "Sep 27, 2013", at: "2013-09-27T12:00:00+09:00", title: "the day after the Iron to Requiem finale" },
+  { label: "Oct 5, 2013", at: "2013-10-05T21:00:00+09:00", title: "hours before the TV premiere", phase: IOE_PHASE },
+  { label: "Oct 6, 2013", at: "2013-10-06T09:00:00+09:00", title: "the morning after the premiere", phase: IOE_PHASE },
+  { label: "Oct 13, 2013", at: "2013-10-13T12:00:00+09:00", title: "Episode 2 discussion is open", phase: IOE_PHASE },
+  { label: "Oct 20, 2013", at: "2013-10-20T12:00:00+09:00", title: "Episode 3 discussion is open", phase: IOE_PHASE },
   { label: "Oct 24, 2013", at: "2013-10-24T12:00:00+09:00", title: "the default visit" },
   { label: "Dec 31, 2013", at: "2013-12-31T23:00:00+09:00", title: "the end of the archive" },
-];
+]);
 
 export function ArchiveBar({ asOf, mode }: { asOf: string; mode: "local" | "supabase" }) {
   return (

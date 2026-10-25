@@ -4,6 +4,22 @@ A working recreation of **YourAnimeList**, the anime and manga database and comm
 
 YAL starts from the archived *Impact of Eden* episode discussion pages and builds the rest of the site around them: anime profiles, characters, staff and studios, seasonal charts, forums, member accounts and anime lists, reviews, recommendations, statistics, search, and a time machine that shows the site exactly as it stood at any moment between January 1, 2012 and December 31, 2013.
 
+## Release state: Impact of Eden is held back
+
+*Impact of Eden* belongs to a later development phase. Everything about it (the anime, Episode 0 and Nightpolis Winter entries, characters, the archived Episode 1–3 threads, news, reviews, recommendations, the manga, Studio Burst, AniBlex and the threads that are mostly about it) stays in the repository but is switched off in the site, the seed SQL and search. Records carry a `phase` tag and `data/release.ts` filters them; nothing was deleted.
+
+To bring it back for development:
+
+```bash
+NEXT_PUBLIC_LUMINE_FUTURE_PHASES=impact-of-eden npm run dev
+```
+
+The tests that cover that material switch the phase on for themselves (`tests/helpers/future-phase.ts`), so it stays checked while hidden. Its screenshots are kept in `screenshots/future-phase/impact-of-eden/`.
+
+## Embedded in Connected Desktop
+
+The Connected Desktop browser (`../connected`) shows YAL in a frame. `?embed=1` switches embedded mode on: the archive toolbar steps aside (the desktop clock sets the date through `?asof=`), and each navigation is reported to the desktop with `postMessage`. Framing is allowed only for YAL itself and the origins in `NEXT_PUBLIC_YAL_EMBED_ORIGINS` (default `http://localhost:3000,http://127.0.0.1:3000`). `?embed=0` turns it off again.
+
 ## Quick start
 
 ```bash
@@ -29,10 +45,9 @@ Things to try:
 | --- | --- |
 | Feb 1, 2012 | Glass Cathedral mid-season: three episodes aired, the next slot listed, later character twists hidden |
 | Aug 1, 2012 | Summer 2012 chart with Vacant Crown: Liminal War airing |
-| Oct 5, 2013 21:00 | Impact of Eden's premiere day: no Episode 1 thread yet |
-| Oct 6, 2013 03:00 | The Episode 1 thread is half an hour old, with 5 replies |
-| Oct 13, 2013 | Episode 2 discussion is open; Episode 3 is not |
-| Oct 24, 2013 | All three threads with their archived totals; Episode 4 "Not aired yet" |
+| Jan 24, 2012 03:00 | The Sinful Apex finale thread is half an hour old, with its first replies |
+| Dec 15, 2012 17:00 | Vacant Crown's finale has aired, but its discussion thread opens at 17:31 |
+| Jun 1, 2013 | Iron to Requiem mid-season |
 | Feb 1, 2012 (Recommendations board) | Fans looking for their next show after Sinful Apex's finale |
 
 Members act in archive time too. Signing up while viewing Oct 24, 2013 gives you that join date, and your replies, list updates and reviews are stamped with the moment you were viewing. They appear in any view from then on and stay hidden before it. Each row also keeps its real `recorded_at` time.
@@ -102,21 +117,23 @@ The migration and seed were validated against PostgreSQL 16 with a stand-in for 
 
 ## Testing
 
-`npm test` runs 47 checks with Node's test runner. They cover:
+`npm test` runs 53 checks with Node's test runner. They cover:
 
 - **Time:** Saturday 25:58 broadcast notation, JST date handling, and clamping to the archive window.
 - **BBCode:** quotes, spoilers, lists, unclosed tags, literal HTML, and blocking `javascript:` links.
 - **Archive import:** all 1,113 / 945 / 1,068 posts present, thread metadata preserved, post numbers unique, and no post earlier than its thread.
 - **History rules:** the October 5 / 6 / 13 / 20 / 24 checkpoints from the brief, entry listing dates, the Nightpolis OVA staying separate, and no news ahead of the viewed date.
-- **Catalogue:** the planned Impact of Eden page, every built-out entry having a full page's data, established facts surviving the build-out, 2012–2013 seasons filling in only as shows are listed and aired, and every voice actor's career having started before the shows they're cast in.
+- **Release state:** Impact of Eden records are kept but inactive by default, and no active text mentions it.
+- **Future phase (switched on per file):** the archive import and October checkpoints below, the planned Impact of Eden page and its dates.
+- **Catalogue:** every built-out entry having a full page's data, established facts surviving the build-out, 2012–2013 seasons filling in only as shows are listed and aired, and every voice actor's career having started before the shows they're cast in.
 - **Seed consistency:** every reference resolves, credits match the brief, no back-catalogue title is credited to Studio Burst, reconstructed authors had already joined, and nothing is dated after 2013.
 
 Walkthrough, scripted as `npm run e2e` (Playwright, against a running server):
 
-1. Sign up, check that the Impact of Eden page says "Page coming soon", then add Sinful Apex to your list and edit progress, score, dates and notes.
-2. In the Episode 1 thread: open a spoiler, switch to Newest First, page through, quote a post, reply with BBCode, follow the topic, and report a post.
+1. Sign up, check that Impact of Eden is held back (its pages 404 and search finds nothing), then add Sinful Apex to your list and edit progress, score, dates and notes.
+2. In the Sinful Apex finale thread: open a spoiler, switch to Newest First, quote a post, reply with BBCode, follow the Vacant Crown finale thread, and report a post.
 3. Write a Zero Latitude review, start a topic, and favourite a character.
-4. Travel to Oct 5, 2013 21:00 and confirm the Episode 1 thread is hidden, and to Jan 5, 2012 to confirm Glass Cathedral shows "Not yet aired" with no score or opening theme. Then travel to before your join date and confirm you can't post.
+4. Travel to Jan 24, 2012 01:00 JST and confirm the Sinful Apex finale thread is hidden, and to Jan 5, 2012 to confirm Glass Cathedral shows "Not yet aired" with no score or opening theme. Then travel to before your join date and confirm you can't post.
 
 ## Screenshot comparison
 

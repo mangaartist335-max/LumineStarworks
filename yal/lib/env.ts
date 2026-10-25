@@ -12,3 +12,15 @@ export function supabaseConfig(): { url: string; key: string } | null {
 export function storageMode(): "local" | "supabase" {
   return supabaseConfig() ? "supabase" : "local";
 }
+
+/**
+ * Origins allowed to show YAL inside a frame (the Connected Desktop browser).
+ * Comma-separated; defaults to the desktop's local development addresses.
+ */
+export function embedOrigins(): string[] {
+  const raw = process.env.NEXT_PUBLIC_YAL_EMBED_ORIGINS ?? "http://localhost:3000,http://127.0.0.1:3000";
+  return raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => /^https?:\/\/[^\s/]+$/.test(s));
+}

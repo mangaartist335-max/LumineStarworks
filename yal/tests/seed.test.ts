@@ -45,14 +45,6 @@ test("every reference resolves", () => {
 });
 
 test("established credits are recorded as given", () => {
-  const ioe = anime.find((a) => a.id === 19815)!;
-  const credit = (role: string) => people.find((p) => p.id === ioe.staff.find((s) => s.role === role)?.personId)?.name;
-  assert.equal(credit("Director"), "Kaihatsu Miura");
-  assert.equal(credit("Series Composition"), "Keito Kisaragi");
-  assert.equal(credit("Music"), "Hiroyuki Sawano");
-  assert.equal(credit("Original Creator"), "Natsuki Takuya");
-  assert.deepEqual(ioe.studios, [1]);
-  assert.equal(ioe.episodesPlanned, 25);
   const iron = anime.find((a) => a.id === 16592)!;
   assert.deepEqual(iron.studios, [3]);
   assert.equal(iron.episodesPlanned, 26);

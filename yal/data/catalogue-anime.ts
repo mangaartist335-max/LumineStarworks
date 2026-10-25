@@ -6,6 +6,7 @@
 
 import type { Anime, VoiceCredit } from "./types";
 import { SRC } from "./sources";
+import { IOE_PHASE, phaseText } from "./release";
 import { entry, weekly } from "./entry";
 import {
   CIRCUIT_EP9,
@@ -372,7 +373,7 @@ export const catalogueAnime: Anime[] = [
       "In a city held together by iron bridges, disgraced locksmith Edda Varn is hired to open a vault that has stayed shut for fifty years. Inside is the last will of the Architect, the man who built the city, and three factions are ready to go to war over what it says. With bridge warden Marcus Holloway breaking every oath he swore to help her, Edda has one night to read the testament before the city decides for her.",
     synopsisSource: "Written by YAL Rewrite",
     background: [
-      { text: "Produced by Flow Pictures' cinematic unit, the same staff culture that later carried into Studio Burst.", visibleFrom: null },
+      { text: phaseText(IOE_PHASE, "Produced by Flow Pictures' cinematic unit, the same staff culture that later carried into Studio Burst.", "Produced by Flow Pictures' cinematic unit."), visibleFrom: null },
       { text: "Widely considered the film that made Flow Pictures' cinematic unit famous.", visibleFrom: null },
     ],
     staff: [
@@ -424,7 +425,11 @@ export const catalogueAnime: Anime[] = [
     synopsisSource: "Written by YAL Rewrite",
     background: [
       {
-        text: "Produced by Flow Pictures' late-era cinematic unit, the production is often described as the studio's \"final breath\". The unit went on to form Studio Burst.",
+        text: phaseText(
+          IOE_PHASE,
+          "Produced by Flow Pictures' late-era cinematic unit, the production is often described as the studio's \"final breath\". The unit went on to form Studio Burst.",
+          "Produced by Flow Pictures' late-era cinematic unit, the production is often described as the studio's \"final breath\".",
+        ),
         visibleFrom: null,
       },
       { text: "The singer LUNE appears as Aria Moonbirth, Vellmore's most famous performer, and sings the ending theme in character.", visibleFrom: null },

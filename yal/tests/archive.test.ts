@@ -1,3 +1,6 @@
+// Covers Impact of Eden material, which belongs to a later development
+// phase; the phase is switched on for this file only.
+import "./helpers/future-phase";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {

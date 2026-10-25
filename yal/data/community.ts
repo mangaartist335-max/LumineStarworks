@@ -7,8 +7,9 @@
 import type { NewsItem, SeedRecommendation, SeedReview } from "./types";
 import { IOE_ID, IOE_EP0_ID, IRON_ID, SINFUL_APEX_ID } from "./anime";
 import { SRC } from "./sources";
+import { active, IOE_PHASE, phaseText } from "./release";
 
-export const news: NewsItem[] = [
+export const allNews: NewsItem[] = [
   {
     id: 1,
     slug: "sinful-apex-wraps-24-episode-run",
@@ -35,6 +36,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 3,
+    phase: IOE_PHASE,
     slug: "fall-2013-chart-impact-of-eden",
     title: "Fall 2013 season chart: Impact of Eden added",
     publishedAt: "2013-09-15T03:00:00Z",
@@ -47,6 +49,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 4,
+    phase: IOE_PHASE,
     slug: "episode-0-and-iron-finale",
     title: "Big day: Impact of Eden Episode 0 airs as Iron to Requiem signs off",
     publishedAt: "2013-09-26T09:00:00Z",
@@ -59,6 +62,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 5,
+    phase: IOE_PHASE,
     slug: "studio-burst-profile",
     title: "Who is Studio Burst? The Flow Pictures spin-out behind Impact of Eden",
     publishedAt: "2013-09-28T05:00:00Z",
@@ -71,6 +75,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 6,
+    phase: IOE_PHASE,
     slug: "impact-of-eden-advance-premiere",
     title: "Impact of Eden advance premiere tonight",
     publishedAt: "2013-09-30T03:00:00Z",
@@ -83,6 +88,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 7,
+    phase: IOE_PHASE,
     slug: "adultdrift-dub-funmaxation",
     title: "AdultDrift picks up Impact of Eden dub for early 2015; Funmaxation to license",
     publishedAt: "2013-10-04T15:00:00Z",
@@ -95,6 +101,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 8,
+    phase: IOE_PHASE,
     slug: "impact-of-eden-premiere-thread-open",
     title: "Impact of Eden premieres; Episode 1 discussion is open",
     publishedAt: "2013-10-05T17:35:00Z",
@@ -107,6 +114,7 @@ export const news: NewsItem[] = [
   },
   {
     id: 9,
+    phase: IOE_PHASE,
     slug: "human-x-inhuman-single",
     title: "\"Human x Inhuman\" single out today",
     publishedAt: "2013-10-16T03:00:00Z",
@@ -124,7 +132,11 @@ export const news: NewsItem[] = [
     publishedAt: "2013-11-19T15:00:00Z",
     author: "YALBot",
     body:
-      "[b]Funmaxation[/b]'s [b]Sinful Apex[/b] Complete Collection Blu-ray is out today, November 19. A great time to revisit Kaihatsu Miura's work at Flow Pictures before Impact of Eden's second half.",
+      phaseText(
+        IOE_PHASE,
+        "[b]Funmaxation[/b]'s [b]Sinful Apex[/b] Complete Collection Blu-ray is out today, November 19. A great time to revisit Kaihatsu Miura's work at Flow Pictures before Impact of Eden's second half.",
+        "[b]Funmaxation[/b]'s [b]Sinful Apex[/b] Complete Collection Blu-ray is out today, November 19. A great time to revisit Kaihatsu Miura's work at Flow Pictures.",
+      ),
     related: [{ type: "anime", id: SINFUL_APEX_ID }, { type: "company", id: 5 }],
     provenance: "reconstructed",
     source: { cite: "AniWire advertisement, \"Sinful Apex Complete Collection on Blu-ray Nov 19\" (Oct 6, 2013)" },
@@ -190,9 +202,10 @@ export const news: NewsItem[] = [
   },
 ];
 
-export const seedReviews: SeedReview[] = [
+export const allSeedReviews: SeedReview[] = [
   {
     id: "rv-ioe-1",
+    phase: IOE_PHASE,
     animeId: IOE_ID,
     author: "3EpisodeRule",
     postedAt: "2013-10-21T11:40:00Z",
@@ -210,6 +223,7 @@ export const seedReviews: SeedReview[] = [
   },
   {
     id: "rv-ioe-2",
+    phase: IOE_PHASE,
     animeId: IOE_ID,
     author: "SakugaThreadZero",
     postedAt: "2013-10-22T13:05:00Z",
@@ -227,6 +241,7 @@ export const seedReviews: SeedReview[] = [
   },
   {
     id: "rv-ioe-3",
+    phase: IOE_PHASE,
     animeId: IOE_ID,
     author: "KaichouEnjoyer",
     postedAt: "2013-10-23T08:22:00Z",
@@ -465,9 +480,10 @@ export const seedReviews: SeedReview[] = [
   },
 ];
 
-export const seedRecommendations: SeedRecommendation[] = [
+export const allSeedRecommendations: SeedRecommendation[] = [
   {
     id: "rec-1",
+    phase: IOE_PHASE,
     from: SINFUL_APEX_ID,
     to: IOE_ID,
     author: "ShounenLifer_VHS",
@@ -478,6 +494,7 @@ export const seedRecommendations: SeedRecommendation[] = [
   },
   {
     id: "rec-2",
+    phase: IOE_PHASE,
     from: IRON_ID,
     to: IOE_ID,
     author: "NodeCoreOmega",
@@ -488,6 +505,7 @@ export const seedRecommendations: SeedRecommendation[] = [
   },
   {
     id: "rec-3",
+    phase: IOE_PHASE,
     from: 7741,
     to: IOE_ID,
     author: "SakugaThreadZero",
@@ -551,3 +569,7 @@ export const seedRecommendations: SeedRecommendation[] = [
     provenance: "reconstructed",
   },
 ];
+
+export const news: NewsItem[] = active(allNews);
+export const seedReviews: SeedReview[] = active(allSeedReviews);
+export const seedRecommendations: SeedRecommendation[] = active(allSeedRecommendations);

@@ -9,6 +9,10 @@
 //   rather than being guessed.
 // - `provenance` separates documented facts from reconstructed sample
 //   content so the two are never mixed up.
+// - `phase` marks material held back for a later development phase
+//   (see data/release.ts); it is hidden unless that phase is enabled.
+
+import type { FuturePhase } from "./release";
 
 export type Provenance =
   | "documented" // stated in the established Lumine StarWorks references
@@ -33,6 +37,8 @@ export interface SourceNote {
 }
 
 export interface Company {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: number;
   slug: string;
   name: string;
@@ -55,6 +61,8 @@ export type CompanyKind =
   | "Publisher";
 
 export interface Person {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: number;
   slug: string;
   name: string;
@@ -129,6 +137,8 @@ export interface TimedText {
 }
 
 export interface Anime {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: number;
   slug: string; // e.g. "Impact_of_Eden"
   title: string;
@@ -191,6 +201,8 @@ export interface CharacterFact {
 }
 
 export interface Character {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: number;
   slug: string;
   name: string;
@@ -205,6 +217,8 @@ export interface Character {
 }
 
 export interface Manga {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: number;
   slug: string;
   title: string;
@@ -226,6 +240,8 @@ export interface Manga {
 }
 
 export interface NewsItem {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: number;
   slug: string;
   title: string;
@@ -264,6 +280,8 @@ export interface ArchiveSnapshot {
 }
 
 export interface Thread {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: string;
   board: string;
   title: string;
@@ -345,6 +363,8 @@ export interface ArchiveMember {
 }
 
 export interface SeedReview {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: string;
   animeId: number;
   author: string;
@@ -362,6 +382,8 @@ export interface SeedReview {
 }
 
 export interface SeedRecommendation {
+  /** Held back until this development phase is enabled. */
+  phase?: FuturePhase;
   id: string;
   from: number;
   to: number;

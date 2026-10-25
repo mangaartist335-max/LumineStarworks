@@ -1,3 +1,6 @@
+// Covers Impact of Eden material, which belongs to a later development
+// phase; the phase is switched on for this file only.
+import "./helpers/future-phase";
 // The essential rule: a historical date never shows content that did not
 // exist at that point. These cases follow the brief's timeline.
 

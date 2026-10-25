@@ -7,6 +7,7 @@
 
 import type { ForumBoard, Thread } from "./types";
 import { IOE_ID, IRON_ID, SINFUL_APEX_ID } from "./anime";
+import { active, IOE_PHASE, type FuturePhase } from "./release";
 
 export const boards: ForumBoard[] = [
   { slug: "general", name: "General Anime Discussion", description: "Talk about anything anime that doesn't fit elsewhere.", group: "Anime & Manga" },
@@ -23,6 +24,7 @@ export const boards: ForumBoard[] = [
 ];
 
 export interface SeedThreadPost {
+  phase?: FuturePhase;
   author: string;
   at: string;
   body: string;
@@ -34,7 +36,7 @@ export interface SeedThread extends Thread {
   posts: SeedThreadPost[];
 }
 
-export const seedThreads: SeedThread[] = [
+export const allSeedThreads: SeedThread[] = [
   // ── Community Support ───────────────────────────────────────────────────
   {
     id: "t-20114",
@@ -56,6 +58,7 @@ export const seedThreads: SeedThread[] = [
   },
   {
     id: "t-31877",
+    phase: IOE_PHASE,
     board: "support",
     title: "Post timestamps show the wrong time zone?",
     author: "CalibrationLunchbox",
@@ -115,6 +118,7 @@ export const seedThreads: SeedThread[] = [
   },
   {
     id: "t-31402",
+    phase: IOE_PHASE,
     board: "general",
     title: "What are you watching right now? (Fall 2013)",
     author: "FinalBossu",
@@ -179,6 +183,7 @@ export const seedThreads: SeedThread[] = [
   },
   {
     id: "t-30905",
+    phase: IOE_PHASE,
     board: "seasonal",
     title: "Fall 2013 season chart discussion",
     author: "NovaFanPixel",
@@ -236,6 +241,7 @@ export const seedThreads: SeedThread[] = [
         body: "That last soundtrack cue gave me chills. Buying the OST the day it's out.",
       },
       {
+        phase: IOE_PHASE,
         author: "ChibiComet_92",
         at: "2013-09-26T16:03:00Z",
         body: "Great finale! Thursday nights won't be the same. Good thing Impact of Eden starts next week, same composer so I'm covered XD",
@@ -246,6 +252,7 @@ export const seedThreads: SeedThread[] = [
   // ── Manga Discussion ────────────────────────────────────────────────────
   {
     id: "t-31690",
+    phase: IOE_PHASE,
     board: "manga",
     title: "Impact of Eden manga readers: spoiler-tag etiquette thread",
     author: "NovaFanPixel",
@@ -299,6 +306,7 @@ export const seedThreads: SeedThread[] = [
         body: "Seconding Zero Latitude. Tomoe Suzuhara boarded that long take. Also check out [b]Skyfall Chronicle: Black Aegis[/b], which Miura co-directed.",
       },
       {
+        phase: IOE_PHASE,
         author: "ShounenLifer_VHS",
         at: "2013-10-07T09:30:00Z",
         body: "Bumping my own thread a year and a half later because the answer is now obvious: [b]Impact of Eden[/b]. Miura again, and Studio Burst is basically the Sinful Apex crew. Go!",
@@ -309,6 +317,7 @@ export const seedThreads: SeedThread[] = [
   // ── Character Discussion ────────────────────────────────────────────────
   {
     id: "t-31733",
+    phase: IOE_PHASE,
     board: "characters",
     title: "Miyuki Kagemitsu appreciation thread",
     author: "KaichouEnjoyer",
@@ -337,6 +346,7 @@ export const seedThreads: SeedThread[] = [
   // ── Animation & Production ──────────────────────────────────────────────
   {
     id: "t-31205",
+    phase: IOE_PHASE,
     board: "production",
     title: "Studio Burst: a brand-new studio from the Flow Pictures crew",
     author: "SakugaThreadZero",
@@ -370,6 +380,7 @@ export const seedThreads: SeedThread[] = [
   // ── Gaming ──────────────────────────────────────────────────────────────
   {
     id: "t-31310",
+    phase: IOE_PHASE,
     board: "gaming",
     title: "VR MMO anime always make me want to play an MMO again",
     author: "ToonblockKid",
@@ -397,6 +408,7 @@ export const seedThreads: SeedThread[] = [
   // ── Music ───────────────────────────────────────────────────────────────
   {
     id: "t-31744",
+    phase: IOE_PHASE,
     board: "music",
     title: "\"Human x Inhuman\" (Impact of Eden OP) — single out Oct 16",
     author: "sleepySenpai_DesuKa",
@@ -425,6 +437,7 @@ export const seedThreads: SeedThread[] = [
   // ── Off Topic ───────────────────────────────────────────────────────────
   {
     id: "t-31791",
+    phase: IOE_PHASE,
     board: "offtopic",
     title: "Where are you watching from? (time zone roll call)",
     author: "HollowToast",
@@ -651,3 +664,5 @@ export const seedThreads: SeedThread[] = [
     ],
   },
 ];
+
+export const seedThreads: SeedThread[] = active(allSeedThreads).map((t) => ({ ...t, posts: active(t.posts) }));

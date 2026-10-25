@@ -5,6 +5,7 @@
 import rawArchive from "@/data/generated/ioe-threads.json";
 import { boards, seedThreads, type SeedThread } from "@/data/forums";
 import { IOE_ID } from "@/data/anime";
+import { IOE_PHASE, phaseEnabled } from "@/data/release";
 import type { ArchiveMember, ArchivedThreadFile, ForumBoard, Thread } from "@/data/types";
 import { happened, monthYearToIso, ms } from "./time";
 
@@ -103,7 +104,11 @@ function noteActivity(name: string, at: string) {
   if (!prev || ms(at) < ms(prev)) firstActivity.set(k, at);
 }
 
-for (const t of archive.threads) {
+// The recovered threads are all Impact of Eden episode discussions, which
+// belong to a later development phase (data/release.ts).
+const activeArchiveThreads = phaseEnabled(IOE_PHASE) ? archive.threads : [];
+
+for (const t of activeArchiveThreads) {
   const id = `ioe-ep${t.episode}`;
   const maxPostAt = t.posts.reduce((m, p) => (ms(p.at) > ms(m) ? p.at : m), t.archive.lastReplyAt);
   const capturedAt = ms(maxPostAt) > ms(t.archive.lastReplyAt) ? maxPostAt : t.archive.lastReplyAt;

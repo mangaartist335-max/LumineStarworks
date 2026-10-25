@@ -3,6 +3,7 @@
 import type { Company, Person } from "./types";
 import { SRC } from "./sources";
 import { catalogueCompanies, cataloguePeople } from "./catalogue-people";
+import { active, IOE_PHASE, phaseText } from "./release";
 
 // The Impact of Eden entry was added to YAL with the Fall 2013 season chart.
 export const IOE_LISTED = "2013-09-14T15:00:00Z"; // Sep 15, 2013 00:00 JST
@@ -25,7 +26,11 @@ const establishedCompanies: Company[] = [
     name: "Flow Pictures",
     kinds: ["Studio"],
     about:
-      "Japanese animation studio. Its late-era cinematic unit produced Sinful Apex (2011–2012), the production often described as the studio's \"final breath\". Studio Burst was formed out of that unit.",
+      phaseText(
+        IOE_PHASE,
+        "Japanese animation studio. Its late-era cinematic unit produced Sinful Apex (2011–2012), the production often described as the studio's \"final breath\". Studio Burst was formed out of that unit.",
+        "Japanese animation studio. Its late-era cinematic unit produced Sinful Apex (2011–2012), the production often described as the studio's \"final breath\".",
+      ),
     visibleFrom: null,
     sources: [SRC.brief, SRC.aniFanWiki, SRC.aniWirePremiere],
   },
@@ -88,7 +93,7 @@ const establishedCompanies: Company[] = [
     slug: "Sony_Music_Japan",
     name: "Sony Music Japan",
     kinds: ["Record label"],
-    about: "Record label. Released the \"Human x Inhuman\" single on October 16, 2013.",
+    about: phaseText(IOE_PHASE, "Record label. Released the \"Human x Inhuman\" single on October 16, 2013.", "Record label."),
     visibleFrom: null,
     sources: [SRC.aniFanWiki],
   },
@@ -110,7 +115,11 @@ const establishedPeople: Person[] = [
     slug: "Kaihatsu_Miura",
     name: "Kaihatsu Miura",
     occupations: ["Director"],
-    about: "Director known for dense, no-padding pacing. Directed Sinful Apex at Flow Pictures before moving to Studio Burst for Impact of Eden.",
+    about: phaseText(
+      IOE_PHASE,
+      "Director known for dense, no-padding pacing. Directed Sinful Apex at Flow Pictures before moving to Studio Burst for Impact of Eden.",
+      "Director known for dense, no-padding pacing. Directed Sinful Apex at Flow Pictures.",
+    ),
     visibleFrom: null,
     sources: [SRC.brief, SRC.sakugaThread, SRC.yalEp1Page4],
   },
@@ -137,7 +146,11 @@ const establishedPeople: Person[] = [
     slug: "Tomoe_Suzuhara",
     name: "Tomoe Suzuhara",
     occupations: ["Storyboard artist"],
-    about: "Storyboard artist known for long-take action and silhouette-driven fight layouts. Leads storyboards and pacing on Impact of Eden.",
+    about: phaseText(
+      IOE_PHASE,
+      "Storyboard artist known for long-take action and silhouette-driven fight layouts. Leads storyboards and pacing on Impact of Eden.",
+      "Storyboard artist known for long-take action and silhouette-driven fight layouts.",
+    ),
     visibleFrom: null,
     sources: [SRC.brief, SRC.sakugaThread, SRC.aniWirePremiere],
   },
@@ -237,5 +250,11 @@ const establishedPeople: Person[] = [
   { id: 32, slug: "Tasuku_Hatanaka", name: "Tasuku Hatanaka", nativeName: "畠中祐", occupations: ["Voice actor"], visibleFrom: null, sources: [SRC.aniFanWiki] },
 ];
 
-export const companies: Company[] = [...establishedCompanies, ...catalogueCompanies];
-export const people: Person[] = [...establishedPeople, ...cataloguePeople];
+// Companies and people that exist only through Impact of Eden.
+const IOE_COMPANIES = new Set([1, 4]); // Studio Burst, AniBlex
+const IOE_PEOPLE = new Set([1, 11, 12]); // Natsuki Takuya, Tsubasa Aramaki, Junpei Oikawa
+
+export const allCompanies: Company[] = [...establishedCompanies, ...catalogueCompanies].map((c) => (IOE_COMPANIES.has(c.id) ? { ...c, phase: IOE_PHASE } : c));
+export const allPeople: Person[] = [...establishedPeople, ...cataloguePeople].map((p) => (IOE_PEOPLE.has(p.id) ? { ...p, phase: IOE_PHASE } : p));
+export const companies: Company[] = active(allCompanies);
+export const people: Person[] = active(allPeople);

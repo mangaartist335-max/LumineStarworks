@@ -8,6 +8,7 @@ import type { Anime } from "./types";
 import { SRC } from "./sources";
 import { entry } from "./entry";
 import { catalogueAnime } from "./catalogue-anime";
+import { active, IOE_PHASE } from "./release";
 import { IOE_LISTED } from "./industry";
 import { IOE_EP1, IOE_EP2, IOE_EP3 } from "./characters";
 
@@ -25,7 +26,11 @@ const IOE_EP0_AIRED = "2013-09-25T15:00:00Z"; // Sep 26, 2013 (JST)
 const IOE_ADVANCE = "2013-09-30T15:00:00Z"; // late night of Mon Sep 30 (Oct 1, 2013 JST)
 
 
-export const anime: Anime[] = [
+// Impact of Eden, its Episode 0 special and the Nightpolis Winter OVA are
+// future-phase material: kept here, hidden from the active site.
+const IOE_FRANCHISE = new Set([IOE_ID, IOE_EP0_ID, NIGHTPOLIS_ID]);
+
+const records: Anime[] = [
   // ── Impact of Eden (2013) ───────────────────────────────────────────────
   entry({
     id: IOE_ID,
@@ -292,3 +297,6 @@ export const anime: Anime[] = [
     archiveNotes: ["Release year, format, studio and episode count have not been documented."],
   }),
 ];
+
+export const allAnime: Anime[] = records.map((a) => (IOE_FRANCHISE.has(a.id) ? { ...a, phase: IOE_PHASE } : a));
+export const anime: Anime[] = active(allAnime);

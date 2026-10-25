@@ -7,12 +7,14 @@ import { ARCHIVE_STATS } from "@/lib/archive";
 import { seedThreads } from "@/data/forums";
 import { seedReviews } from "@/data/community";
 import { getViewer } from "@/lib/viewer";
+import { FUTURE_PHASES, IOE_PHASE, phaseEnabled } from "@/data/release";
 import { ARCHIVE_END, ARCHIVE_START, DEFAULT_AS_OF, formatToolbar } from "@/lib/time";
 
 export const metadata: Metadata = { title: "About the Archive" };
 
 export default async function TimeMachinePage() {
   const { asOf, mode } = await getViewer();
+  const ioe = phaseEnabled(IOE_PHASE);
   return (
     <>
       <Breadcrumb items={[{ label: "About the archive" }]} />
@@ -57,6 +59,7 @@ export default async function TimeMachinePage() {
                 </tr>
               </thead>
               <tbody>
+                {ioe && (
                 <tr>
                   <td>
                     Impact of Eden Episode 1–3 discussion threads: {fmtNum(ARCHIVE_STATS.posts)} posts by {fmtNum(ARCHIVE_STATS.members)} members
@@ -65,8 +68,9 @@ export default async function TimeMachinePage() {
                     <span className="tag teal">archived</span> recovered from the archived YAL pages
                   </td>
                 </tr>
+                )}
                 <tr>
-                  <td>Impact of Eden, Iron to Requiem and the Nightpolis Winter OVA: credits, cast, studios and dates</td>
+                  <td>{ioe ? "Impact of Eden, Iron to Requiem and the Nightpolis Winter OVA" : "Iron to Requiem"}: credits, cast, studios and dates</td>
                   <td>
                     <span className="tag teal">documented</span> from the established Lumine StarWorks references; unknown facts are left blank
                   </td>
@@ -108,9 +112,15 @@ export default async function TimeMachinePage() {
             <div className="box-head">Known gaps</div>
             <div className="box-body">
               <ul className="bb-list">
-                <li>The Impact of Eden profile page is coming soon; its episode threads, characters and staff pages are available now.</li>
-                <li>Impact of Eden episode records after Episode 3 have not been archived.</li>
-                <li>Impact of Eden: Nightpolis Winter (2005 OVA) has no documented staff, cast, release date or episode count yet.</li>
+                {ioe ? (
+                  <>
+                    <li>The Impact of Eden profile page is coming soon; its episode threads, characters and staff pages are available now.</li>
+                    <li>Impact of Eden episode records after Episode 3 have not been archived.</li>
+                    <li>Impact of Eden: Nightpolis Winter (2005 OVA) has no documented staff, cast, release date or episode count yet.</li>
+                  </>
+                ) : (
+                  <li>{FUTURE_PHASES[IOE_PHASE]}: held back from this version of the archive.</li>
+                )}
                 <li>Destiny/Infinite, Blizzard Requiem, Pale Garden Reverie, Garden of Cinders and Iron Halo Brigade are listed with their documented credits only.</li>
                 <li>Posts inside the &quot;hot subthreads&quot; listed in each episode thread were not recovered.</li>
               </ul>
@@ -128,12 +138,25 @@ export default async function TimeMachinePage() {
                 <li>
                   <Link href="/anime/season/2012/summer?asof=2012-08-01">Aug 1, 2012</Link> &mdash; Summer 2012 chart
                 </li>
-                <li>
-                  <Link href="/forum/thread/ioe-ep1?asof=2013-10-06T03:00">Oct 6, 03:00</Link> &mdash; Episode 1 thread, half an hour old
-                </li>
-                <li>
-                  <Link href="/character/1/Sora_Gauthier?asof=2013-10-12">Oct 12</Link> &mdash; Sora&apos;s bio before Episode 2
-                </li>
+                {ioe ? (
+                  <>
+                    <li>
+                      <Link href="/forum/thread/ioe-ep1?asof=2013-10-06T03:00">Oct 6, 03:00</Link> &mdash; Episode 1 thread, half an hour old
+                    </li>
+                    <li>
+                      <Link href="/character/1/Sora_Gauthier?asof=2013-10-12">Oct 12</Link> &mdash; Sora&apos;s bio before Episode 2
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link href="/forum/thread/t-21990?asof=2012-01-24T03:00">Jan 24, 2012</Link> &mdash; Sinful Apex finale thread, minutes old
+                    </li>
+                    <li>
+                      <Link href="/anime/16592/Iron_to_Requiem?asof=2013-06-01">Jun 1, 2013</Link> &mdash; Iron to Requiem mid-season
+                    </li>
+                  </>
+                )}
                 <li>
                   <Link href="/anime/season/2013/spring?asof=2013-05-01">May 1</Link> &mdash; Spring 2013 chart
                 </li>

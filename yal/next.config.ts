@@ -1,5 +1,6 @@
 import path from "node:path";
 import type { NextConfig } from "next";
+import { embedOrigins } from "./lib/env";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -13,7 +14,8 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // Framing is limited to YAL itself and the Connected Desktop.
+          { key: "Content-Security-Policy", value: `frame-ancestors 'self' ${embedOrigins().join(" ")}` },
         ],
       },
     ];
