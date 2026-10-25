@@ -13,6 +13,22 @@ import { formatSize } from "@/lib/vfs";
 import { HOME_URL, searchUrl } from "@/lib/web/url";
 import type { Bookmark, HistoryItem } from "./Browser";
 
+/** Archive sites to get started with. */
+const POPULAR: [string, string][] = [
+  ["MeTube", "http://www.metube.com/"],
+  ["MangaShelf", "http://www.mangashelf.net/"],
+  ["YourAnimeList", "http://www.youranimelist.net/"],
+  ["Birdie", "http://www.birdie.com/"],
+  ["Tum", "http://www.tum.com/"],
+  ["InkPocket", "http://www.inkpocket.net/"],
+  ["HomePlot", "http://www.homeplot.net/"],
+  ["WallpaperGarden", "http://www.wallpapergarden.com/"],
+  ["Freeware Corner", "http://www.freewarecorner.com/"],
+  ["TechNook Forums", "http://www.technook.net/"],
+  ["3Chan", "http://www.3chan.org/"],
+  ["Pantry Recipes", "http://www.pantryrecipes.com/"],
+];
+
 function NewTab() {
   usePageTitle("New Tab");
   const { navigate } = useSite();
@@ -48,7 +64,7 @@ function NewTab() {
       </form>
       <h2>Most visited</h2>
       {top.length === 0 ? (
-        <p className="empty">Pages you visit often will show up here. Try MeTube, MangaShelf or YourAnimeList!</p>
+        <p className="empty">Pages you visit often will show up here.</p>
       ) : (
         <div className="tiles">
           {top.map(([url, v]) => (
@@ -59,6 +75,15 @@ function NewTab() {
           ))}
         </div>
       )}
+      <h2>Popular sites</h2>
+      <div className="tiles">
+        {POPULAR.map(([title, url]) => (
+          <A key={url} href={url} className="tile">
+            <strong>{title}</strong>
+            <small>{url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</small>
+          </A>
+        ))}
+      </div>
       {bookmarks.length > 0 && (
         <>
           <h2>Bookmarks</h2>

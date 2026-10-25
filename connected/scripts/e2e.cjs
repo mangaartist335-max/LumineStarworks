@@ -259,6 +259,24 @@ async function bootToDesktop(page) {
     await verify("after browser relaunch");
   });
 
+  await run("Community sites: sign a guestbook, review a story, chirp", async () => {
+    await page.dblclick('button.desktop-icon:has-text("Web Browser")');
+    await go(page, "homeplot.net/~skys-hangar/guestbook");
+    await page.fill(`${activeTab} textarea[aria-label="Guestbook message"]`, "Hi Sky! Love the hangar.");
+    await page.click(`${activeTab} button:has-text("Sign guestbook")`);
+    await page.waitForSelector(`${activeTab} .hp-entry:has-text("Hi Sky! Love the hangar.")`);
+    await go(page, "inkpocket.net/s/fic_longway/2");
+    await page.fill(`${activeTab} textarea[aria-label="Review"]`, "The seagull!");
+    await page.click(`${activeTab} button:has-text("Post review")`);
+    await page.waitForSelector(`${activeTab} .ip-review:has-text("The seagull!")`);
+    await go(page, "birdie.com");
+    await page.fill(`${activeTab} textarea[aria-label="What's happening?"]`, "Reading fan fiction on InkPocket inkpocket.net");
+    await page.click(`${activeTab} .bd-btn:has-text("Chirp")`);
+    await page.waitForSelector(`${activeTab} .bd-post:has-text("Reading fan fiction on InkPocket")`);
+    ok("guestbook signed on HomePlot, review posted on InkPocket, chirp posted on Birdie");
+    await closeAll(page);
+  });
+
   await run("YourAnimeList opens inside the browser (optional: needs npm run dev:all)", async () => {
     const yalUp = await fetch(YAL).then((r) => r.ok).catch(() => false);
     if (!yalUp) {

@@ -1960,3 +1960,377 @@
 .tn-reply .btn {
   justify-self: start;
 }
+
+/* ── HomePlot ───────────────────────────────────────────────────────────── */
+
+.homeplot {
+  min-height: 100%;
+  background: #fdf6e3;
+  font-family: Verdana, "DejaVu Sans", sans-serif;
+  font-size: 12px;
+  color: #3a3226;
+}
+.homeplot a {
+  color: #2f6db5;
+}
+.hp-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 22px;
+  background: linear-gradient(#f7b267, #f4845f);
+  color: #fff;
+}
+.homeplot .hp-logo {
+  color: #fff;
+  font: bold 22px Georgia, serif;
+  text-decoration: none;
+}
+.hp-main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 14px 22px 26px;
+}
+.hp-hero {
+  background: #fff;
+  border: 2px dashed #f4a261;
+  border-radius: 8px;
+  padding: 14px 18px;
+  text-align: center;
+}
+.hp-hero h1 {
+  font: bold 20px Georgia, serif;
+  margin: 0 0 6px;
+}
+.hp-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.hp-btn,
+.homeplot a.hp-btn,
+.hp-page a.hp-btn {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: var(--hp-accent, #e76f51);
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+.hp-btn.secondary {
+  background: #8d99ae;
+}
+.hp-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.hp-dir {
+  list-style: none;
+  padding: 0;
+}
+.hp-dir li {
+  background: #fff;
+  border: 1px solid #ecdcbc;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+}
+.hp-muted {
+  color: #8a7a62;
+  font-size: 11px;
+}
+.hp-edit {
+  display: grid;
+  gap: 8px;
+}
+.hp-edit label {
+  display: grid;
+  gap: 3px;
+}
+.hp-page {
+  min-height: 100%;
+  font-size: 13px;
+  padding: 18px 12px;
+}
+.hp-page-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.hp-page a {
+  color: var(--hp-accent);
+}
+.hp-page-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+}
+.hp-page-head h1 {
+  margin: 0;
+  font-size: 26px;
+  color: var(--hp-accent);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+.hp-page-head p {
+  margin: 4px 0 0;
+}
+.hp-avatar {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 3px solid var(--hp-panel);
+}
+.hp-page-nav {
+  display: flex;
+  gap: 14px;
+  margin: 12px 0;
+  padding: 6px 10px;
+  background: var(--hp-panel);
+  border-radius: 4px;
+}
+.hp-panel {
+  background: var(--hp-panel);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.hp-panel h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: var(--hp-accent);
+}
+.hp-panel p {
+  white-space: pre-wrap;
+  line-height: 1.55;
+  margin: 6px 0;
+}
+.hp-date {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.hp-entry {
+  border-top: 1px dotted currentColor;
+  padding: 6px 0;
+}
+.hp-entry-text {
+  white-space: pre-wrap;
+}
+.hp-sign {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+.hp-sign label {
+  display: grid;
+  gap: 3px;
+}
+.hp-sign .field {
+  color: #222;
+}
+.hp-counter {
+  text-align: center;
+  font-size: 12px;
+  margin: 10px 0;
+}
+.hp-counter span {
+  display: inline-block;
+  background: #111;
+  color: #7CFC00;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  padding: 1px 4px;
+  margin: 0 1px;
+  border-radius: 2px;
+}
+.hp-foot {
+  text-align: center;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* ── InkPocket ──────────────────────────────────────────────────────────── */
+
+.inkpocket {
+  min-height: 100%;
+  background: #f4f1ea;
+  font-family: Verdana, "DejaVu Sans", sans-serif;
+  font-size: 12px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+.inkpocket a {
+  color: #2b5c8a;
+  text-decoration: none;
+}
+.inkpocket a:hover {
+  text-decoration: underline;
+}
+.ip-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 22px;
+  background: #33415c;
+}
+.inkpocket .ip-logo {
+  color: #fff;
+  font: bold 20px Georgia, serif;
+}
+.ip-header nav {
+  display: flex;
+  gap: 14px;
+}
+.inkpocket .ip-header nav a {
+  color: #dbe4f3;
+}
+.ip-main {
+  flex: 1;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 12px 22px 24px;
+}
+.ip-main h1 {
+  font: bold 19px Georgia, serif;
+}
+.ip-main h2 {
+  font: bold 15px Georgia, serif;
+  border-bottom: 1px solid #d7d0c0;
+  padding-bottom: 3px;
+}
+.ip-foot {
+  text-align: center;
+  color: #8a8270;
+  font-size: 11px;
+  padding: 12px;
+}
+.ip-muted {
+  color: #8a8270;
+}
+.ip-list {
+  padding-left: 18px;
+  line-height: 1.8;
+}
+.ip-fandoms {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+}
+.ip-fandom {
+  display: grid;
+  gap: 2px;
+  background: #fff;
+  border: 1px solid #ddd6c6;
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+.ip-fandom span {
+  color: #8a8270;
+  font-size: 11px;
+}
+.ip-story {
+  background: #fff;
+  border: 1px solid #ddd6c6;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+.ip-story p {
+  margin: 4px 0;
+}
+.inkpocket .ip-title {
+  font-weight: bold;
+  font-size: 13px;
+}
+.ip-meta {
+  color: #7b735f;
+  font-size: 11px;
+}
+.ip-filters {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.ip-filters a {
+  padding: 2px 10px;
+  border: 1px solid #ccc3ae;
+  border-radius: 10px;
+  background: #fff;
+}
+.inkpocket .ip-filters a.on {
+  background: #33415c;
+  color: #fff;
+}
+.ip-crumbs {
+  font-size: 11px;
+}
+.ip-story-title {
+  margin-bottom: 2px;
+}
+.ip-summary {
+  font-style: italic;
+}
+.ip-tools {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.ip-tools .field {
+  width: auto;
+}
+.inkpocket a.btn {
+  display: inline-flex;
+  align-items: center;
+  color: #000;
+  text-decoration: none;
+}
+.ip-chapter {
+  background: #fffdf8;
+  border: 1px solid #e3dccb;
+  padding: 18px 26px;
+  font: 15px/1.75 Georgia, "Times New Roman", serif;
+  color: #2a2a2a;
+}
+.ip-chapter h2 {
+  font-size: 17px;
+  border: 0;
+  text-align: center;
+}
+.ip-chapter p {
+  margin: 0 0 1em;
+}
+.ip-pager {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 18px;
+}
+.ip-reviews h3 {
+  font: bold 14px Georgia, serif;
+}
+.ip-review {
+  border-top: 1px solid #e3dccb;
+  padding: 6px 0;
+}
+.ip-form {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+.ip-form label {
+  display: grid;
+  gap: 3px;
+}
+.ip-form .btn {
+  justify-self: start;
+}
+.ip-write textarea {
+  font: 14px/1.6 Georgia, serif;
+}

@@ -87,12 +87,17 @@ export default function Browser({ win }: AppProps) {
   const [address, setAddress] = useState(initialUrl);
   const [editing, setEditing] = useState(false);
   const [suggestOpen, setSuggestOpen] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  // The link under the pointer, remembered with the page it was on so it
+  // disappears as soon as you navigate away.
+  const [hover, setHover] = useState<{ page: string; text: string } | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const addressRef = useRef<HTMLInputElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const tab = activeTab(state);
   const entry = tab ? currentEntry(tab) : null;
+  const entryUrl = entry?.url ?? "";
+  const setStatus = useCallback((text: string | null) => setHover(text ? { page: entryUrl, text } : null), [entryUrl]);
+  const status = hover && hover.page === entryUrl ? hover.text : null;
 
   // Session restore, if the user chose "show my tabs from last time".
   useEffect(() => {

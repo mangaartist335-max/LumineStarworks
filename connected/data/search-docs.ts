@@ -8,6 +8,8 @@ import { wallpapers, WALLPAPER_HOST } from "./wallpapers";
 import { games } from "./games";
 import { staticSites } from "./web-pages";
 import { birdieUsers, birdiePosts, tumBlogs, threeChanThreads, techNookThreads } from "./community";
+import { archiveHomepages, HOMEPLOT_HOST } from "./homepages";
+import { archiveStories, fandoms, INKPOCKET_HOST } from "./fanfic";
 import yalIndex from "./generated/yal-index.json";
 
 const http = (host: string, path = "/") => `http://www.${host}${path}`;
@@ -95,6 +97,16 @@ export function buildSearchDocs(): SearchDoc[] {
   for (const t of threeChanThreads) docs.push({ id: `page_${t.id}`, url: http("3chan.org", `/${t.board}/thread/${t.id}`), title: `/${t.board}/ - ${t.subject || t.posts[0].text.slice(0, 50)}`, description: t.posts[0].text, kind: "web", publishedAt: t.posts[0].at, site: "3Chan", tags: ["3chan", t.board] });
   docs.push({ id: "page_technook", url: http("technook.net"), title: "TechNook Forums - PC help, customization and software", description: "Friendly forums for PC help, desktop customization, software and hardware.", kind: "web", publishedAt: "2005-09-01T00:00:00Z", site: "TechNook", tags: ["forum", "forums", "technology", "pc", "help"] });
   for (const t of techNookThreads) docs.push({ id: `page_${t.id}`, url: http("technook.net", `/thread/${t.id}`), title: `${t.title} - TechNook Forums`, description: t.posts[0].text.slice(0, 200), kind: "web", publishedAt: t.posts[0].at, site: "TechNook", tags: ["forum", "technology", t.board] });
+
+  docs.push({ id: "page_homeplot", url: http(HOMEPLOT_HOST), title: "HomePlot - Free personal homepages", description: "Make your own free homepage with a guestbook, a hit counter and your favourite links. Browse pages made by people everywhere.", kind: "web", publishedAt: "2004-03-01T00:00:00Z", site: "HomePlot", tags: ["homepage", "personal page", "guestbook", "free website"] });
+  for (const h of archiveHomepages) {
+    docs.push({ id: `page_homeplot_${h.slug.replace(/-/g, "_")}`, url: http(HOMEPLOT_HOST, `/~${h.slug}`), title: `${h.title} - HomePlot`, description: h.tagline, body: h.sections.filter((x) => !x.at).map((x) => `${x.heading} ${x.body}`).join(" "), kind: "web", publishedAt: h.createdAt, site: "HomePlot", tags: ["homepage", "guestbook", h.owner] });
+  }
+  docs.push({ id: "page_inkpocket", url: http(INKPOCKET_HOST), title: "InkPocket - Fan fiction archive", description: "Read and write fan fiction for your favourite manga and games. Reviews, favourites and new chapters every day.", kind: "web", publishedAt: "2009-05-01T00:00:00Z", site: "InkPocket", tags: ["fan fiction", "fanfic", "stories", "writing"] });
+  for (const f of fandoms) docs.push({ id: `page_inkpocket_${f.id.replace(/-/g, "_")}`, url: http(INKPOCKET_HOST, `/fandom/${f.id}`), title: `${f.name} fan fiction - InkPocket`, description: `Stories by fans of ${f.name}.`, kind: "web", publishedAt: f.since, site: "InkPocket", tags: ["fan fiction", f.name] });
+  for (const st of archiveStories) {
+    docs.push({ id: `page_${st.id}`, url: http(INKPOCKET_HOST, `/s/${st.id}`), title: `${st.title} - ${fandoms.find((f) => f.id === st.fandom)?.name ?? ""} fan fiction - InkPocket`, description: `${st.summary} By ${st.author}.`, kind: "web", publishedAt: st.chapters[0].at, site: "InkPocket", tags: ["fan fiction", "fanfic", st.author, ...st.genres] });
+  }
 
   docs.push(...(yalIndex as SearchDoc[]));
   return docs;
