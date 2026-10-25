@@ -44,7 +44,8 @@ Members act in archive time too. Signing up while viewing Oct 24, 2013 gives you
 | Impact of Eden Episode 1, 2 and 3 discussion threads: 3,126 posts by 218 members across 158 archived pages, with avatars, ranks, join dates, post counts, quotes, spoilers and edit notes | **archived**: recovered from the reference pages |
 | Thread snapshots: reply/view totals, polls, "users viewing", hot subthreads | **archived**: shown only from their capture time |
 | Impact of Eden, Iron to Requiem and the Nightpolis Winter OVA: credits, cast, studios and dates | **documented**: from the established references; unknown facts are left blank |
-| Full entries for Sinful Apex, Zero Latitude, Skyfall Chronicle: Black Aegis, River of Sparks, Steelbound Testament, Glass Cathedral, Circuit Hearts: Reload, Vacant Crown: Liminal War, Ghost Eater, Azure Sorcerer and Neon Afterimage: synopses, five new studios, 21 staff, 44 characters with cast, 138 episode titles, theme songs and scores | **reconstructed**: written around the documented facts and labelled on every page |
+| Full entries for Sinful Apex, Zero Latitude, Skyfall Chronicle: Black Aegis, River of Sparks, Steelbound Testament, Glass Cathedral, Circuit Hearts: Reload, Vacant Crown: Liminal War, Ghost Eater, Azure Sorcerer and Neon Afterimage: synopses, five new studios, 21 staff, 44 characters, 138 episode titles, theme songs and scores | **reconstructed**: written around the documented facts and labelled on every page |
+| Japanese voice cast for those titles: 24 more real voice actors alongside the Impact of Eden cast | **reconstructed** casting, each actor placed only in shows that aired after their career began ([`docs/VOICE_CASTING.md`](docs/VOICE_CASTING.md)) |
 | 19 general and finale forum threads, 16 reviews, 9 recommendations, and the copy of 15 news posts | **reconstructed**: sample content written for the archive and labelled in every record |
 | Archive members' anime lists | **derived**: from posting in episode threads |
 | Accounts, lists, replies, reviews and topics made by visitors | **member** |
@@ -101,13 +102,13 @@ The migration and seed were validated against PostgreSQL 16 with a stand-in for 
 
 ## Testing
 
-`npm test` runs 46 checks with Node's test runner. They cover:
+`npm test` runs 47 checks with Node's test runner. They cover:
 
 - **Time:** Saturday 25:58 broadcast notation, JST date handling, and clamping to the archive window.
 - **BBCode:** quotes, spoilers, lists, unclosed tags, literal HTML, and blocking `javascript:` links.
 - **Archive import:** all 1,113 / 945 / 1,068 posts present, thread metadata preserved, post numbers unique, and no post earlier than its thread.
 - **History rules:** the October 5 / 6 / 13 / 20 / 24 checkpoints from the brief, entry listing dates, the Nightpolis OVA staying separate, and no news ahead of the viewed date.
-- **Catalogue:** the planned Impact of Eden page, every built-out entry having a full page's data, established facts surviving the build-out, and 2012–2013 seasons filling in only as shows are listed and aired.
+- **Catalogue:** the planned Impact of Eden page, every built-out entry having a full page's data, established facts surviving the build-out, 2012–2013 seasons filling in only as shows are listed and aired, and every voice actor's career having started before the shows they're cast in.
 - **Seed consistency:** every reference resolves, credits match the brief, no back-catalogue title is credited to Studio Burst, reconstructed authors had already joined, and nothing is dated after 2013.
 
 Walkthrough, scripted as `npm run e2e` (Playwright, against a running server):

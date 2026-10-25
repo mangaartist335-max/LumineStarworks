@@ -71,6 +71,16 @@ const staff = (id: number, slug: string, name: string, occupations: string[], ab
   sources: R,
 });
 
+const voice = (id: number, name: string, nativeName: string): Person => ({
+  id,
+  slug: name.replace(/ /g, "_"),
+  name,
+  nativeName,
+  occupations: ["Voice actor"],
+  visibleFrom: null,
+  sources: [SRC.voiceCast],
+});
+
 export const cataloguePeople: Person[] = [
   staff(40, "Haruomi_Sendo", "Haruomi Sendo", ["Director"], "Director at Arc Meridian, known for aerial combat and sweeping ensemble war stories."),
   staff(41, "Mizuki_Tobe", "Mizuki Tobe", ["Series composition", "Writer"]),
@@ -93,6 +103,33 @@ export const cataloguePeople: Person[] = [
   staff(58, "Mai_Kisaki", "Mai Kisaki", ["Character designer"], "Character designer from Flow Pictures' cinematic unit."),
   staff(59, "Takuma_Saeki", "Takuma Saeki", ["Composer"], "Composer for Flow Pictures' cinematic unit."),
   staff(60, "Aki_Fujisawa", "Aki Fujisawa", ["Director"], "Film director from Flow Pictures' cinematic unit."),
+
+  // Japanese voice cast. Real voice actors, each cast only in titles that aired
+  // after their career began (research notes in docs/VOICE_CASTING.md).
+  voice(61, "Rie Kugimiya", "釘宮理恵"),
+  voice(62, "Tesshou Genda", "玄田哲章"),
+  voice(63, "Miyuki Sawashiro", "沢城みゆき"),
+  voice(64, "Jouji Nakata", "中田譲治"),
+  voice(65, "Mamoru Miyano", "宮野真守"),
+  voice(66, "Romi Park", "朴璐美"),
+  voice(67, "Yuuichi Nakamura", "中村悠一"),
+  voice(68, "Rikiya Koyama", "小山力也"),
+  voice(69, "Toshiyuki Morikawa", "森川智之"),
+  voice(70, "Sayaka Oohara", "大原さやか"),
+  voice(71, "Maaya Sakamoto", "坂本真綾"),
+  voice(72, "Norio Wakamoto", "若本規夫"),
+  voice(73, "Youko Hikasa", "日笠陽子"),
+  voice(74, "Mamiko Noto", "能登麻美子"),
+  voice(75, "Daisuke Ono", "小野大輔"),
+  voice(76, "Kenyuu Horiuchi", "堀内賢雄"),
+  voice(77, "Haruka Tomatsu", "戸松遥"),
+  voice(78, "Yuuki Kaji", "梶裕貴"),
+  voice(79, "Junichi Suwabe", "諏訪部順一"),
+  voice(80, "Jun Fukuyama", "福山潤"),
+  voice(81, "Akio Ootsuka", "大塚明夫"),
+  voice(82, "Ami Koshimizu", "小清水亜美"),
+  voice(83, "Yoshitsugu Matsuoka", "松岡禎丞"),
+  voice(84, "Kikuko Inoue", "井上喜久子"),
 ];
 
 const char = (

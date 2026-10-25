@@ -15,4 +15,5 @@ export const SRC = {
   munchyRoll: { cite: "MunchyRoll catalogue page for Impact of Eden (2013)" },
   adultDrift: { cite: "AdultDrift programme page for Impact of Eden" },
   reconstruction: { cite: "Written for the Lumine StarWorks reconstruction" },
+  voiceCast: { cite: "Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired" },
 } satisfies Record<string, SourceNote>;

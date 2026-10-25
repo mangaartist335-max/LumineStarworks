@@ -81,3 +81,29 @@ test("characters of the new shows only appear once their show is listed", () => 
   assert.ok(getCharacter(141, jst("2012-12-02T00:00:00")));
   assert.ok(characters.filter((c) => c.id >= 101).length >= 44);
 });
+
+// Year of each actor's first anime or voice credit, from public profiles
+// (docs/VOICE_CASTING.md lists the details behind each one).
+const VOICE_DEBUT: Record<number, number> = {
+  20: 2002, 21: 2006, 22: 2003, 23: 2012, 24: 2007, 25: 2001, 26: 2001, 27: 1994,
+  28: 2010, 29: 1995, 30: 2005, 31: 2004, 32: 2011,
+  61: 1998, 62: 1972, 63: 1999, 64: 1990, 65: 2001, 66: 1998, 67: 2001, 68: 1987,
+  69: 1987, 70: 1998, 71: 1992, 72: 1972, 73: 2007, 74: 1998, 75: 2001, 76: 1983,
+  77: 2007, 78: 2006, 79: 1995, 80: 1997, 81: 1988, 82: 2003, 83: 2009, 84: 1988,
+};
+const LUNE = 14; // the singer, appearing as Aria Moonbirth
+
+test("built-out titles are voiced by actors who were already working when they aired", () => {
+  for (const id of BUILT_OUT) {
+    const a = anime.find((x) => x.id === id)!;
+    const premiered = new Date(Date.parse(a.airedFrom!) + 9 * 3600_000).getUTCFullYear(); // JST
+    for (const v of a.voices) {
+      if (v.personId === LUNE) continue;
+      const debut = VOICE_DEBUT[v.personId];
+      assert.ok(debut, `${a.title}: actor ${v.personId} has no researched debut year`);
+      const main = a.characters.find((c) => c.characterId === v.characterId)?.role === "Main";
+      // A lead goes to someone with at least a year of work behind them.
+      assert.ok(main ? debut < premiered : debut <= premiered, `${a.title}: actor ${v.personId} (debut ${debut}) cast in ${premiered}`);
+    }
+  }
+});

@@ -133,7 +133,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 103, role: "Supporting" },
       { characterId: 104, role: "Supporting" },
     ],
-    voices: [v(101, 20), v(102, 24), v(103, 29), v(104, 25)],
+    voices: [v(101, 20), v(102, 61), v(103, 62), v(104, 25)],
     themesSongs: [
       { kind: "Opening", title: "Sky-Colored Spell", artist: "Paper Satellite", visibleFrom: null },
       { kind: "Ending", title: "Little Blue", artist: "Clockwork Lily", visibleFrom: null },
@@ -182,7 +182,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 106, role: "Main" },
       { characterId: 107, role: "Supporting" },
     ],
-    voices: [v(105, 27), v(106, 22), v(107, 31)],
+    voices: [v(105, 27), v(106, 63), v(107, 64)],
     themesSongs: [
       { kind: "Opening", title: "Afterglow Circuit", artist: "STRAYLIGHT", visibleFrom: null },
       { kind: "Ending", title: "30 Seconds", artist: "Sena Arisugawa", visibleFrom: null },
@@ -234,7 +234,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 110, role: "Supporting" },
       { characterId: 111, role: "Supporting" },
     ],
-    voices: [v(108, 21), v(109, 25), v(110, 26), v(111, 29)],
+    voices: [v(108, 65), v(109, 66), v(110, 67), v(111, 68)],
     themesSongs: [
       { kind: "Opening", title: "Iron Wings", artist: "Vanguard Nine", visibleFrom: null },
       { kind: "Ending", title: "Clear Skies", artist: "Sena Arisugawa", visibleFrom: null },
@@ -287,7 +287,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 114, role: "Supporting" },
       { characterId: 115, role: "Supporting" },
     ],
-    voices: [v(112, 22), v(113, 27), v(114, 25), v(115, 26)],
+    voices: [v(112, 22), v(113, 69), v(114, 70), v(115, 26)],
     themesSongs: [
       { kind: "Opening", title: "Equator Line", artist: "Paper Satellite", visibleFrom: null },
       { kind: "Ending", title: "Seven Seconds", artist: "Hanae Tsukishiro", visibleFrom: null },
@@ -337,7 +337,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 121, role: "Supporting" },
       { characterId: 122, role: "Supporting" },
     ],
-    voices: [v(119, 21), v(120, 28), v(121, 29), v(122, 30)],
+    voices: [v(119, 21), v(120, 73), v(121, 29), v(122, 74)],
     themesSongs: [
       { kind: "Opening", title: "Spark Embankment", artist: "Vanguard Nine", visibleFrom: null },
       { kind: "Ending", title: "Lantern Boat", artist: "Hanae Tsukishiro", visibleFrom: null },
@@ -385,7 +385,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 117, role: "Main" },
       { characterId: 118, role: "Supporting" },
     ],
-    voices: [v(116, 24), v(117, 31), v(118, 29)],
+    voices: [v(116, 71), v(117, 31), v(118, 72)],
     themesSongs: [{ kind: "Ending", title: "Testament", artist: "Clockwork Lily", visibleFrom: null }],
     episodeList: [{ number: 1, title: "Steelbound Testament", airedAt: "2010-11-12T15:00:00Z", note: "Theatrical release" }],
     scores: [{ capturedAt: ARCHIVE_OPEN, score: 8.41, scoredBy: 39775, source: SCORE_SOURCE }],
@@ -444,7 +444,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 126, role: "Supporting" },
       { characterId: 127, role: "Supporting" },
     ],
-    voices: [v(123, 31), v(124, 20), v(125, 24), v(126, 14), v(127, 27)],
+    voices: [v(123, 75), v(124, 20), v(125, 24), v(126, 14), v(127, 27)],
     themesSongs: [
       { kind: "Opening", title: "Seven Steps to Heaven", artist: "STRAYLIGHT", visibleFrom: null },
       { kind: "Ending", title: "Moonbirth", artist: "Aria Moonbirth (LUNE)", visibleFrom: null },
@@ -500,7 +500,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 129, role: "Supporting" },
       { characterId: 131, role: "Supporting" },
     ],
-    voices: [v(128, 24), v(130, 26), v(129, 27), v(131, 30)],
+    voices: [v(128, 24), v(130, 26), v(129, 76), v(131, 30)],
     themesSongs: [
       { kind: "Opening", title: "Stained Memory", artist: "Clockwork Lily", visibleFrom: GLASS_EP1 },
       { kind: "Ending", title: "Morning Window", artist: "Hanae Tsukishiro", visibleFrom: GLASS_EP1 },
@@ -552,7 +552,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 134, role: "Supporting" },
       { characterId: 135, role: "Supporting" },
     ],
-    voices: [v(132, 28), v(133, 23), v(134, 30), v(135, 27)],
+    voices: [v(132, 77), v(133, 78), v(134, 28), v(135, 79)],
     themesSongs: [
       { kind: "Opening", title: "Reload My Heart", artist: "Circuit Hearts", visibleFrom: CIRCUIT_EP1 },
       { kind: "Ending", title: "Spare Parts Lullaby", artist: "Paper Satellite", visibleFrom: CIRCUIT_EP1 },
@@ -608,7 +608,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 139, role: "Supporting" },
       { characterId: 140, role: "Supporting" },
     ],
-    voices: [v(136, 22), v(137, 21), v(138, 29), v(139, 24), v(140, 32)],
+    voices: [v(136, 22), v(137, 80), v(138, 81), v(139, 82), v(140, 32)],
     themesSongs: [
       { kind: "Opening", title: "Crownless", artist: "Vanguard Nine", episodes: "1-12", visibleFrom: VACANT_EP1 },
       { kind: "Opening", title: "Liminal", artist: "STRAYLIGHT", episodes: "13-24", visibleFrom: vacantEps[12].airedAt },
@@ -661,7 +661,7 @@ export const catalogueAnime: Anime[] = [
       { characterId: 143, role: "Supporting" },
       { characterId: 144, role: "Supporting" },
     ],
-    voices: [v(141, 23), v(142, 28), v(143, 25), v(144, 31)],
+    voices: [v(141, 83), v(142, 28), v(143, 84), v(144, 31)],
     themesSongs: [
       { kind: "Opening", title: "Itadakimasu Ghost!", artist: "Paper Satellite", visibleFrom: GHOST_EP1 },
       { kind: "Ending", title: "Leftover Moon", artist: "Clockwork Lily", visibleFrom: GHOST_EP1 },
