@@ -1,0 +1,279 @@
+// YAL news posts, member reviews and recommendations.
+//
+// The underlying facts in news posts are documented; the posts themselves
+// are reconstructed YAL copy. Reviews and recommendations are reconstructed
+// sample content and are labelled as such in their records.
+
+import type { NewsItem, SeedRecommendation, SeedReview } from "./types";
+import { IOE_ID, IOE_EP0_ID, IRON_ID, SINFUL_APEX_ID } from "./anime";
+import { SRC } from "./sources";
+
+export const news: NewsItem[] = [
+  {
+    id: 1,
+    slug: "sinful-apex-wraps-24-episode-run",
+    title: "Sinful Apex wraps its 24-episode run",
+    publishedAt: "2012-01-23T03:00:00Z",
+    author: "YALBot",
+    body:
+      "Flow Pictures' [b]Sinful Apex[/b] aired its 24th and final episode on January 23, 2012, closing a run that began on August 15, 2011. Director Kaihatsu Miura's series is now marked as [b]Finished Airing[/b] in the database.\n\nRemember to update your lists, and drop your final thoughts in the reviews section.",
+    related: [{ type: "anime", id: SINFUL_APEX_ID }, { type: "company", id: 2 }, { type: "person", id: 2 }],
+    provenance: "reconstructed",
+    source: SRC.brief,
+  },
+  {
+    id: 2,
+    slug: "iron-to-requiem-premieres",
+    title: "Iron to Requiem premieres on Thursday, scored by Hiroyuki Sawano",
+    publishedAt: "2013-04-04T06:00:00Z",
+    author: "YALBot",
+    body:
+      "CHAOS Home's [b]Iron to Requiem[/b] premiered on April 4, 2013, with music by [b]Hiroyuki Sawano[/b]. The series is scheduled for 26 episodes on Thursdays.\n\nThe entry is now live, so add it to your list and say hello in the episode discussion threads.",
+    related: [{ type: "anime", id: IRON_ID }, { type: "company", id: 3 }, { type: "person", id: 10 }],
+    provenance: "reconstructed",
+    source: SRC.brief,
+  },
+  {
+    id: 3,
+    slug: "fall-2013-chart-impact-of-eden",
+    title: "Fall 2013 season chart: Impact of Eden added",
+    publishedAt: "2013-09-15T03:00:00Z",
+    author: "YALBot",
+    body:
+      "The Fall 2013 chart is filling up! [b]Impact of Eden[/b], the debut production from [b]Studio Burst[/b], is now in the database.\n\n[list]\n[*]Director: Kaihatsu Miura\n[*]Series Composition: Keito Kisaragi\n[*]Character Design: Lio Haraguchi\n[*]Music: Hiroyuki Sawano\n[*]Creator: Natsuki Takuya\n[/list]\n\nThe regular TV broadcast starts October 5, with 25 episodes planned.",
+    related: [{ type: "anime", id: IOE_ID }, { type: "company", id: 1 }],
+    provenance: "reconstructed",
+    source: SRC.brief,
+  },
+  {
+    id: 4,
+    slug: "episode-0-and-iron-finale",
+    title: "Big day: Impact of Eden Episode 0 airs as Iron to Requiem signs off",
+    publishedAt: "2013-09-26T09:00:00Z",
+    author: "YALBot",
+    body:
+      "September 26 brings two milestones. The [b]Impact of Eden: Episode 0[/b] special airs today ahead of next week's premiere, and [b]Iron to Requiem[/b] closes its 26-episode run.\n\nThanks to everyone who kept the Iron to Requiem threads lively every Thursday since April!",
+    related: [{ type: "anime", id: IOE_EP0_ID }, { type: "anime", id: IRON_ID }],
+    provenance: "reconstructed",
+    source: SRC.brief,
+  },
+  {
+    id: 5,
+    slug: "studio-burst-profile",
+    title: "Who is Studio Burst? The Flow Pictures spin-out behind Impact of Eden",
+    publishedAt: "2013-09-28T05:00:00Z",
+    author: "YALBot",
+    body:
+      "[b]Studio Burst[/b] has no earlier credits at all: Impact of Eden is its first animated work. The studio formed out of [b]Flow Pictures[/b]' late-era cinematic unit after Sinful Apex, and much of that staff came along, including director Kaihatsu Miura.\n\nStudio and staff pages are now linked in the Industry database.",
+    related: [{ type: "company", id: 1 }, { type: "company", id: 2 }, { type: "anime", id: IOE_ID }],
+    provenance: "reconstructed",
+    source: SRC.aniFanWiki,
+  },
+  {
+    id: 6,
+    slug: "impact-of-eden-advance-premiere",
+    title: "Impact of Eden advance premiere today",
+    publishedAt: "2013-10-02T03:00:00Z",
+    author: "YALBot",
+    body:
+      "The [b]Impact of Eden[/b] Season 1 advance premiere is today, October 2. The regular TV broadcast begins Saturday, October 5 at 25:58 JST.\n\nEpisode discussion threads open after the regular broadcast. Please keep advance-screening spoilers in spoiler tags until then!",
+    related: [{ type: "anime", id: IOE_ID }],
+    provenance: "reconstructed",
+    source: SRC.brief,
+  },
+  {
+    id: 7,
+    slug: "adultdrift-dub-funmaxation",
+    title: "AdultDrift picks up Impact of Eden dub for early 2015; Funmaxation to license",
+    publishedAt: "2013-10-04T15:00:00Z",
+    author: "YALBot",
+    body:
+      "[b]Funmaxation[/b] is the North American licensor for [b]Impact of Eden[/b], and an English-dubbed broadcast is slated for [b]AdultDrift[/b] in early 2015. Dub cast has not been announced yet.",
+    related: [{ type: "anime", id: IOE_ID }, { type: "company", id: 5 }, { type: "company", id: 7 }],
+    provenance: "reconstructed",
+    source: { cite: "AniWire, \"AdultDrift Acquires 'Impact of Eden' for Early 2015 Dub Broadcast\" (Oct 4, 2013)" },
+  },
+  {
+    id: 8,
+    slug: "impact-of-eden-premiere-thread-open",
+    title: "Impact of Eden premieres; Episode 1 discussion is open",
+    publishedAt: "2013-10-05T17:35:00Z",
+    author: "YALBot",
+    body:
+      "Episode 1 of [b]Impact of Eden[/b], \"Where the Wind Ran First\", aired on VBS/KBS at 25:58 JST. The discussion thread is now open in Episode Discussion.\n\nSubtitled streams follow on MunchyRoll. As always: no future-episode spoilers, and use spoiler tags for manga talk.",
+    related: [{ type: "anime", id: IOE_ID }],
+    provenance: "reconstructed",
+    source: SRC.yalEp1,
+  },
+  {
+    id: 9,
+    slug: "human-x-inhuman-single",
+    title: "\"Human x Inhuman\" single out today",
+    publishedAt: "2013-10-16T03:00:00Z",
+    author: "YALBot",
+    body:
+      "The Impact of Eden opening theme, [b]\"Human x Inhuman\"[/b] by T.M.Revolution (Takanori Nishikawa), is out today from Sony Music Japan. Head to the Music board to share your first impressions.",
+    related: [{ type: "anime", id: IOE_ID }, { type: "person", id: 13 }, { type: "company", id: 9 }],
+    provenance: "reconstructed",
+    source: SRC.aniFanWiki,
+  },
+  {
+    id: 10,
+    slug: "sinful-apex-complete-collection",
+    title: "Sinful Apex Complete Collection on Blu-ray today",
+    publishedAt: "2013-11-19T15:00:00Z",
+    author: "YALBot",
+    body:
+      "[b]Funmaxation[/b]'s [b]Sinful Apex[/b] Complete Collection Blu-ray is out today, November 19. A great time to revisit Kaihatsu Miura's work at Flow Pictures before Impact of Eden's second half.",
+    related: [{ type: "anime", id: SINFUL_APEX_ID }, { type: "company", id: 5 }],
+    provenance: "reconstructed",
+    source: { cite: "AniWire advertisement, \"Sinful Apex Complete Collection on Blu-ray Nov 19\" (Oct 6, 2013)" },
+  },
+];
+
+export const seedReviews: SeedReview[] = [
+  {
+    id: "rv-ioe-1",
+    animeId: IOE_ID,
+    author: "3EpisodeRule",
+    postedAt: "2013-10-21T11:40:00Z",
+    episodesSeen: 3,
+    overall: 9,
+    story: 8,
+    animation: 10,
+    sound: 9,
+    character: 9,
+    enjoyment: 10,
+    body:
+      "I have one rule: three episodes, then I decide. Impact of Eden passed it by the end of Episode 1, but rules are rules, so here's the verdict at the three-episode mark.\n\n[b]Story (8):[/b] The premiere is crammed. School day, rooftop monologue, a full Planetation tutorial, a boss fight and the KO HQ scene all in 24 minutes. Episode 2 slows down just enough to explain Frontier Risk Management, and Episode 3 turns the Battle Circle into a showcase for everyone. Dense, but never confusing.\n\n[b]Animation (10):[/b] Studio Burst's first show and it looks like a veteran studio's victory lap. Kagura's fight choreography in Episode 3 is the best TV action I've seen this year.\n\n[b]Sound (9):[/b] Sawano doing Sawano things, and \"Human x Inhuman\" playing at the END of the premiere was a power move.\n\n[b]Characters (9):[/b] Everyone gets a moment. Miyuki's speech, Abigail's finisher, Ben's \"HERE'S YOUR L!\" and Nova's quiet scenes all land.\n\nWatch it. Then watch Episode 3 again.",
+    helpful: 214,
+    provenance: "reconstructed",
+  },
+  {
+    id: "rv-ioe-2",
+    animeId: IOE_ID,
+    author: "SakugaThreadZero",
+    postedAt: "2013-10-22T13:05:00Z",
+    episodesSeen: 3,
+    overall: 9,
+    story: 7,
+    animation: 10,
+    sound: 9,
+    character: 8,
+    enjoyment: 9,
+    body:
+      "Reviewing this mostly as an animation fan, so weigh accordingly.\n\nSuzuhara's boards keep every fight readable. You can pause on almost any frame of the YAMAGA284 fight and know who is where. Haraguchi keeps faces on-model in chaos, and the color work separates everyone's weapon energy at a glance.\n\nStory-wise it's still early. The storm, the egg and the virus manifestation are clearly the long game, and three episodes in we mostly have questions. That's fine! It's a 25-episode show.\n\nThe one thing I'd flag is the stiffer hallway riot animation in Episode 1, which reads more like a budget dip than a style choice. Minor next to everything else.",
+    helpful: 167,
+    provenance: "reconstructed",
+  },
+  {
+    id: "rv-ioe-3",
+    animeId: IOE_ID,
+    author: "KaichouEnjoyer",
+    postedAt: "2013-10-23T08:22:00Z",
+    episodesSeen: 3,
+    overall: 10,
+    story: 9,
+    animation: 10,
+    sound: 10,
+    character: 10,
+    enjoyment: 10,
+    body:
+      "I'm going to be honest: I came for Miyuki and stayed for everybody.\n\nThe cast is huge and the show still finds a scene for each of them. The Council feels like a real team, the main squad bounces off each other constantly, and the KO HQ scenes give the show a grown-up layer I didn't expect.\n\nSaori Hayami's delivery of the lobby speech is my favourite performance of 2013. Kana Hanazawa matching her in the Episode 3 duel was the cherry on top.\n\nEasy 10. See you all in the Episode 4 thread on Sunday!",
+    helpful: 98,
+    provenance: "reconstructed",
+  },
+  {
+    id: "rv-sa-1",
+    animeId: SINFUL_APEX_ID,
+    author: "ShounenLifer_VHS",
+    postedAt: "2012-01-29T12:10:00Z",
+    episodesSeen: 24,
+    overall: 8,
+    story: 7,
+    animation: 9,
+    sound: 8,
+    character: 8,
+    enjoyment: 8,
+    body:
+      "Finished all 24 episodes, so here's my take.\n\nFlow Pictures' cinematic unit clearly poured everything into this. Kaihatsu Miura doesn't pad anything; when an episode is over you feel like you watched two. The animation stays strong to the end, which is not something I can say about most two-cour shows.\n\nIt asks for your full attention, and the pacing can feel relentless if you're marathoning. Watching weekly was the way to go.\n\nLUNE's appearance as Aria Moonbirth was a fun surprise. Recommended if you like dense action shows.",
+    helpful: 61,
+    provenance: "reconstructed",
+  },
+  {
+    id: "rv-sa-2",
+    animeId: SINFUL_APEX_ID,
+    author: "HollowToast",
+    postedAt: "2012-02-11T21:30:00Z",
+    episodesSeen: 24,
+    overall: 8,
+    story: 8,
+    animation: 8,
+    sound: 8,
+    character: 7,
+    enjoyment: 9,
+    body:
+      "A late review from the UK. I caught up over the holidays and finished last week.\n\nThe best thing about Sinful Apex is its confidence. Miura directs like he knows exactly where every episode is going, and the show is better for it. I hope this staff stays together for whatever comes next.\n\nNot every character gets the same depth, but the core cast is great and the action is some of the best of 2011.",
+    helpful: 34,
+    provenance: "reconstructed",
+  },
+  {
+    id: "rv-itr-1",
+    animeId: IRON_ID,
+    author: "NodeCoreOmega",
+    postedAt: "2013-09-28T10:45:00Z",
+    episodesSeen: 26,
+    overall: 8,
+    story: 8,
+    animation: 7,
+    sound: 10,
+    character: 8,
+    enjoyment: 8,
+    body:
+      "Twenty-six Thursdays well spent.\n\nThe headline is the soundtrack. Hiroyuki Sawano gave CHAOS Home a score that makes every big moment feel enormous, and I've had it on repeat since the finale.\n\nAnimation is solid rather than spectacular, but it stays consistent across the whole run, which counts for a lot over two cours. A satisfying watch from start to finish.",
+    helpful: 47,
+    provenance: "reconstructed",
+  },
+];
+
+export const seedRecommendations: SeedRecommendation[] = [
+  {
+    id: "rec-1",
+    from: SINFUL_APEX_ID,
+    to: IOE_ID,
+    author: "ShounenLifer_VHS",
+    postedAt: "2013-10-07T09:12:00Z",
+    reason:
+      "Same director (Kaihatsu Miura), and Studio Burst grew out of the Flow Pictures unit that made Sinful Apex. If you loved the no-padding pacing there, Impact of Eden picks it right back up.",
+    provenance: "reconstructed",
+  },
+  {
+    id: "rec-2",
+    from: IRON_ID,
+    to: IOE_ID,
+    author: "NodeCoreOmega",
+    postedAt: "2013-10-10T12:30:00Z",
+    reason:
+      "Both are scored by Hiroyuki Sawano, and both go big on action. Iron to Requiem fans looking for their next Sawano fix after the finale should start here.",
+    provenance: "reconstructed",
+  },
+  {
+    id: "rec-3",
+    from: 7741,
+    to: IOE_ID,
+    author: "SakugaThreadZero",
+    postedAt: "2013-10-12T02:15:00Z",
+    reason:
+      "Kaihatsu Miura directs and Tomoe Suzuhara boards the action in both. Zero Latitude's long take is the blueprint for the YAMAGA284 fight.",
+    provenance: "reconstructed",
+  },
+  {
+    id: "rec-4",
+    from: SINFUL_APEX_ID,
+    to: 7741,
+    author: "HollowToast",
+    postedAt: "2012-02-12T10:00:00Z",
+    reason: "Another Kaihatsu Miura show. Tighter and more sci-fi, but the same dense, confident direction.",
+    provenance: "reconstructed",
+  },
+];
