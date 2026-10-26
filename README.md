@@ -13,6 +13,15 @@ tech stack, a database schema, a folder structure, a 48-hour build plan, a
 definition of done, and a ready-to-paste Claude Code prompt with matching
 `CLAUDE.md` and `AGENTS.md` files.
 
+## Other apps in this repository
+
+This repository also contains two separate apps that share nothing with BuildBrief:
+
+- [`connected/`](connected/README.md): **Connected Desktop**, a 2012-2013 style computer that runs in the browser, with its own web archive, programs and games.
+- [`yal/`](yal/README.md): **YourAnimeList**, the anime database and forums shown inside the desktop's browser.
+
+Run both with `cd connected && npm run dev:all`. Status and open questions are in [`IMPLEMENTATION_STATUS.md`](IMPLEMENTATION_STATUS.md).
+
 ## Tech stack
 
 - Next.js (App Router) + TypeScript

@@ -12,8 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // YourAnimeList is its own Next.js app with its own lint config.
+    // YourAnimeList and the Connected desktop are separate Next.js apps
+    // with their own lint configs.
     "yal/**",
+    "connected/**",
   ]),
 ]);
 
