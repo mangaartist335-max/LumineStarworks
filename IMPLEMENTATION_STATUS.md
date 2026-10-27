@@ -25,7 +25,7 @@ All results below are from this phase's final runs.
 
 | Check | Command | Result |
 | --- | --- | --- |
-| Desktop unit tests | `cd connected && npm test` | 48 passed, 0 failed |
+| Desktop unit tests | `cd connected && npm test` | 49 passed, 0 failed |
 | Desktop typecheck | `npm run typecheck` | clean |
 | Desktop lint | `npm run lint` | 0 errors, 20 style warnings (comma-expression shorthands and `<img>` for local pictures) |
 | Desktop production build | `npm run build` | succeeds |
@@ -76,7 +76,7 @@ Legend: **Done** works end to end and persists. **Partly done** works, with the 
 | Feature | Status | Notes |
 | --- | --- | --- |
 | Tabbed browser | Done | Tabs, address bar, back, forward, reload, home, bookmarks and bookmarks bar, history, downloads page, preferences, session restore, new tab page, keyboard shortcuts (Ctrl+T, W, L, D, H, J, R, N, Tab). |
-| Live websites | Done | Any address outside the archive gets a clear "live website, not part of the archive" page with a button to open today's site in your real browser. Nothing live is ever shown as a 2012-2013 page. |
+| Live websites | Done | Any address outside the archive gets a clear "live website, not part of the archive" page. It offers the Internet Archive's Wayback Machine copy closest to the computer's date (or any earlier date back to 1996), or today's site, both opened in your real browser and labelled as outside the Connected Era. Nothing live is ever shown as a 2012-2013 page. |
 | Connected Search | Done | Ranked results with titles, descriptions and highlighted snippets, suggestions, image and video search, pagination, date filters, search history and typing an address to go straight there. 311 indexed pages, each shown only once its publication date has passed. |
 | Addresses | Done | Every site lives under `*.connectedera.local`, a reserved name that can't clash with a real website. Old addresses from early builds (goggle.com, metube.com and friends) forward to their new home, and mistyped archive addresses get a friendly "no such site" page. |
 | MeTube | Done | Home and featured videos, search, channels, subscriptions, real playback (play, pause, seek, volume, full screen, progress), comments, likes, favourites, playlists, history, uploads from your computer, view counts and upload dates, related videos. 17 original videos across 13 channels (gaming, pets, music, tutorials, sports, editing, desktop customization, vlogs, anime commentary). Four of the channels are the creators the Master Bible names (XXICEBURNERXX, HEARTCORE_ANGEL, NOOBDESTROYER92 and STRAWBERRY_STATIC); their videos are labelled on the watch page as constructed reconstructions. Archive videos and your uploads are kept apart. |
@@ -124,7 +124,8 @@ These need a decision or material from outside this repository:
 1. **The Master Bible is now in the repository** (`docs/bible/Connected_Era_Master_Bible_v1.0.pdf`). Every site has moved to `*.connectedera.local` and the search engine is Connected Search, as Appendix D asks. Old addresses forward automatically. Names the Bible doesn't cover (Birdie, Tum, 3Chan, TechNook, HomePlot, InkPocket, MangaShelf, WallpaperGarden, Freeware Corner, Pantry Recipes and the sample contacts) are still our own and live in data files.
 2. **YAL now follows the Bible's catalogue.** All 18 Flow Pictures titles from chapter 18 (Rust Veil Junction included) are listed with their year, format, description, registry staff and LUNE's songs. Ghost Eater, Destiny/Infinite, A Mystical Skyline/Finger and Azure Sorcerer have title entries only. The Bible doesn't record episode titles, casts, air dates or most studio credits for these, so they show as pending rather than being made up. The earlier reconstructed casts, characters and episode lists were removed to match.
 3. **MunchyRoll and the AdultDrift guide aren't built.** The Bible gives no 2012-2013 catalogue or schedule for either outside the held-back Impact of Eden material, and there are no licensed episodes to stream. They're ready to build as soon as a catalogue or schedule for this period is decided. YourAnimeList still lists both companies.
-4. **No outside services.** Everything runs locally in the browser. There are no server-side accounts, no syncing between devices and no real email; that is intentional for this phase. No API keys or tokens are used anywhere.
+4. **Openly licensed media from the era isn't added yet.** The plan is Blender's Creative Commons films (2006-2012), NASA's public-domain footage (including the August 2012 Curiosity landing), Creative Commons music and public-domain or Creative Commons photos, each with its credit and license and shown from its real release date. This environment's network policy blocks archive.org, Wikimedia, blender.org, nasa.gov and the music sites, so nothing could be downloaded. Those domains need to be allowed first.
+5. **No outside services.** Everything runs locally in the browser. There are no server-side accounts, no syncing between devices and no real email (the Wayback Machine and live-site buttons just open a tab in your real browser); that is intentional for this phase. No API keys or tokens are used anywhere.
 
 ## Known limits
 
