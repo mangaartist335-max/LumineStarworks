@@ -152,6 +152,564 @@
   "artist": "AkiraKeys",
   "duration": 60.0
  },
+ "radio:ad_connectmail": {
+  "url": "/media/radio/ad_connectmail.mp3",
+  "size": 52080,
+  "duration": 10.31
+ },
+ "radio:ad_corner_bakery": {
+  "url": "/media/radio/ad_corner_bakery.mp3",
+  "size": 69190,
+  "duration": 13.72
+ },
+ "radio:ad_freeware_corner": {
+  "url": "/media/radio/ad_freeware_corner.mp3",
+  "size": 60700,
+  "duration": 12.04
+ },
+ "radio:ad_pantry_recipes": {
+  "url": "/media/radio/ad_pantry_recipes.mp3",
+  "size": 56390,
+  "duration": 11.16
+ },
+ "radio:ad_riverside_music": {
+  "url": "/media/radio/ad_riverside_music.mp3",
+  "size": 57566,
+  "duration": 11.41
+ },
+ "radio:ad_sunny_day": {
+  "url": "/media/radio/ad_sunny_day.mp3",
+  "size": 46202,
+  "duration": 9.13
+ },
+ "radio:ad_warm_mug": {
+  "url": "/media/radio/ad_warm_mug.mp3",
+  "size": 52602,
+  "duration": 10.4
+ },
+ "radio:ba_trk_campfire_strings": {
+  "url": "/media/radio/ba_trk_campfire_strings.mp3",
+  "size": 20080,
+  "duration": 3.9
+ },
+ "radio:ba_trk_coin_door": {
+  "url": "/media/radio/ba_trk_coin_door.mp3",
+  "size": 17076,
+  "duration": 3.3
+ },
+ "radio:ba_trk_diner_jukebox": {
+  "url": "/media/radio/ba_trk_diner_jukebox.mp3",
+  "size": 19688,
+  "duration": 3.82
+ },
+ "radio:ba_trk_glass_lake": {
+  "url": "/media/radio/ba_trk_glass_lake.mp3",
+  "size": 16423,
+  "duration": 3.19
+ },
+ "radio:ba_trk_glow_stick_summer": {
+  "url": "/media/radio/ba_trk_glow_stick_summer.mp3",
+  "size": 21386,
+  "duration": 4.17
+ },
+ "radio:ba_trk_high_score_sunset": {
+  "url": "/media/radio/ba_trk_high_score_sunset.mp3",
+  "size": 20211,
+  "duration": 3.92
+ },
+ "radio:ba_trk_moonlight_pier": {
+  "url": "/media/radio/ba_trk_moonlight_pier.mp3",
+  "size": 19035,
+  "duration": 3.7
+ },
+ "radio:ba_trk_morning_commute": {
+  "url": "/media/radio/ba_trk_morning_commute.mp3",
+  "size": 18643,
+  "duration": 3.62
+ },
+ "radio:ba_trk_neon_night_drive": {
+  "url": "/media/radio/ba_trk_neon_night_drive.mp3",
+  "size": 19557,
+  "duration": 3.79
+ },
+ "radio:ba_trk_notebook_margins": {
+  "url": "/media/radio/ba_trk_notebook_margins.mp3",
+  "size": 18643,
+  "duration": 3.63
+ },
+ "radio:ba_trk_press_start": {
+  "url": "/media/radio/ba_trk_press_start.mp3",
+  "size": 18121,
+  "duration": 3.51
+ },
+ "radio:ba_trk_saturday_night_swing": {
+  "url": "/media/radio/ba_trk_saturday_night_swing.mp3",
+  "size": 19166,
+  "duration": 3.72
+ },
+ "radio:ba_trk_skateboard_weather": {
+  "url": "/media/radio/ba_trk_skateboard_weather.mp3",
+  "size": 17860,
+  "duration": 3.47
+ },
+ "radio:ba_trk_summer_rain": {
+  "url": "/media/radio/ba_trk_summer_rain.mp3",
+  "size": 15639,
+  "duration": 3.02
+ },
+ "radio:ba_trk_sunny_side_street": {
+  "url": "/media/radio/ba_trk_sunny_side_street.mp3",
+  "size": 17990,
+  "duration": 3.48
+ },
+ "radio:ba_trk_three_chords": {
+  "url": "/media/radio/ba_trk_three_chords.mp3",
+  "size": 22039,
+  "duration": 4.29
+ },
+ "radio:ba_trk_weekend_plans": {
+  "url": "/media/radio/ba_trk_weekend_plans.mp3",
+  "size": 17598,
+  "duration": 3.42
+ },
+ "radio:ba_trk_window_seat": {
+  "url": "/media/radio/ba_trk_window_seat.mp3",
+  "size": 16292,
+  "duration": 3.15
+ },
+ "radio:id_ambient_0": {
+  "url": "/media/radio/id_ambient_0.mp3",
+  "size": 19557,
+  "duration": 3.8
+ },
+ "radio:id_ambient_1": {
+  "url": "/media/radio/id_ambient_1.mp3",
+  "size": 18643,
+  "duration": 3.62
+ },
+ "radio:id_cvpop_0": {
+  "url": "/media/radio/id_cvpop_0.mp3",
+  "size": 28962,
+  "duration": 5.67
+ },
+ "radio:id_cvpop_1": {
+  "url": "/media/radio/id_cvpop_1.mp3",
+  "size": 18774,
+  "duration": 3.64
+ },
+ "radio:id_garage_0": {
+  "url": "/media/radio/id_garage_0.mp3",
+  "size": 26611,
+  "duration": 5.21
+ },
+ "radio:id_garage_1": {
+  "url": "/media/radio/id_garage_1.mp3",
+  "size": 21647,
+  "duration": 4.22
+ },
+ "radio:id_oldies_0": {
+  "url": "/media/radio/id_oldies_0.mp3",
+  "size": 21386,
+  "duration": 4.17
+ },
+ "radio:id_oldies_1": {
+  "url": "/media/radio/id_oldies_1.mp3",
+  "size": 27655,
+  "duration": 5.43
+ },
+ "radio:id_pixel_0": {
+  "url": "/media/radio/id_pixel_0.mp3",
+  "size": 17206,
+  "duration": 3.34
+ },
+ "radio:id_pixel_1": {
+  "url": "/media/radio/id_pixel_1.mp3",
+  "size": 27002,
+  "duration": 5.29
+ },
+ "radio:id_talkwave_0": {
+  "url": "/media/radio/id_talkwave_0.mp3",
+  "size": 20602,
+  "duration": 4.02
+ },
+ "radio:id_talkwave_1": {
+  "url": "/media/radio/id_talkwave_1.mp3",
+  "size": 16945,
+  "duration": 3.29
+ },
+ "radio:intro_ambient-afternoon": {
+  "url": "/media/radio/intro_ambient-afternoon.mp3",
+  "size": 36276,
+  "duration": 7.14
+ },
+ "radio:intro_ambient-night": {
+  "url": "/media/radio/intro_ambient-night.mp3",
+  "size": 44243,
+  "duration": 8.75
+ },
+ "radio:intro_ambient-sunrise": {
+  "url": "/media/radio/intro_ambient-sunrise.mp3",
+  "size": 42545,
+  "duration": 8.4
+ },
+ "radio:intro_cvpop-drive": {
+  "url": "/media/radio/intro_cvpop-drive.mp3",
+  "size": 48815,
+  "duration": 9.66
+ },
+ "radio:intro_cvpop-midday": {
+  "url": "/media/radio/intro_cvpop-midday.mp3",
+  "size": 52994,
+  "duration": 10.49
+ },
+ "radio:intro_cvpop-morning": {
+  "url": "/media/radio/intro_cvpop-morning.mp3",
+  "size": 54692,
+  "duration": 10.84
+ },
+ "radio:intro_cvpop-nights": {
+  "url": "/media/radio/intro_cvpop-nights.mp3",
+  "size": 45288,
+  "duration": 8.94
+ },
+ "radio:intro_garage-afterschool": {
+  "url": "/media/radio/intro_garage-afterschool.mp3",
+  "size": 52080,
+  "duration": 10.31
+ },
+ "radio:intro_garage-basement": {
+  "url": "/media/radio/intro_garage-basement.mp3",
+  "size": 42937,
+  "duration": 8.49
+ },
+ "radio:intro_garage-wakeup": {
+  "url": "/media/radio/intro_garage-wakeup.mp3",
+  "size": 54300,
+  "duration": 10.74
+ },
+ "radio:intro_oldies-afternoon": {
+  "url": "/media/radio/intro_oldies-afternoon.mp3",
+  "size": 40064,
+  "duration": 7.91
+ },
+ "radio:intro_oldies-breakfast": {
+  "url": "/media/radio/intro_oldies-breakfast.mp3",
+  "size": 53778,
+  "duration": 10.64
+ },
+ "radio:intro_oldies-dinner": {
+  "url": "/media/radio/intro_oldies-dinner.mp3",
+  "size": 47378,
+  "duration": 9.37
+ },
+ "radio:intro_pixel-levelselect": {
+  "url": "/media/radio/intro_pixel-levelselect.mp3",
+  "size": 33533,
+  "duration": 6.6
+ },
+ "radio:intro_pixel-morning": {
+  "url": "/media/radio/intro_pixel-morning.mp3",
+  "size": 47378,
+  "duration": 9.36
+ },
+ "radio:intro_pixel-respawn": {
+  "url": "/media/radio/intro_pixel-respawn.mp3",
+  "size": 42023,
+  "duration": 8.28
+ },
+ "radio:intro_talk-around": {
+  "url": "/media/radio/intro_talk-around.mp3",
+  "size": 40847,
+  "duration": 8.06
+ },
+ "radio:intro_talk-bulletin": {
+  "url": "/media/radio/intro_talk-bulletin.mp3",
+  "size": 38496,
+  "duration": 7.6
+ },
+ "radio:intro_talk-evening": {
+  "url": "/media/radio/intro_talk-evening.mp3",
+  "size": 37974,
+  "duration": 7.48
+ },
+ "radio:intro_talk-lunch": {
+  "url": "/media/radio/intro_talk-lunch.mp3",
+  "size": 28570,
+  "duration": 5.62
+ },
+ "radio:intro_talk-openline": {
+  "url": "/media/radio/intro_talk-openline.mp3",
+  "size": 43329,
+  "duration": 8.55
+ },
+ "radio:intro_talk-sports": {
+  "url": "/media/radio/intro_talk-sports.mp3",
+  "size": 33664,
+  "duration": 6.63
+ },
+ "radio:promo_aniwire": {
+  "url": "/media/radio/promo_aniwire.mp3",
+  "size": 41500,
+  "duration": 8.2
+ },
+ "radio:promo_iron_to_requiem": {
+  "url": "/media/radio/promo_iron_to_requiem.mp3",
+  "size": 59133,
+  "duration": 11.72
+ },
+ "radio:promo_mochi": {
+  "url": "/media/radio/promo_mochi.mp3",
+  "size": 49729,
+  "duration": 9.83
+ },
+ "radio:promo_sinful_apex_bluray": {
+  "url": "/media/radio/promo_sinful_apex_bluray.mp3",
+  "size": 61353,
+  "duration": 12.15
+ },
+ "radio:promo_sinful_apex_out": {
+  "url": "/media/radio/promo_sinful_apex_out.mp3",
+  "size": 49598,
+  "duration": 9.81
+ },
+ "radio:promo_star_courier": {
+  "url": "/media/radio/promo_star_courier.mp3",
+  "size": 56521,
+  "duration": 11.19
+ },
+ "radio:talk_back_to_school": {
+  "url": "/media/radio/talk_back_to_school.mp3",
+  "size": 59264,
+  "duration": 11.76
+ },
+ "radio:talk_birdie_trend": {
+  "url": "/media/radio/talk_birdie_trend.mp3",
+  "size": 50513,
+  "duration": 9.99
+ },
+ "radio:talk_comfort_food": {
+  "url": "/media/radio/talk_comfort_food.mp3",
+  "size": 55345,
+  "duration": 10.96
+ },
+ "radio:talk_community_garden": {
+  "url": "/media/radio/talk_community_garden.mp3",
+  "size": 50121,
+  "duration": 9.91
+ },
+ "radio:talk_croissant": {
+  "url": "/media/radio/talk_croissant.mp3",
+  "size": 62006,
+  "duration": 12.28
+ },
+ "radio:talk_farmers_market": {
+  "url": "/media/radio/talk_farmers_market.mp3",
+  "size": 65533,
+  "duration": 13.0
+ },
+ "radio:talk_fun_run": {
+  "url": "/media/radio/talk_fun_run.mp3",
+  "size": 53909,
+  "duration": 10.68
+ },
+ "radio:talk_halloween_house": {
+  "url": "/media/radio/talk_halloween_house.mp3",
+  "size": 76374,
+  "duration": 15.18
+ },
+ "radio:talk_harvest_fair": {
+  "url": "/media/radio/talk_harvest_fair.mp3",
+  "size": 55606,
+  "duration": 11.01
+ },
+ "radio:talk_holiday_lights": {
+  "url": "/media/radio/talk_holiday_lights.mp3",
+  "size": 49729,
+  "duration": 9.84
+ },
+ "radio:talk_ice_cream_flavour": {
+  "url": "/media/radio/talk_ice_cream_flavour.mp3",
+  "size": 67623,
+  "duration": 13.43
+ },
+ "radio:talk_ice_rink": {
+  "url": "/media/radio/talk_ice_rink.mp3",
+  "size": 65402,
+  "duration": 12.96
+ },
+ "radio:talk_leaf_pickup": {
+  "url": "/media/radio/talk_leaf_pickup.mp3",
+  "size": 52341,
+  "duration": 10.37
+ },
+ "radio:talk_library_computers": {
+  "url": "/media/radio/talk_library_computers.mp3",
+  "size": 61353,
+  "duration": 12.15
+ },
+ "radio:talk_little_league": {
+  "url": "/media/radio/talk_little_league.mp3",
+  "size": 54692,
+  "duration": 10.84
+ },
+ "radio:talk_new_hobbies": {
+  "url": "/media/radio/talk_new_hobbies.mp3",
+  "size": 59917,
+  "duration": 11.88
+ },
+ "radio:talk_pool_hours": {
+  "url": "/media/radio/talk_pool_hours.mp3",
+  "size": 57957,
+  "duration": 11.48
+ },
+ "radio:talk_shout_out": {
+  "url": "/media/radio/talk_shout_out.mp3",
+  "size": 62660,
+  "duration": 12.43
+ },
+ "radio:talk_snow_closures": {
+  "url": "/media/radio/talk_snow_closures.mp3",
+  "size": 52864,
+  "duration": 10.46
+ },
+ "radio:talk_spring_cleanup": {
+  "url": "/media/radio/talk_spring_cleanup.mp3",
+  "size": 49076,
+  "duration": 9.72
+ },
+ "radio:talk_spring_plans": {
+  "url": "/media/radio/talk_spring_plans.mp3",
+  "size": 62790,
+  "duration": 12.44
+ },
+ "radio:talk_summer_best": {
+  "url": "/media/radio/talk_summer_best.mp3",
+  "size": 67362,
+  "duration": 13.36
+ },
+ "radio:talk_summer_reading": {
+  "url": "/media/radio/talk_summer_reading.mp3",
+  "size": 84733,
+  "duration": 16.83
+ },
+ "radio:talk_tuxedo_snowman": {
+  "url": "/media/radio/talk_tuxedo_snowman.mp3",
+  "size": 53647,
+  "duration": 10.63
+ },
+ "radio:talk_volleyball": {
+  "url": "/media/radio/talk_volleyball.mp3",
+  "size": 57174,
+  "duration": 11.32
+ },
+ "radio:talk_winter_classes": {
+  "url": "/media/radio/talk_winter_classes.mp3",
+  "size": 50904,
+  "duration": 10.06
+ },
+ "radio:talk_youth_soccer": {
+  "url": "/media/radio/talk_youth_soccer.mp3",
+  "size": 74415,
+  "duration": 14.77
+ },
+ "radio:trk_coin_door": {
+  "url": "/media/radio/trk_coin_door.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Coin Door",
+  "artist": "Bitwise Bunny"
+ },
+ "radio:trk_diner_jukebox": {
+  "url": "/media/radio/trk_diner_jukebox.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Diner Jukebox Shuffle",
+  "artist": "The Velvet Tones"
+ },
+ "radio:trk_glass_lake": {
+  "url": "/media/radio/trk_glass_lake.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Glass Lake",
+  "artist": "Lumen Drift"
+ },
+ "radio:trk_glow_stick_summer": {
+  "url": "/media/radio/trk_glow_stick_summer.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Glow Stick Summer",
+  "artist": "Neon Postcards"
+ },
+ "radio:trk_high_score_sunset": {
+  "url": "/media/radio/trk_high_score_sunset.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "High Score Sunset",
+  "artist": "Midnight Arcade"
+ },
+ "radio:trk_moonlight_pier": {
+  "url": "/media/radio/trk_moonlight_pier.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Moonlight on the Pier",
+  "artist": "Benny Ray Orchestra"
+ },
+ "radio:trk_notebook_margins": {
+  "url": "/media/radio/trk_notebook_margins.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Notebook Margins",
+  "artist": "Tin Can Telephone"
+ },
+ "radio:trk_press_start": {
+  "url": "/media/radio/trk_press_start.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Press Start",
+  "artist": "Bitwise Bunny"
+ },
+ "radio:trk_saturday_night_swing": {
+  "url": "/media/radio/trk_saturday_night_swing.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Saturday Night Swing",
+  "artist": "The Starlight Five"
+ },
+ "radio:trk_skateboard_weather": {
+  "url": "/media/radio/trk_skateboard_weather.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Skateboard Weather",
+  "artist": "The Fuzzboxes"
+ },
+ "radio:trk_sunny_side_street": {
+  "url": "/media/radio/trk_sunny_side_street.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Sunny Side Street",
+  "artist": "The Weekday Club"
+ },
+ "radio:trk_three_chords": {
+  "url": "/media/radio/trk_three_chords.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Three Chords and a Bus Pass",
+  "artist": "Rainy Day Parade"
+ },
+ "radio:trk_weekend_plans": {
+  "url": "/media/radio/trk_weekend_plans.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Weekend Plans",
+  "artist": "The Weekday Club"
+ },
+ "radio:trk_window_seat": {
+  "url": "/media/radio/trk_window_seat.mp3",
+  "size": 264638,
+  "duration": 44.0,
+  "title": "Window Seat",
+  "artist": "The Quiet Hours"
+ },
  "sample-picture:Autumn Walk.jpg": {
   "url": "/media/samples/pictures/autumn-walk.jpg",
   "size": 77520,

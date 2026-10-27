@@ -9,7 +9,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { useSystem } from "@/components/system/system";
 import { useCollection } from "@/components/system/hooks";
 import { A, useSite, usePageTitle } from "../SiteContext";
-import { infoboxRowsAt, WIKI_NAME, wikiPageByTitle, wikiRevisions, wikiUrl, type TalkPost } from "@/data/wiki";
+import { infoboxRowsAt, WIKI_HOST, WIKI_NAME, wikiPageByTitle, wikiRevisions, wikiUrl, type TalkPost } from "@/data/wiki";
 import { diffLines, historyOf, isTalk, normalizeTitle, parseWiki, searchPages, subjectOf, talkOf, type Block, type Inline, type Revision } from "@/lib/wiki";
 import { newId } from "@/lib/ids";
 import { formatDate, formatTime, iso } from "@/lib/time";
@@ -140,6 +140,7 @@ function WikiText({ text, exists, toc = true }: { text: string; exists: (t: stri
 
 function Shell({ title, tabs, children }: { title: string; tabs?: React.ReactNode; children: React.ReactNode }) {
   const { navigate } = useSite();
+  const { openApp } = useSystem();
   const [q, setQ] = useState("");
   return (
     <div className="anifanwiki">
@@ -154,6 +155,9 @@ function Shell({ title, tabs, children }: { title: string; tabs?: React.ReactNod
           <A href={wikiUrl("Special:RecentChanges")}>Recent changes</A>
           <A href={wikiUrl("Special:AllPages")}>All pages</A>
           <A href={wikiUrl("Help:Editing")}>Help</A>
+          <button className="link-btn fw-follow" onClick={() => openApp("newsreader", { subscribe: `http://${WIKI_HOST}/rss` })}>
+            Follow recent changes
+          </button>
         </nav>
       </aside>
       <div className="fw-page">

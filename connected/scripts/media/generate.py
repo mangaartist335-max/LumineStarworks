@@ -10,6 +10,7 @@ import art  # noqa: E402
 import docs  # noqa: E402
 import manga  # noqa: E402
 import music  # noqa: E402
+import radio  # noqa: E402
 import videos  # noqa: E402
 import wallpapers  # noqa: E402
 
@@ -17,6 +18,7 @@ if __name__ == "__main__":
     wallpapers.main()  # videos use the wallpapers, so they go first
     videos.main()
     music.main()
+    radio.main()
     manga.main()
     docs.main()
     art.main()

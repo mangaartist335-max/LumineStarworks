@@ -22,6 +22,7 @@ function useWorks(): CatalogueTitle[] {
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
+  const { openApp } = useSystem();
   return (
     <div className="flowpictures">
       <header className="fp-head">
@@ -38,7 +39,12 @@ function Shell({ children }: { children: React.ReactNode }) {
         </nav>
       </header>
       <main className="fp-main">{children}</main>
-      <footer className="fp-foot">© Flow Pictures · Thank you for watching</footer>
+      <footer className="fp-foot">
+        © Flow Pictures · Thank you for watching ·{" "}
+        <button className="link-btn" onClick={() => openApp("newsreader", { subscribe: fp("/rss") })}>
+          Follow our news in News Reader
+        </button>
+      </footer>
     </div>
   );
 }

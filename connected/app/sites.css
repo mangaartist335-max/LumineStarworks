@@ -3081,3 +3081,12 @@
   color: #555;
   font-size: 12px;
 }
+
+.flowpictures .link-btn {
+  color: #6fd3d6;
+}
+.fw-follow {
+  text-align: left;
+  margin-top: 6px;
+  font-size: 12px;
+}

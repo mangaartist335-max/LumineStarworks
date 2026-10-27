@@ -8,7 +8,7 @@ export type IconName =
   | "archive" | "pdf" | "calculator" | "games" | "rocket" | "sweeper" | "settings" | "user" | "search" | "download"
   | "file" | "file-image" | "file-audio" | "file-video" | "file-pdf" | "file-zip" | "file-text" | "file-link"
   | "power" | "restart" | "logoff" | "star" | "metube" | "manga" | "volume" | "mute" | "network" | "back" | "forward"
-  | "reload" | "home" | "close" | "plus" | "info" | "warning";
+  | "reload" | "home" | "close" | "plus" | "info" | "warning" | "radio" | "rss";
 
 function Folder({ g, tint = "#f6c958", badge }: { g: string; tint?: string; badge?: React.ReactNode }) {
   return (
@@ -319,6 +319,28 @@ export function Icon({ name, size = 32, title }: { name: IconName; size?: number
         return <path d="M12 12 l24 24 M36 12 L12 36" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />;
       case "plus":
         return <path d="M24 10 v28 M10 24 h28" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />;
+      case "radio":
+        return (
+          <>
+            <path d="M12 16 L34 6" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" />
+            <rect x="5" y="15" width="38" height="26" rx="4" fill="#c0392b" stroke="#8e2a20" />
+            <circle cx="16" cy="28" r="7" fill="#2b2b2b" />
+            <circle cx="16" cy="28" r="4" fill="#555" />
+            <rect x="27" y="20" width="12" height="7" rx="1" fill="#fbe7a1" />
+            <line x1="31" y1="20" x2="31" y2="27" stroke="#c0392b" strokeWidth="1.2" />
+            <circle cx="30" cy="34" r="2.2" fill="#f5d06f" />
+            <circle cx="36" cy="34" r="2.2" fill="#f5d06f" />
+          </>
+        );
+      case "rss":
+        return (
+          <>
+            <rect x="5" y="5" width="38" height="38" rx="8" fill="#f28c28" stroke="#c76a12" />
+            <circle cx="15" cy="33" r="4" fill="#fff" />
+            <path d="M11 22 a15 15 0 0 1 15 15" fill="none" stroke="#fff" strokeWidth="4.5" strokeLinecap="round" />
+            <path d="M11 12 a25 25 0 0 1 25 25" fill="none" stroke="#fff" strokeWidth="4.5" strokeLinecap="round" />
+          </>
+        );
       case "info":
         return (
           <>

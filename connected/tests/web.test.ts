@@ -100,3 +100,20 @@ test("AniFanWiki infoboxes only show what was known on the date", () => {
   const sinful = historyOf("Sinful Apex", wikiRevisions, Date.parse("2012-08-01T00:00:00Z"));
   assert.ok(sinful.at(-1)!.text.includes("January 23, 2012") && !sinful.at(-1)!.text.includes("Blu-ray"), "the Blu-ray news waits for October 2013");
 });
+
+test("News Reader: feeds, finding them by address, and fetching only what's out", async () => {
+  const { feeds, findFeed } = await import("../data/feeds");
+  const { fetchFeed, shownItems, unreadIn } = await import("../lib/news");
+  assert.ok(feeds.length >= 10);
+  assert.equal(new Set(feeds.map((f) => f.id)).size, feeds.length);
+  assert.equal(findFeed("http://aniwire.connectedera.local/rss")?.id, "feed_aniwire");
+  assert.equal(findFeed("aniwire.connectedera.local")?.id, "feed_aniwire", "a site's own address finds its feed");
+  assert.equal(findFeed("www.example.com"), null);
+  const aw = feeds.find((f) => f.id === "feed_aniwire")!;
+  const first = fetchFeed(aw, Date.parse("2012-06-01T00:00:00Z"));
+  assert.ok(first.items.every((i) => i.at <= "2012-06-01T00:00:00Z") && first.items.length === first.fresh.length);
+  const later = fetchFeed(aw, Date.parse("2013-12-01T00:00:00Z"), first.items);
+  assert.equal(later.fresh.length, later.items.length - first.items.length);
+  assert.equal(shownItems(later.items, Date.parse("2012-06-01T00:00:00Z")).length, first.items.length, "moving the clock back hides later items again");
+  assert.equal(unreadIn(first.items, new Set([first.items[0].id])), first.items.length - 1);
+});

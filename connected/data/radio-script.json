@@ -1,0 +1,968 @@
+{
+  "_about": "The Connected Era's six radio stations (Master Bible ch. 19). Station names and formats are the Bible's; programmes, hosts, songs, adverts and talk are the Connected Era's own. scripts/media/radio.py records every line and song listed here, and the Radio app reads the same file for its captions. Hours are local to the computer's clock; a programme whose 'to' is smaller than its 'from' runs past midnight.",
+  "backAnnounce": "That was {title}, by {artist}.",
+  "stations": [
+    {
+      "id": "cvpop",
+      "name": "CV Pop FM",
+      "format": "Mainstream hits and commercial DJs",
+      "voice": "slt",
+      "color": "#e8457a",
+      "ids": [
+        "You're listening to CV Pop FM. All the hits, all day long.",
+        "CV Pop FM. Turn it up!"
+      ],
+      "programmes": [
+        {
+          "id": "cvpop-overnight",
+          "name": "Overnight Hits",
+          "from": 0,
+          "to": 6
+        },
+        {
+          "id": "cvpop-morning",
+          "name": "The Morning Mix",
+          "host": "Jess",
+          "voice": "slt",
+          "from": 6,
+          "to": 10,
+          "intro": "Good morning, sleepyheads! It's Jess, and this is The Morning Mix on CV Pop FM. Grab your cereal, find your other shoe, and let's get this day started."
+        },
+        {
+          "id": "cvpop-midday",
+          "name": "Midday Hits",
+          "host": "Marco",
+          "voice": "kal16",
+          "from": 10,
+          "to": 15,
+          "intro": "Hey hey, it's Marco with Midday Hits on CV Pop FM. Whether you're at work, at the pool, or still in your pyjamas, I've got you covered."
+        },
+        {
+          "id": "cvpop-drive",
+          "name": "Drive Time",
+          "host": "Priya",
+          "voice": "slt",
+          "from": 15,
+          "to": 19,
+          "intro": "Hi everyone, Priya here, and it's Drive Time on CV Pop FM. The roads are busy, the sun is out, and the music is turned up."
+        },
+        {
+          "id": "cvpop-nights",
+          "name": "CV Pop Nights",
+          "host": "Dan",
+          "voice": "rms",
+          "from": 19,
+          "to": 24,
+          "intro": "Good evening, this is Dan, and you're tuned to CV Pop Nights. Kick back, put your feet up, it's time to unwind."
+        }
+      ]
+    },
+    {
+      "id": "garage",
+      "name": "Garage Noise 101.7",
+      "format": "Indie, punk, alternative and emo",
+      "voice": "awb",
+      "color": "#d98a1f",
+      "ids": [
+        "Garage Noise, one oh one point seven. Loud and local.",
+        "You're tuned to Garage Noise. Keep it fuzzy."
+      ],
+      "programmes": [
+        {
+          "id": "garage-static",
+          "name": "Static Hours",
+          "from": 0,
+          "to": 7
+        },
+        {
+          "id": "garage-wakeup",
+          "name": "Wake Up Loud",
+          "host": "Rory",
+          "voice": "awb",
+          "from": 7,
+          "to": 12,
+          "intro": "Morning, morning! Rory here with Wake Up Loud on Garage Noise, one oh one point seven. If you're still in bed, this next one is going to fix that."
+        },
+        {
+          "id": "garage-basement",
+          "name": "Basement Sessions",
+          "host": "Kat",
+          "voice": "slt",
+          "from": 12,
+          "to": 18,
+          "intro": "Hey, it's Kat. Welcome to the Basement Sessions on Garage Noise. New bands, old favourites, and plenty of guitars."
+        },
+        {
+          "id": "garage-afterschool",
+          "name": "After School Special",
+          "host": "Rory",
+          "voice": "awb",
+          "from": 18,
+          "to": 24,
+          "intro": "Rory again! School's done, and homework can wait five minutes. This is the After School Special on Garage Noise, one oh one point seven."
+        }
+      ]
+    },
+    {
+      "id": "ambient",
+      "name": "Ambient Echo",
+      "format": "Relaxing ambient and electronic instrumentals",
+      "voice": "slt",
+      "color": "#4fb3a9",
+      "ids": [
+        "Ambient Echo. Music to breathe to.",
+        "You're listening to Ambient Echo."
+      ],
+      "programmes": [
+        {
+          "id": "ambient-sunrise",
+          "name": "Sunrise Drift",
+          "host": "Noor",
+          "voice": "slt",
+          "from": 5,
+          "to": 12,
+          "intro": "Good morning. This is Noor, and you're drifting with us on Ambient Echo. Take a slow breath, and let the day arrive gently."
+        },
+        {
+          "id": "ambient-afternoon",
+          "name": "Long Afternoon",
+          "host": "Noor",
+          "voice": "slt",
+          "from": 12,
+          "to": 20,
+          "intro": "Hello again, it's Noor. The afternoon is long and there's no rush at all. This is Ambient Echo."
+        },
+        {
+          "id": "ambient-night",
+          "name": "Night Echo",
+          "host": "Elliot",
+          "voice": "kal16",
+          "from": 20,
+          "to": 5,
+          "intro": "Good evening, I'm Elliot, and this is Night Echo. Dim the lights, get comfy, and let the music do the rest."
+        }
+      ]
+    },
+    {
+      "id": "talkwave",
+      "name": "TalkWave AM",
+      "format": "Local news, sports, gossip and talk",
+      "voice": "rms",
+      "color": "#5b7fd1",
+      "ids": [
+        "TalkWave AM. Your town, your talk.",
+        "You're listening to TalkWave AM."
+      ],
+      "programmes": [
+        {
+          "id": "talk-replay",
+          "name": "Night Talk Replay",
+          "from": 22,
+          "to": 6,
+          "talk": [
+            "news",
+            "talk",
+            "sport",
+            "gossip"
+          ]
+        },
+        {
+          "id": "talk-bulletin",
+          "name": "Morning Bulletin",
+          "host": "Ruth",
+          "voice": "slt",
+          "from": 6,
+          "to": 9,
+          "talk": [
+            "news",
+            "sport"
+          ],
+          "intro": "Good morning, this is Ruth with the Morning Bulletin on TalkWave AM. Here's what's happening around town today."
+        },
+        {
+          "id": "talk-around",
+          "name": "Around Town",
+          "host": "Gary",
+          "voice": "rms",
+          "from": 9,
+          "to": 12,
+          "talk": [
+            "gossip",
+            "talk",
+            "news"
+          ],
+          "intro": "Morning, folks! Gary here, and this is Around Town. Pull up a chair, we've got plenty to chat about."
+        },
+        {
+          "id": "talk-lunch",
+          "name": "Lunchtime News",
+          "host": "Ruth",
+          "voice": "slt",
+          "from": 12,
+          "to": 13,
+          "talk": [
+            "news"
+          ],
+          "intro": "It's lunchtime, and this is Ruth with the Lunchtime News on TalkWave AM."
+        },
+        {
+          "id": "talk-openline",
+          "name": "Open Line",
+          "host": "Ruth",
+          "voice": "slt",
+          "from": 13,
+          "to": 17,
+          "talk": [
+            "talk",
+            "gossip"
+          ],
+          "intro": "Welcome to Open Line on TalkWave AM. I'm Ruth, and this afternoon we're talking about the little things that make this town home."
+        },
+        {
+          "id": "talk-sports",
+          "name": "Sports Desk",
+          "host": "Mo",
+          "voice": "kal",
+          "from": 17,
+          "to": 19,
+          "talk": [
+            "sport"
+          ],
+          "intro": "Hi everyone, Mo here with the Sports Desk. Let's catch up on the scores."
+        },
+        {
+          "id": "talk-evening",
+          "name": "Evening Chat",
+          "host": "Gary",
+          "voice": "rms",
+          "from": 19,
+          "to": 22,
+          "talk": [
+            "talk",
+            "gossip"
+          ],
+          "intro": "Evening, everybody. Gary again, and this is Evening Chat on TalkWave AM. Get comfortable."
+        }
+      ]
+    },
+    {
+      "id": "pixel",
+      "name": "Pixel Beats",
+      "format": "Gaming and internet culture, with anime promos",
+      "voice": "kal16",
+      "color": "#8f5bd6",
+      "ids": [
+        "Pixel Beats. Game on.",
+        "You're listening to Pixel Beats. Press start to continue."
+      ],
+      "programmes": [
+        {
+          "id": "pixel-overnight",
+          "name": "Chip Dreams",
+          "from": 0,
+          "to": 7
+        },
+        {
+          "id": "pixel-morning",
+          "name": "Pixel Mornings",
+          "host": "Bea",
+          "voice": "slt",
+          "from": 7,
+          "to": 15,
+          "intro": "Good morning, players! Bea here with Pixel Mornings on Pixel Beats. Your daily quest: have a great day. Your reward: these tunes."
+        },
+        {
+          "id": "pixel-respawn",
+          "name": "Respawn Radio",
+          "host": "Kai",
+          "voice": "kal16",
+          "from": 15,
+          "to": 20,
+          "intro": "Respawn Radio is on the air! I'm Kai. School's out, the controllers are charged, let's go."
+        },
+        {
+          "id": "pixel-levelselect",
+          "name": "Level Select",
+          "host": "Bea",
+          "voice": "slt",
+          "from": 20,
+          "to": 24,
+          "intro": "Hey night owls, it's Bea again. This is Level Select. Pick your stage and settle in."
+        }
+      ]
+    },
+    {
+      "id": "oldies",
+      "name": "Golden Oldies",
+      "format": "Older music, the songs your parents grew up with",
+      "voice": "awb",
+      "color": "#c9a227",
+      "ids": [
+        "Golden Oldies. The songs you grew up with.",
+        "You're listening to Golden Oldies. Timeless, every time."
+      ],
+      "programmes": [
+        {
+          "id": "oldies-slowdance",
+          "name": "Slow Dance Overnight",
+          "from": 22,
+          "to": 6
+        },
+        {
+          "id": "oldies-breakfast",
+          "name": "Breakfast Classics",
+          "host": "Harold",
+          "voice": "awb",
+          "from": 6,
+          "to": 11,
+          "intro": "Good morning, and welcome to Breakfast Classics on Golden Oldies. I'm Harold. Put the kettle on, and let's start with something your parents danced to."
+        },
+        {
+          "id": "oldies-afternoon",
+          "name": "Afternoon Gold",
+          "host": "June",
+          "voice": "slt",
+          "from": 11,
+          "to": 17,
+          "intro": "Hello, dear listeners, it's June with Afternoon Gold. These are the songs that never go out of style."
+        },
+        {
+          "id": "oldies-dinner",
+          "name": "Dinner Party Favourites",
+          "host": "Harold",
+          "voice": "awb",
+          "from": 17,
+          "to": 22,
+          "intro": "Good evening, Harold here. It's Dinner Party Favourites on Golden Oldies. Set the table, light a candle, and turn it up just a little."
+        }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "id": "trk_sunny_side_street",
+      "station": "cvpop",
+      "title": "Sunny Side Street",
+      "artist": "The Weekday Club",
+      "composer": "Mel Ortiz",
+      "label": "Brightside Records",
+      "released": "2011-04-12T12:00:00Z",
+      "style": "pop"
+    },
+    {
+      "id": "trk_glow_stick_summer",
+      "station": "cvpop",
+      "title": "Glow Stick Summer",
+      "artist": "Neon Postcards",
+      "composer": "Neon Postcards",
+      "label": "Brightside Records",
+      "released": "2012-06-01T12:00:00Z",
+      "style": "pop2"
+    },
+    {
+      "id": "trk_weekend_plans",
+      "station": "cvpop",
+      "title": "Weekend Plans",
+      "artist": "The Weekday Club",
+      "composer": "Mel Ortiz",
+      "label": "Brightside Records",
+      "released": "2013-03-08T12:00:00Z",
+      "style": "pop3"
+    },
+    {
+      "id": "trk_morning_commute",
+      "station": "cvpop",
+      "title": "Morning Commute",
+      "artist": "Pocket Radio",
+      "composer": "Pocket Radio",
+      "label": "Connected Era Originals",
+      "released": "2011-03-18T12:00:00Z",
+      "media": "music:morning-commute"
+    },
+    {
+      "id": "trk_skateboard_weather",
+      "station": "garage",
+      "title": "Skateboard Weather",
+      "artist": "The Fuzzboxes",
+      "composer": "The Fuzzboxes",
+      "label": "Basement Tapes",
+      "released": "2011-06-03T12:00:00Z",
+      "style": "punk"
+    },
+    {
+      "id": "trk_three_chords",
+      "station": "garage",
+      "title": "Three Chords and a Bus Pass",
+      "artist": "Rainy Day Parade",
+      "composer": "Rainy Day Parade",
+      "label": "Basement Tapes",
+      "released": "2012-09-14T12:00:00Z",
+      "style": "punk2"
+    },
+    {
+      "id": "trk_notebook_margins",
+      "station": "garage",
+      "title": "Notebook Margins",
+      "artist": "Tin Can Telephone",
+      "composer": "Tin Can Telephone",
+      "label": "Little Owl Records",
+      "released": "2013-01-25T12:00:00Z",
+      "style": "emo"
+    },
+    {
+      "id": "trk_glass_lake",
+      "station": "ambient",
+      "title": "Glass Lake",
+      "artist": "Lumen Drift",
+      "composer": "Lumen Drift",
+      "label": "Stillwater Sounds",
+      "released": "2010-11-02T12:00:00Z",
+      "style": "ambient"
+    },
+    {
+      "id": "trk_window_seat",
+      "station": "ambient",
+      "title": "Window Seat",
+      "artist": "The Quiet Hours",
+      "composer": "The Quiet Hours",
+      "label": "Stillwater Sounds",
+      "released": "2012-10-19T12:00:00Z",
+      "style": "ambient2"
+    },
+    {
+      "id": "trk_summer_rain",
+      "station": "ambient",
+      "title": "Summer Rain",
+      "artist": "AkiraKeys",
+      "composer": "AkiraKeys",
+      "label": "Self-released",
+      "released": "2012-07-28T12:00:00Z",
+      "media": "music:summer-rain"
+    },
+    {
+      "id": "trk_campfire_strings",
+      "station": "ambient",
+      "title": "Campfire Strings",
+      "artist": "Wren & Co.",
+      "composer": "Wren & Co.",
+      "label": "Connected Era Originals",
+      "released": "2011-08-05T12:00:00Z",
+      "media": "music:campfire-strings"
+    },
+    {
+      "id": "trk_press_start",
+      "station": "pixel",
+      "title": "Press Start",
+      "artist": "Bitwise Bunny",
+      "composer": "Bitwise Bunny",
+      "label": "8-Bit Garden",
+      "released": "2011-02-14T12:00:00Z",
+      "style": "chip"
+    },
+    {
+      "id": "trk_coin_door",
+      "station": "pixel",
+      "title": "Coin Door",
+      "artist": "Bitwise Bunny",
+      "composer": "Bitwise Bunny",
+      "label": "8-Bit Garden",
+      "released": "2012-08-30T12:00:00Z",
+      "style": "chip2"
+    },
+    {
+      "id": "trk_high_score_sunset",
+      "station": "pixel",
+      "title": "High Score Sunset",
+      "artist": "Midnight Arcade",
+      "composer": "Midnight Arcade",
+      "label": "8-Bit Garden",
+      "released": "2013-05-17T12:00:00Z",
+      "style": "chip3"
+    },
+    {
+      "id": "trk_neon_night_drive",
+      "station": "pixel",
+      "title": "Neon Night Drive",
+      "artist": "Midnight Arcade",
+      "composer": "Midnight Arcade",
+      "label": "Connected Era Originals",
+      "released": "2010-10-29T12:00:00Z",
+      "media": "music:neon-night-drive"
+    },
+    {
+      "id": "trk_saturday_night_swing",
+      "station": "oldies",
+      "title": "Saturday Night Swing",
+      "artist": "The Starlight Five",
+      "composer": "Benny Ray",
+      "label": "Starlight Records",
+      "released": "1961-05-01T12:00:00Z",
+      "style": "swing"
+    },
+    {
+      "id": "trk_diner_jukebox",
+      "station": "oldies",
+      "title": "Diner Jukebox Shuffle",
+      "artist": "The Velvet Tones",
+      "composer": "Lou Marsh",
+      "label": "Starlight Records",
+      "released": "1958-09-12T12:00:00Z",
+      "style": "shuffle"
+    },
+    {
+      "id": "trk_moonlight_pier",
+      "station": "oldies",
+      "title": "Moonlight on the Pier",
+      "artist": "Benny Ray Orchestra",
+      "composer": "Benny Ray",
+      "label": "Starlight Records",
+      "released": "1964-07-20T12:00:00Z",
+      "style": "waltz"
+    }
+  ],
+  "spots": [
+    {
+      "id": "ad_corner_bakery",
+      "kind": "ad",
+      "name": "The Corner Bakery",
+      "stations": [
+        "cvpop",
+        "oldies",
+        "talkwave"
+      ],
+      "voice": "rms",
+      "text": "Mmm, smell that? It's the Corner Bakery on Main Street. Fresh bread every morning, cinnamon rolls every afternoon, and a free cookie for every kid who says please. The Corner Bakery. Come hungry."
+    },
+    {
+      "id": "ad_pantry_recipes",
+      "kind": "ad",
+      "name": "Pantry Recipes",
+      "stations": [
+        "cvpop",
+        "talkwave",
+        "oldies"
+      ],
+      "voice": "slt",
+      "text": "Stuck on what to make for dinner? Pantry Recipes has hundreds of easy recipes using things you already have in the cupboard. Find them at pantry recipes dot connected era dot local."
+    },
+    {
+      "id": "ad_freeware_corner",
+      "kind": "ad",
+      "name": "Freeware Corner",
+      "stations": [
+        "pixel",
+        "garage"
+      ],
+      "voice": "kal16",
+      "text": "Free games, free tools, no catch. Freeware Corner has the best free downloads for your computer, all checked and safe. Visit freeware corner dot connected era dot local."
+    },
+    {
+      "id": "ad_sunny_day",
+      "kind": "ad",
+      "name": "Sunny Day Ice Cream",
+      "stations": [
+        "cvpop",
+        "pixel",
+        "garage"
+      ],
+      "voice": "slt",
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "text": "It's hot out there! Cool down at Sunny Day Ice Cream, by the park. Thirty flavours, rainbow sprinkles, and the biggest waffle cones in town."
+    },
+    {
+      "id": "ad_warm_mug",
+      "kind": "ad",
+      "name": "The Warm Mug",
+      "stations": [
+        "cvpop",
+        "oldies",
+        "talkwave",
+        "ambient"
+      ],
+      "voice": "rms",
+      "months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3
+      ],
+      "text": "When it's chilly outside, come and warm up at The Warm Mug cafe. Hot chocolate with whipped cream, soup of the day, and comfy armchairs by the window."
+    },
+    {
+      "id": "ad_riverside_music",
+      "kind": "ad",
+      "name": "Riverside Music",
+      "stations": [
+        "garage",
+        "oldies"
+      ],
+      "voice": "awb",
+      "text": "Want to start a band? Riverside Music has guitars, drums, keyboards, and lessons for every age. Come in and try anything in the shop. Yes, even the really loud ones."
+    },
+    {
+      "id": "ad_connectmail",
+      "kind": "ad",
+      "name": "ConnectMail",
+      "stations": [
+        "cvpop",
+        "talkwave",
+        "ambient"
+      ],
+      "voice": "slt",
+      "text": "Keep in touch with ConnectMail. A roomy inbox, folders for everything, and attachments for all your photos. Find it at mail dot connected era dot local."
+    },
+    {
+      "id": "promo_aniwire",
+      "kind": "promo",
+      "name": "AniWire",
+      "stations": [
+        "pixel"
+      ],
+      "voice": "slt",
+      "text": "Need your anime news fix? AniWire has news, reviews and interviews every week, at aniwire dot connected era dot local."
+    },
+    {
+      "id": "promo_star_courier",
+      "kind": "promo",
+      "name": "Star Courier",
+      "stations": [
+        "pixel"
+      ],
+      "voice": "kal16",
+      "from": "2012-11-20T15:00:00Z",
+      "text": "New on Freeware Corner: Star Courier, a free arcade game where you deliver parcels across space. Top tip from the Pixel Beats crew: stay in the bottom lane on level three."
+    },
+    {
+      "id": "promo_mochi",
+      "kind": "promo",
+      "name": "MeTube",
+      "stations": [
+        "pixel",
+        "cvpop"
+      ],
+      "voice": "slt",
+      "from": "2012-09-15T15:30:00Z",
+      "until": "2012-12-31T23:59:00Z",
+      "text": "Have you seen it yet? Mochi the cat versus the laser pointer, on MeTube. Our whole studio has watched it eleven times. Mochi wins, every time."
+    },
+    {
+      "id": "promo_iron_to_requiem",
+      "kind": "promo",
+      "name": "Iron to Requiem",
+      "stations": [
+        "pixel"
+      ],
+      "voice": "kal16",
+      "from": "2013-03-28T12:00:00Z",
+      "until": "2013-09-26T15:00:00Z",
+      "text": "Iron to Requiem, the new series from CHAOS Home, airs every Thursday from April the fourth. Twenty six episodes, with music by Hiroyuki Sawano. Don't miss it."
+    },
+    {
+      "id": "promo_sinful_apex_bluray",
+      "kind": "promo",
+      "name": "Sinful Apex Blu-ray",
+      "stations": [
+        "pixel"
+      ],
+      "voice": "slt",
+      "from": "2013-10-07T12:00:00Z",
+      "until": "2013-11-19T15:00:00Z",
+      "text": "Sinful Apex, Flow Pictures' final marquee production, is coming home. Funmaxation's Complete Collection on Blu-ray arrives on November the nineteenth, with all twenty four episodes."
+    },
+    {
+      "id": "promo_sinful_apex_out",
+      "kind": "promo",
+      "name": "Sinful Apex Blu-ray",
+      "stations": [
+        "pixel"
+      ],
+      "voice": "slt",
+      "from": "2013-11-19T15:00:00Z",
+      "text": "Out now: the Sinful Apex Complete Collection on Blu-ray from Funmaxation. All twenty four episodes of Flow Pictures' final marquee production."
+    }
+  ],
+  "talk": [
+    {
+      "id": "talk_summer_reading",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        6,
+        7,
+        8
+      ],
+      "text": "The town library's summer reading club is going strong. Over two hundred kids have signed up so far, and the librarians say this year's most popular books are about dragons, spaceships and, for some reason, sandwiches. Sign-ups stay open until the end of August."
+    },
+    {
+      "id": "talk_farmers_market",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "text": "The Saturday farmers' market is back in the square, from eight until noon. This week, look out for strawberries, fresh bread, and the honey stand, which sold out by ten o'clock last week. Bring a bag and come say hi."
+    },
+    {
+      "id": "talk_pool_hours",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        6,
+        7,
+        8
+      ],
+      "text": "The public pool has extended its evening hours for the rest of summer. Lanes stay open until eight on weeknights, and Friday is family swim night, with music and a floating obstacle course."
+    },
+    {
+      "id": "talk_youth_soccer",
+      "kind": "sport",
+      "voice": "kal",
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "text": "In youth soccer, the under twelves played a cracking match on Saturday that finished three goals each. The coaches say everyone played their hearts out, and the oranges at half time were excellent. Next match is Saturday morning at the park."
+    },
+    {
+      "id": "talk_ice_cream_flavour",
+      "kind": "gossip",
+      "voice": "rms",
+      "months": [
+        6,
+        7,
+        8
+      ],
+      "text": "Word around town is that the ice cream shop on Main Street is testing a new flavour. I'm told it involves cereal and marshmallows. I have volunteered to taste it. Purely for research, you understand."
+    },
+    {
+      "id": "talk_summer_best",
+      "kind": "talk",
+      "voice": "slt",
+      "months": [
+        6,
+        7,
+        8
+      ],
+      "text": "Today we're asking: what's the best thing you've done this summer? So far we've heard about a backyard campout, a very competitive game of water balloon tag, and someone who finally learned to ride a bike at forty two. Good for you!"
+    },
+    {
+      "id": "talk_back_to_school",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        8,
+        9
+      ],
+      "text": "Back to school season is here. Crossing guards will be out from seven thirty, so please slow down near the schools. And to every student starting somewhere new this year, good luck. You'll do great."
+    },
+    {
+      "id": "talk_harvest_fair",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        9,
+        10
+      ],
+      "text": "The autumn harvest fair opens at the fairground this weekend, with a pumpkin weighing contest, hay rides, and the famous pie table. Last year's winning pumpkin was so big it needed its own wagon."
+    },
+    {
+      "id": "talk_leaf_pickup",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        10,
+        11
+      ],
+      "text": "The town's leaf collection starts on Monday. Rake your leaves to the curb and the trucks will come by your street during the week. Or, you know, jump in them first. We won't tell."
+    },
+    {
+      "id": "talk_volleyball",
+      "kind": "sport",
+      "voice": "kal",
+      "months": [
+        9,
+        10,
+        11
+      ],
+      "text": "In high school sports, the girls' volleyball team won their home opener in straight sets, cheered on by a gym full of very loud parents. Their next home game is Thursday night."
+    },
+    {
+      "id": "talk_halloween_house",
+      "kind": "gossip",
+      "voice": "rms",
+      "months": [
+        10
+      ],
+      "text": "Halloween is coming, and the house on Maple Avenue has already started decorating. So far there are twelve pumpkins, one very large spider, and a skeleton wearing sunglasses. I can't wait to see what's next."
+    },
+    {
+      "id": "talk_comfort_food",
+      "kind": "talk",
+      "voice": "slt",
+      "months": [
+        10,
+        11,
+        12,
+        1,
+        2
+      ],
+      "text": "Today we're talking about comfort food. Callers have told us about grandma's soup, cheese toasties at midnight, and pancakes for dinner. That last one sounds like a very good idea."
+    },
+    {
+      "id": "talk_snow_closures",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        12,
+        1,
+        2
+      ],
+      "text": "If the snow keeps up tonight, the schools will announce any closures on the radio first thing in the morning. So keep TalkWave on, and keep your sledge somewhere you can find it."
+    },
+    {
+      "id": "talk_holiday_lights",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        12
+      ],
+      "text": "The holiday lights in the town square will be switched on Friday evening at six, with hot chocolate from the bakery and carols from the community choir. Wrap up warm."
+    },
+    {
+      "id": "talk_winter_classes",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        1,
+        2
+      ],
+      "text": "The community centre has started its winter classes, including beginner guitar, pottery, and something called extreme knitting. Sign-ups are at the front desk."
+    },
+    {
+      "id": "talk_ice_rink",
+      "kind": "sport",
+      "voice": "kal",
+      "months": [
+        12,
+        1,
+        2
+      ],
+      "text": "The outdoor ice rink is open again. Free skate is every afternoon from three, and the Saturday hockey games for the little ones are well worth watching. Mostly for the falling over, and the getting back up again."
+    },
+    {
+      "id": "talk_tuxedo_snowman",
+      "kind": "gossip",
+      "voice": "rms",
+      "months": [
+        12,
+        1,
+        2
+      ],
+      "text": "I've been told there's a snowman on Birch Street wearing a full tuxedo and a top hat. Honestly, he's better dressed than I am. Send us your snowman stories."
+    },
+    {
+      "id": "talk_new_hobbies",
+      "kind": "talk",
+      "voice": "slt",
+      "months": [
+        1,
+        2,
+        3
+      ],
+      "text": "This afternoon we're asking about new hobbies. One listener has started baking bread, another is learning the ukulele, and one gentleman is teaching his dog to skateboard. We'd love an update on that."
+    },
+    {
+      "id": "talk_spring_cleanup",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        3,
+        4
+      ],
+      "text": "Saturday is spring cleanup day at the park. Gloves and bags are provided, and the bakery is bringing muffins for every volunteer. It's a great way to meet your neighbours."
+    },
+    {
+      "id": "talk_community_garden",
+      "kind": "news",
+      "voice": "slt",
+      "months": [
+        4,
+        5,
+        6
+      ],
+      "text": "The community garden has a few plots left for the season. If you've ever wanted to grow your own tomatoes, now's your chance. There's a beginner workshop on Sunday morning."
+    },
+    {
+      "id": "talk_little_league",
+      "kind": "sport",
+      "voice": "kal",
+      "months": [
+        4,
+        5,
+        6
+      ],
+      "text": "Little league baseball is back! Opening day is Saturday at the park, starting with the parade at nine. Bring a chair, bring a snack, and cheer for everybody."
+    },
+    {
+      "id": "talk_croissant",
+      "kind": "gossip",
+      "voice": "rms",
+      "months": [
+        3,
+        4,
+        5
+      ],
+      "text": "Big news from the bakery on Main Street: they're adding a second croissant flavour. My sources say it might be chocolate and orange. I'll be standing outside on opening morning."
+    },
+    {
+      "id": "talk_spring_plans",
+      "kind": "talk",
+      "voice": "slt",
+      "months": [
+        3,
+        4,
+        5
+      ],
+      "text": "On today's show, we're talking spring plans. Listeners have told us about the first picnics of the year, garden makeovers, and a family who's planning a kite festival in their backyard. Sounds lovely."
+    },
+    {
+      "id": "talk_library_computers",
+      "kind": "news",
+      "voice": "slt",
+      "text": "A reminder that the town library has free wireless internet, and computers you can book for an hour at a time. The librarians are happy to help you set up an email account, if you've been meaning to get one."
+    },
+    {
+      "id": "talk_shout_out",
+      "kind": "talk",
+      "voice": "rms",
+      "text": "Before the break, a quick shout out. A listener called to say a stranger helped carry her shopping all the way home yesterday. Whoever you are, thank you. Little things like that make a big difference."
+    },
+    {
+      "id": "talk_fun_run",
+      "kind": "sport",
+      "voice": "kal",
+      "text": "The fun run is coming up soon, and this year's theme is superheroes. Capes are encouraged, walking is allowed, and there's a medal for everyone who crosses the finish line."
+    },
+    {
+      "id": "talk_birdie_trend",
+      "kind": "gossip",
+      "voice": "rms",
+      "text": "Apparently everyone on Birdie is talking about their lunch again today. I had a ham sandwich. Riveting stuff. You heard it here first, folks."
+    }
+  ]
+}

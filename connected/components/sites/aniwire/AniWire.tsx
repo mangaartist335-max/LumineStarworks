@@ -50,6 +50,7 @@ function useDate() {
 
 function Shell({ children }: { children: React.ReactNode }) {
   const { url, navigate } = useSite();
+  const { openApp } = useSystem();
   const [q, setQ] = useState(url.path === "/search" ? (url.params.get("q") ?? "") : "");
   const published = usePublished();
   const tags = [...new Set(published.flatMap((a) => a.tags))].slice(0, 14);
@@ -100,7 +101,12 @@ function Shell({ children }: { children: React.ReactNode }) {
           </ul>
         </aside>
       </div>
-      <footer className="aw-foot">AniWire · Corrections are noted at the end of each article · Be kind in the comments</footer>
+      <footer className="aw-foot">
+        AniWire · Corrections are noted at the end of each article · Be kind in the comments ·{" "}
+        <button className="link-btn" onClick={() => openApp("newsreader", { subscribe: aw("/rss") })}>
+          Follow AniWire in News Reader
+        </button>
+      </footer>
     </div>
   );
 }
