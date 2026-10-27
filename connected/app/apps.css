@@ -2515,3 +2515,145 @@
   display: flex;
   gap: 6px;
 }
+
+/* ── Relay Chat ─────────────────────────────────────────────────────────── */
+
+.relay-chat {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 150px;
+  background: #1b1f24;
+  color: #d8dee4;
+  font: 12.5px/1.45 "DejaVu Sans Mono", Consolas, monospace;
+}
+.rc-windows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 6px;
+  background: #15181c;
+  overflow: auto;
+}
+.rc-network {
+  color: #7d8590;
+  font-size: 11px;
+  padding: 0 4px 6px;
+}
+.rc-win {
+  text-align: left;
+  background: none;
+  border: none;
+  color: #c9d1d9;
+  padding: 3px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font: inherit;
+}
+.rc-win:hover {
+  background: #22272e;
+}
+.rc-win.on {
+  background: #2d333b;
+  color: #fff;
+}
+.rc-win.new {
+  color: #5fd38d;
+  font-weight: bold;
+}
+.rc-hint {
+  margin-top: auto;
+  color: #6e7681;
+  font-size: 10.5px;
+  padding: 4px;
+}
+.rc-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+.rc-topic {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 10px;
+  border-bottom: 1px solid #2d333b;
+  color: #e6c07b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rc-tools {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.relay-chat .link-btn {
+  color: #79c0ff;
+  font-family: inherit;
+}
+.rc-log {
+  flex: 1;
+  overflow: auto;
+  padding: 6px 10px;
+}
+.rc-day {
+  color: #6e7681;
+  text-align: center;
+  margin: 6px 0;
+  font-size: 11px;
+}
+.rc-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.rc-time {
+  color: #6e7681;
+}
+.rc-line.action {
+  color: #d2a8ff;
+}
+.rc-line.join,
+.rc-line.part,
+.rc-line.nick,
+.rc-line.kick {
+  color: #7d8590;
+}
+.rc-line.topic {
+  color: #e6c07b;
+}
+.rc-line.notice {
+  color: #5fd38d;
+}
+.rc-input {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 8px;
+  border-top: 1px solid #2d333b;
+}
+.rc-input input {
+  flex: 1;
+  font-family: inherit;
+}
+.rc-nick {
+  color: #79c0ff;
+}
+.rc-people {
+  border-left: 1px solid #2d333b;
+  padding: 8px;
+  overflow: auto;
+}
+.rc-people-head {
+  color: #7d8590;
+  margin-bottom: 4px;
+}
+.rc-people .away {
+  color: #6e7681;
+  font-style: italic;
+}
+.rc-people-note {
+  color: #6e7681;
+  font-size: 10.5px;
+  margin-top: 10px;
+}

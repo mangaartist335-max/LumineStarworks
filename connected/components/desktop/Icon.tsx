@@ -8,7 +8,7 @@ export type IconName =
   | "archive" | "pdf" | "calculator" | "games" | "rocket" | "sweeper" | "settings" | "user" | "search" | "download"
   | "file" | "file-image" | "file-audio" | "file-video" | "file-pdf" | "file-zip" | "file-text" | "file-link"
   | "power" | "restart" | "logoff" | "star" | "metube" | "manga" | "volume" | "mute" | "network" | "back" | "forward"
-  | "reload" | "home" | "close" | "plus" | "info" | "warning" | "radio" | "rss";
+  | "reload" | "home" | "close" | "plus" | "info" | "warning" | "radio" | "rss" | "chat";
 
 function Folder({ g, tint = "#f6c958", badge }: { g: string; tint?: string; badge?: React.ReactNode }) {
   return (
@@ -330,6 +330,14 @@ export function Icon({ name, size = 32, title }: { name: IconName; size?: number
             <line x1="31" y1="20" x2="31" y2="27" stroke="#c0392b" strokeWidth="1.2" />
             <circle cx="30" cy="34" r="2.2" fill="#f5d06f" />
             <circle cx="36" cy="34" r="2.2" fill="#f5d06f" />
+          </>
+        );
+      case "chat":
+        return (
+          <>
+            <path d="M6 8 h28 a4 4 0 0 1 4 4 v14 a4 4 0 0 1-4 4 H18 l-8 7 v-7 H6 a4 4 0 0 1-4-4 V12 a4 4 0 0 1 4-4z" fill="#2c3e50" />
+            <text x="20" y="25" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#5fd38d" fontFamily="monospace">#</text>
+            <path d="M30 22 h12 a4 4 0 0 1 4 4 v10 a4 4 0 0 1-4 4 h-2 v6 l-7-6 h-3 a4 4 0 0 1-4-4z" fill="#5fd38d" />
           </>
         );
       case "rss":

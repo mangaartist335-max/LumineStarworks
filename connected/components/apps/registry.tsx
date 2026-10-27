@@ -19,6 +19,7 @@ const COMPONENTS: Record<string, LazyExoticComponent<ComponentType<AppProps>>> =
   music: lazy(() => import("./music/Music")),
   radio: lazy(() => import("./radio/Radio")),
   newsreader: lazy(() => import("./newsreader/NewsReader")),
+  chat: lazy(() => import("./chat/RelayChat")),
   video: lazy(() => import("./video/VideoPlayer")),
   notepad: lazy(() => import("./notepad/Notepad")),
   paint: lazy(() => import("./paint/Paint")),

@@ -21,6 +21,7 @@ export const APPS: Record<string, AppMeta> = {
   mail: { title: "Mail", icon: "mail", size: { w: 980, h: 640 }, singleInstance: true, start: "pinned", description: "Read and send email" },
   music: { title: "Music Player", icon: "music", size: { w: 760, h: 500 }, singleInstance: true, start: "programs", description: "Play your music" },
   radio: { title: "Radio", icon: "radio", size: { w: 780, h: 540 }, singleInstance: true, start: "programs", description: "Listen to local radio stations" },
+  chat: { title: "Relay Chat", icon: "chat", size: { w: 900, h: 560 }, singleInstance: true, start: "programs", description: "Chat in channels on irc.connectedera.local" },
   newsreader: { title: "News Reader", icon: "rss", size: { w: 980, h: 620 }, singleInstance: true, start: "programs", description: "Follow your favourite sites" },
   video: { title: "Video Player", icon: "video", size: { w: 780, h: 520 }, start: "programs", description: "Watch videos on your computer" },
   photos: { title: "Photo Viewer", icon: "photos", size: { w: 860, h: 620 }, start: "programs", description: "View pictures" },

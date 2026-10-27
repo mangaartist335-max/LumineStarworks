@@ -117,3 +117,29 @@ test("News Reader: feeds, finding them by address, and fetching only what's out"
   assert.equal(shownItems(later.items, Date.parse("2012-06-01T00:00:00Z")).length, first.items.length, "moving the clock back hides later items again");
   assert.equal(unreadIn(first.items, new Set([first.items[0].id])), first.items.length - 1);
 });
+
+test("Relay Chat: commands, nicknames and saved logs", async () => {
+  const { parseLine, validNick, describe, exportLog } = await import("../lib/irc");
+  assert.deepEqual(parseLine("hello there"), { kind: "say", text: "hello there" });
+  assert.deepEqual(parseLine("//not a command"), { kind: "say", text: "/not a command" });
+  assert.deepEqual(parseLine("/join anime"), { kind: "join", channel: "#anime" });
+  assert.equal(parseLine("/join #no spaces!")!.kind, "join");
+  assert.equal(parseLine("/join #bad!name")!.kind, "error");
+  assert.deepEqual(parseLine("/msg sky_kid hi!"), { kind: "msg", to: "sky_kid", text: "hi!" });
+  assert.deepEqual(parseLine("/away making tea"), { kind: "away", text: "making tea" });
+  assert.deepEqual(parseLine("/away"), { kind: "back" });
+  assert.deepEqual(parseLine("/kick bob too loud"), { kind: "kick", nick: "bob", reason: "too loud" });
+  assert.equal(parseLine("/dance")!.kind, "error");
+  assert.equal(parseLine("   "), null);
+  assert.ok(validNick("Sam_92") && !validNick("9lives") && !validNick("way_too_long_nickname"));
+  assert.equal(describe({ at: "", nick: "nadia", kind: "action", text: "waves" }), "* nadia waves");
+  const log = exportLog("#anime", [{ at: "2012-07-21T03:15:00Z", nick: "olivia_otaku", kind: "msg", text: "hi" }], () => "10:15 PM");
+  assert.equal(log, "Relay Chat log: #anime\n\n[10:15 PM] <olivia_otaku> hi\n");
+  const { archiveChannels, RESERVED_NICKS } = await import("../data/irc");
+  for (const c of archiveChannels) {
+    const at = c.log.map((l) => l.at);
+    assert.deepEqual(at, [...at].sort(), `${c.name} log in order`);
+    assert.ok(at.every((x) => x >= "2012-07-11" && x <= "2013-12-31T23:59"), `${c.name} log inside the era`);
+  }
+  assert.ok(RESERVED_NICKS.has("relayserv") && RESERVED_NICKS.has("techtom"));
+});
