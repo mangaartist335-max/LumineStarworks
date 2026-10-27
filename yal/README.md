@@ -116,7 +116,7 @@ The migration and seed were validated against PostgreSQL 16 with a stand-in for 
 
 ## Testing
 
-`npm test` runs 55 checks with Node's test runner. They cover:
+`npm test` runs 56 checks with Node's test runner. They cover:
 
 - **Time:** Saturday 25:58 broadcast notation, JST date handling, and clamping to the archive window.
 - **BBCode:** quotes, spoilers, lists, unclosed tags, literal HTML, and blocking `javascript:` links.

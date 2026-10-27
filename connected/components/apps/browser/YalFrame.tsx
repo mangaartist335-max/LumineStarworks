@@ -10,7 +10,9 @@ import { useSystem } from "@/components/system/system";
 import { useSite } from "@/components/sites/SiteContext";
 import { iso } from "@/lib/time";
 
-export const YAL_ORIGIN = process.env.NEXT_PUBLIC_YAL_ORIGIN ?? "http://localhost:3100";
+// Where the yal/ app is served. Set NEXT_PUBLIC_YAL_ORIGIN when it's hosted (see docs/DEPLOY_VERCEL.md);
+// a blank value or a trailing slash is fine.
+export const YAL_ORIGIN = (process.env.NEXT_PUBLIC_YAL_ORIGIN || "http://localhost:3100").trim().replace(/\/+$/, "");
 export const YAL_PUBLIC = "http://yal.connectedera.local";
 
 interface LocationMessage {
@@ -68,7 +70,8 @@ export function YalFrame() {
         <div className="special-page overlay">
           <h1>YourAnimeList isn&apos;t responding</h1>
           <p>
-            YAL runs as its own server. Start it with <code>npm run dev:all</code> (or <code>cd yal && npm run dev -- -p 3100</code>), then reload this page.
+            YAL runs as its own server, at <code>{YAL_ORIGIN}</code>. On your own computer, start it with <code>npm run dev:all</code> (or <code>cd yal && npm run dev -- -p 3100</code>), then reload this page.
+            If YAL is hosted somewhere else, set <code>NEXT_PUBLIC_YAL_ORIGIN</code> to its address and allow this site in YAL&apos;s <code>NEXT_PUBLIC_YAL_EMBED_ORIGINS</code>.
           </p>
         </div>
       )}

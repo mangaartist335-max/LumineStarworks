@@ -25,13 +25,13 @@ All results below are from this phase's final runs.
 
 | Check | Command | Result |
 | --- | --- | --- |
-| Desktop unit tests | `cd connected && npm test` | 31 passed, 0 failed |
+| Desktop unit tests | `cd connected && npm test` | 48 passed, 0 failed |
 | Desktop typecheck | `npm run typecheck` | clean |
 | Desktop lint | `npm run lint` | 0 errors, 20 style warnings (comma-expression shorthands and `<img>` for local pictures) |
 | Desktop production build | `npm run build` | succeeds |
 | First milestone, end to end | `npm run e2e` (with `npm run dev:all` running) | all 19 steps pass with no console errors |
-| Milestone on the production build | `next start -p 3200` + `BASE_URL=http://localhost:3200 npm run e2e` | steps 1-18 pass; step 19 (YAL in a frame) is blocked as designed, because YAL only allows framing from the origins in `NEXT_PUBLIC_YAL_EMBED_ORIGINS` (port 3000 by default) |
-| YAL unit tests | `cd yal && npm test` | 55 passed, 0 failed |
+| Milestone on production builds, set up like the Vercel deployment | YAL built with `NEXT_PUBLIC_YAL_EMBED_ORIGINS=http://localhost:3300/` on port 3400, the desktop built with `NEXT_PUBLIC_YAL_ORIGIN=http://localhost:3400/` on port 3300, then `BASE_URL=http://localhost:3300 YAL_URL=http://localhost:3400 npm run e2e` | all 19 steps pass with no console errors, including YAL inside the desktop's browser |
+| YAL unit tests | `cd yal && npm test` | 56 passed, 0 failed |
 | YAL typecheck | `cd yal && npx tsc --noEmit` | clean |
 
 The milestone test (`connected/scripts/e2e.cjs`) drives a real Chromium through: launch the desktop, open the browser, search MeTube, play a video (checks it is really playing), open a second tab, search MangaShelf, read to page 3, download a wallpaper, find it in Downloads, set it as the background, open Messenger, share the MeTube link, close everything, restart, and confirm that the bookmark, the downloaded file, the messages, the reading progress and the wallpaper are all still there. It then relaunches the whole browser on the same profile and checks again, exercises window controls (drag, resize, minimize, maximize, switch), posts on three community sites and opens YAL inside the browser.
@@ -130,3 +130,4 @@ These need a decision or material from outside this repository:
 - `connected/README.md`: running, testing and regenerating media.
 - `connected/CLAUDE.md`: conventions for working on the desktop.
 - `yal/README.md`: YourAnimeList, including the release-state controls.
+- `docs/DEPLOY_VERCEL.md`: putting the desktop and YAL online as two Vercel projects.

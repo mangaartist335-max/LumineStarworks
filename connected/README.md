@@ -28,6 +28,10 @@ Open http://localhost:3000, pick a name and a picture, and you're in.
 - Install **Star Courier** from Freeware Corner and play it from **Games**.
 - Change the date in **Control Panel > Date and Time** and see which sites, videos and chapters are around.
 
+## Put it online
+
+The desktop and YourAnimeList deploy to Vercel as two projects from this repository; [`../docs/DEPLOY_VERCEL.md`](../docs/DEPLOY_VERCEL.md) walks through it. The only setting the desktop needs is `NEXT_PUBLIC_YAL_ORIGIN`, the address where YAL is served (see `.env.example`).
+
 ## Scripts
 
 | Command | What it does |

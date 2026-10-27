@@ -16,11 +16,12 @@ export function storageMode(): "local" | "supabase" {
 /**
  * Origins allowed to show YAL inside a frame (the Connected Desktop browser).
  * Comma-separated; defaults to the desktop's local development addresses.
+ * Trailing slashes are dropped, so a pasted "https://example.vercel.app/" works.
  */
 export function embedOrigins(): string[] {
-  const raw = process.env.NEXT_PUBLIC_YAL_EMBED_ORIGINS ?? "http://localhost:3000,http://127.0.0.1:3000";
+  const raw = process.env.NEXT_PUBLIC_YAL_EMBED_ORIGINS?.trim() || "http://localhost:3000,http://127.0.0.1:3000";
   return raw
     .split(",")
-    .map((s) => s.trim())
+    .map((s) => s.trim().replace(/\/+$/, ""))
     .filter((s) => /^https?:\/\/[^\s/]+$/.test(s));
 }

@@ -20,6 +20,8 @@ This repository also contains two separate apps that share nothing with BuildBri
 - [`connected/`](connected/README.md): **Connected Desktop**, a 2012-2013 style computer that runs in the browser, with its own web archive, programs and games.
 - [`yal/`](yal/README.md): **YourAnimeList**, the anime database and forums shown inside the desktop's browser.
 
+To put those two online as their own Vercel projects (this app's deployment stays as it is), follow [`docs/DEPLOY_VERCEL.md`](docs/DEPLOY_VERCEL.md).
+
 Run both with `cd connected && npm run dev:all`. Status and open questions are in [`IMPLEMENTATION_STATUS.md`](IMPLEMENTATION_STATUS.md).
 
 ## Tech stack
