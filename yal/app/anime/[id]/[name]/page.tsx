@@ -182,6 +182,19 @@ export default async function AnimeOverview(props: PageProps<"/anime/[id]/[name]
           )}
         </div>
       </div>
+      {songs.some((s) => s.kind === "Theme") && (
+        <>
+          <h2 className="section-h">Theme Songs</h2>
+          {songs
+            .filter((s) => s.kind === "Theme")
+            .map((s) => (
+              <p key={s.title} className="small">
+                &quot;{s.title}&quot; by {s.artist}
+                {s.note && <span className="sub muted">{s.note}</span>}
+              </p>
+            ))}
+        </>
+      )}
 
       <h2 className="section-h">
         Characters &amp; Voice Actors

@@ -774,8 +774,9 @@ VIDEOS = [
         p, "Sinful Apex: Why the Finale Works",
         [
             ("The basics", ["Flow Pictures, 24 episodes", "Aired Aug 15, 2011 - Jan 23, 2012", "Directed by Kaihatsu Miura"]),
-            ("Why it works", ["Every episode moves the climb forward", "No filler, no recap episodes", "The tower lords each get a moment"]),
-            ("The music", ["LUNE as the singer Aria Moonbirth", "The ending song hits harder every week"]),
+            ("Why it works", ["Kaihatsu Miura's dense, no-padding pacing", "No filler, no recap episodes", "Flow Pictures' final marquee production"]),
+            ("The staff", ["Lio Haraguchi: characters and animation", "Yusuke Kagura: fight choreography", "Mirai Kanzaki: colour design"]),
+            ("The music", ["LUNE appears as the singer Aria Moonbirth"]),
         ],
         ((90, 30, 70), (30, 10, 30)), "Verdict: 9/10, go watch it!")),
     ("iron-to-requiem-first-impressions", lambda p: commentary(

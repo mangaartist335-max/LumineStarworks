@@ -43,10 +43,9 @@ Things to try:
 
 | Moment | What you see |
 | --- | --- |
-| Feb 1, 2012 | Glass Cathedral mid-season: three episodes aired, the next slot listed, later character twists hidden |
-| Aug 1, 2012 | Summer 2012 chart with Vacant Crown: Liminal War airing |
+| Jan 10, 2012 | Sinful Apex two weeks from the end: 22 episodes aired and the next slot listed |
 | Jan 24, 2012 03:00 | The Sinful Apex finale thread is half an hour old, with its first replies |
-| Dec 15, 2012 17:00 | Vacant Crown's finale has aired, but its discussion thread opens at 17:31 |
+| Feb 4, 2012 19:00 | The Flow Pictures rewatch club thread opens at 19:31; later posts appear as their dates arrive |
 | Jun 1, 2013 | Iron to Requiem mid-season |
 | Feb 1, 2012 (Recommendations board) | Fans looking for their next show after Sinful Apex's finale |
 
@@ -59,9 +58,8 @@ Members act in archive time too. Signing up while viewing Oct 24, 2013 gives you
 | Impact of Eden Episode 1, 2 and 3 discussion threads: 3,126 posts by 218 members across 158 archived pages, with avatars, ranks, join dates, post counts, quotes, spoilers and edit notes | **archived**: recovered from the reference pages |
 | Thread snapshots: reply/view totals, polls, "users viewing", hot subthreads | **archived**: shown only from their capture time |
 | Impact of Eden, Iron to Requiem and the Nightpolis Winter OVA: credits, cast, studios and dates | **documented**: from the established references; unknown facts are left blank |
-| Full entries for Sinful Apex, Zero Latitude, Skyfall Chronicle: Black Aegis, River of Sparks, Steelbound Testament, Glass Cathedral, Circuit Hearts: Reload, Vacant Crown: Liminal War, Ghost Eater, Azure Sorcerer and Neon Afterimage: synopses, five new studios, 21 staff, 44 characters, 138 episode titles, theme songs and scores | **reconstructed**: written around the documented facts and labelled on every page |
-| Japanese voice cast for those titles: 24 more real voice actors alongside the Impact of Eden cast | **reconstructed** casting, each actor placed only in shows that aired after their career began ([`docs/VOICE_CASTING.md`](docs/VOICE_CASTING.md)) |
-| 19 general and finale forum threads, 16 reviews, 9 recommendations, and the copy of 15 news posts | **reconstructed**: sample content written for the archive and labelled in every record |
+| Flow Pictures' earlier catalogue, 18 titles from Vacant Crown: Liminal War (2000) to Skyfall Chronicle: Black Aegis (2012), plus title entries for Ghost Eater, Destiny/Infinite, A Mystical Skyline/Finger and Azure Sorcerer | **documented**: from the Connected Era Master Bible (`../docs/bible/`). Year, format, the catalogue description, staff from its people registry and LUNE's songs. Episode titles, casts, air dates and most studio credits are pending |
+| General and episode forum threads, reviews, recommendations and news post copy for those titles | **reconstructed**: sample content written for the archive, using only the Bible's facts, and labelled in every record |
 | Archive members' anime lists | **derived**: from posting in episode threads |
 | Accounts, lists, replies, reviews and topics made by visitors | **member** |
 
@@ -82,7 +80,8 @@ The Nightpolis Winter OVA page follows the written brief: a separate 2005 OVA re
 - The Impact of Eden profile page (and its Episode 0 special) shows "Page coming soon" while it is being planned separately. Its episode threads, characters and staff pages are live, and links to its tabs lead to the coming-soon entry. Set `pagePlanned: false` on the entry in `data/anime.ts` to bring the generated profile back.
 - Impact of Eden episode records after Episode 3 are not archived. The episode list derives only the *next* weekly slot from the documented Saturday 25:58 schedule.
 - Nightpolis Winter has no documented release date, studio, staff, cast or episode count.
-- Destiny/Infinite, Blizzard Requiem, Pale Garden Reverie, Garden of Cinders and Iron Halo Brigade are listed with their documented credits only.
+- Catalogue titles show only what the Master Bible records. The Bible asks that its catalogue not be read as a studio-ownership list, so only Sinful Apex is credited to a studio (Flow Pictures).
+- LUNE's songs are listed under "Theme Songs" because the Bible doesn't say whether each one is an opening, ending or insert.
 - Posts inside each episode's "hot subthreads" were not recovered. Those threads exist from the snapshot onward with their archived reply totals.
 - Ranks stay "N/A" until at least three titles have archived scores.
 
@@ -117,7 +116,7 @@ The migration and seed were validated against PostgreSQL 16 with a stand-in for 
 
 ## Testing
 
-`npm test` runs 53 checks with Node's test runner. They cover:
+`npm test` runs 55 checks with Node's test runner. They cover:
 
 - **Time:** Saturday 25:58 broadcast notation, JST date handling, and clamping to the archive window.
 - **BBCode:** quotes, spoilers, lists, unclosed tags, literal HTML, and blocking `javascript:` links.
@@ -125,15 +124,15 @@ The migration and seed were validated against PostgreSQL 16 with a stand-in for 
 - **History rules:** the October 5 / 6 / 13 / 20 / 24 checkpoints from the brief, entry listing dates, the Nightpolis OVA staying separate, and no news ahead of the viewed date.
 - **Release state:** Impact of Eden records are kept but inactive by default, and no active text mentions it.
 - **Future phase (switched on per file):** the archive import and October checkpoints below, the planned Impact of Eden page and its dates.
-- **Catalogue:** every built-out entry having a full page's data, established facts surviving the build-out, 2012–2013 seasons filling in only as shows are listed and aired, and every voice actor's career having started before the shows they're cast in.
+- **Catalogue:** every Bible title listed with its year and format, staff credits matching the people registry exactly, LUNE's songs, Sinful Apex's dates and episode count, no invented studios, casts or scores, and Sinful Apex filling in week by week.
 - **Seed consistency:** every reference resolves, credits match the brief, no back-catalogue title is credited to Studio Burst, reconstructed authors had already joined, and nothing is dated after 2013.
 
 Walkthrough, scripted as `npm run e2e` (Playwright, against a running server):
 
 1. Sign up, check that Impact of Eden is held back (its pages 404 and search finds nothing), then add Sinful Apex to your list and edit progress, score, dates and notes.
-2. In the Sinful Apex finale thread: open a spoiler, switch to Newest First, quote a post, reply with BBCode, follow the Vacant Crown finale thread, and report a post.
-3. Write a Zero Latitude review, start a topic, and favourite a character.
-4. Travel to Jan 24, 2012 01:00 JST and confirm the Sinful Apex finale thread is hidden, and to Jan 5, 2012 to confirm Glass Cathedral shows "Not yet aired" with no score or opening theme. Then travel to before your join date and confirm you can't post.
+2. In the Sinful Apex finale thread: open a spoiler, switch to Newest First, quote a post, reply with BBCode, follow the rewatch club thread, and report a post.
+3. Write a Zero Latitude review, start a topic, and favourite Aria Moonbirth.
+4. Travel to Jan 24, 2012 01:00 JST and confirm the Sinful Apex finale thread is hidden, to Jan 10, 2012 to see Sinful Apex still airing, and to Feb 4, 2012 to watch the rewatch club thread appear at 19:31. Then travel to before your join date and confirm you can't post.
 
 ## Screenshot comparison
 

@@ -16,21 +16,21 @@ type Shot = { name: string; path: string; asof: string; full?: boolean; width?: 
 
 const SHOTS: Shot[] = [
   { name: "01-sinful-apex-finale-thread", path: "/forum/thread/t-21990", asof: "2013-10-24T12:00" },
-  { name: "02-glass-cathedral-finale-thread", path: "/forum/thread/t-24410", asof: "2013-10-24T12:00" },
+  { name: "02-rewatch-club-thread", path: "/forum/thread/t-22310", asof: "2013-10-24T12:00" },
   { name: "03-iron-to-requiem", path: "/anime/16592/Iron_to_Requiem", asof: "2013-06-01T12:00", full: true },
   { name: "04-sinful-apex", path: "/anime/10380/Sinful_Apex", asof: "2013-10-24T12:00", full: true },
-  { name: "05-character-nico-vale", path: "/character/124/Nico_Vale", asof: "2013-10-24T12:00" },
+  { name: "05-character-aria-moonbirth", path: "/character/126/Aria_Moonbirth", asof: "2013-10-24T12:00" },
   { name: "06-home", path: "/", asof: "2013-10-24T12:00", full: true },
   { name: "07-spring-2013", path: "/anime/season/2013/spring", asof: "2013-05-01T12:00" },
   { name: "08-company-flow-pictures", path: "/company/2/Flow_Pictures", asof: "2013-10-24T12:00" },
   { name: "09-forums", path: "/forum", asof: "2013-10-24T12:00" },
   { name: "10-finale-thread-at-0300", path: "/forum/thread/t-21990", asof: "2012-01-24T03:00" },
-  { name: "11-glass-cathedral-before-premiere", path: "/anime/4407/Glass_Cathedral", asof: "2012-01-05T12:00" },
+  { name: "11-sinful-apex-mid-run", path: "/anime/10380/Sinful_Apex", asof: "2012-01-10T12:00" },
   { name: "12-thread-mobile", path: "/forum/thread/t-21990", asof: "2013-10-24T12:00", width: 390 },
   { name: "13-about-the-archive", path: "/timemachine", asof: "2013-10-24T12:00" },
   { name: "14-vacant-crown", path: "/anime/9871/Vacant_Crown__Liminal_War", asof: "2013-10-24T12:00", full: true },
-  { name: "15-summer-2012", path: "/anime/season/2012/summer", asof: "2012-08-01T12:00" },
-  { name: "16-vacant-crown-finale-thread", path: "/forum/thread/t-28655", asof: "2013-10-24T12:00" },
+  { name: "15-people-lune", path: "/people/14/LUNE", asof: "2013-10-24T12:00" },
+  { name: "16-lune-appreciation-thread", path: "/forum/thread/t-21998", asof: "2013-10-24T12:00" },
 ];
 
 // Impact of Eden belongs to a later development phase. Its reference shots

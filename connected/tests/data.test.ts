@@ -21,7 +21,7 @@ const within = (iso: string) => Date.parse(iso) >= Date.parse(ERA_START) && Date
 
 test("search documents have unique ids, archive addresses and era dates", () => {
   const docs = buildSearchDocs();
-  assert.ok(docs.length > 250);
+  assert.ok(docs.length > 150, `only ${docs.length} documents`);
   const ids = new Set<string>();
   for (const d of docs) {
     assert.ok(!ids.has(d.id), `duplicate id ${d.id}`);

@@ -77,11 +77,11 @@ export default async function TimeMachinePage() {
                 </tr>
                 <tr>
                   <td>
-                    Full entries for Sinful Apex, Zero Latitude, Skyfall Chronicle, River of Sparks, Steelbound Testament, Glass Cathedral, Circuit Hearts:
-                    Reload, Vacant Crown, Ghost Eater, Azure Sorcerer and Neon Afterimage
+                    Flow Pictures&apos; earlier catalogue (Vacant Crown: Liminal War to Skyfall Chronicle: Black Aegis), Sinful Apex, and the older titles Ghost Eater,
+                    Destiny/Infinite, A Mystical Skyline/Finger and Azure Sorcerer
                   </td>
                   <td>
-                    <span className="tag gold">reconstructed</span> written around the documented facts (studios, dates, directors and other established credits)
+                    <span className="tag teal">documented</span> from the Connected Era Master Bible: years, formats, descriptions, staff connections and LUNE&apos;s songs; everything else is pending
                   </td>
                 </tr>
                 <tr>
@@ -121,7 +121,8 @@ export default async function TimeMachinePage() {
                 ) : (
                   <li>{FUTURE_PHASES[IOE_PHASE]}: held back from this version of the archive.</li>
                 )}
-                <li>Destiny/Infinite, Blizzard Requiem, Pale Garden Reverie, Garden of Cinders and Iron Halo Brigade are listed with their documented credits only.</li>
+                <li>Catalogue titles are listed with what the Master Bible records. Episode titles, casts, air dates and most studio credits are still to come.</li>
+                <li>Ghost Eater, Destiny/Infinite, A Mystical Skyline/Finger and Azure Sorcerer have title entries only, as the Bible asks.</li>
                 <li>Posts inside the &quot;hot subthreads&quot; listed in each episode thread were not recovered.</li>
               </ul>
             </div>
@@ -133,10 +134,10 @@ export default async function TimeMachinePage() {
             <div className="side-body">
               <ul>
                 <li>
-                  <Link href="/anime/4407/Glass_Cathedral?asof=2012-02-01">Feb 1, 2012</Link> &mdash; Glass Cathedral mid-season
+                  <Link href="/anime/10380/Sinful_Apex?asof=2012-01-10">Jan 10, 2012</Link> &mdash; Sinful Apex, two episodes from the end
                 </li>
                 <li>
-                  <Link href="/anime/season/2012/summer?asof=2012-08-01">Aug 1, 2012</Link> &mdash; Summer 2012 chart
+                  <Link href="/forum/thread/t-22310?asof=2012-03-20">Mar 20, 2012</Link> &mdash; the Flow Pictures rewatch club
                 </li>
                 {ioe ? (
                   <>

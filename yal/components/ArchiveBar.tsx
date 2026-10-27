@@ -7,7 +7,7 @@ import { active, IOE_PHASE, type FuturePhase } from "@/data/release";
 const JUMPS = active<{ label: string; at: string; title: string; phase?: FuturePhase }>([
   { label: "Jan 1, 2012", at: "2012-01-01T12:00:00+09:00", title: "the start of the archive" },
   { label: "Jan 24, 2012", at: "2012-01-24T12:00:00+09:00", title: "the morning after the Sinful Apex finale" },
-  { label: "Jul 7, 2012", at: "2012-07-07T19:00:00+09:00", title: "Vacant Crown: Liminal War premieres" },
+  { label: "Feb 4, 2012", at: "2012-02-04T21:00:00+09:00", title: "the Flow Pictures rewatch club starts" },
   { label: "Apr 4, 2013", at: "2013-04-04T23:00:00+09:00", title: "Iron to Requiem premieres" },
   { label: "Sep 15, 2013", at: "2013-09-15T12:00:00+09:00", title: "Impact of Eden joins the Fall chart", phase: IOE_PHASE },
   { label: "Sep 27, 2013", at: "2013-09-27T12:00:00+09:00", title: "the day after the Iron to Requiem finale" },

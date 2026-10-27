@@ -28,11 +28,11 @@ const establishedCompanies: Company[] = [
     about:
       phaseText(
         IOE_PHASE,
-        "Japanese animation studio. Its late-era cinematic unit produced Sinful Apex (2011–2012), the production often described as the studio's \"final breath\". Studio Burst was formed out of that unit.",
-        "Japanese animation studio. Its late-era cinematic unit produced Sinful Apex (2011–2012), the production often described as the studio's \"final breath\".",
+        "Japanese animation studio. Its catalogue runs from Vacant Crown: Liminal War (2000) through River of Sparks, Skyfall Chronicle, Steelbound Testament and Blizzard Requiem to Rust Veil Junction and Skyfall Chronicle: Black Aegis (2012). Its late-era cinematic unit produced Sinful Apex (2011–2012), the studio's final marquee production, and went on to form Studio Burst.",
+        "Japanese animation studio. Its catalogue runs from Vacant Crown: Liminal War (2000) through River of Sparks, Skyfall Chronicle, Steelbound Testament and Blizzard Requiem to Rust Veil Junction and Skyfall Chronicle: Black Aegis (2012). Its late-era cinematic unit produced Sinful Apex (2011–2012), the studio's final marquee production, often described as its \"final breath\".",
       ),
     visibleFrom: null,
-    sources: [SRC.brief, SRC.aniFanWiki, SRC.aniWirePremiere],
+    sources: [SRC.bibleCatalogue, SRC.bibleFranchise, SRC.brief, SRC.aniFanWiki, SRC.aniWirePremiere],
   },
   {
     id: 3,
@@ -117,20 +117,20 @@ const establishedPeople: Person[] = [
     occupations: ["Director"],
     about: phaseText(
       IOE_PHASE,
-      "Director known for dense, no-padding pacing. Directed Sinful Apex at Flow Pictures before moving to Studio Burst for Impact of Eden.",
-      "Director known for dense, no-padding pacing. Directed Sinful Apex at Flow Pictures.",
+      "Director and studio founder known for dense, no-padding pacing. Directed Skyfall Chronicle, Zero Latitude and Sinful Apex at Flow Pictures before founding Studio Burst for Impact of Eden.",
+      "Director known for dense, no-padding pacing. Directed Skyfall Chronicle, Zero Latitude and Sinful Apex.",
     ),
     visibleFrom: null,
-    sources: [SRC.brief, SRC.sakugaThread, SRC.yalEp1Page4],
+    sources: [SRC.biblePeople, SRC.brief, SRC.sakugaThread, SRC.yalEp1Page4],
   },
   {
     id: 3,
     slug: "Keito_Kisaragi",
     name: "Keito Kisaragi",
     occupations: ["Series composition", "Writer"],
-    about: "Writer known for emotional through-lines and political tension.",
+    about: "Writer known for emotional through-lines and political tension. Wrote Steelbound Testament, Pale Garden Reverie and Blizzard Requiem.",
     visibleFrom: null,
-    sources: [SRC.brief, SRC.yalEp1Page4],
+    sources: [SRC.biblePeople, SRC.brief, SRC.yalEp1Page4],
   },
   {
     id: 4,
@@ -139,7 +139,7 @@ const establishedPeople: Person[] = [
     occupations: ["Character designer", "Chief animation director"],
     about: "Character designer and chief animation director. Known for keeping faces on-model during chaotic action.",
     visibleFrom: null,
-    sources: [SRC.brief, SRC.aniFanWiki, SRC.yalEp1Page4],
+    sources: [SRC.biblePeople, SRC.brief, SRC.aniFanWiki, SRC.yalEp1Page4],
   },
   {
     id: 5,
@@ -152,7 +152,7 @@ const establishedPeople: Person[] = [
       "Storyboard artist known for long-take action and silhouette-driven fight layouts.",
     ),
     visibleFrom: null,
-    sources: [SRC.brief, SRC.sakugaThread, SRC.aniWirePremiere],
+    sources: [SRC.biblePeople, SRC.brief, SRC.sakugaThread, SRC.aniWirePremiere],
   },
   {
     id: 6,
@@ -169,7 +169,7 @@ const establishedPeople: Person[] = [
     name: "Mirai Kanzaki",
     occupations: ["Color designer"],
     visibleFrom: null,
-    sources: [SRC.brief, SRC.aniFanWiki],
+    sources: [SRC.biblePeople, SRC.brief, SRC.aniFanWiki],
   },
   {
     id: 8,
@@ -177,7 +177,7 @@ const establishedPeople: Person[] = [
     name: "Aoi Tachikaze",
     occupations: ["Sound director", "Audio editor"],
     visibleFrom: null,
-    sources: [SRC.brief, SRC.aniFanWiki],
+    sources: [SRC.biblePeople, SRC.brief, SRC.aniFanWiki],
   },
   {
     id: 9,
@@ -186,7 +186,7 @@ const establishedPeople: Person[] = [
     occupations: ["Action choreographer"],
     about: "Action choreographer known for tactically readable fights.",
     visibleFrom: null,
-    sources: [SRC.brief, SRC.yalEp1Page4],
+    sources: [SRC.biblePeople, SRC.brief, SRC.yalEp1Page4],
   },
   {
     id: 10,
@@ -229,10 +229,11 @@ const establishedPeople: Person[] = [
     id: 14,
     slug: "LUNE",
     name: "LUNE",
-    occupations: ["Singer"],
-    about: "Singer. Appeared in Sinful Apex as the fictional singer Aria Moonbirth.",
+    occupations: ["Singer", "Songwriter"],
+    about:
+      "Lena Moonlight, who performs as LUNE, is an independent singer-songwriter. She debuted professionally in 2006 at age 13 and has sung for several Flow Pictures productions, and she appeared as the singer Aria Moonbirth in Sinful Apex.",
     visibleFrom: null,
-    sources: [SRC.archiveBrief],
+    sources: [SRC.bibleMusic, SRC.bibleFranchise],
   },
   // Japanese voice cast of Impact of Eden (2013)
   { id: 20, slug: "Mariya_Ise", name: "Mariya Ise", nativeName: "伊瀬茉莉也", occupations: ["Voice actor"], visibleFrom: null, sources: [SRC.aniFanWiki] },
@@ -251,8 +252,13 @@ const establishedPeople: Person[] = [
 ];
 
 // Companies and people that exist only through Impact of Eden.
-const IOE_COMPANIES = new Set([1, 4]); // Studio Burst, AniBlex
-const IOE_PEOPLE = new Set([1, 11, 12]); // Natsuki Takuya, Tsubasa Aramaki, Junpei Oikawa
+const IOE_COMPANIES = new Set([1, 4, 8, 9]); // Studio Burst, AniBlex, VBS/KBS, Sony Music Japan
+const IOE_PEOPLE = new Set([
+  1, 11, 12, // Natsuki Takuya, Tsubasa Aramaki, Junpei Oikawa
+  6, // Naochi Sumikuro (art director)
+  13, // Takanori Nishikawa
+  20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, // the Japanese voice cast
+]);
 
 export const allCompanies: Company[] = [...establishedCompanies, ...catalogueCompanies].map((c) => (IOE_COMPANIES.has(c.id) ? { ...c, phase: IOE_PHASE } : c));
 export const allPeople: Person[] = [...establishedPeople, ...cataloguePeople].map((p) => (IOE_PEOPLE.has(p.id) ? { ...p, phase: IOE_PHASE } : p));

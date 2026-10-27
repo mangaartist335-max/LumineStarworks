@@ -53,786 +53,287 @@ insert into public.seasons (year, season, starts_at) values
   (2014, 'fall', '2014-09-30T15:00:00.000Z')
 on conflict do nothing;
 
--- companies: 12 rows
+-- companies: 5 rows
 
 insert into public.companies (id, slug, name, kinds, about, founded_note, visible_from, sources) values
-  (2, 'Flow_Pictures', 'Flow Pictures', array['Studio']::text[], 'Japanese animation studio. Its late-era cinematic unit produced Sinful Apex (2011–2012), the production often described as the studio''s "final breath".', null, null, array['Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)', 'AniWire premiere review (Oct 6, 2013)']::text[]),
+  (2, 'Flow_Pictures', 'Flow Pictures', array['Studio']::text[], 'Japanese animation studio. Its catalogue runs from Vacant Crown: Liminal War (2000) through River of Sparks, Skyfall Chronicle, Steelbound Testament and Blizzard Requiem to Rust Veil Junction and Skyfall Chronicle: Black Aegis (2012). Its late-era cinematic unit produced Sinful Apex (2011–2012), the studio''s final marquee production, often described as its "final breath".', null, null, array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 16: franchise registry', 'Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)', 'AniWire premiere review (Oct 6, 2013)']::text[]),
   (3, 'CHAOS_Home', 'CHAOS Home', array['Studio']::text[], 'Japanese animation studio. Produced Iron to Requiem (2013).', null, null, array['Lumine StarWorks YAL development brief (established production data)']::text[]),
   (5, 'Funmaxation', 'Funmaxation', array['Licensor', 'Distributor']::text[], 'North American licensor and home video distributor.', null, null, array['AniFanWiki article (last edited Oct 8, 2013)', 'AniWire premiere review (Oct 6, 2013)']::text[]),
   (6, 'MunchyRoll', 'MunchyRoll', array['Streaming']::text[], 'International anime streaming service offering subtitled simulcasts.', null, null, array['AniFanWiki article (last edited Oct 8, 2013)', 'MunchyRoll catalogue page (2013)']::text[]),
-  (7, 'AdultDrift', 'AdultDrift', array['Broadcaster']::text[], 'English-language television broadcaster with an anime programming block.', null, null, array['AniFanWiki article (last edited Oct 8, 2013)', 'AdultDrift programme page (2013)']::text[]),
-  (8, 'VBS_KBS', 'VBS/KBS', array['Broadcaster']::text[], 'Japanese television broadcaster.', null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (9, 'Sony_Music_Japan', 'Sony Music Japan', array['Record label']::text[], 'Record label.', null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (10, 'Arc_Meridian', 'Arc Meridian', array['Studio']::text[], 'Animation studio known for large-scale sci-fi and fantasy productions, from aerial mecha battles to two-cour war epics.', null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (11, 'Studio_Kinemachi', 'Studio Kinemachi', array['Studio']::text[], 'Animation studio with a reputation for quiet, carefully paced mystery and drama series.', null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (12, 'Tsukiyo_Pictures', 'Tsukiyo Pictures', array['Studio']::text[], 'Animation studio specialising in late-night action, with a strong in-house layout and choreography team.', null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (13, 'Ashgrove_Animation', 'Ashgrove Animation', array['Studio']::text[], 'Animation studio known for bright, comedic fantasy and supernatural series.', null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (14, 'Studio_Pulsewave', 'Studio Pulsewave', array['Studio']::text[], 'Animation studio focused on music-driven productions and concert animation.', null, null, array['Written for the Lumine StarWorks reconstruction']::text[])
+  (7, 'AdultDrift', 'AdultDrift', array['Broadcaster']::text[], 'English-language television broadcaster with an anime programming block.', null, null, array['AniFanWiki article (last edited Oct 8, 2013)', 'AdultDrift programme page (2013)']::text[])
 on conflict do nothing;
 
--- people: 69 rows
+-- people: 10 rows
 
 insert into public.people (id, slug, name, native_name, occupations, about, visible_from, sources) values
-  (2, 'Kaihatsu_Miura', 'Kaihatsu Miura', null, array['Director']::text[], 'Director known for dense, no-padding pacing. Directed Sinful Apex at Flow Pictures.', null, array['Lumine StarWorks YAL development brief (established production data)', 'SakugaThread megathread (Oct 6, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
-  (3, 'Keito_Kisaragi', 'Keito Kisaragi', null, array['Series composition', 'Writer']::text[], 'Writer known for emotional through-lines and political tension.', null, array['Lumine StarWorks YAL development brief (established production data)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
-  (4, 'Lio_Haraguchi', 'Lio Haraguchi', null, array['Character designer', 'Chief animation director']::text[], 'Character designer and chief animation director. Known for keeping faces on-model during chaotic action.', null, array['Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
-  (5, 'Tomoe_Suzuhara', 'Tomoe Suzuhara', null, array['Storyboard artist']::text[], 'Storyboard artist known for long-take action and silhouette-driven fight layouts.', null, array['Lumine StarWorks YAL development brief (established production data)', 'SakugaThread megathread (Oct 6, 2013)', 'AniWire premiere review (Oct 6, 2013)']::text[]),
-  (6, 'Naochi_Sumikuro', 'Naochi Sumikuro', null, array['Art director']::text[], 'Art director (backgrounds and settings).', null, array['Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (7, 'Mirai_Kanzaki', 'Mirai Kanzaki', null, array['Color designer']::text[], null, null, array['Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (8, 'Aoi_Tachikaze', 'Aoi Tachikaze', null, array['Sound director', 'Audio editor']::text[], null, null, array['Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (9, 'Yusuke_Kagura', 'Yusuke Kagura', null, array['Action choreographer']::text[], 'Action choreographer known for tactically readable fights.', null, array['Lumine StarWorks YAL development brief (established production data)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
+  (2, 'Kaihatsu_Miura', 'Kaihatsu Miura', null, array['Director']::text[], 'Director known for dense, no-padding pacing. Directed Skyfall Chronicle, Zero Latitude and Sinful Apex.', null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'SakugaThread megathread (Oct 6, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
+  (3, 'Keito_Kisaragi', 'Keito Kisaragi', null, array['Series composition', 'Writer']::text[], 'Writer known for emotional through-lines and political tension. Wrote Steelbound Testament, Pale Garden Reverie and Blizzard Requiem.', null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
+  (4, 'Lio_Haraguchi', 'Lio Haraguchi', null, array['Character designer', 'Chief animation director']::text[], 'Character designer and chief animation director. Known for keeping faces on-model during chaotic action.', null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
+  (5, 'Tomoe_Suzuhara', 'Tomoe Suzuhara', null, array['Storyboard artist']::text[], 'Storyboard artist known for long-take action and silhouette-driven fight layouts.', null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'SakugaThread megathread (Oct 6, 2013)', 'AniWire premiere review (Oct 6, 2013)']::text[]),
+  (7, 'Mirai_Kanzaki', 'Mirai Kanzaki', null, array['Color designer']::text[], null, null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)']::text[]),
+  (8, 'Aoi_Tachikaze', 'Aoi Tachikaze', null, array['Sound director', 'Audio editor']::text[], null, null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'AniFanWiki article (last edited Oct 8, 2013)']::text[]),
+  (9, 'Yusuke_Kagura', 'Yusuke Kagura', null, array['Action choreographer']::text[], 'Action choreographer known for tactically readable fights.', null, array['Connected Era Master Bible v1.0, ch. 18: people registry', 'Lumine StarWorks YAL development brief (established production data)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[]),
   (10, 'Hiroyuki_Sawano', 'Hiroyuki Sawano', '澤野弘之', array['Composer']::text[], null, null, array['Lumine StarWorks YAL development brief (established production data)']::text[]),
-  (13, 'Takanori_Nishikawa', 'Takanori Nishikawa', '西川貴教', array['Singer']::text[], 'Singer who performs as T.M.Revolution.', null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (14, 'LUNE', 'LUNE', null, array['Singer']::text[], 'Singer. Appeared in Sinful Apex as the fictional singer Aria Moonbirth.', null, array['Lumine StarWorks Anime Industry Archive brief (established chronology)']::text[]),
-  (20, 'Mariya_Ise', 'Mariya Ise', '伊瀬茉莉也', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (21, 'Nobuhiko_Okamoto', 'Nobuhiko Okamoto', '岡本信彦', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (22, 'Kana_Hanazawa', 'Kana Hanazawa', '花澤香菜', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (23, 'Kaito_Ishikawa', 'Kaito Ishikawa', '石川界人', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (24, 'Saori_Hayami', 'Saori Hayami', '早見沙織', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (25, 'Rina_Satou', 'Rina Satou', '佐藤利奈', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (26, 'Hiro_Shimono', 'Hiro Shimono', '下野紘', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (27, 'Hiroshi_Kamiya', 'Hiroshi Kamiya', '神谷浩史', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (28, 'Ayane_Sakura', 'Ayane Sakura', '佐倉綾音', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (29, 'Kishou_Taniyama', 'Kishou Taniyama', '谷山紀章', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (30, 'Yui_Ishikawa', 'Yui Ishikawa', '石川由依', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (31, 'Yoshimasa_Hosoya', 'Yoshimasa Hosoya', '細谷佳正', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (32, 'Tasuku_Hatanaka', 'Tasuku Hatanaka', '畠中祐', array['Voice actor']::text[], null, null, array['AniFanWiki article (last edited Oct 8, 2013)']::text[]),
-  (40, 'Haruomi_Sendo', 'Haruomi Sendo', null, array['Director']::text[], 'Director at Arc Meridian, known for aerial combat and sweeping ensemble war stories.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (41, 'Mizuki_Tobe', 'Mizuki Tobe', null, array['Series composition', 'Writer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (42, 'Kazane_Ichijo', 'Kazane Ichijo', null, array['Composer']::text[], 'Composer of orchestral, choir-heavy scores.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (43, 'Riku_Asahina', 'Riku Asahina', null, array['Character designer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (44, 'Tamaki_Hoshino', 'Tamaki Hoshino', null, array['Series composition', 'Writer']::text[], 'Writer of slow-burn mysteries, often in collaboration with Studio Kinemachi.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (45, 'Yoshiro_Kanda', 'Yoshiro Kanda', null, array['Composer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (46, 'Chie_Morisawa', 'Chie Morisawa', null, array['Director']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (47, 'Sayo_Kuramoto', 'Sayo Kuramoto', null, array['Character designer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (48, 'Ren_Okado', 'Ren Okado', null, array['Layout artist', 'Animator']::text[], 'Layout artist known for silhouette readability in fast action, a skill fans trace back to Neon Afterimage.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (49, 'Daichi_Murase', 'Daichi Murase', null, array['Director']::text[], 'Director at Tsukiyo Pictures.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (50, 'Emi_Takatsuki', 'Emi Takatsuki', null, array['Composer']::text[], 'Composer mixing electronic beats with traditional instruments.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (51, 'Kouhei_Narumi', 'Kouhei Narumi', null, array['Series composition', 'Writer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (52, 'Shizuka_Ogura', 'Shizuka Ogura', null, array['Director']::text[], 'Director at Ashgrove Animation, known for comedic timing.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (53, 'Hinako_Sera', 'Hinako Sera', null, array['Character designer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (54, 'Akito_Kurose', 'Akito Kurose', null, array['Composer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (55, 'Shiori_Amane', 'Shiori Amane', null, array['Director']::text[], 'Director of concert-driven animation at Studio Pulsewave.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (56, 'Ken_Mizushiro', 'Ken Mizushiro', null, array['Composer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (57, 'Yuuto_Hayasaka', 'Yuuto Hayasaka', null, array['Series composition', 'Writer']::text[], null, null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (58, 'Mai_Kisaki', 'Mai Kisaki', null, array['Character designer']::text[], 'Character designer from Flow Pictures'' cinematic unit.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (59, 'Takuma_Saeki', 'Takuma Saeki', null, array['Composer']::text[], 'Composer for Flow Pictures'' cinematic unit.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (60, 'Aki_Fujisawa', 'Aki Fujisawa', null, array['Director']::text[], 'Film director from Flow Pictures'' cinematic unit.', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (61, 'Rie_Kugimiya', 'Rie Kugimiya', '釘宮理恵', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (62, 'Tesshou_Genda', 'Tesshou Genda', '玄田哲章', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (63, 'Miyuki_Sawashiro', 'Miyuki Sawashiro', '沢城みゆき', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (64, 'Jouji_Nakata', 'Jouji Nakata', '中田譲治', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (65, 'Mamoru_Miyano', 'Mamoru Miyano', '宮野真守', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (66, 'Romi_Park', 'Romi Park', '朴璐美', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (67, 'Yuuichi_Nakamura', 'Yuuichi Nakamura', '中村悠一', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (68, 'Rikiya_Koyama', 'Rikiya Koyama', '小山力也', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (69, 'Toshiyuki_Morikawa', 'Toshiyuki Morikawa', '森川智之', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (70, 'Sayaka_Oohara', 'Sayaka Oohara', '大原さやか', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (71, 'Maaya_Sakamoto', 'Maaya Sakamoto', '坂本真綾', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (72, 'Norio_Wakamoto', 'Norio Wakamoto', '若本規夫', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (73, 'Youko_Hikasa', 'Youko Hikasa', '日笠陽子', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (74, 'Mamiko_Noto', 'Mamiko Noto', '能登麻美子', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (75, 'Daisuke_Ono', 'Daisuke Ono', '小野大輔', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (76, 'Kenyuu_Horiuchi', 'Kenyuu Horiuchi', '堀内賢雄', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (77, 'Haruka_Tomatsu', 'Haruka Tomatsu', '戸松遥', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (78, 'Yuuki_Kaji', 'Yuuki Kaji', '梶裕貴', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (79, 'Junichi_Suwabe', 'Junichi Suwabe', '諏訪部順一', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (80, 'Jun_Fukuyama', 'Jun Fukuyama', '福山潤', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (81, 'Akio_Ootsuka', 'Akio Ootsuka', '大塚明夫', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (82, 'Ami_Koshimizu', 'Ami Koshimizu', '小清水亜美', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (83, 'Yoshitsugu_Matsuoka', 'Yoshitsugu Matsuoka', '松岡禎丞', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[]),
-  (84, 'Kikuko_Inoue', 'Kikuko Inoue', '井上喜久子', array['Voice actor']::text[], null, null, array['Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired']::text[])
+  (14, 'LUNE', 'LUNE', null, array['Singer', 'Songwriter']::text[], 'Lena Moonlight, who performs as LUNE, is an independent singer-songwriter. She debuted professionally in 2006 at age 13 and has sung for several Flow Pictures productions, and she appeared as the singer Aria Moonbirth in Sinful Apex.', null, array['Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]', 'Connected Era Master Bible v1.0, ch. 16: franchise registry']::text[]),
+  (15, 'Rento_Shibasaki', 'Rento Shibasaki', null, array['Composer']::text[], 'Composer. Scored Vacant Crown: Liminal War and Steelbound Testament.', null, array['Connected Era Master Bible v1.0, ch. 18: people registry']::text[])
 on conflict do nothing;
 
--- anime: 17 rows
+-- anime: 23 rows
 
 insert into public.anime (id, slug, title, title_japanese, title_romaji, synonyms, type, episodes_planned, aired_from, aired_to, release_year, release_note, weekly_from, premiered_season, premiered_year, broadcast, source, duration, rating, synopsis, synopsis_source, cover_url, franchise_slug, visible_from, provenance, sources, archive_notes, page_planned) values
-  (16592, 'Iron_to_Requiem', 'Iron to Requiem', null, null, array['Iron to Requiem Season 1']::text[], 'TV', 26, '2013-04-03T15:00:00Z', '2013-09-25T15:00:00Z', 2013, null, null, 'spring', 2013, 'Thursdays (time not documented)', null, null, null, null, null, null, 'iron-to-requiem', '2013-04-03T15:00:00Z', 'documented', array['Lumine StarWorks YAL development brief (established production data)', 'Lumine StarWorks Anime Industry Archive brief (established chronology)']::text[], array['YAL''s listing date for this entry is not documented, so the archive shows it from its premiere.', 'Source material, genres, synopsis and other staff credits have not been documented.']::text[], false),
-  (3390, 'Azure_Sorcerer', 'Azure Sorcerer', '蒼の魔術師', 'Ao no Majutsushi', '{}'::text[], 'TV', 13, '2006-10-04T09:00:00Z', '2006-12-27T09:00:00.000Z', 2006, null, null, 'fall', 2006, 'Wednesdays at 18:00 (JST)', 'Original', '24 min. per ep.', 'PG - Children', 'In the floating city of Celestine, magic is graded by color, and blue, the faintest shade, is a punchline. Apprentice Rio Ashby is the only blue-ranked sorcerer ever admitted to the Spire Academy, mostly by accident. When the city''s ancient Wind Engine starts to falter, Rio discovers that blue magic isn''t weak at all: it''s the only kind the engine can hear. With a sharp-tongued crimson-ranked rival and a librarian who knows too much, Rio sets out to keep Celestine in the sky.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['Lumine StarWorks YAL development brief (established production data)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (6230, 'Neon_Afterimage', 'Neon Afterimage', 'ネオン・アフターイメージ', 'Neon Afutāimēji', '{}'::text[], 'TV', 12, '2008-04-03T17:00:00Z', '2008-06-19T17:00:00.000Z', 2008, null, null, 'spring', 2008, 'Thursdays at 26:00 (JST)', 'Original', '24 min. per ep.', 'PG-13 - Teens 13 or older', 'Neo-Kanazawa, 2081. Bike courier Jin Kurogane can see afterimages, the trails of light people leave in the city''s neon for exactly thirty seconds. When a delivery goes wrong and his client vanishes in the middle of a crowded street, the only witness is her afterimage, still running. Teaming up with Mei Sakaki, a hacker who runs her business out of a ramen stall, Jin chases a thirty-second trail across a city that never turns its lights off.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['YAL episode discussion staff-credit roundup (Oct 2013)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (5120, 'Skyfall_Chronicle__Black_Aegis', 'Skyfall Chronicle: Black Aegis', 'スカイフォール・クロニクル 黒のイージス', 'Sukaifōru Kuronikuru: Kuro no Ījisu', array['Skyfall Chronicle']::text[], 'TV', 13, '2009-04-04T08:30:00Z', '2009-06-27T08:30:00.000Z', 2009, null, null, 'spring', 2009, 'Saturdays at 17:30 (JST)', 'Original', '24 min. per ep.', 'PG-13 - Teens 13 or older', 'When the sky above the island nation of Aldera cracks open, armored Aegis frames are the only thing standing between its cities and the debris storm that follows. Cadet pilot Kai Seward is assigned the Black Aegis, a frame nobody else can even start. As the breach widens and the Aegis Corps runs out of time, Kai learns the frame hasn''t been malfunctioning at all. It''s been waiting for him.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['MunchyRoll catalogue page (2013)', 'SakugaThread megathread (Oct 6, 2013)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (7741, 'Zero_Latitude', 'Zero Latitude', 'ゼロ・ラティチュード', 'Zero Ratichūdo', '{}'::text[], 'TV', 12, '2010-07-06T15:30:00Z', '2010-09-21T15:30:00.000Z', 2010, null, null, 'summer', 2010, 'Tuesdays at 24:30 (JST)', 'Original', '23 min. per ep.', 'PG-13 - Teens 13 or older', 'The research ship Equinox sails the equator to study a phenomenon that stops compasses dead: at zero latitude, time skips forward a few seconds every night. Seventeen-year-old navigator-in-training Aoi Minase notices the skips are getting longer, and that someone aboard remembers the missing seconds. Between night watches, a captain who trusts only the logbook, and a physicist with a theory he won''t share, Aoi has eleven nights to find out where the time is going.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['MunchyRoll catalogue page (2013)', 'SakugaThread megathread (Oct 6, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (8452, 'River_of_Sparks', 'River of Sparks', '火花の川', 'Hibana no Kawa', '{}'::text[], 'TV', 12, '2010-10-07T16:00:00Z', '2010-12-23T16:00:00.000Z', 2010, null, null, 'fall', 2010, 'Thursdays at 25:00 (JST)', 'Original', '24 min. per ep.', 'PG-13 - Teens 13 or older', 'In the canal district of Hanabishi, street fighters settle their debts on the stone embankments while festival fireworks cover the noise. Former champion Souta Kirishima swore he was done fighting, until his younger sister''s teahouse ended up on the wrong side of a bet. Now he has one autumn to win it back from the reigning champion, Ironside, without breaking the promise he made to Hotaru.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['SakugaThread megathread (Oct 6, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (9133, 'Steelbound_Testament', 'Steelbound Testament', '鋼の遺言', 'Hagane no Yuigon', '{}'::text[], 'Movie', 1, '2010-11-12T15:00:00Z', '2010-11-12T15:00:00Z', 2010, 'Theatrical release, Nov 13, 2010', null, null, null, null, 'Original', '1 hr. 52 min.', 'PG-13 - Teens 13 or older', 'In a city held together by iron bridges, disgraced locksmith Edda Varn is hired to open a vault that has stayed shut for fifty years. Inside is the last will of the Architect, the man who built the city, and three factions are ready to go to war over what it says. With bridge warden Marcus Holloway breaking every oath he swore to help her, Edda has one night to read the testament before the city decides for her.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['AniWire premiere review (Oct 6, 2013)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (10380, 'Sinful_Apex', 'Sinful Apex', 'シンフル・エイペックス', 'Shinfuru Eipekkusu', '{}'::text[], 'TV', 24, '2011-08-15T16:00:00Z', '2012-01-23T16:00:00.000Z', 2011, null, null, 'summer', 2011, 'Mondays at 25:00 (JST)', 'Original', '24 min. per ep.', 'R - 17+ (violence & profanity)', 'Seven towers rise over the city of Vellmore, and each is ruled by someone who made a deal with a sin. Whoever reaches the top of all seven, the Apex, is granted a single wish. Mercenary Lyle Crane is climbing for money. Street thief Nico Vale is climbing to clear a debt and sings to keep her nerve on the endless stairways. Floor by floor, the two find out what every tower lord already knows: everyone in Vellmore wants that wish.', 'Written by YAL Rewrite', null, null, null, 'reconstructed', array['Lumine StarWorks YAL development brief (established production data)', 'Lumine StarWorks Anime Industry Archive brief (established chronology)', 'AniFanWiki article (last edited Oct 8, 2013)', 'MunchyRoll catalogue page (2013)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (4407, 'Glass_Cathedral', 'Glass Cathedral', '硝子の大聖堂', 'Garasu no Daiseidō', '{}'::text[], 'TV', 12, '2012-01-11T16:30:00Z', '2012-03-28T16:30:00.000Z', 2012, null, null, 'winter', 2012, 'Wednesdays at 25:30 (JST)', 'Original', '24 min. per ep.', 'PG-13 - Teens 13 or older', 'Every pane of the Glass Cathedral in Lindenmoor holds a memory donated by someone in town. When the windows begin going dark one by one, apprentice restorer Elise Hartmann has to find out whose memories are fading, and why the cathedral''s newest window shows a morning that hasn''t happened yet.', 'Written by YAL Rewrite', null, null, '2011-12-10T03:00:00Z', 'reconstructed', array['Lumine StarWorks YAL development brief (established production data)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (9608, 'Circuit_Hearts__Reload', 'Circuit Hearts: Reload', 'サーキット・ハーツ リロード', 'Sākitto Hātsu: Rirōdo', '{}'::text[], 'TV', 12, '2012-04-06T15:30:00Z', '2012-06-22T15:30:00.000Z', 2012, null, null, 'spring', 2012, 'Fridays at 24:30 (JST)', 'Original', '24 min. per ep.', 'PG - Children', 'In 2042, the android idol unit Circuit Hearts retired after one perfect concert. Ten years later, junk-shop kid Yuu Takamine finds their lead singer''s core in a box of spare parts, and Nanase wakes up convinced it''s still the night of the show. To finish that concert, the band has to be rebuilt, reloaded and re-rehearsed by someone who can fix anything but can''t sing a note.', 'Written by YAL Rewrite', null, null, '2012-03-01T03:00:00Z', 'reconstructed', array['Lumine StarWorks YAL development brief (established production data)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (9871, 'Vacant_Crown__Liminal_War', 'Vacant Crown: Liminal War', '空位の王冠 リミナル・ウォー', 'Kūi no Ōkan: Riminaru Wō', '{}'::text[], 'TV', 24, '2012-07-07T08:00:00Z', '2012-12-15T08:00:00.000Z', 2012, null, null, 'summer', 2012, 'Saturdays at 17:00 (JST)', 'Original', '24 min. per ep.', 'PG-13 - Teens 13 or older', 'The king of Varos died without an heir, and his throne has stood empty for nine years. Along the kingdom''s liminal border, a twilight realm where the armies of the old kings still march, five claimants are fighting for a crown no one has dared to wear. Orphan cartographer Mirelle Aubert can map that border, which makes her the most valuable person on the continent and puts her right in the middle of the war.', 'Written by YAL Rewrite', null, null, '2012-06-01T03:00:00Z', 'reconstructed', array['Lumine StarWorks YAL development brief (established production data)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (6811, 'Ghost_Eater', 'Ghost Eater', 'ゴーストイーター', 'Gōsuto Ītā', '{}'::text[], 'TV', 12, '2013-01-10T16:28:00Z', '2013-03-28T16:28:00.000Z', 2013, null, null, 'winter', 2013, 'Thursdays at 25:28 (JST)', 'Original', '24 min. per ep.', 'PG-13 - Teens 13 or older', 'High schooler Kenji Sakuraba can eat ghosts, and every one tastes like whatever it regretted most. Hired by Tsubaki Hoshimiya, a shrine maiden with a business plan and a very long client list, he becomes the city''s least enthusiastic exorcist, one ghost at a time. Between a resident ghost who won''t leave until her drama finishes and a detective who keeps getting his cases, Kenji''s appetite has never been busier.', 'Written by YAL Rewrite', null, null, '2012-12-01T03:00:00Z', 'reconstructed', array['Lumine StarWorks YAL development brief (established production data)', 'Written for the Lumine StarWorks reconstruction']::text[], '{}'::text[], false),
-  (8016, 'Destiny_Infinite', 'Destiny/Infinite', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['SakugaThread megathread (Oct 6, 2013)', 'YAL episode discussion staff-credit roundup (Oct 2013)']::text[], array['Release year, format, studio and episode count have not been documented.']::text[], false),
-  (7015, 'Blizzard_Requiem', 'Blizzard Requiem', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['YAL episode discussion staff-credit roundup (Oct 2013)']::text[], array['Release year, format, studio and episode count have not been documented.']::text[], false),
-  (8277, 'Pale_Garden_Reverie', 'Pale Garden Reverie', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['YAL episode discussion staff-credit roundup (Oct 2013)']::text[], array['Release year, format, studio and episode count have not been documented.']::text[], false),
-  (5904, 'Garden_of_Cinders', 'Garden of Cinders', null, null, '{}'::text[], 'OVA', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['YAL episode discussion staff-credit roundup (Oct 2013)']::text[], array['Release year, studio and episode count have not been documented.']::text[], false),
-  (7390, 'Iron_Halo_Brigade', 'Iron Halo Brigade', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['YAL episode discussion staff-credit roundup (Oct 2013)']::text[], array['Release year, format, studio and episode count have not been documented.']::text[], false)
+  (16592, 'Iron_to_Requiem', 'Iron to Requiem', null, null, array['Iron to Requiem Season 1']::text[], 'TV', 26, '2013-04-03T15:00:00Z', '2013-09-25T15:00:00Z', 2013, null, null, 'spring', 2013, 'Thursdays (time not documented)', null, null, null, null, null, null, 'iron-to-requiem', '2013-04-03T15:00:00Z', 'documented', array['Connected Era Master Bible v1.0, ch. 16: franchise registry', 'Lumine StarWorks YAL development brief (established production data)', 'Lumine StarWorks Anime Industry Archive brief (established chronology)']::text[], array['YAL''s listing date for this entry is not documented, so the archive shows it from its premiere.', 'Source material, genres, synopsis and other staff credits have not been documented.']::text[], false),
+  (9871, 'Vacant_Crown__Liminal_War', 'Vacant Crown: Liminal War', null, null, '{}'::text[], 'TV', null, null, null, 2000, '2000, TV series with an OVA', null, null, null, null, null, null, null, 'Supernatural weapons and wide-angle military conflict.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.', 'The catalogue lists the title as TV + OVA. The OVA''s own release details are still to come.']::text[], false),
+  (8452, 'River_of_Sparks', 'River of Sparks', null, null, '{}'::text[], 'TV', null, null, null, 2004, null, null, 'winter', 2004, null, null, null, null, 'Delinquent school life, urban magic and close-quarters fighting.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (4407, 'Glass_Cathedral', 'Glass Cathedral', null, null, '{}'::text[], 'Movie', 1, null, null, 2005, null, null, null, null, null, null, null, null, 'Supernatural crime and stained-glass imagery.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (4812, 'Skyfall_Chronicle', 'Skyfall Chronicle', null, null, '{}'::text[], 'TV', null, null, null, 2006, '2006–2007, two cours', null, null, null, null, null, null, null, 'Floating citadels and warfare.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.', 'Two cours; the exact episode count is still to come.']::text[], false),
+  (7390, 'Iron_Halo_Brigade', 'Iron Halo Brigade', null, null, '{}'::text[], 'TV', null, null, null, 2007, '2007, one cour', null, null, null, null, null, null, null, 'Military mecha and infantry, told with realistic tactics.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (6230, 'Neon_Afterimage', 'Neon Afterimage', null, null, '{}'::text[], 'Movie', 1, null, null, 2007, null, null, null, null, null, null, null, null, 'Rain-soaked urban science fiction.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (7123, 'Tearfall_Resonance', 'Tearfall Resonance', null, null, '{}'::text[], 'Movie', 1, null, null, 2007, null, null, null, null, null, null, null, null, 'Two siblings at the centre of a psychic event that shakes their whole city.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (9608, 'Circuit_Hearts__Reload', 'Circuit Hearts: Reload', null, null, '{}'::text[], 'TV', null, null, null, 2008, '2008, one cour', null, null, null, null, null, null, null, 'Illegal neural-gear competitions.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (9133, 'Steelbound_Testament', 'Steelbound Testament', null, null, '{}'::text[], 'TV', null, null, null, 2008, '2008–2009, two cours', null, null, null, null, null, null, null, 'Dark fantasy about family and war.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.', 'Two cours; the exact episode count is still to come.']::text[], false),
+  (8277, 'Pale_Garden_Reverie', 'Pale Garden Reverie', null, null, '{}'::text[], 'TV', null, null, null, 2009, '2009, one cour', null, null, null, null, null, null, null, 'Quiet, supernatural environmental storytelling.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (8640, 'Nocturne_of_the_Iron_Sea', 'Nocturne of the Iron Sea', null, null, '{}'::text[], 'Movie', 1, null, null, 2009, null, null, null, null, null, null, null, null, 'A naval horror-adventure.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (7015, 'Blizzard_Requiem', 'Blizzard Requiem', null, null, '{}'::text[], 'TV', null, null, null, 2010, '2010–2011, split two cours', null, null, null, null, null, null, null, 'Arctic survival and politics.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.', 'Two cours aired with a break between them; exact dates and the episode count are still to come.']::text[], false),
+  (5904, 'Garden_of_Cinders', 'Garden of Cinders', null, null, '{}'::text[], 'OVA', 3, null, null, 2010, '2010, OVA trilogy', null, null, null, null, null, null, null, 'A side story to Steelbound Testament.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (9420, 'Shadowline_Oratorio', 'Shadowline Oratorio', null, null, '{}'::text[], 'TV', null, null, null, 2011, '2011, one cour', null, null, null, null, null, null, null, 'Music and an assassin-choir school.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (7741, 'Zero_Latitude', 'Zero Latitude', null, null, '{}'::text[], 'Special', 1, null, null, 2011, '2011, TV special', null, null, null, null, null, null, null, 'A chase across a megacity during a blackout.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.']::text[], false),
+  (10380, 'Sinful_Apex', 'Sinful Apex', null, null, '{}'::text[], 'TV', 24, '2011-08-14T15:00:00Z', '2012-01-22T15:00:00.000Z', 2011, null, null, 'summer', 2011, 'Mondays (time not recorded)', null, null, null, 'Flow Pictures'' final marquee production.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 16: franchise registry', 'Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]', 'Lumine StarWorks YAL development brief (established production data)', 'AniWire advertisement, "Sinful Apex Complete Collection on Blu-ray Nov 19" (Oct 6, 2013)']::text[], array['Episode titles, the rest of the cast, genres, a full synopsis and theme songs are pending in the archive.', 'The Bible notes that the detailed character and song map is still partly open.']::text[], false),
+  (11205, 'Rust_Veil_Junction', 'Rust Veil Junction', null, null, '{}'::text[], 'TV', null, null, null, 2012, '2012, one cour', null, null, null, null, null, null, null, 'Rival factions in a steampunk railway city.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.', 'The premiere season and exact dates are still to come.']::text[], false),
+  (5120, 'Skyfall_Chronicle__Black_Aegis', 'Skyfall Chronicle: Black Aegis', null, null, '{}'::text[], 'Movie', 1, null, null, 2012, '2012, theatrical film', null, null, null, null, null, null, null, 'The theatrical sky-warfare sequel to Skyfall Chronicle.', 'Catalogue description', null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['Episode titles, cast, air dates and studio credits are pending in the archive.', 'The release date is still to come. Kaihatsu Miura''s registry entry names "Skyfall"; whether that includes this film is not yet recorded.']::text[], false),
+  (6811, 'Ghost_Eater', 'Ghost Eater', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['An older production credit. Year, format, studio and broadcast details are still to come.']::text[], false),
+  (8016, 'Destiny_Infinite', 'Destiny/Infinite', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['An older production credit. Year, format, studio and broadcast details are still to come.']::text[], false),
+  (6402, 'A_Mystical_Skyline_Finger', 'A Mystical Skyline/Finger', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue', 'Connected Era Master Bible v1.0, ch. 18: people registry']::text[], array['An older production credit. Year, format, studio and broadcast details are still to come.']::text[], false),
+  (3390, 'Azure_Sorcerer', 'Azure Sorcerer', null, null, '{}'::text[], 'Unknown', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'documented', array['Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue']::text[], array['An older production credit. Year, format, studio and broadcast details are still to come.']::text[], false)
 on conflict do nothing;
 
--- genres: 23 rows
+-- genres: 21 rows
 
 insert into public.genres (name, kind) values
-  ('Fantasy', 'genre'),
-  ('Adventure', 'genre'),
-  ('Comedy', 'genre'),
-  ('Magic', 'theme'),
-  ('School', 'theme'),
-  ('Action', 'genre'),
-  ('Sci-Fi', 'genre'),
-  ('Mystery', 'genre'),
-  ('Cyberpunk', 'theme'),
-  ('Drama', 'genre'),
-  ('Mecha', 'theme'),
-  ('Military', 'theme'),
-  ('Time Travel', 'theme'),
-  ('Martial Arts', 'theme'),
-  ('Urban', 'theme'),
-  ('Steampunk', 'theme'),
   ('Supernatural', 'genre'),
-  ('Mythology', 'theme'),
-  ('Gothic', 'theme'),
-  ('Slice of Life', 'genre'),
-  ('Idols', 'theme'),
+  ('Action', 'genre'),
+  ('Military', 'theme'),
+  ('Fantasy', 'genre'),
+  ('School', 'theme'),
+  ('Delinquents', 'theme'),
+  ('Mystery', 'genre'),
+  ('Crime', 'theme'),
+  ('Sci-Fi', 'genre'),
+  ('Mecha', 'theme'),
+  ('Drama', 'genre'),
+  ('Psychic', 'theme'),
+  ('Competition', 'theme'),
+  ('Nature', 'theme'),
+  ('Horror', 'genre'),
+  ('Adventure', 'genre'),
+  ('Naval', 'theme'),
+  ('Survival', 'theme'),
+  ('Political', 'theme'),
   ('Music', 'theme'),
-  ('Political', 'theme')
+  ('Steampunk', 'theme')
 on conflict do nothing;
 
--- anime_genres: 48 rows
+-- anime_genres: 50 rows
 
 insert into public.anime_genres (anime_id, genre) values
-  (3390, 'Fantasy'),
-  (3390, 'Adventure'),
-  (3390, 'Comedy'),
-  (3390, 'Magic'),
-  (3390, 'School'),
-  (6230, 'Action'),
-  (6230, 'Sci-Fi'),
-  (6230, 'Mystery'),
-  (6230, 'Cyberpunk'),
-  (5120, 'Action'),
-  (5120, 'Sci-Fi'),
-  (5120, 'Drama'),
-  (5120, 'Mecha'),
-  (5120, 'Military'),
-  (7741, 'Sci-Fi'),
-  (7741, 'Mystery'),
-  (7741, 'Drama'),
-  (7741, 'Time Travel'),
-  (8452, 'Action'),
-  (8452, 'Drama'),
-  (8452, 'Martial Arts'),
-  (8452, 'Urban'),
-  (9133, 'Action'),
-  (9133, 'Drama'),
-  (9133, 'Mystery'),
-  (9133, 'Steampunk'),
-  (10380, 'Action'),
-  (10380, 'Drama'),
-  (10380, 'Supernatural'),
-  (10380, 'Mythology'),
-  (4407, 'Mystery'),
-  (4407, 'Drama'),
-  (4407, 'Fantasy'),
-  (4407, 'Gothic'),
-  (9608, 'Sci-Fi'),
-  (9608, 'Comedy'),
-  (9608, 'Slice of Life'),
-  (9608, 'Idols'),
-  (9608, 'Music'),
-  (9871, 'Fantasy'),
+  (9871, 'Supernatural'),
   (9871, 'Action'),
-  (9871, 'Drama'),
   (9871, 'Military'),
-  (9871, 'Political'),
-  (6811, 'Supernatural'),
-  (6811, 'Comedy'),
-  (6811, 'Action'),
-  (6811, 'School')
+  (8452, 'Action'),
+  (8452, 'Fantasy'),
+  (8452, 'School'),
+  (8452, 'Delinquents'),
+  (4407, 'Supernatural'),
+  (4407, 'Mystery'),
+  (4407, 'Crime'),
+  (4812, 'Action'),
+  (4812, 'Fantasy'),
+  (4812, 'Military'),
+  (7390, 'Action'),
+  (7390, 'Sci-Fi'),
+  (7390, 'Mecha'),
+  (7390, 'Military'),
+  (6230, 'Sci-Fi'),
+  (7123, 'Supernatural'),
+  (7123, 'Drama'),
+  (7123, 'Psychic'),
+  (9608, 'Sci-Fi'),
+  (9608, 'Action'),
+  (9608, 'Competition'),
+  (9133, 'Fantasy'),
+  (9133, 'Drama'),
+  (9133, 'Military'),
+  (8277, 'Supernatural'),
+  (8277, 'Nature'),
+  (8640, 'Horror'),
+  (8640, 'Adventure'),
+  (8640, 'Naval'),
+  (7015, 'Drama'),
+  (7015, 'Adventure'),
+  (7015, 'Survival'),
+  (7015, 'Political'),
+  (5904, 'Fantasy'),
+  (5904, 'Drama'),
+  (9420, 'Action'),
+  (9420, 'Drama'),
+  (9420, 'Music'),
+  (9420, 'School'),
+  (7741, 'Action'),
+  (7741, 'Sci-Fi'),
+  (11205, 'Sci-Fi'),
+  (11205, 'Action'),
+  (11205, 'Steampunk'),
+  (5120, 'Action'),
+  (5120, 'Fantasy'),
+  (5120, 'Military')
 on conflict do nothing;
 
--- anime_background: 16 rows
+-- anime_background: 20 rows
 
 insert into public.anime_background (anime_id, position, body, visible_from) values
-  (3390, 1, 'Ashgrove Animation''s first television series. Its early-evening slot made it a gateway fantasy show for many younger viewers in 2006.', null),
-  (6230, 1, 'Remembered for its rooftop chase layouts. Layout artist Ren Okado''s work here is often cited as the root of the silhouette-readable action fans praise in later series.', null),
-  (5120, 1, 'Co-directed by Haruomi Sendo and Kaihatsu Miura. Miura''s tight episode pacing is often credited for packing the story into a single cour.', null),
-  (7741, 1, 'Episode 7, "One Continuous Morning", contains a four-minute single-take sequence storyboarded by Tomoe Suzuhara that is still one of the most talked-about cuts of 2010.', null),
-  (7741, 2, 'Director Kaihatsu Miura''s first series as sole director.', null),
-  (8452, 1, 'The alley fights were storyboarded by Tomoe Suzuhara with action choreography by Yusuke Kagura, a pairing fans still bring up whenever a new fight series airs.', null),
-  (9133, 1, 'Produced by Flow Pictures'' cinematic unit.', null),
-  (9133, 2, 'Widely considered the film that made Flow Pictures'' cinematic unit famous.', null),
-  (10380, 1, 'Produced by Flow Pictures'' late-era cinematic unit, the production is often described as the studio''s "final breath".', null),
-  (10380, 2, 'The singer LUNE appears as Aria Moonbirth, Vellmore''s most famous performer, and sings the ending theme in character.', null),
+  (9871, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (8452, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (4407, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (4812, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (7390, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (6230, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (7123, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (9608, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (9133, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (8277, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (8640, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (7015, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (5904, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (9420, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (7741, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (10380, 1, 'Flow Pictures'' final marquee production, often described as the studio''s "final breath".', null),
+  (10380, 2, 'The singer LUNE appears as Aria Moonbirth.', null),
   (10380, 3, 'Funmaxation is releasing a Complete Collection on Blu-ray on November 19, 2013.', '2013-10-06T00:00:00Z'),
-  (4407, 1, 'Studio Kinemachi reunited with series composer Tamaki Hoshino and character designer Sayo Kuramoto after Zero Latitude.', '2011-12-10T03:00:00Z'),
-  (9608, 1, 'Studio Pulsewave animated the concert scenes in full, with every song performed in character.', '2012-03-01T03:00:00Z'),
-  (9871, 1, 'Arc Meridian''s first two-cour series, reuniting the Skyfall Chronicle team of director Haruomi Sendo, writer Mizuki Tobe and composer Kazane Ichijo.', '2012-06-01T03:00:00Z'),
-  (9871, 2, 'Funmaxation has licensed the series for North America.', '2012-10-01T00:00:00Z'),
-  (6811, 1, 'Ashgrove Animation and director Shizuka Ogura''s first series together since Azure Sorcerer.', '2012-12-01T03:00:00Z')
+  (11205, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null),
+  (5120, 1, 'Part of Flow Pictures'' earlier catalogue. Which studio animated it is not recorded, so no studio is credited here.', null)
 on conflict do nothing;
 
--- anime_broadcasts: 6 rows
+-- anime_broadcasts: 4 rows
 
 insert into public.anime_broadcasts (anime_id, position, label, at, note, visible_from) values
   (16592, 1, 'Japanese TV premiere', '2013-04-03T15:00:00Z', 'Weekly on Thursdays. Broadcast time not documented.', '2013-04-03T15:00:00Z'),
   (16592, 2, 'Japanese TV finale', '2013-09-25T15:00:00Z', null, '2013-04-03T15:00:00Z'),
-  (10380, 1, 'Japanese TV premiere', '2011-08-15T16:00:00Z', null, null),
-  (10380, 2, 'Japanese TV finale (Episode 24)', '2012-01-23T16:00:00.000Z', null, null),
-  (4407, 1, 'Japanese TV premiere (VBS/KBS)', '2012-01-11T16:30:00Z', null, '2011-12-10T03:00:00Z'),
-  (9871, 1, 'Japanese TV premiere (VBS/KBS)', '2012-07-07T08:00:00Z', null, '2012-06-01T03:00:00Z')
+  (10380, 1, 'Japanese TV premiere', '2011-08-14T15:00:00Z', 'Weekly on Mondays.', null),
+  (10380, 2, 'Japanese TV finale (Episode 24)', '2012-01-22T15:00:00.000Z', null, null)
 on conflict do nothing;
 
--- anime_companies: 15 rows
+-- anime_companies: 3 rows
 
 insert into public.anime_companies (anime_id, company_id, role, visible_from) values
   (16592, 3, 'studio', '2013-04-03T15:00:00Z'),
-  (3390, 13, 'studio', null),
-  (6230, 12, 'studio', null),
-  (5120, 10, 'studio', null),
-  (7741, 11, 'studio', null),
-  (7741, 5, 'licensor', null),
-  (8452, 12, 'studio', null),
-  (9133, 2, 'studio', null),
   (10380, 2, 'studio', null),
-  (10380, 5, 'licensor', null),
-  (4407, 11, 'studio', '2011-12-10T03:00:00Z'),
-  (9608, 14, 'studio', '2012-03-01T03:00:00Z'),
-  (9871, 10, 'studio', '2012-06-01T03:00:00Z'),
-  (9871, 5, 'licensor', '2012-10-01T00:00:00Z'),
-  (6811, 13, 'studio', '2012-12-01T03:00:00Z')
+  (10380, 5, 'licensor', '2013-10-06T00:00:00Z')
 on conflict do nothing;
 
--- episodes: 147 rows
+-- episodes: 24 rows
 
 insert into public.episodes (anime_id, number, title, aired_at, note) values
-  (3390, 1, 'The Weakest Color', '2006-10-04T09:00:00.000Z', null),
-  (3390, 2, 'Entrance Exam at the Spire', '2006-10-11T09:00:00.000Z', null),
-  (3390, 3, 'A Rival in Crimson', '2006-10-18T09:00:00.000Z', null),
-  (3390, 4, 'The Library Has Teeth', '2006-10-25T09:00:00.000Z', null),
-  (3390, 5, 'Wind Engine, Room Zero', '2006-11-01T09:00:00.000Z', null),
-  (3390, 6, 'Lessons in Falling', '2006-11-08T09:00:00.000Z', null),
-  (3390, 7, 'Festival of Lanterns', '2006-11-15T09:00:00.000Z', null),
-  (3390, 8, 'Blue on Blue', '2006-11-22T09:00:00.000Z', null),
-  (3390, 9, 'The Professor''s Secret Map', '2006-11-29T09:00:00.000Z', null),
-  (3390, 10, 'Storm Season', '2006-12-06T09:00:00.000Z', null),
-  (3390, 11, 'When the City Tilts', '2006-12-13T09:00:00.000Z', null),
-  (3390, 12, 'The Engine Speaks', '2006-12-20T09:00:00.000Z', null),
-  (3390, 13, 'Celestine, Still Flying', '2006-12-27T09:00:00.000Z', null),
-  (6230, 1, 'Thirty Seconds of Light', '2008-04-03T17:00:00.000Z', null),
-  (6230, 2, 'The Ramen Stall Network', '2008-04-10T17:00:00.000Z', null),
-  (6230, 3, 'Ghost Trail', '2008-04-17T17:00:00.000Z', null),
-  (6230, 4, 'Signal Noise', '2008-04-24T17:00:00.000Z', null),
-  (6230, 5, 'Rooftop Relay', '2008-05-01T17:00:00.000Z', null),
-  (6230, 6, 'The Client Who Wasn''t There', '2008-05-08T17:00:00.000Z', null),
-  (6230, 7, 'Blackout District', '2008-05-15T17:00:00.000Z', null),
-  (6230, 8, 'Afterimage, Before Image', '2008-05-22T17:00:00.000Z', null),
-  (6230, 9, 'Doyle''s Long Night', '2008-05-29T17:00:00.000Z', null),
-  (6230, 10, 'Neon Rain', '2008-06-05T17:00:00.000Z', null),
-  (6230, 11, 'Every Trail Leads Here', '2008-06-12T17:00:00.000Z', null),
-  (6230, 12, 'Light That Stays', '2008-06-19T17:00:00.000Z', null),
-  (5120, 1, 'The Sky Cracks Open', '2009-04-04T08:30:00.000Z', null),
-  (5120, 2, 'A Frame Nobody Can Start', '2009-04-11T08:30:00.000Z', null),
-  (5120, 3, 'Debris Storm Drill', '2009-04-18T08:30:00.000Z', null),
-  (5120, 4, 'Wingmates', '2009-04-25T08:30:00.000Z', null),
-  (5120, 5, 'Ivo''s Challenge', '2009-05-02T08:30:00.000Z', null),
-  (5120, 6, 'The Ashford Protocol', '2009-05-09T08:30:00.000Z', null),
-  (5120, 7, 'Falling Stars over Port Lera', '2009-05-16T08:30:00.000Z', null),
-  (5120, 8, 'Black Aegis, Awakened', '2009-05-23T08:30:00.000Z', null),
-  (5120, 9, 'Shelter Lines', '2009-05-30T08:30:00.000Z', null),
-  (5120, 10, 'The Commander''s Gamble', '2009-06-06T08:30:00.000Z', null),
-  (5120, 11, 'Above the Breach', '2009-06-13T08:30:00.000Z', null),
-  (5120, 12, 'Skyfall', '2009-06-20T08:30:00.000Z', null),
-  (5120, 13, 'Clear Skies, Aldera', '2009-06-27T08:30:00.000Z', null),
-  (7741, 1, 'The Equinox Sets Sail', '2010-07-06T15:30:00.000Z', null),
-  (7741, 2, 'Compass at Rest', '2010-07-13T15:30:00.000Z', null),
-  (7741, 3, 'Seven Missing Seconds', '2010-07-20T15:30:00.000Z', null),
-  (7741, 4, 'The Cook Remembers', '2010-07-27T15:30:00.000Z', null),
-  (7741, 5, 'Doldrums', '2010-08-03T15:30:00.000Z', null),
-  (7741, 6, 'Night Watch', '2010-08-10T15:30:00.000Z', null),
-  (7741, 7, 'One Continuous Morning', '2010-08-17T15:30:00.000Z', null),
-  (7741, 8, 'Logbook Discrepancy', '2010-08-24T15:30:00.000Z', null),
-  (7741, 9, 'Captain''s Orders', '2010-08-31T15:30:00.000Z', null),
-  (7741, 10, 'The Skip Widens', '2010-09-07T15:30:00.000Z', null),
-  (7741, 11, 'Lindqvist''s Theory', '2010-09-14T15:30:00.000Z', null),
-  (7741, 12, 'Crossing Zero', '2010-09-21T15:30:00.000Z', null),
-  (8452, 1, 'Fireworks over the Embankment', '2010-10-07T16:00:00.000Z', null),
-  (8452, 2, 'A Debt on Stone Steps', '2010-10-14T16:00:00.000Z', null),
-  (8452, 3, 'Hotaru''s Teahouse', '2010-10-21T16:00:00.000Z', null),
-  (8452, 4, 'The Alley Below Bridge Six', '2010-10-28T16:00:00.000Z', null),
-  (8452, 5, 'Ironside', '2010-11-04T16:00:00.000Z', null),
-  (8452, 6, 'Footwork', '2010-11-11T16:00:00.000Z', null),
-  (8452, 7, 'Lantern Boats', '2010-11-18T16:00:00.000Z', null),
-  (8452, 8, 'Rei''s Ledger', '2010-11-25T16:00:00.000Z', null),
-  (8452, 9, 'The Last Bet of Autumn', '2010-12-02T16:00:00.000Z', null),
-  (8452, 10, 'Hanabishi Holds Its Breath', '2010-12-09T16:00:00.000Z', null),
-  (8452, 11, 'Champion Again', '2010-12-16T16:00:00.000Z', null),
-  (8452, 12, 'River of Sparks', '2010-12-23T16:00:00.000Z', null),
-  (9133, 1, 'Steelbound Testament', '2010-11-12T15:00:00Z', 'Theatrical release'),
-  (10380, 1, 'Seven Towers', '2011-08-15T16:00:00.000Z', null),
-  (10380, 2, 'The Thief Who Sang', '2011-08-22T16:00:00.000Z', null),
-  (10380, 3, 'Tower of Sloth', '2011-08-29T16:00:00.000Z', null),
-  (10380, 4, 'Debts and Wishes', '2011-09-05T16:00:00.000Z', null),
-  (10380, 5, 'Nico''s Bargain', '2011-09-12T16:00:00.000Z', null),
-  (10380, 6, 'Envy Wears Silver', '2011-09-19T16:00:00.000Z', null),
-  (10380, 7, 'Moonbirth', '2011-09-26T16:00:00.000Z', null),
-  (10380, 8, 'The Long Stairway', '2011-10-03T16:00:00.000Z', null),
-  (10380, 9, 'Wrath at Dawn', '2011-10-10T16:00:00.000Z', null),
-  (10380, 10, 'Crane and Vale', '2011-10-17T16:00:00.000Z', null),
-  (10380, 11, 'Greed''s Ledger', '2011-10-24T16:00:00.000Z', null),
-  (10380, 12, 'Halfway to the Apex', '2011-10-31T16:00:00.000Z', null),
-  (10380, 13, 'What the Towers Remember', '2011-11-07T16:00:00.000Z', null),
-  (10380, 14, 'A Room Full of Light', '2011-11-14T16:00:00.000Z', null),
-  (10380, 15, 'A Song Between Floors', '2011-11-21T16:00:00.000Z', null),
-  (10380, 16, 'Gluttony''s Feast', '2011-11-28T16:00:00.000Z', null),
-  (10380, 17, 'The Pride of Seraph', '2011-12-05T16:00:00.000Z', null),
-  (10380, 18, 'The Fifth Floor', '2011-12-12T16:00:00.000Z', null),
-  (10380, 19, 'Vellmore Shines', '2011-12-19T16:00:00.000Z', null),
-  (10380, 20, 'Seven Become One', '2011-12-26T16:00:00.000Z', null),
-  (10380, 21, 'Nico''s Climb', '2012-01-02T16:00:00.000Z', null),
-  (10380, 22, 'The Apex Door', '2012-01-09T16:00:00.000Z', null),
-  (10380, 23, 'The Wish', '2012-01-16T16:00:00.000Z', null),
-  (10380, 24, 'Sinful Apex', '2012-01-23T16:00:00.000Z', null),
-  (4407, 1, 'The First Dark Window', '2012-01-11T16:30:00.000Z', null),
-  (4407, 2, 'Memories in Stained Glass', '2012-01-18T16:30:00.000Z', null),
-  (4407, 3, 'Father Anselm''s Rule', '2012-01-25T16:30:00.000Z', null),
-  (4407, 4, 'Tobias and the Lamps', '2012-02-01T16:30:00.000Z', null),
-  (4407, 5, 'The Window of a Stranger', '2012-02-08T16:30:00.000Z', null),
-  (4407, 6, 'Greta''s Gift', '2012-02-15T16:30:00.000Z', null),
-  (4407, 7, 'Lead and Light', '2012-02-22T16:30:00.000Z', null),
-  (4407, 8, 'A Morning That Hasn''t Happened', '2012-02-29T16:30:00.000Z', null),
-  (4407, 9, 'Cracks', '2012-03-07T16:30:00.000Z', null),
-  (4407, 10, 'The Restorer''s Oath', '2012-03-14T16:30:00.000Z', null),
-  (4407, 11, 'All the Windows at Once', '2012-03-21T16:30:00.000Z', null),
-  (4407, 12, 'Glass Cathedral', '2012-03-28T16:30:00.000Z', null),
-  (9608, 1, 'She Wakes Up on Stage', '2012-04-06T15:30:00.000Z', null),
-  (9608, 2, 'Spare Parts', '2012-04-13T15:30:00.000Z', null),
-  (9608, 3, 'Reload, Rehearse, Repeat', '2012-04-20T15:30:00.000Z', null),
-  (9608, 4, 'Pico Joins the Band', '2012-04-27T15:30:00.000Z', null),
-  (9608, 5, 'The Producer Returns', '2012-05-04T15:30:00.000Z', null),
-  (9608, 6, 'Feedback Loop', '2012-05-11T15:30:00.000Z', null),
-  (9608, 7, 'Summer Live (Practice)', '2012-05-18T15:30:00.000Z', null),
-  (9608, 8, 'Out of Tune', '2012-05-25T15:30:00.000Z', null),
-  (9608, 9, 'Memory Card', '2012-06-01T15:30:00.000Z', null),
-  (9608, 10, 'Ten Years Late', '2012-06-08T15:30:00.000Z', null),
-  (9608, 11, 'Encore Protocol', '2012-06-15T15:30:00.000Z', null),
-  (9608, 12, 'Circuit Hearts: Reload', '2012-06-22T15:30:00.000Z', null),
-  (9871, 1, 'The Empty Throne', '2012-07-07T08:00:00.000Z', null),
-  (9871, 2, 'Mapmaker', '2012-07-14T08:00:00.000Z', null),
-  (9871, 3, 'Into the Twilight Border', '2012-07-21T08:00:00.000Z', null),
-  (9871, 4, 'Five Claimants', '2012-07-28T08:00:00.000Z', null),
-  (9871, 5, 'The Prince Without a Banner', '2012-08-04T08:00:00.000Z', null),
-  (9871, 6, 'Vossberg''s March', '2012-08-11T08:00:00.000Z', null),
-  (9871, 7, 'Ink and Iron', '2012-08-18T08:00:00.000Z', null),
-  (9871, 8, 'Lady Calder''s Table', '2012-08-25T08:00:00.000Z', null),
-  (9871, 9, 'Pell Runs Ahead', '2012-09-01T08:00:00.000Z', null),
-  (9871, 10, 'Siege of Hollowmere', '2012-09-08T08:00:00.000Z', null),
-  (9871, 11, 'Where the Old Kings Walk', '2012-09-15T08:00:00.000Z', null),
-  (9871, 12, 'Halfway Crowned', '2012-09-22T08:00:00.000Z', null),
-  (9871, 13, 'Second Front', '2012-09-29T08:00:00.000Z', null),
-  (9871, 14, 'The Liminal Army', '2012-10-06T08:00:00.000Z', null),
-  (9871, 15, 'A Map with No Edges', '2012-10-13T08:00:00.000Z', null),
-  (9871, 16, 'Treaty at Silverford', '2012-10-20T08:00:00.000Z', null),
-  (9871, 17, 'Cassian''s Choice', '2012-10-27T08:00:00.000Z', null),
-  (9871, 18, 'The General''s Wager', '2012-11-03T08:00:00.000Z', null),
-  (9871, 19, 'Twilight Court', '2012-11-10T08:00:00.000Z', null),
-  (9871, 20, 'Mirelle''s Compass', '2012-11-17T08:00:00.000Z', null),
-  (9871, 21, 'The Compass Points', '2012-11-24T08:00:00.000Z', null),
-  (9871, 22, 'Every Banner Raised', '2012-12-01T08:00:00.000Z', null),
-  (9871, 23, 'The Crown Speaks', '2012-12-08T08:00:00.000Z', null),
-  (9871, 24, 'Vacant No More', '2012-12-15T08:00:00.000Z', null),
-  (6811, 1, 'Today''s Special: Regret', '2013-01-10T16:28:00.000Z', null),
-  (6811, 2, 'The Shrine Has a Business Plan', '2013-01-17T16:28:00.000Z', null),
-  (6811, 3, 'Granny Fumi Won''t Leave', '2013-01-24T16:28:00.000Z', null),
-  (6811, 4, 'Detective Ozaki Is Not Amused', '2013-01-31T16:28:00.000Z', null),
-  (6811, 5, 'Bitter, Sweet, Haunted', '2013-02-07T16:28:00.000Z', null),
-  (6811, 6, 'School Ghost Festival', '2013-02-14T16:28:00.000Z', null),
-  (6811, 7, 'A Ghost Too Big to Eat', '2013-02-21T16:28:00.000Z', null),
-  (6811, 8, 'Tsubaki''s Ledger', '2013-02-28T16:28:00.000Z', null),
-  (6811, 9, 'Leftovers', '2013-03-07T16:28:00.000Z', null),
-  (6811, 10, 'The Hungry House', '2013-03-14T16:28:00.000Z', null),
-  (6811, 11, 'Last Bite', '2013-03-21T16:28:00.000Z', null),
-  (6811, 12, 'Thanks for the Meal', '2013-03-28T16:28:00.000Z', null)
+  (10380, 1, null, '2011-08-14T15:00:00.000Z', null),
+  (10380, 2, null, '2011-08-21T15:00:00.000Z', null),
+  (10380, 3, null, '2011-08-28T15:00:00.000Z', null),
+  (10380, 4, null, '2011-09-04T15:00:00.000Z', null),
+  (10380, 5, null, '2011-09-11T15:00:00.000Z', null),
+  (10380, 6, null, '2011-09-18T15:00:00.000Z', null),
+  (10380, 7, null, '2011-09-25T15:00:00.000Z', null),
+  (10380, 8, null, '2011-10-02T15:00:00.000Z', null),
+  (10380, 9, null, '2011-10-09T15:00:00.000Z', null),
+  (10380, 10, null, '2011-10-16T15:00:00.000Z', null),
+  (10380, 11, null, '2011-10-23T15:00:00.000Z', null),
+  (10380, 12, null, '2011-10-30T15:00:00.000Z', null),
+  (10380, 13, null, '2011-11-06T15:00:00.000Z', null),
+  (10380, 14, null, '2011-11-13T15:00:00.000Z', null),
+  (10380, 15, null, '2011-11-20T15:00:00.000Z', null),
+  (10380, 16, null, '2011-11-27T15:00:00.000Z', null),
+  (10380, 17, null, '2011-12-04T15:00:00.000Z', null),
+  (10380, 18, null, '2011-12-11T15:00:00.000Z', null),
+  (10380, 19, null, '2011-12-18T15:00:00.000Z', null),
+  (10380, 20, null, '2011-12-25T15:00:00.000Z', null),
+  (10380, 21, null, '2012-01-01T15:00:00.000Z', null),
+  (10380, 22, null, '2012-01-08T15:00:00.000Z', null),
+  (10380, 23, null, '2012-01-15T15:00:00.000Z', null),
+  (10380, 24, null, '2012-01-22T15:00:00.000Z', null)
 on conflict do nothing;
 
--- characters: 44 rows
+-- characters: 1 rows
 
 insert into public.characters (id, slug, name, native_name, role, visible_from, sources) values
-  (101, 'Rio_Ashby', 'Rio Ashby', null, 'Blue-ranked apprentice sorcerer', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (102, 'Celica_Vane', 'Celica Vane', null, 'Crimson-ranked prodigy', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (103, 'Professor_Odran', 'Professor Odran', null, 'Spire Academy instructor', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (104, 'Mina_Lark', 'Mina Lark', null, 'Spire Academy librarian', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (105, 'Jin_Kurogane', 'Jin Kurogane', null, 'Courier', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (106, 'Mei_Sakaki', 'Mei Sakaki', null, 'Hacker', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (107, 'Captain_Doyle', 'Captain Doyle', null, 'City patrol captain', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (108, 'Kai_Seward', 'Kai Seward', null, 'Black Aegis pilot', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (109, 'Rena_Ashford', 'Rena Ashford', null, 'Squadron lieutenant', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (110, 'Ivo_Strand', 'Ivo Strand', null, 'Rival pilot', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (111, 'Commander_Hale', 'Commander Hale', null, 'Aegis Corps commander', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (112, 'Aoi_Minase', 'Aoi Minase', null, 'Navigator-in-training', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (113, 'Theo_Lindqvist', 'Theo Lindqvist', null, 'Expedition physicist', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (114, 'Marisa_Doran', 'Marisa Doran', null, 'Captain of the Equinox', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (115, 'Haru', 'Haru', null, 'Ship''s cook', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (116, 'Edda_Varn', 'Edda Varn', null, 'Locksmith', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (117, 'Marcus_Holloway', 'Marcus Holloway', null, 'Bridge warden', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (118, 'The_Architect', 'The Architect', null, 'Founder of the city', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (119, 'Souta_Kirishima', 'Souta Kirishima', null, 'Former street-fighting champion', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (120, 'Hotaru_Kirishima', 'Hotaru Kirishima', null, 'Teahouse owner', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (121, 'Gen_Takeda', 'Gen "Ironside" Takeda', null, 'Reigning champion', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (122, 'Rei_Amagi', 'Rei Amagi', null, 'Bookmaker', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (123, 'Lyle_Crane', 'Lyle Crane', null, 'Mercenary climber', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (124, 'Nico_Vale', 'Nico Vale', null, 'Street thief', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (125, 'Seraph_Elwood', 'Seraph Elwood', null, 'Lord of the Tower of Pride', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (126, 'Aria_Moonbirth', 'Aria Moonbirth', null, 'Singer', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (127, 'Dorian_Graves', 'Dorian Graves', null, 'Lord of the Tower of Greed', null, array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (128, 'Elise_Hartmann', 'Elise Hartmann', null, 'Apprentice glass restorer', '2011-12-10T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (129, 'Father_Anselm', 'Father Anselm', null, 'Keeper of the cathedral', '2011-12-10T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (130, 'Tobias_Wren', 'Tobias Wren', null, 'Lamplighter', '2011-12-10T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (131, 'Greta', 'Greta', null, 'Glassblower''s daughter', '2011-12-10T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (132, 'Nanase', 'Nanase', null, 'Lead singer of Circuit Hearts', '2012-03-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (133, 'Yuu_Takamine', 'Yuu Takamine', null, 'Junk-shop owner''s son', '2012-03-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (134, 'Pico', 'Pico', null, 'Circuit Hearts keyboardist', '2012-03-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (135, 'Shion_Kagari', 'Shion Kagari', null, 'Former producer', '2012-03-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (136, 'Mirelle_Aubert', 'Mirelle Aubert', null, 'Cartographer', '2012-06-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (137, 'Cassian_Rhode', 'Cassian Rhode', null, 'Claimant prince', '2012-06-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (138, 'General_Vossberg', 'General Vossberg', null, 'Claimant general', '2012-06-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (139, 'Ines_Calder', 'Lady Ines Calder', null, 'Claimant noble', '2012-06-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (140, 'Pell', 'Pell', null, 'Scout', '2012-06-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (141, 'Kenji_Sakuraba', 'Kenji Sakuraba', null, 'High school ghost eater', '2012-12-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (142, 'Tsubaki_Hoshimiya', 'Tsubaki Hoshimiya', null, 'Shrine maiden', '2012-12-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (143, 'Granny_Fumi', 'Granny Fumi', null, 'Resident ghost', '2012-12-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[]),
-  (144, 'Detective_Ozaki', 'Detective Ozaki', null, 'Police detective', '2012-12-01T03:00:00Z', array['Written for the Lumine StarWorks reconstruction']::text[])
+  (126, 'Aria_Moonbirth', 'Aria Moonbirth', null, 'Singer', null, array['Connected Era Master Bible v1.0, ch. 16: franchise registry', 'Connected Era Master Bible v1.0, ch. 19: LUNE''s documented trajectory [F07]']::text[])
 on conflict do nothing;
 
--- character_facts: 56 rows
+-- character_facts: 1 rows
 
 insert into public.character_facts (character_id, position, body, revealed_at) values
-  (101, 1, 'The only blue-ranked sorcerer ever admitted to Celestine''s Spire Academy, mostly thanks to a paperwork mix-up.', null),
-  (101, 2, 'Cheerful, stubborn and terrible at flying. Discovers that blue magic is the only kind the city''s ancient Wind Engine can hear.', null),
-  (102, 1, 'Top of the class and very aware of it. Treats Rio as a rounding error, at first.', null),
-  (102, 2, 'Secretly practises the ''useless'' blue spells at night after watching Rio save the lantern festival.', null),
-  (103, 1, 'Gruff instructor of applied aeromancy who keeps a map of the Wind Engine''s forgotten rooms.', null),
-  (104, 1, 'Runs a library whose books bite. Knows far more about blue magic than she lets on.', null),
-  (105, 1, 'Bike courier in Neo-Kanazawa who can see ''afterimages'', the light trails people leave in the neon for exactly thirty seconds.', null),
-  (105, 2, 'Follows a vanished client''s afterimage across the city to find out who erased her.', null),
-  (106, 1, 'Runs an information-brokering operation out of the back of a ramen stall. Never misses a delivery deadline, or a chance to tease Jin.', null),
-  (107, 1, 'Patrol captain who keeps arresting Jin and keeps letting him go. Has a soft spot for the ramen stall.', null),
-  (108, 1, 'Cadet pilot on the island nation of Aldera, assigned the Black Aegis, an armored frame no one else can start.', null),
-  (108, 2, 'Learns the frame has been waiting for him since the sky first cracked.', null),
-  (109, 1, 'Leads the cadet squadron with dry humour and a strict flight schedule. Author of the Ashford Protocol.', null),
-  (110, 1, 'The academy''s top-scoring cadet until Kai showed up. Becomes his most reliable wingmate.', null),
-  (111, 1, 'Commander of the Aegis Corps, willing to gamble everything on an untested cadet.', null),
-  (112, 1, 'Seventeen-year-old navigator aboard the research ship Equinox, sailing the equator.', null),
-  (112, 2, 'Notices that the nightly time skips at zero latitude are getting longer, and that someone aboard remembers the missing seconds.', null),
-  (113, 1, 'The expedition''s physicist, who has a theory about the skips that he would rather not say out loud.', null),
-  (114, 1, 'Calm, exacting captain who runs the ship by the logbook, until the logbook stops agreeing with the clocks.', null),
-  (115, 1, 'The Equinox''s cook. Serves breakfast at exactly the same second every morning, which turns out to matter.', null),
-  (116, 1, 'A disgraced locksmith hired to open the vault holding the last will of the man who built the city of iron bridges.', null),
-  (117, 1, 'Warden of the city''s bridges, sworn to keep the vault sealed, and the first to break that oath.', null),
-  (118, 1, 'The city''s founder, seen only in recordings and in the clockwork he left behind.', null),
-  (119, 1, 'A former champion of Hanabishi''s embankment fights who swore he was done, until his sister''s teahouse ended up on the wrong side of a bet.', null),
-  (120, 1, 'Runs the family teahouse by the canal and keeps her brother''s ledger of fights, wins and broken promises.', null),
-  (121, 1, 'The reigning embankment champion, nicknamed Ironside. Fights with a grin and settles every debt he owes.', null),
-  (122, 1, 'The district''s youngest bookmaker, who knows every bet in Hanabishi and never writes anything down.', null),
-  (123, 1, 'A mercenary climbing Vellmore''s seven towers for money. Each tower is ruled by someone who made a deal with a sin.', null),
-  (123, 2, 'Learns that reaching the Apex grants one wish, and that every tower lord wants it too.', null),
-  (124, 1, 'A quick-witted thief who joins Lyle''s climb to settle a debt, and sings to keep her nerve on the stairways.', null),
-  (124, 2, 'Chooses what the wish will be when the Apex door finally opens.', '2012-01-16T16:00:00Z'),
-  (125, 1, 'Lord of the Tower of Pride, elegant, untouchable and certain the Apex is hers by right.', null),
-  (126, 1, 'The most famous singer in Vellmore, whose concerts echo between the tower floors. Played by the singer LUNE.', null),
-  (127, 1, 'Lord of the Tower of Greed, who keeps a ledger of every favour owed in the city.', null),
-  (128, 1, 'Apprentice restorer at the Glass Cathedral of Lindenmoor, where every pane holds a memory donated by someone in town.', null),
-  (128, 2, 'Discovers the cathedral''s newest window shows her own future morning.', '2012-02-29T16:30:00Z'),
-  (129, 1, 'The cathedral''s keeper, who forbids anyone from looking through the windows at night.', null),
-  (130, 1, 'Lindenmoor''s lamplighter, who notices which windows go dark before anyone else.', null),
-  (131, 1, 'The glassblower''s daughter, who donated a memory to the cathedral when she was six and can''t remember which one.', null),
-  (132, 1, 'Lead singer of the idol-android unit Circuit Hearts, retired after one perfect concert in 2042.', null),
-  (132, 2, 'Wakes up ten years later in a junk shop, convinced it is still the night of the show.', null),
-  (132, 3, 'Finds a memory card holding the setlist the unit never got to perform.', '2012-06-01T15:30:00Z'),
-  (133, 1, 'Found Nanase''s core in a box of spare parts. Can fix anything with a circuit board and cannot sing at all.', null),
-  (134, 1, 'The unit''s tiny, hyperactive keyboardist, rebuilt from a karaoke machine.', null),
-  (135, 1, 'Circuit Hearts'' original producer, now running a rival label and very interested in the unit''s comeback.', null),
-  (136, 1, 'An orphan cartographer who can map the liminal border, the twilight realm where the old kings'' armies still march.', null),
-  (136, 2, 'Her compass points to the person the crown has chosen.', '2012-11-24T08:00:00Z'),
-  (137, 1, 'A prince without a banner, the least likely of the five claimants to the empty throne of Varos.', null),
-  (138, 1, 'The kingdom''s most decorated general, who claims the throne in the name of order.', null),
-  (139, 1, 'A noble claimant who fights her war at the dinner table, with treaties instead of swords.', null),
-  (140, 1, 'A twelve-year-old scout who runs messages through the liminal border faster than anyone.', null),
-  (141, 1, 'A high school student who can eat ghosts. Each one tastes like whatever it regretted most.', null),
-  (141, 2, 'Meets a ghost too big to eat and has to talk it into moving on instead.', '2013-02-21T16:28:00Z'),
-  (142, 1, 'A shrine maiden with a business plan, a very long client list and no patience for Kenji''s complaints about flavour.', null),
-  (143, 1, 'A cheerful ghost who refuses to be eaten until she has finished her favourite drama series.', null),
-  (144, 1, 'A detective assigned to ''unusual cases'' who would very much like to stop being assigned to Kenji.', null)
+  (126, 1, 'A singer in Sinful Apex, played by the real-life singer LUNE.', null)
 on conflict do nothing;
 
--- character_relationships: 39 rows
-
-insert into public.character_relationships (character_id, other_id, label, revealed_at) values
-  (101, 102, 'Rival', null),
-  (101, 104, 'Mentor', null),
-  (102, 101, 'Rival', null),
-  (104, 101, 'Student', null),
-  (105, 106, 'Partner', null),
-  (106, 105, 'Partner', null),
-  (108, 109, 'Commanding officer', null),
-  (108, 110, 'Rival', null),
-  (109, 108, 'Cadet', null),
-  (110, 108, 'Wingmate', null),
-  (112, 113, 'Mentor', null),
-  (112, 114, 'Captain', null),
-  (113, 112, 'Student', null),
-  (116, 117, 'Reluctant ally', null),
-  (117, 116, 'Reluctant ally', null),
-  (119, 120, 'Younger sister', null),
-  (119, 121, 'Rival', null),
-  (120, 119, 'Older brother', null),
-  (121, 119, 'Rival', null),
-  (123, 124, 'Partner', null),
-  (124, 123, 'Partner', null),
-  (124, 126, 'Idol', null),
-  (126, 124, 'Fan', null),
-  (128, 129, 'Guardian', null),
-  (128, 130, 'Friend', null),
-  (129, 128, 'Ward', null),
-  (130, 128, 'Friend', null),
-  (132, 133, 'Mechanic', null),
-  (132, 134, 'Bandmate', null),
-  (133, 132, 'Friend', null),
-  (134, 132, 'Bandmate', null),
-  (136, 137, 'Ally', null),
-  (136, 140, 'Scout', null),
-  (137, 136, 'Ally', null),
-  (140, 136, 'Boss', null),
-  (141, 142, 'Employer', null),
-  (141, 143, 'Lodger', null),
-  (142, 141, 'Employee', null),
-  (143, 141, 'Landlord', null)
-on conflict do nothing;
-
--- anime_characters: 44 rows
+-- anime_characters: 1 rows
 
 insert into public.anime_characters (anime_id, character_id, role, visible_from) values
-  (3390, 101, 'Main', null),
-  (3390, 102, 'Main', null),
-  (3390, 103, 'Supporting', null),
-  (3390, 104, 'Supporting', null),
-  (6230, 105, 'Main', null),
-  (6230, 106, 'Main', null),
-  (6230, 107, 'Supporting', null),
-  (5120, 108, 'Main', null),
-  (5120, 109, 'Main', null),
-  (5120, 110, 'Supporting', null),
-  (5120, 111, 'Supporting', null),
-  (7741, 112, 'Main', null),
-  (7741, 113, 'Main', null),
-  (7741, 114, 'Supporting', null),
-  (7741, 115, 'Supporting', null),
-  (8452, 119, 'Main', null),
-  (8452, 120, 'Main', null),
-  (8452, 121, 'Supporting', null),
-  (8452, 122, 'Supporting', null),
-  (9133, 116, 'Main', null),
-  (9133, 117, 'Main', null),
-  (9133, 118, 'Supporting', null),
-  (10380, 123, 'Main', null),
-  (10380, 124, 'Main', null),
-  (10380, 125, 'Supporting', null),
-  (10380, 126, 'Supporting', null),
-  (10380, 127, 'Supporting', null),
-  (4407, 128, 'Main', null),
-  (4407, 130, 'Main', null),
-  (4407, 129, 'Supporting', null),
-  (4407, 131, 'Supporting', null),
-  (9608, 132, 'Main', null),
-  (9608, 133, 'Main', null),
-  (9608, 134, 'Supporting', null),
-  (9608, 135, 'Supporting', null),
-  (9871, 136, 'Main', null),
-  (9871, 137, 'Main', null),
-  (9871, 138, 'Supporting', null),
-  (9871, 139, 'Supporting', null),
-  (9871, 140, 'Supporting', null),
-  (6811, 141, 'Main', null),
-  (6811, 142, 'Main', null),
-  (6811, 143, 'Supporting', null),
-  (6811, 144, 'Supporting', null)
+  (10380, 126, 'Supporting', null)
 on conflict do nothing;
 
--- staff_credits: 52 rows
+-- staff_credits: 27 rows
 
 insert into public.staff_credits (anime_id, person_id, role, note, visible_from) values
   (16592, 10, 'Music', null, '2013-04-03T15:00:00Z'),
-  (3390, 52, 'Director', null, null),
-  (3390, 53, 'Character Design', null, null),
-  (3390, 54, 'Music', null, null),
-  (6230, 49, 'Director', null, null),
-  (6230, 48, 'Layout', null, null),
-  (6230, 47, 'Character Design', null, null),
-  (6230, 50, 'Music', null, null),
-  (5120, 40, 'Director', null, null),
-  (5120, 2, 'Co-Director', null, null),
-  (5120, 41, 'Series Composition', null, null),
-  (5120, 43, 'Character Design', null, null),
-  (5120, 42, 'Music', null, null),
+  (9871, 5, 'Storyboard', null, null),
+  (9871, 15, 'Music', null, null),
+  (9871, 14, 'Theme Song Performance', '"Gesshoku / Requiem for Zero"', null),
+  (8452, 9, 'Fight Choreography', null, null),
+  (8452, 8, 'Sound Director', null, null),
+  (4407, 5, 'Storyboard', null, null),
+  (4407, 8, 'Sound Director', null, null),
+  (4407, 14, 'Theme Song Performance', '"VITRAIL"', null),
+  (4812, 2, 'Director', null, null),
+  (6230, 7, 'Color Design', null, null),
+  (6230, 14, 'Theme Song Performance', '"AFTER//IMAGE"', null),
+  (9608, 14, 'Theme Song Performance', '"PULSE:RE"', null),
+  (9133, 3, 'Writer / Series Composition', null, null),
+  (9133, 4, 'Character Design / Animation', null, null),
+  (9133, 15, 'Music', null, null),
+  (9133, 14, 'Theme Song Performance', '"ALETHEIA / Ashes Know My Name"', null),
+  (8277, 3, 'Writer / Series Composition', null, null),
+  (7015, 3, 'Writer / Series Composition', null, null),
   (7741, 2, 'Director', null, null),
-  (7741, 44, 'Series Composition', null, null),
-  (7741, 5, 'Storyboard', 'Episode 7 long-take sequence', null),
-  (7741, 47, 'Character Design', null, null),
-  (7741, 45, 'Music', null, null),
-  (8452, 49, 'Director', null, null),
-  (8452, 51, 'Series Composition', null, null),
-  (8452, 5, 'Storyboard', 'Alley fight sequences', null),
-  (8452, 9, 'Action Choreography', null, null),
-  (8452, 50, 'Music', null, null),
-  (9133, 60, 'Director', null, null),
-  (9133, 58, 'Character Design', null, null),
-  (9133, 59, 'Music', null, null),
   (10380, 2, 'Director', null, null),
-  (10380, 57, 'Series Composition', null, null),
-  (10380, 58, 'Character Design', null, null),
-  (10380, 59, 'Music', null, null),
-  (10380, 14, 'Appearance', 'As the fictional singer Aria Moonbirth', null),
-  (4407, 46, 'Director', null, '2011-12-10T03:00:00Z'),
-  (4407, 44, 'Series Composition', null, '2011-12-10T03:00:00Z'),
-  (4407, 47, 'Character Design', null, '2011-12-10T03:00:00Z'),
-  (4407, 45, 'Music', null, '2011-12-10T03:00:00Z'),
-  (9608, 55, 'Director', null, '2012-03-01T03:00:00Z'),
-  (9608, 51, 'Series Composition', null, '2012-03-01T03:00:00Z'),
-  (9608, 43, 'Character Design', null, '2012-03-01T03:00:00Z'),
-  (9608, 56, 'Music', null, '2012-03-01T03:00:00Z'),
-  (9871, 40, 'Director', null, '2012-06-01T03:00:00Z'),
-  (9871, 41, 'Series Composition', null, '2012-06-01T03:00:00Z'),
-  (9871, 43, 'Character Design', null, '2012-06-01T03:00:00Z'),
-  (9871, 42, 'Music', null, '2012-06-01T03:00:00Z'),
-  (6811, 52, 'Director', null, '2012-12-01T03:00:00Z'),
-  (6811, 51, 'Series Composition', null, '2012-12-01T03:00:00Z'),
-  (6811, 53, 'Character Design', null, '2012-12-01T03:00:00Z'),
-  (6811, 54, 'Music', null, '2012-12-01T03:00:00Z'),
-  (8016, 2, 'Director', null, null),
-  (7015, 3, 'Head Writer', null, null),
-  (8277, 3, 'Series Composition', null, null),
-  (5904, 4, 'Animation Staff', null, null),
-  (7390, 9, 'Action Choreography', null, null)
+  (10380, 4, 'Character Design / Animation', null, null),
+  (10380, 9, 'Fight Choreography', null, null),
+  (10380, 7, 'Color Design', null, null),
+  (6811, 9, 'Fight Choreography', null, null),
+  (8016, 4, 'Character Design / Animation', null, null),
+  (6402, 5, 'Storyboard', null, null)
 on conflict do nothing;
 
--- voice_credits: 44 rows
+-- voice_credits: 1 rows
 
 insert into public.voice_credits (anime_id, character_id, person_id, language, visible_from) values
-  (3390, 101, 20, 'Japanese', null),
-  (3390, 102, 61, 'Japanese', null),
-  (3390, 103, 62, 'Japanese', null),
-  (3390, 104, 25, 'Japanese', null),
-  (6230, 105, 27, 'Japanese', null),
-  (6230, 106, 63, 'Japanese', null),
-  (6230, 107, 64, 'Japanese', null),
-  (5120, 108, 65, 'Japanese', null),
-  (5120, 109, 66, 'Japanese', null),
-  (5120, 110, 67, 'Japanese', null),
-  (5120, 111, 68, 'Japanese', null),
-  (7741, 112, 22, 'Japanese', null),
-  (7741, 113, 69, 'Japanese', null),
-  (7741, 114, 70, 'Japanese', null),
-  (7741, 115, 26, 'Japanese', null),
-  (8452, 119, 21, 'Japanese', null),
-  (8452, 120, 73, 'Japanese', null),
-  (8452, 121, 29, 'Japanese', null),
-  (8452, 122, 74, 'Japanese', null),
-  (9133, 116, 71, 'Japanese', null),
-  (9133, 117, 31, 'Japanese', null),
-  (9133, 118, 72, 'Japanese', null),
-  (10380, 123, 75, 'Japanese', null),
-  (10380, 124, 20, 'Japanese', null),
-  (10380, 125, 24, 'Japanese', null),
-  (10380, 126, 14, 'Japanese', null),
-  (10380, 127, 27, 'Japanese', null),
-  (4407, 128, 24, 'Japanese', null),
-  (4407, 130, 26, 'Japanese', null),
-  (4407, 129, 76, 'Japanese', null),
-  (4407, 131, 30, 'Japanese', null),
-  (9608, 132, 77, 'Japanese', null),
-  (9608, 133, 78, 'Japanese', null),
-  (9608, 134, 28, 'Japanese', null),
-  (9608, 135, 79, 'Japanese', null),
-  (9871, 136, 22, 'Japanese', null),
-  (9871, 137, 80, 'Japanese', null),
-  (9871, 138, 81, 'Japanese', null),
-  (9871, 139, 82, 'Japanese', null),
-  (9871, 140, 32, 'Japanese', null),
-  (6811, 141, 83, 'Japanese', null),
-  (6811, 142, 28, 'Japanese', null),
-  (6811, 143, 84, 'Japanese', null),
-  (6811, 144, 31, 'Japanese', null)
+  (10380, 126, 14, 'Japanese', null)
 on conflict do nothing;
 
--- theme_songs: 24 rows
+-- theme_songs: 5 rows
 
 insert into public.theme_songs (anime_id, kind, title, artist, note, visible_from) values
-  (3390, 'Opening', 'Sky-Colored Spell', 'Paper Satellite', null, null),
-  (3390, 'Ending', 'Little Blue', 'Clockwork Lily', null, null),
-  (6230, 'Opening', 'Afterglow Circuit', 'STRAYLIGHT', null, null),
-  (6230, 'Ending', '30 Seconds', 'Sena Arisugawa', null, null),
-  (5120, 'Opening', 'Iron Wings', 'Vanguard Nine', null, null),
-  (5120, 'Ending', 'Clear Skies', 'Sena Arisugawa', null, null),
-  (7741, 'Opening', 'Equator Line', 'Paper Satellite', null, null),
-  (7741, 'Ending', 'Seven Seconds', 'Hanae Tsukishiro', null, null),
-  (8452, 'Opening', 'Spark Embankment', 'Vanguard Nine', null, null),
-  (8452, 'Ending', 'Lantern Boat', 'Hanae Tsukishiro', null, null),
-  (9133, 'Ending', 'Testament', 'Clockwork Lily', null, null),
-  (10380, 'Opening', 'Seven Steps to Heaven', 'STRAYLIGHT', null, null),
-  (10380, 'Ending', 'Moonbirth', 'Aria Moonbirth (LUNE)', null, null),
-  (10380, 'Insert', 'Between Floors', 'Aria Moonbirth (LUNE)', null, null),
-  (4407, 'Opening', 'Stained Memory', 'Clockwork Lily', null, '2012-01-11T16:30:00Z'),
-  (4407, 'Ending', 'Morning Window', 'Hanae Tsukishiro', null, '2012-01-11T16:30:00Z'),
-  (9608, 'Opening', 'Reload My Heart', 'Circuit Hearts', null, '2012-04-06T15:30:00Z'),
-  (9608, 'Ending', 'Spare Parts Lullaby', 'Paper Satellite', null, '2012-04-06T15:30:00Z'),
-  (9608, 'Insert', 'The Setlist We Never Played', 'Circuit Hearts', null, '2012-06-01T15:30:00Z'),
-  (9871, 'Opening', 'Crownless', 'Vanguard Nine', null, '2012-07-07T08:00:00Z'),
-  (9871, 'Opening', 'Liminal', 'STRAYLIGHT', null, '2012-09-29T08:00:00.000Z'),
-  (9871, 'Ending', 'Cartographer', 'Sena Arisugawa', null, '2012-07-07T08:00:00Z'),
-  (6811, 'Opening', 'Itadakimasu Ghost!', 'Paper Satellite', null, '2013-01-10T16:28:00Z'),
-  (6811, 'Ending', 'Leftover Moon', 'Clockwork Lily', null, '2013-01-10T16:28:00Z')
+  (9871, 'Theme', 'Gesshoku / Requiem for Zero', 'LUNE', 'Documented or working title. Opening, ending or insert: not yet recorded.', null),
+  (4407, 'Theme', 'VITRAIL', 'LUNE', 'Documented or working title. Opening, ending or insert: not yet recorded.', null),
+  (6230, 'Theme', 'AFTER//IMAGE', 'LUNE', 'Documented or working title. Opening, ending or insert: not yet recorded.', null),
+  (9608, 'Theme', 'PULSE:RE', 'LUNE', 'Documented or working title. Opening, ending or insert: not yet recorded.', null),
+  (9133, 'Theme', 'ALETHEIA / Ashes Know My Name', 'LUNE', 'Documented or working title. Opening, ending or insert: not yet recorded.', null)
 on conflict do nothing;
 
--- related_entries: 9 rows
+-- related_entries: 4 rows
 
 insert into public.related_entries (source_type, source_id, target_type, target_id, kind, note, visible_from) values
-  ('anime', 3390, 'anime', 6811, 'Other', 'Same studio and director.', null),
-  ('anime', 6230, 'anime', 8452, 'Other', 'Same studio and director.', null),
-  ('anime', 5120, 'anime', 9871, 'Other', 'Same studio, director and writer.', null),
-  ('anime', 8452, 'anime', 6230, 'Other', 'Same studio and director.', null),
-  ('anime', 9133, 'anime', 10380, 'Other', 'Same studio unit (Flow Pictures).', null),
-  ('anime', 10380, 'anime', 9133, 'Other', 'Same studio unit (Flow Pictures).', null),
-  ('anime', 4407, 'anime', 7741, 'Other', 'Same studio and writer.', null),
-  ('anime', 9871, 'anime', 5120, 'Other', 'Same studio, director and writer.', null),
-  ('anime', 6811, 'anime', 3390, 'Other', 'Same studio and director.', null)
+  ('anime', 4812, 'anime', 5120, 'Sequel', 'Theatrical sequel (2012).', null),
+  ('anime', 9133, 'anime', 5904, 'Side story', 'OVA trilogy (2010).', null),
+  ('anime', 5904, 'anime', 9133, 'Parent story', null, null),
+  ('anime', 5120, 'anime', 4812, 'Prequel', 'TV series (2006–2007).', null)
 on conflict do nothing;
 
--- historical_stat_snapshots: 24 rows
-
-insert into public.historical_stat_snapshots (subject_type, subject_id, metric, value, captured_at, source) values
-  ('anime', '3390', 'score', 7.62, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '3390', 'scored_by', 31204, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '6230', 'score', 7.88, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '6230', 'scored_by', 42117, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '5120', 'score', 7.95, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '5120', 'scored_by', 51880, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '7741', 'score', 8.34, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '7741', 'scored_by', 68412, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '8452', 'score', 8.12, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '8452', 'scored_by', 47306, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '9133', 'score', 8.41, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '9133', 'scored_by', 39775, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '10380', 'score', 8.44, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '10380', 'scored_by', 71402, '2011-12-31T15:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '10380', 'score', 8.47, '2012-01-30T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '10380', 'scored_by', 88931, '2012-01-30T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '4407', 'score', 7.71, '2012-04-02T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '4407', 'scored_by', 24560, '2012-04-02T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '9608', 'score', 7.34, '2012-06-25T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '9608', 'scored_by', 19842, '2012-06-25T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '9871', 'score', 8.05, '2012-12-17T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '9871', 'scored_by', 36220, '2012-12-17T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '6811', 'score', 7.58, '2013-04-01T03:00:00Z', 'YAL score snapshot (reconstructed)'),
-  ('anime', '6811', 'scored_by', 21009, '2013-04-01T03:00:00Z', 'YAL score snapshot (reconstructed)')
-on conflict do nothing;
-
--- news_posts: 8 rows
+-- news_posts: 4 rows
 
 insert into public.news_posts (id, slug, title, published_at, author, body, provenance, source) values
   (1, 'sinful-apex-wraps-24-episode-run', 'Sinful Apex wraps its 24-episode run', '2012-01-24T03:00:00Z', 'YALBot', 'Flow Pictures'' [b]Sinful Apex[/b] aired its 24th and final episode on January 23, 2012, closing a run that began on August 15, 2011. Director Kaihatsu Miura''s series is now marked as [b]Finished Airing[/b] in the database.
@@ -842,176 +343,43 @@ Remember to update your lists, and drop your final thoughts in the reviews secti
 
 The entry is now live, so add it to your list and say hello in the episode discussion threads.', 'reconstructed', 'Lumine StarWorks YAL development brief (established production data)'),
   (10, 'sinful-apex-complete-collection', 'Sinful Apex Complete Collection on Blu-ray today', '2013-11-19T15:00:00Z', 'YALBot', '[b]Funmaxation[/b]''s [b]Sinful Apex[/b] Complete Collection Blu-ray is out today, November 19. A great time to revisit Kaihatsu Miura''s work at Flow Pictures.', 'reconstructed', 'AniWire advertisement, "Sinful Apex Complete Collection on Blu-ray Nov 19" (Oct 6, 2013)'),
-  (11, 'glass-cathedral-premieres', 'Glass Cathedral premieres; Studio Kinemachi''s winter mystery', '2012-01-12T03:00:00Z', 'YALBot', '[b]Glass Cathedral[/b] premiered on VBS/KBS on Wednesday, January 11 at 25:30 JST. Director Chie Morisawa leads the 12-episode series, reuniting writer Tamaki Hoshino and character designer Sayo Kuramoto from Zero Latitude.
+  (11, 'flow-pictures-rewatch-club', 'Forum spotlight: the Flow Pictures catalogue rewatch club', '2012-02-06T03:00:00Z', 'YALBot', 'Members on the General board are working through [b]Flow Pictures[/b]'' back catalogue together, oldest first, starting with [b]Vacant Crown: Liminal War[/b] (2000) and [b]River of Sparks[/b] (2004).
 
-Subtitled episodes are streaming on MunchyRoll.', 'reconstructed', 'Written for the Lumine StarWorks reconstruction'),
-  (12, 'circuit-hearts-reload-premieres', 'Circuit Hearts: Reload premieres Friday night', '2012-04-07T03:00:00Z', 'YALBot', 'Studio Pulsewave''s [b]Circuit Hearts: Reload[/b] premiered on Friday, April 6 at 24:30 JST. The 12-episode series follows a retired android idol unit getting back together ten years after its final concert.', 'reconstructed', 'Written for the Lumine StarWorks reconstruction'),
-  (13, 'vacant-crown-liminal-war-premieres', 'Vacant Crown: Liminal War begins its two-cour run', '2012-07-07T10:00:00Z', 'YALBot', 'Arc Meridian''s [b]Vacant Crown: Liminal War[/b] premiered today at 17:00 JST. The Skyfall Chronicle team of director Haruomi Sendo, writer Mizuki Tobe and composer Kazane Ichijo is back for 24 episodes running through December.', 'reconstructed', 'Written for the Lumine StarWorks reconstruction'),
-  (14, 'funmaxation-licenses-vacant-crown', 'Funmaxation licenses Vacant Crown: Liminal War', '2012-10-01T04:00:00Z', 'YALBot', '[b]Funmaxation[/b] has picked up [b]Vacant Crown: Liminal War[/b] for North America. The series is in its second cour and continues every Saturday.', 'reconstructed', 'Written for the Lumine StarWorks reconstruction'),
-  (15, 'ghost-eater-premieres', 'Ghost Eater premieres; Ashgrove''s first series since Azure Sorcerer', '2013-01-11T03:00:00Z', 'YALBot', '[b]Ghost Eater[/b] premiered on Thursday, January 10 at 25:28 JST. Director Shizuka Ogura returns to Ashgrove Animation for a supernatural comedy about a high schooler who eats ghosts for a living.', 'reconstructed', 'Written for the Lumine StarWorks reconstruction')
+Everyone is welcome, whether it''s a first watch or a tenth. Look for "Flow Pictures catalogue rewatch club" in the forums.', 'reconstructed', 'Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue')
 on conflict do nothing;
 
--- historical_events: 158 rows
+-- historical_events: 29 rows
 
 insert into public.historical_events (id, at, label, subject_type, subject_id, provenance, source) values
-  ('anime-16592-broadcast-1', '2013-04-03T15:00:00Z', 'Iron to Requiem: Japanese TV premiere', 'anime', 16592, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-16592-broadcast-2', '2013-09-25T15:00:00Z', 'Iron to Requiem: Japanese TV finale', 'anime', 16592, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-broadcast-1', '2011-08-15T16:00:00Z', 'Sinful Apex: Japanese TV premiere', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-broadcast-2', '2012-01-23T16:00:00.000Z', 'Sinful Apex: Japanese TV finale (Episode 24)', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-broadcast-1', '2012-01-11T16:30:00Z', 'Glass Cathedral: Japanese TV premiere (VBS/KBS)', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-broadcast-1', '2012-07-07T08:00:00Z', 'Vacant Crown: Liminal War: Japanese TV premiere (VBS/KBS)', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-1', '2006-10-04T09:00:00.000Z', 'Azure Sorcerer Episode 1 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-2', '2006-10-11T09:00:00.000Z', 'Azure Sorcerer Episode 2 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-3', '2006-10-18T09:00:00.000Z', 'Azure Sorcerer Episode 3 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-4', '2006-10-25T09:00:00.000Z', 'Azure Sorcerer Episode 4 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-5', '2006-11-01T09:00:00.000Z', 'Azure Sorcerer Episode 5 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-6', '2006-11-08T09:00:00.000Z', 'Azure Sorcerer Episode 6 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-7', '2006-11-15T09:00:00.000Z', 'Azure Sorcerer Episode 7 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-8', '2006-11-22T09:00:00.000Z', 'Azure Sorcerer Episode 8 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-9', '2006-11-29T09:00:00.000Z', 'Azure Sorcerer Episode 9 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-10', '2006-12-06T09:00:00.000Z', 'Azure Sorcerer Episode 10 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-11', '2006-12-13T09:00:00.000Z', 'Azure Sorcerer Episode 11 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-12', '2006-12-20T09:00:00.000Z', 'Azure Sorcerer Episode 12 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-3390-ep-13', '2006-12-27T09:00:00.000Z', 'Azure Sorcerer Episode 13 airs', 'anime', 3390, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6230-ep-1', '2008-04-03T17:00:00.000Z', 'Neon Afterimage Episode 1 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-2', '2008-04-10T17:00:00.000Z', 'Neon Afterimage Episode 2 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-3', '2008-04-17T17:00:00.000Z', 'Neon Afterimage Episode 3 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-4', '2008-04-24T17:00:00.000Z', 'Neon Afterimage Episode 4 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-5', '2008-05-01T17:00:00.000Z', 'Neon Afterimage Episode 5 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-6', '2008-05-08T17:00:00.000Z', 'Neon Afterimage Episode 6 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-7', '2008-05-15T17:00:00.000Z', 'Neon Afterimage Episode 7 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-8', '2008-05-22T17:00:00.000Z', 'Neon Afterimage Episode 8 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-9', '2008-05-29T17:00:00.000Z', 'Neon Afterimage Episode 9 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-10', '2008-06-05T17:00:00.000Z', 'Neon Afterimage Episode 10 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-11', '2008-06-12T17:00:00.000Z', 'Neon Afterimage Episode 11 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-6230-ep-12', '2008-06-19T17:00:00.000Z', 'Neon Afterimage Episode 12 airs', 'anime', 6230, 'documented', 'YAL episode discussion staff-credit roundup (Oct 2013)'),
-  ('anime-5120-ep-1', '2009-04-04T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 1 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-2', '2009-04-11T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 2 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-3', '2009-04-18T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 3 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-4', '2009-04-25T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 4 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-5', '2009-05-02T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 5 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-6', '2009-05-09T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 6 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-7', '2009-05-16T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 7 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-8', '2009-05-23T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 8 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-9', '2009-05-30T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 9 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-10', '2009-06-06T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 10 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-11', '2009-06-13T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 11 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-12', '2009-06-20T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 12 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-5120-ep-13', '2009-06-27T08:30:00.000Z', 'Skyfall Chronicle: Black Aegis Episode 13 airs', 'anime', 5120, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-1', '2010-07-06T15:30:00.000Z', 'Zero Latitude Episode 1 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-2', '2010-07-13T15:30:00.000Z', 'Zero Latitude Episode 2 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-3', '2010-07-20T15:30:00.000Z', 'Zero Latitude Episode 3 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-4', '2010-07-27T15:30:00.000Z', 'Zero Latitude Episode 4 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-5', '2010-08-03T15:30:00.000Z', 'Zero Latitude Episode 5 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-6', '2010-08-10T15:30:00.000Z', 'Zero Latitude Episode 6 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-7', '2010-08-17T15:30:00.000Z', 'Zero Latitude Episode 7 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-8', '2010-08-24T15:30:00.000Z', 'Zero Latitude Episode 8 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-9', '2010-08-31T15:30:00.000Z', 'Zero Latitude Episode 9 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-10', '2010-09-07T15:30:00.000Z', 'Zero Latitude Episode 10 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-11', '2010-09-14T15:30:00.000Z', 'Zero Latitude Episode 11 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-7741-ep-12', '2010-09-21T15:30:00.000Z', 'Zero Latitude Episode 12 airs', 'anime', 7741, 'documented', 'MunchyRoll catalogue page (2013)'),
-  ('anime-8452-ep-1', '2010-10-07T16:00:00.000Z', 'River of Sparks Episode 1 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-2', '2010-10-14T16:00:00.000Z', 'River of Sparks Episode 2 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-3', '2010-10-21T16:00:00.000Z', 'River of Sparks Episode 3 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-4', '2010-10-28T16:00:00.000Z', 'River of Sparks Episode 4 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-5', '2010-11-04T16:00:00.000Z', 'River of Sparks Episode 5 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-6', '2010-11-11T16:00:00.000Z', 'River of Sparks Episode 6 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-7', '2010-11-18T16:00:00.000Z', 'River of Sparks Episode 7 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-8', '2010-11-25T16:00:00.000Z', 'River of Sparks Episode 8 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-9', '2010-12-02T16:00:00.000Z', 'River of Sparks Episode 9 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-10', '2010-12-09T16:00:00.000Z', 'River of Sparks Episode 10 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-11', '2010-12-16T16:00:00.000Z', 'River of Sparks Episode 11 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-8452-ep-12', '2010-12-23T16:00:00.000Z', 'River of Sparks Episode 12 airs', 'anime', 8452, 'documented', 'SakugaThread megathread (Oct 6, 2013)'),
-  ('anime-9133-ep-1', '2010-11-12T15:00:00Z', 'Steelbound Testament Episode 1 airs', 'anime', 9133, 'documented', 'AniWire premiere review (Oct 6, 2013)'),
-  ('anime-10380-ep-1', '2011-08-15T16:00:00.000Z', 'Sinful Apex Episode 1 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-2', '2011-08-22T16:00:00.000Z', 'Sinful Apex Episode 2 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-3', '2011-08-29T16:00:00.000Z', 'Sinful Apex Episode 3 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-4', '2011-09-05T16:00:00.000Z', 'Sinful Apex Episode 4 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-5', '2011-09-12T16:00:00.000Z', 'Sinful Apex Episode 5 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-6', '2011-09-19T16:00:00.000Z', 'Sinful Apex Episode 6 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-7', '2011-09-26T16:00:00.000Z', 'Sinful Apex Episode 7 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-8', '2011-10-03T16:00:00.000Z', 'Sinful Apex Episode 8 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-9', '2011-10-10T16:00:00.000Z', 'Sinful Apex Episode 9 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-10', '2011-10-17T16:00:00.000Z', 'Sinful Apex Episode 10 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-11', '2011-10-24T16:00:00.000Z', 'Sinful Apex Episode 11 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-12', '2011-10-31T16:00:00.000Z', 'Sinful Apex Episode 12 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-13', '2011-11-07T16:00:00.000Z', 'Sinful Apex Episode 13 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-14', '2011-11-14T16:00:00.000Z', 'Sinful Apex Episode 14 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-15', '2011-11-21T16:00:00.000Z', 'Sinful Apex Episode 15 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-16', '2011-11-28T16:00:00.000Z', 'Sinful Apex Episode 16 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-17', '2011-12-05T16:00:00.000Z', 'Sinful Apex Episode 17 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-18', '2011-12-12T16:00:00.000Z', 'Sinful Apex Episode 18 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-19', '2011-12-19T16:00:00.000Z', 'Sinful Apex Episode 19 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-20', '2011-12-26T16:00:00.000Z', 'Sinful Apex Episode 20 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-21', '2012-01-02T16:00:00.000Z', 'Sinful Apex Episode 21 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-22', '2012-01-09T16:00:00.000Z', 'Sinful Apex Episode 22 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-23', '2012-01-16T16:00:00.000Z', 'Sinful Apex Episode 23 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-10380-ep-24', '2012-01-23T16:00:00.000Z', 'Sinful Apex Episode 24 airs', 'anime', 10380, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-1', '2012-01-11T16:30:00.000Z', 'Glass Cathedral Episode 1 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-2', '2012-01-18T16:30:00.000Z', 'Glass Cathedral Episode 2 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-3', '2012-01-25T16:30:00.000Z', 'Glass Cathedral Episode 3 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-4', '2012-02-01T16:30:00.000Z', 'Glass Cathedral Episode 4 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-5', '2012-02-08T16:30:00.000Z', 'Glass Cathedral Episode 5 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-6', '2012-02-15T16:30:00.000Z', 'Glass Cathedral Episode 6 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-7', '2012-02-22T16:30:00.000Z', 'Glass Cathedral Episode 7 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-8', '2012-02-29T16:30:00.000Z', 'Glass Cathedral Episode 8 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-9', '2012-03-07T16:30:00.000Z', 'Glass Cathedral Episode 9 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-10', '2012-03-14T16:30:00.000Z', 'Glass Cathedral Episode 10 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-11', '2012-03-21T16:30:00.000Z', 'Glass Cathedral Episode 11 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-4407-ep-12', '2012-03-28T16:30:00.000Z', 'Glass Cathedral Episode 12 airs', 'anime', 4407, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-1', '2012-04-06T15:30:00.000Z', 'Circuit Hearts: Reload Episode 1 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-2', '2012-04-13T15:30:00.000Z', 'Circuit Hearts: Reload Episode 2 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-3', '2012-04-20T15:30:00.000Z', 'Circuit Hearts: Reload Episode 3 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-4', '2012-04-27T15:30:00.000Z', 'Circuit Hearts: Reload Episode 4 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-5', '2012-05-04T15:30:00.000Z', 'Circuit Hearts: Reload Episode 5 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-6', '2012-05-11T15:30:00.000Z', 'Circuit Hearts: Reload Episode 6 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-7', '2012-05-18T15:30:00.000Z', 'Circuit Hearts: Reload Episode 7 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-8', '2012-05-25T15:30:00.000Z', 'Circuit Hearts: Reload Episode 8 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-9', '2012-06-01T15:30:00.000Z', 'Circuit Hearts: Reload Episode 9 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-10', '2012-06-08T15:30:00.000Z', 'Circuit Hearts: Reload Episode 10 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-11', '2012-06-15T15:30:00.000Z', 'Circuit Hearts: Reload Episode 11 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9608-ep-12', '2012-06-22T15:30:00.000Z', 'Circuit Hearts: Reload Episode 12 airs', 'anime', 9608, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-1', '2012-07-07T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 1 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-2', '2012-07-14T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 2 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-3', '2012-07-21T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 3 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-4', '2012-07-28T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 4 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-5', '2012-08-04T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 5 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-6', '2012-08-11T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 6 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-7', '2012-08-18T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 7 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-8', '2012-08-25T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 8 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-9', '2012-09-01T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 9 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-10', '2012-09-08T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 10 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-11', '2012-09-15T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 11 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-12', '2012-09-22T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 12 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-13', '2012-09-29T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 13 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-14', '2012-10-06T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 14 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-15', '2012-10-13T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 15 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-16', '2012-10-20T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 16 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-17', '2012-10-27T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 17 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-18', '2012-11-03T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 18 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-19', '2012-11-10T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 19 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-20', '2012-11-17T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 20 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-21', '2012-11-24T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 21 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-22', '2012-12-01T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 22 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-23', '2012-12-08T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 23 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-9871-ep-24', '2012-12-15T08:00:00.000Z', 'Vacant Crown: Liminal War Episode 24 airs', 'anime', 9871, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-1', '2013-01-10T16:28:00.000Z', 'Ghost Eater Episode 1 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-2', '2013-01-17T16:28:00.000Z', 'Ghost Eater Episode 2 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-3', '2013-01-24T16:28:00.000Z', 'Ghost Eater Episode 3 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-4', '2013-01-31T16:28:00.000Z', 'Ghost Eater Episode 4 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-5', '2013-02-07T16:28:00.000Z', 'Ghost Eater Episode 5 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-6', '2013-02-14T16:28:00.000Z', 'Ghost Eater Episode 6 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-7', '2013-02-21T16:28:00.000Z', 'Ghost Eater Episode 7 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-8', '2013-02-28T16:28:00.000Z', 'Ghost Eater Episode 8 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-9', '2013-03-07T16:28:00.000Z', 'Ghost Eater Episode 9 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-10', '2013-03-14T16:28:00.000Z', 'Ghost Eater Episode 10 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-11', '2013-03-21T16:28:00.000Z', 'Ghost Eater Episode 11 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-6811-ep-12', '2013-03-28T16:28:00.000Z', 'Ghost Eater Episode 12 airs', 'anime', 6811, 'documented', 'Lumine StarWorks YAL development brief (established production data)'),
-  ('anime-16592-listed', '2013-04-03T15:00:00Z', 'Iron to Requiem added to YAL', 'anime', 16592, 'documented', null),
-  ('anime-4407-listed', '2011-12-10T03:00:00Z', 'Glass Cathedral added to YAL', 'anime', 4407, 'documented', null),
-  ('anime-9608-listed', '2012-03-01T03:00:00Z', 'Circuit Hearts: Reload added to YAL', 'anime', 9608, 'documented', null),
-  ('anime-9871-listed', '2012-06-01T03:00:00Z', 'Vacant Crown: Liminal War added to YAL', 'anime', 9871, 'documented', null),
-  ('anime-6811-listed', '2012-12-01T03:00:00Z', 'Ghost Eater added to YAL', 'anime', 6811, 'documented', null)
+  ('anime-16592-broadcast-1', '2013-04-03T15:00:00Z', 'Iron to Requiem: Japanese TV premiere', 'anime', 16592, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-16592-broadcast-2', '2013-09-25T15:00:00Z', 'Iron to Requiem: Japanese TV finale', 'anime', 16592, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-broadcast-1', '2011-08-14T15:00:00Z', 'Sinful Apex: Japanese TV premiere', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-broadcast-2', '2012-01-22T15:00:00.000Z', 'Sinful Apex: Japanese TV finale (Episode 24)', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-1', '2011-08-14T15:00:00.000Z', 'Sinful Apex Episode 1 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-2', '2011-08-21T15:00:00.000Z', 'Sinful Apex Episode 2 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-3', '2011-08-28T15:00:00.000Z', 'Sinful Apex Episode 3 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-4', '2011-09-04T15:00:00.000Z', 'Sinful Apex Episode 4 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-5', '2011-09-11T15:00:00.000Z', 'Sinful Apex Episode 5 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-6', '2011-09-18T15:00:00.000Z', 'Sinful Apex Episode 6 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-7', '2011-09-25T15:00:00.000Z', 'Sinful Apex Episode 7 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-8', '2011-10-02T15:00:00.000Z', 'Sinful Apex Episode 8 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-9', '2011-10-09T15:00:00.000Z', 'Sinful Apex Episode 9 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-10', '2011-10-16T15:00:00.000Z', 'Sinful Apex Episode 10 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-11', '2011-10-23T15:00:00.000Z', 'Sinful Apex Episode 11 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-12', '2011-10-30T15:00:00.000Z', 'Sinful Apex Episode 12 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-13', '2011-11-06T15:00:00.000Z', 'Sinful Apex Episode 13 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-14', '2011-11-13T15:00:00.000Z', 'Sinful Apex Episode 14 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-15', '2011-11-20T15:00:00.000Z', 'Sinful Apex Episode 15 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-16', '2011-11-27T15:00:00.000Z', 'Sinful Apex Episode 16 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-17', '2011-12-04T15:00:00.000Z', 'Sinful Apex Episode 17 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-18', '2011-12-11T15:00:00.000Z', 'Sinful Apex Episode 18 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-19', '2011-12-18T15:00:00.000Z', 'Sinful Apex Episode 19 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-20', '2011-12-25T15:00:00.000Z', 'Sinful Apex Episode 20 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-21', '2012-01-01T15:00:00.000Z', 'Sinful Apex Episode 21 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-22', '2012-01-08T15:00:00.000Z', 'Sinful Apex Episode 22 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-23', '2012-01-15T15:00:00.000Z', 'Sinful Apex Episode 23 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-10380-ep-24', '2012-01-22T15:00:00.000Z', 'Sinful Apex Episode 24 airs', 'anime', 10380, 'documented', 'Connected Era Master Bible v1.0, ch. 16: franchise registry'),
+  ('anime-16592-listed', '2013-04-03T15:00:00Z', 'Iron to Requiem added to YAL', 'anime', 16592, 'documented', null)
 on conflict do nothing;
 
 -- archive_members: 218 rows
@@ -1256,7 +624,7 @@ insert into public.forum_boards (slug, name, description, group_name, position) 
   ('support', 'Community Support', 'Site help, bug reports and announcements from the YAL staff.', 'YAL', 11)
 on conflict do nothing;
 
--- forum_threads: 10 rows
+-- forum_threads: 9 rows
 
 insert into public.forum_threads (id, board, title, author_name, created_at, created_tz, anime_id, episode, pinned, locked, parent_thread_id, posts_recovered, provenance) values
   ('t-20114', 'support', '[Rules] Episode Discussion board guidelines (please read)', 'YALBot', '2012-01-05T03:00:00Z', 'JST', null, null, true, true, null, true, 'reconstructed'),
@@ -1265,13 +633,12 @@ insert into public.forum_threads (id, board, title, author_name, created_at, cre
   ('t-30610', 'episode', 'Iron to Requiem Episode 26 Discussion', 'YALBot', '2013-09-26T14:30:00Z', 'JST', 16592, 26, false, false, null, true, 'reconstructed'),
   ('t-22048', 'recommendations', 'Looking for shows like Sinful Apex', 'ShounenLifer_VHS', '2012-01-24T10:40:00Z', 'JST', 10380, null, false, false, null, true, 'reconstructed'),
   ('t-21990', 'episode', 'Sinful Apex Episode 24 Discussion', 'YALBot', '2012-01-23T16:31:00Z', 'JST', 10380, 24, false, false, null, true, 'reconstructed'),
-  ('t-24410', 'episode', 'Glass Cathedral Episode 12 Discussion', 'YALBot', '2012-03-28T17:00:00Z', 'JST', 4407, 12, false, false, null, true, 'reconstructed'),
-  ('t-26890', 'episode', 'Circuit Hearts: Reload Episode 12 Discussion', 'YALBot', '2012-06-22T16:01:00Z', 'JST', 9608, 12, false, false, null, true, 'reconstructed'),
-  ('t-28655', 'episode', 'Vacant Crown: Liminal War Episode 24 Discussion', 'YALBot', '2012-12-15T08:31:00Z', 'JST', 9871, 24, false, false, null, true, 'reconstructed'),
-  ('t-30120', 'episode', 'Ghost Eater Episode 12 Discussion', 'YALBot', '2013-03-28T16:58:00Z', 'JST', 6811, 12, false, false, null, true, 'reconstructed')
+  ('t-21998', 'music', 'LUNE appreciation thread', 'MahouShoujoLifer', '2012-01-25T09:15:00Z', 'JST', null, null, false, false, null, true, 'reconstructed'),
+  ('t-22310', 'general', 'Flow Pictures catalogue rewatch club', 'FinalBossu', '2012-02-04T10:31:00Z', 'JST', null, null, false, false, null, true, 'reconstructed'),
+  ('t-29802', 'general', 'Skyfall Chronicle: Black Aegis — can I watch it without the series?', 'HyperNekoMimi', '2013-01-12T13:00:00Z', 'JST', 5120, null, false, false, null, true, 'reconstructed')
 on conflict do nothing;
 
--- forum_posts: 41 rows
+-- forum_posts: 35 rows
 
 insert into public.forum_posts (thread_id, number, author_name, avatar, author_rank, author_post_count, author_online, body, posted_at, posted_tz, edited_at, edit_reason, announcement, provenance) values
   ('t-20114', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Welcome to Episode Discussion![/b]
@@ -1316,60 +683,49 @@ Do not post spoilers for future episodes.
   ('t-30610', 2, 'NodeCoreOmega', 'av-calsparrow', 'Senior Member', null, false, 'Twenty-six weeks went by FAST. Thank you CHAOS Home, thank you Sawano. What a ride.', '2013-09-26T14:51:00Z', 'JST', null, null, false, 'reconstructed'),
   ('t-30610', 3, 'FinalBossu', 'av-finalbossu', 'Anime Addict', null, false, 'That last soundtrack cue gave me chills. Buying the OST the day it''s out.', '2013-09-26T15:20:00Z', 'JST', null, null, false, 'reconstructed'),
   ('t-22048', 1, 'ShounenLifer_VHS', 'av-vhssamurai', 'Anime Addict', null, false, 'Just finished Sinful Apex and I need more dense, no-filler action. What should I watch next?', '2012-01-24T10:40:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-22048', 2, 'HollowToast', 'av-hollowtoast', 'Senior Member', null, false, 'Try [b]Zero Latitude[/b]. Same director, Kaihatsu Miura, and it has one of the best long-take action sequences I''ve ever seen.', '2012-01-24T21:15:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-22048', 3, 'SakugaThreadZero', 'av-zeroframe', 'Database Contributor', null, false, 'Seconding Zero Latitude. Tomoe Suzuhara boarded that long take. Also check out [b]Skyfall Chronicle: Black Aegis[/b], which Miura co-directed.', '2012-01-25T03:02:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-21990', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Episode 24 ("Sinful Apex") is now available.[/b]
+  ('t-22048', 2, 'HollowToast', 'av-hollowtoast', 'Senior Member', null, false, 'Try [b]Zero Latitude[/b]. It''s a Kaihatsu Miura TV special from last year: one long chase across a megacity during a blackout. Same confident direction, and you can watch it in a single evening.', '2012-01-24T21:15:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22048', 3, 'SakugaThreadZero', 'av-zeroframe', 'Database Contributor', null, false, 'Seconding Zero Latitude. For something longer, [b]Skyfall Chronicle[/b] is Miura too: two cours of floating citadels at war. And if it was the fights you loved, Yusuke Kagura choreographed [b]River of Sparks[/b] back in 2004.', '2012-01-25T03:02:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21990', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Episode 24 is now available.[/b]
 
 This is the final episode. Please keep discussion focused on Episode 24.
 
 [small]— Automated post by YALBot. Replies are open.[/small]', '2012-01-23T16:31:00Z', 'JST', null, null, true, 'reconstructed'),
-  ('t-21990', 2, 'ShounenLifer_VHS', 'av-vhssamurai', 'Anime Addict', null, false, 'Twenty-four weeks and Miura didn''t waste a single minute. That last climb up the Apex stairway with the whole city lit up underneath them... I''m out of words. Flow Pictures went out swinging.', '2012-01-23T16:52:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-21990', 3, 'MahouShoujoLifer', 'av-hyperneko', 'Member', null, false, 'Aria Moonbirth singing [i]Moonbirth[/i] over the final credits while every tower lord shows up in the crowd was SO good. LUNE really did make Aria feel like a real singer all season.', '2012-01-23T17:20:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-21990', 4, 'StormWallTheory', 'av-stormwalltheory', 'Senior Member', null, false, 'I said back in October that Nico''s wish would be for someone else and I was RIGHT. She was the heart of this show from episode 2 onward. Mariya Ise, thank you.
+  ('t-21990', 2, 'ShounenLifer_VHS', 'av-vhssamurai', 'Anime Addict', null, false, 'Twenty-four weeks and Miura didn''t waste a single minute. Every episode felt like two. Flow Pictures went out swinging with this one.', '2012-01-23T16:52:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21990', 3, 'MahouShoujoLifer', 'av-hyperneko', 'Member', null, false, 'LUNE as Aria Moonbirth was such a treat all season. She really made Aria feel like a real singer. I hope she keeps working with this crew!', '2012-01-23T17:20:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21990', 4, 'StormWallTheory', 'av-stormwalltheory', 'Senior Member', null, false, 'I posted my theory back in October and I''m keeping the details inside the tags.
 
-[spoiler=the wish]The look on Lyle''s face when she says it. Perfect ending.[/spoiler]', '2012-01-23T18:05:00Z', 'JST', null, null, false, 'reconstructed'),
+[spoiler=my theory]Called it: the ending was set up from episode 2. Perfect payoff.[/spoiler]', '2012-01-23T18:05:00Z', 'JST', null, null, false, 'reconstructed'),
   ('t-21990', 5, 'HollowToast', 'av-hollowtoast', 'Senior Member', null, false, 'Caught it on the train this morning. Great ending, great show, and now my Mondays are free. Already reading the recommendations board for what to watch next.', '2012-01-24T08:40:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-21990', 6, 'ED_Appreciator', 'av-chibicomet', 'Forum Regular', null, false, 'Full version of Moonbirth when?? The TV size isn''t enough, I need all of it.', '2012-01-24T11:15:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-24410', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Episode 12 ("Glass Cathedral") is now available.[/b]
+  ('t-21990', 6, 'ED_Appreciator', 'av-chibicomet', 'Forum Regular', null, false, 'Soundtrack release when?? I need every track from this show on my MP3 player.', '2012-01-24T11:15:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21998', 1, 'MahouShoujoLifer', 'av-hyperneko', 'Member', null, false, 'Now that Sinful Apex is over, can we have a thread just for LUNE? She played Aria Moonbirth, she''s sung for Flow Pictures shows for years, and she writes her own songs. Post your favourites!', '2012-01-25T09:15:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21998', 2, 'JustHereForOPs', 'av-3eprule', 'Member', null, false, '[i]AFTER//IMAGE[/i] from Neon Afterimage, no contest. Rainy-night city music at its finest.', '2012-01-25T11:02:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21998', 3, 'RetroBluRay_AMV', 'av-retrobluray', 'Forum Regular', null, false, '[i]PULSE:RE[/i] from Circuit Hearts: Reload. I''ve made at least four AMVs with it and I regret nothing.', '2012-01-25T14:40:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21998', 4, 'ED_Appreciator', 'av-chibicomet', 'Forum Regular', null, false, '[i]ALETHEIA[/i] from Steelbound Testament for me. Fun fact: she debuted professionally in 2006 when she was 13, and she''s stayed independent the whole time. Respect.', '2012-01-26T08:20:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-21998', 5, 'ChibiComet_92', 'av-chibicomet', 'Forum Regular', null, false, '[i]Gesshoku / Requiem for Zero[/i], the Vacant Crown one! Still gives me goosebumps every time.', '2012-01-27T19:05:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22310', 1, 'FinalBossu', 'av-finalbossu', 'Anime Addict', null, false, 'Sinful Apex left a Monday-shaped hole, so let''s fill it with Flow Pictures'' back catalogue! One title every couple of weeks, oldest first:
 
-This is the final episode. Please keep discussion focused on Episode 12.
+[list]
+[*]Vacant Crown: Liminal War (2000)
+[*]River of Sparks (winter 2004)
+[*]Glass Cathedral (2005 film)
+[*]Skyfall Chronicle (2006–07)
+[*]Neon Afterimage and Tearfall Resonance (both 2007 films)
+[*]Steelbound Testament (2008–09)
+[/list]
 
-[small]— Automated post by YALBot. Replies are open.[/small]', '2012-03-28T17:00:00Z', 'JST', null, null, true, 'reconstructed'),
-  ('t-24410', 2, 'NovaFanPixel', 'av-moonlitpixel', 'Database Contributor', null, false, 'Every window lighting up again at once during the morning bells. Kinemachi saved the best shot of the season for last. Saori Hayami''s narration over it was beautiful.', '2012-03-28T17:24:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-24410', 3, 'QuietWatcher_X', 'av-day01', 'Newbie', null, false, 'I''ve been lurking all season, but I have to post: the reveal of whose memories were fading was set up from the very first episode. Rewatching the whole thing this weekend.', '2012-03-28T18:10:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-24410', 4, 'KaichouEnjoyer', 'av-kaichouenjoyer', 'Anime Addict', null, false, 'Tobias finally getting his own window made me so happy. The lamplighter deserved it.', '2012-03-29T02:45:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-24410', 5, 'NekoToast92', 'av-nekotoast', 'Forum Regular', null, false, 'Quiet, gentle, and the ending made me smile for an hour. Easily my favourite show of the winter.', '2012-03-29T11:30:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-26890', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Episode 12 ("Circuit Hearts: Reload") is now available.[/b]
-
-This is the final episode. Please keep discussion focused on Episode 12.
-
-[small]— Automated post by YALBot. Replies are open.[/small]', '2012-06-22T16:01:00Z', 'JST', null, null, true, 'reconstructed'),
-  ('t-26890', 2, 'RetroBluRay_AMV', 'av-retrobluray', 'Forum Regular', null, false, 'THEY FINISHED THE CONCERT. Ten years late and it was worth it. Pulsewave animated the whole final song with no cuts, I''m going to be making AMVs of this until I''m old.', '2012-06-22T16:30:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-26890', 3, 'JustHereForOPs', 'av-3eprule', 'Member', null, false, '[i]Reload My Heart[/i] as the encore instead of the closing song was a great choice. Full-size OP in the finale, the classic move.', '2012-06-22T17:05:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-26890', 4, 'HyperNekoMimi', 'av-bostonbean', 'Forum Regular', null, false, 'Yuu finally singing one (very bad) line on stage and the crowd cheering anyway. I loved that so much.', '2012-06-22T19:40:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-26890', 5, 'ChibiComet_92', 'av-chibicomet', 'Forum Regular', null, false, 'Pico stole every scene she was in. Please give us an OVA of the band''s world tour!', '2012-06-23T09:12:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-28655', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Episode 24 ("Vacant No More") is now available.[/b]
-
-This is the final episode. Please keep discussion focused on Episode 24.
-
-[small]— Automated post by YALBot. Replies are open.[/small]', '2012-12-15T08:31:00Z', 'JST', null, null, true, 'reconstructed'),
-  ('t-28655', 2, 'StormWallTheory', 'av-stormwalltheory', 'Senior Member', null, false, 'Twenty-four episodes of setup and the crown speaks in the last ten minutes. Sendo and Tobe planned every map, every banner and every treaty for this moment, and it LANDED.', '2012-12-15T08:52:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-28655', 3, 'FinalBossu', 'av-finalbossu', 'Anime Addict', null, false, 'Mirelle drawing the new border in the final shot while the second OP plays. Show of the year for me, no contest.', '2012-12-15T09:30:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-28655', 4, 'NodeCoreOmega', 'av-calsparrow', 'Senior Member', null, false, 'Kazane Ichijo''s choir track for the coronation gave me chills. Buying the soundtrack the day it''s out.', '2012-12-15T11:02:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-28655', 5, 'SakugaThreadZero', 'av-zeroframe', 'Database Contributor', null, false, 'Arc Meridian kept the battle animation consistent across two full cours. The liminal army charge in the finale is going in my sakuga folder.', '2012-12-15T13:45:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-28655', 6, 'OldSenseiKnees', 'av-cyberlunchbox', 'Senior Member', null, false, 'Pell running the last message across the border made me cheer out loud. Best kid character of 2012.', '2012-12-16T01:20:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-30120', 1, 'YALBot', 'av-yalbot', 'Moderator', null, false, '[b]Episode 12 ("Thanks for the Meal") is now available.[/b]
-
-This is the final episode. Please keep discussion focused on Episode 12.
-
-[small]— Automated post by YALBot. Replies are open.[/small]', '2013-03-28T16:58:00Z', 'JST', null, null, true, 'reconstructed'),
-  ('t-30120', 2, 'NekoToast92', 'av-nekotoast', 'Forum Regular', null, false, 'Granny Fumi finally finishing her drama and moving on with a smile... and then Kenji saying "thanks for the meal" to her. What a sweet ending.', '2013-03-28T17:15:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-30120', 3, 'PlanetationBro', 'av-bluesoda', 'Senior Member', null, false, 'Tsubaki''s business plan actually WORKING in the end is the funniest possible payoff. This show never stopped being fun.', '2013-03-28T17:48:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-30120', 4, 'AnoneAnoneAnone', 'av-3eprule', 'Newbie', null, false, 'Detective Ozaki asking to be transferred to Kenji''s cases permanently. Character growth!', '2013-03-28T20:30:00Z', 'JST', null, null, false, 'reconstructed'),
-  ('t-30120', 5, 'ToonblockKid', 'av-guestsignal', 'Forum Regular', null, false, 'Ashgrove did it again. Azure Sorcerer was my childhood and Ghost Eater just became my winter. Season 2 please!', '2013-03-29T10:05:00Z', 'JST', null, null, false, 'reconstructed')
+Jump in whenever you like, no homework required :)', '2012-02-04T10:31:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22310', 2, 'NekoToast92', 'av-nekotoast', 'Forum Regular', null, false, 'I''m in! I''ve never seen Vacant Crown. My older cousin used to talk about the battle scenes all the time, so this is my chance.', '2012-02-04T12:15:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22310', 3, 'SakugaThreadZero', 'av-zeroframe', 'Database Contributor', null, false, 'Good order. Look out for Tomoe Suzuhara''s storyboards in Vacant Crown and then again in Glass Cathedral. Those wide shots of whole armies are a treat.', '2012-02-05T03:40:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22310', 4, 'HollowToast', 'av-hollowtoast', 'Senior Member', null, false, 'River of Sparks done! Delinquents, street magic and the most readable close-quarters fights I''ve seen. Yusuke Kagura''s choreography holds up beautifully.', '2012-02-19T20:05:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22310', 5, 'NovaFanPixel', 'av-moonlitpixel', 'Database Contributor', null, false, 'Glass Cathedral was gorgeous. All that stained glass, and LUNE''s [i]VITRAIL[/i] has been stuck in my head for days. Aoi Tachikaze''s sound direction is lovely too.', '2012-03-04T11:30:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-22310', 6, 'FinalBossu', 'av-finalbossu', 'Anime Addict', null, false, 'Skyfall Chronicle week! Two cours of floating citadels, so this one is a fortnight-long marathon. Bring snacks.', '2012-03-18T10:00:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-29802', 1, 'HyperNekoMimi', 'av-bostonbean', 'Forum Regular', null, false, 'Friends keep telling me to see Black Aegis, but I never watched the original Skyfall Chronicle. Can I just jump in?', '2013-01-12T13:00:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-29802', 2, 'FinalBossu', 'av-finalbossu', 'Anime Addict', null, false, 'You can, but the series makes it so much better. Two cours from 2006–07, all floating citadels. Our rewatch club did it last spring and it holds up!', '2013-01-12T15:22:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-29802', 3, 'StormWallTheory', 'av-stormwalltheory', 'Senior Member', null, false, 'Series first. The film is a sequel, so the series gives it a lot more weight. Kaihatsu Miura directed the series, so you''re in good hands either way.', '2013-01-13T02:10:00Z', 'JST', null, null, false, 'reconstructed'),
+  ('t-29802', 4, 'HyperNekoMimi', 'av-bostonbean', 'Forum Regular', null, false, 'Update: watched both. Series first was the right call, and the sky battles in the film are something else. Thanks everyone!', '2013-01-27T18:45:00Z', 'JST', null, null, false, 'reconstructed')
 on conflict do nothing;
 
--- reviews: 13 rows
+-- reviews: 9 rows
 
 insert into public.reviews (seed_key, anime_id, author_name, posted_at, episodes_seen, overall, story, animation, sound, character, enjoyment, body, helpful, provenance) values
   ('rv-sa-1', 10380, 'ShounenLifer_VHS', '2012-01-29T12:10:00Z', 24, 8, 7, 9, 8, 8, 8, 'Finished all 24 episodes, so here''s my take.
@@ -1389,69 +745,49 @@ Not every character gets the same depth, but the core cast is great and the acti
 The headline is the soundtrack. Hiroyuki Sawano gave CHAOS Home a score that makes every big moment feel enormous, and I''ve had it on repeat since the finale.
 
 Animation is solid rather than spectacular, but it stays consistent across the whole run, which counts for a lot over two cours. A satisfying watch from start to finish.', 47, 'reconstructed'),
-  ('rv-zl-1', 7741, 'SakugaThreadZero', '2012-02-14T12:00:00Z', 12, 9, 9, 9, 8, 8, 9, 'Rewatched for the third time, so it''s review time.
+  ('rv-zl-1', 7741, 'SakugaThreadZero', '2012-02-14T12:00:00Z', 1, 9, 8, 9, 9, 8, 9, 'Rewatched it for the third time, so it''s review time.
 
-Zero Latitude is a small story on a small ship, and it never tries to be bigger than that. Every night skip is a clock you can check, every logbook entry is a clue, and the answer was in front of you from the second episode.
+Zero Latitude is a TV special, and it uses every single minute. The whole thing is one chase across a megacity with the power out, and Kaihatsu Miura keeps the momentum going from the first scene to the last. It never feels padded, which is exactly what people loved about Sinful Apex.
 
-Then there''s Episode 7. Suzuhara''s four-minute single take follows Aoi through the whole ship during a morning that refuses to end, and it is still the best cut I''ve seen on TV. Miura holds his nerve and never cuts away.
+If you only have one free evening, spend it here.', 156, 'reconstructed'),
+  ('rv-gc-1', 4407, 'NovaFanPixel', '2012-04-03T10:15:00Z', 1, 8, 8, 9, 9, 7, 8, 'Watched this for the rewatch club and I''m so glad I did.
 
-If you liked how dense Sinful Apex felt, this is where that confidence started.', 156, 'reconstructed'),
-  ('rv-ri-1', 8452, 'NodeCorePilot', '2012-02-02T09:40:00Z', 12, 8, 7, 9, 8, 8, 9, 'Fight anime where the fights actually make sense.
+Glass Cathedral is a supernatural crime story, and the stained-glass imagery is the star: colour and light everywhere you look. Tomoe Suzuhara''s storyboards frame scene after scene like a window, and Aoi Tachikaze''s sound direction gives the whole film a calm, confident feel.
 
-Suzuhara''s alley boards plus Kagura''s choreography means you can always tell who is winning and why. Footwork matters, the stone steps matter, even the fireworks timing matters. Souta and Ironside''s rematch in Episode 11 is the highlight.
+LUNE''s "VITRAIL" is the cherry on top. A beautiful film from 2005 that still looks lovely today.', 73, 'reconstructed'),
+  ('rv-gd-1', 5904, 'HollowToast', '2012-05-20T19:30:00Z', 3, 8, 7, 9, 8, 8, 9, 'Finished Steelbound Testament with the rewatch club and went straight on to Garden of Cinders.
 
-The story is simple (win the teahouse back, keep your promise) but Hotaru and Rei give it a lot of heart. Great soundtrack too.', 88, 'reconstructed'),
-  ('rv-sf-1', 5120, 'FinalBossu', '2012-03-10T14:20:00Z', 13, 8, 7, 8, 9, 8, 9, 'Finally caught up on Skyfall Chronicle after everyone kept bringing it up in the Vacant Crown hype threads. Glad I did!
+It''s a three-part OVA side story, so it feels like extra time in a world you already love rather than a whole new adventure. The dark fantasy mood carries straight over, and three episodes is just right for a lazy weekend.
 
-It''s a classic one-cour mecha story: rookie pilot, mysterious frame, a sky that won''t stop falling. The aerial fights are clear and fast, Ivo is a great rival-turned-friend, and "Iron Wings" is an opening I''ll never skip.
+Watch Steelbound first, then treat yourself to this.', 64, 'reconstructed'),
+  ('rv-na-1', 6230, 'AMV_HighlandJump', '2012-07-01T16:45:00Z', 1, 8, 7, 9, 9, 7, 8, 'A rain-soaked science fiction film from 2007 that still looks amazing.
 
-Thirteen episodes is tight, but it ends exactly where it should.', 41, 'reconstructed'),
-  ('rv-gc-1', 4407, 'NovaFanPixel', '2012-04-03T10:15:00Z', 12, 8, 9, 8, 8, 8, 8, 'Glass Cathedral is the quietest show of the season and also the one I thought about most between episodes.
+Every street shines, every window glows, and Mirai Kanzaki''s colour design is the reason. Neon reflections in puddles have never looked this good. LUNE''s "AFTER//IMAGE" fits the mood perfectly, and I''ve had it on repeat all week.
 
-The premise is lovely: every window is a donated memory. The mystery of the dark windows is paced well, and the twist in Episode 8 recontextualises everything before it. Saori Hayami plays Elise with real warmth, and the light through the glass is gorgeous in every scene.
+If you love city lights and rainy nights, this is your movie.', 29, 'reconstructed'),
+  ('rv-tr-1', 7123, 'ChibiComet_92', '2012-08-12T11:10:00Z', 1, 8, 8, 8, 8, 9, 9, 'Watched Tearfall Resonance with my cousin this summer and we were both glued to the screen.
 
-If you like slow mysteries that trust you to pay attention, watch this.', 73, 'reconstructed'),
-  ('rv-st-1', 9133, 'HollowToast', '2012-05-20T19:30:00Z', 1, 9, 8, 10, 9, 8, 9, 'Finally watched Steelbound Testament after finishing Sinful Apex, and now I understand why people call Flow Pictures'' cinematic unit legendary.
+It follows two siblings at the centre of a psychic event that shakes their whole city. The supernatural moments are big and exciting, but it''s the sibling story at the heart of it that we kept talking about afterwards.
 
-The city of iron bridges feels completely real: every gear, every rivet, every lamp. The vault sequence near the end is one of the best-animated scenes I''ve ever seen. Edda and Marcus make a great pair, and the ending is genuinely satisfying.
+A lovely pick for a movie night with family.', 52, 'reconstructed'),
+  ('rv-ba-1', 5120, 'FinalBossu', '2013-01-20T14:20:00Z', 1, 8, 7, 9, 9, 8, 9, 'I waited a long time for more Skyfall Chronicle, and Black Aegis delivers.
 
-A must-watch if you love Sinful Apex.', 64, 'reconstructed'),
-  ('rv-ch-1', 9608, 'RetroBluRay_AMV', '2012-06-26T08:00:00Z', 12, 7, 6, 8, 9, 7, 9, 'Circuit Hearts: Reload is pure fun, and that''s exactly what it wants to be.
+It''s a theatrical sequel, so everything is bigger: the sky battles, the scale, the sound. If you watched the series it hits even harder, but it''s a thrill either way. The rewatch club last spring was the perfect warm-up.
 
-The plot is light (rebuild the band, finish the concert) and a couple of middle episodes wander. But the songs are great, the concert animation in the finale is incredible, and Nanase, Yuu and Pico have such easy chemistry that you''ll forgive anything.
-
-I''m scoring it a 7 for the story and a 10 for how many AMVs I''m going to make from it.', 37, 'reconstructed'),
-  ('rv-na-1', 6230, 'AMV_HighlandJump', '2012-07-01T16:45:00Z', 12, 8, 7, 9, 9, 7, 8, 'A cyberpunk mystery from 2008 that still looks amazing.
-
-The afterimage idea is so cool: thirty seconds of light trails to chase someone through the city. The rooftop chases have fantastic layouts, and you can see why people still credit Ren Okado for that clarity. Emi Takatsuki''s soundtrack is all neon synths and shamisen, which is a combination I didn''t know I needed.
-
-The ending is a little rushed, but it''s a great twelve episodes.', 29, 'reconstructed'),
-  ('rv-as-1', 3390, 'ChibiComet_92', '2012-08-12T11:10:00Z', 13, 8, 7, 7, 8, 9, 9, 'Rewatched Azure Sorcerer with my cousin this summer and it holds up so well.
-
-Rio is the best kind of underdog: cheerful, stubborn and always trying. The rivalry with Celica turns into one of my favourite friendships in anime, and Mina''s biting library is still hilarious. The animation is simple next to newer shows, but the floating city still looks lovely.
-
-A perfect first fantasy anime for anyone.', 52, 'reconstructed'),
-  ('rv-vc-1', 9871, 'StormWallTheory', '2012-12-18T12:30:00Z', 24, 9, 9, 8, 10, 9, 9, 'I have theories about every show I watch. Vacant Crown is the first one where every theory I posted turned out to be part of the plan.
-
-Five claimants, one empty throne and a twilight border full of ghost armies sounds like a lot, but Mizuki Tobe keeps every thread clear. Mirelle is a brilliant lead: she wins with maps, not swords. And Kazane Ichijo''s choir-heavy score makes every big moment enormous.
-
-Two cours, no filler, and an ending that pays off everything. My show of 2012.', 119, 'reconstructed'),
-  ('rv-ge-1', 6811, 'NekoToast92', '2013-04-02T10:00:00Z', 12, 8, 7, 8, 8, 9, 10, 'Ghost Eater was the show I looked forward to most every Thursday this winter.
-
-The joke (ghosts taste like their regrets) could have worn thin, but the show keeps finding new angles: the shrine''s business plan, the school festival, and the episode with a ghost too big to eat. Kenji and Tsubaki bicker like an old comedy duo, and Granny Fumi is a treasure.
-
-Funny, warm and very rewatchable. More please, Ashgrove!', 46, 'reconstructed')
+A great excuse to dig out the 2006 series again too.', 41, 'reconstructed')
 on conflict do nothing;
 
--- recommendations: 6 rows
+-- recommendations: 8 rows
 
 insert into public.recommendations (seed_key, from_id, to_id, author_name, reason, posted_at, provenance) values
-  ('rec-4', 10380, 7741, 'HollowToast', 'Another Kaihatsu Miura show. Tighter and more sci-fi, but the same dense, confident direction.', '2012-02-12T10:00:00Z', 'reconstructed'),
-  ('rec-5', 5120, 9871, 'StormWallTheory', 'Same director, writer and composer. Vacant Crown takes everything Skyfall Chronicle did well and gives it two whole cours to breathe.', '2012-12-20T09:00:00Z', 'reconstructed'),
-  ('rec-6', 6230, 8452, 'NodeCorePilot', 'Both are Tsukiyo Pictures shows directed by Daichi Murase, with readable, grounded action. River of Sparks swaps neon rooftops for canal embankments.', '2012-02-05T13:00:00Z', 'reconstructed'),
-  ('rec-7', 3390, 6811, 'ChibiComet_92', 'Same studio and director, same warm sense of humour. If you grew up with Azure Sorcerer, Ghost Eater feels like coming home.', '2013-04-03T08:30:00Z', 'reconstructed'),
-  ('rec-8', 7741, 4407, 'NovaFanPixel', 'Studio Kinemachi, writer Tamaki Hoshino and designer Sayo Kuramoto again. Both are quiet mysteries where every small detail turns out to matter.', '2012-04-04T11:00:00Z', 'reconstructed'),
-  ('rec-9', 9133, 10380, 'HollowToast', 'Both come from Flow Pictures'' cinematic unit. Steelbound Testament is the film; Sinful Apex is the same craft stretched across 24 episodes.', '2012-05-21T18:00:00Z', 'reconstructed')
+  ('rec-4', 10380, 7741, 'HollowToast', 'Another Kaihatsu Miura production. It''s a single TV special, one chase across a megacity during a blackout, with the same dense, confident direction.', '2012-02-12T10:00:00Z', 'reconstructed'),
+  ('rec-5', 4812, 5120, 'StormWallTheory', 'The theatrical sequel. Everything Skyfall Chronicle built over two cours, now with sky battles made for a cinema screen.', '2013-01-14T09:00:00Z', 'reconstructed'),
+  ('rec-6', 6230, 10380, 'NodeCorePilot', 'Mirai Kanzaki did the colour design for both, and you can feel it: rich, glowing palettes all the way through.', '2012-02-05T13:00:00Z', 'reconstructed'),
+  ('rec-7', 8452, 6811, 'ChibiComet_92', 'Yusuke Kagura choreographed the fights in both. If River of Sparks'' close-quarters brawls were your favourite part, give Ghost Eater a look.', '2012-08-13T08:30:00Z', 'reconstructed'),
+  ('rec-8', 4407, 9871, 'NovaFanPixel', 'Tomoe Suzuhara storyboarded both. Glass Cathedral is a stained-glass mystery and Vacant Crown is all wide-angle battles, but the eye for a great shot is the same.', '2012-04-04T11:00:00Z', 'reconstructed'),
+  ('rec-9', 9133, 10380, 'HollowToast', 'Both are Flow Pictures titles with Lio Haraguchi on characters and animation. Steelbound is two cours of dark fantasy; Sinful Apex is the studio''s final marquee show.', '2012-05-21T18:00:00Z', 'reconstructed'),
+  ('rec-10', 9133, 5904, 'HollowToast', 'The OVA trilogy side story. Three more episodes in the same world, perfect for a weekend.', '2012-05-21T18:30:00Z', 'reconstructed'),
+  ('rec-11', 8277, 7015, 'QuietWatcher_X', 'Both written by Keito Kisaragi. Pale Garden Reverie is quiet and gentle, Blizzard Requiem is arctic survival and politics, but the writing has the same heart.', '2012-09-02T15:00:00Z', 'reconstructed')
 on conflict do nothing;
 
 commit;

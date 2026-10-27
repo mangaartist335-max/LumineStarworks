@@ -149,10 +149,10 @@ export const archiveHomepages: ArchiveHomepage[] = [
     theme: theme("Bubblegum"),
     sections: [
       { heading: "Welcome to the den!", body: "Hi, I'm Olivia! I watch way too much anime and keep my lists on YourAnimeList. This page is where I ramble about my favourites. No spoilers, ever. Promise." },
-      { heading: "Comfort rewatches", body: "River of Sparks, for cosy evenings.\nNeon Afterimage, when I want something flashy.\nAzure Sorcerer, because I grew up with it." },
-      { heading: "Summer 2012", body: "Vacant Crown is my show of the summer. Mirelle and her maps!", at: "2012-07-15T20:00:00Z" },
+      { heading: "Comfort rewatches", body: "River of Sparks, when I want a good fight scene.\nNeon Afterimage, for rainy nights.\nGlass Cathedral, for all that stained glass." },
+      { heading: "Summer 2012", body: "Finally watched Skyfall Chronicle. Two cours of floating citadels and I loved every minute!", at: "2012-07-15T20:00:00Z" },
       { heading: "Manga corner", body: "Lantern Street Couriers on MangaShelf is so cute. Mei is the hardest-working courier in fiction.", at: "2012-08-10T20:00:00Z" },
-      { heading: "Winter 2013", body: "Ghost Eater is keeping me company this winter. Also reading Paper Planet, which is the most adorable thing.", at: "2013-01-20T21:00:00Z" },
+      { heading: "Winter 2013", body: "Saw Skyfall Chronicle: Black Aegis and it was SO good. Also reading Paper Planet, which is the most adorable thing.", at: "2013-01-20T21:00:00Z" },
       { heading: "Spring 2013", body: "Iron to Requiem every Thursday. That soundtrack lives in my head rent-free.", at: "2013-04-06T13:00:00Z" },
       { heading: "Summer 2013", body: "Read Moonlit Bakery, a one-shot about a midnight bakery. Made me want fresh bread at 2am.", at: "2013-06-25T22:00:00Z" },
     ],

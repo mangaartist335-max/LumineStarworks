@@ -1,8 +1,8 @@
 // Anime entries in the 2012–2013 YAL database.
 //
-// Documented entries record only what the references state; anything else
-// stays null/empty and renders as "N/A" or "Not documented". The built-out
-// back catalogue in catalogue-anime.ts is reconstructed and labelled so.
+// Entries record only what the references state; anything else stays
+// null/empty and renders as "N/A" or "Not documented". The back catalogue in
+// catalogue-anime.ts follows the Connected Era Master Bible.
 
 import type { Anime } from "./types";
 import { SRC } from "./sources";
@@ -243,59 +243,16 @@ const records: Anime[] = [
     visibleFrom: "2013-04-03T15:00:00Z",
     franchise: "Iron to Requiem",
     staff: [{ personId: 10, role: "Music" }],
-    sources: [SRC.brief, SRC.archiveBrief],
+    sources: [SRC.bibleFranchise, SRC.brief, SRC.archiveBrief],
     archiveNotes: [
       "YAL's listing date for this entry is not documented, so the archive shows it from its premiere.",
       "Source material, genres, synopsis and other staff credits have not been documented.",
     ],
   }),
 
-  // The built-out back catalogue (Sinful Apex, Zero Latitude, ...) lives in
-  // catalogue-anime.ts.
+  // Flow Pictures' earlier catalogue and the older staff-filmography titles
+  // live in catalogue-anime.ts.
   ...catalogueAnime,
-
-  // ── Name-and-credit entries ─────────────────────────────────────────────
-  entry({
-    id: 8016,
-    slug: "Destiny_Infinite",
-    title: "Destiny/Infinite",
-    staff: [{ personId: 2, role: "Director" }],
-    sources: [SRC.sakugaThread, SRC.yalEp1Page4],
-    archiveNotes: ["Release year, format, studio and episode count have not been documented."],
-  }),
-  entry({
-    id: 7015,
-    slug: "Blizzard_Requiem",
-    title: "Blizzard Requiem",
-    staff: [{ personId: 3, role: "Head Writer" }],
-    sources: [SRC.yalEp1Page4],
-    archiveNotes: ["Release year, format, studio and episode count have not been documented."],
-  }),
-  entry({
-    id: 8277,
-    slug: "Pale_Garden_Reverie",
-    title: "Pale Garden Reverie",
-    staff: [{ personId: 3, role: "Series Composition" }],
-    sources: [SRC.yalEp1Page4],
-    archiveNotes: ["Release year, format, studio and episode count have not been documented."],
-  }),
-  entry({
-    id: 5904,
-    slug: "Garden_of_Cinders",
-    title: "Garden of Cinders",
-    type: "OVA",
-    staff: [{ personId: 4, role: "Animation Staff" }],
-    sources: [SRC.yalEp1Page4],
-    archiveNotes: ["Release year, studio and episode count have not been documented."],
-  }),
-  entry({
-    id: 7390,
-    slug: "Iron_Halo_Brigade",
-    title: "Iron Halo Brigade",
-    staff: [{ personId: 9, role: "Action Choreography" }],
-    sources: [SRC.yalEp1Page4],
-    archiveNotes: ["Release year, format, studio and episode count have not been documented."],
-  }),
 ];
 
 export const allAnime: Anime[] = records.map((a) => (IOE_FRANCHISE.has(a.id) ? { ...a, phase: IOE_PHASE } : a));

@@ -68,7 +68,7 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await p.goto(BASE + '/forum/thread/t-21990');
     const sp = p.locator('#p4 .spoiler');
     await sp.locator('button.spoiler-toggle').click();
-    await sp.locator('.spoiler-body').getByText("Lyle's face").waitFor({ state: 'visible' });
+    await sp.locator('.spoiler-body').getByText('set up from episode 2').waitFor({ state: 'visible' });
   });
   await step('sort newest first', async () => {
     await p.goto(BASE + '/forum/thread/t-21990');
@@ -89,18 +89,18 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await ta.waitFor();
     const v = await ta.inputValue();
     if (!v.startsWith('[quote=ShounenLifer_VHS;2]')) throw new Error('quote not prefilled: ' + v.slice(0, 80));
-    await ta.fill(v + 'That final climb was perfect, and [b]Moonbirth[/b] over the credits! [spoiler=tiny]hi[/spoiler]');
+    await ta.fill(v + 'Every episode really did feel like two. [b]Thank you, Flow Pictures![/b] [spoiler=tiny]hi[/spoiler]');
     await p.click('button:has-text("Post Reply")');
     await p.waitForURL(/page=last/);
     await p.getByText('[YOUR REPLY]').waitFor();
     await p.locator('.post.user-reply .quote-head:has-text("ShounenLifer_VHS")').waitFor();
   });
   await step('follow topic', async () => {
-    await p.goto(BASE + '/forum/thread/t-28655');
+    await p.goto(BASE + '/forum/thread/t-22310');
     await p.click('button:has-text("Follow Topic")');
     await p.locator('button:has-text("Unfollow Topic")').waitFor();
     await p.goto(BASE + '/forum/following');
-    await p.getByText('Vacant Crown: Liminal War Episode 24 Discussion').first().waitFor();
+    await p.getByText('Flow Pictures catalogue rewatch club').first().waitFor();
   });
   await step('report post', async () => {
     await p.goto(BASE + '/forum/thread/t-21990');
@@ -111,8 +111,8 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
   });
   await step('write review', async () => {
     await p.goto(BASE + '/anime/7741/Zero_Latitude/reviews');
-    await p.fill('#rv-eps', '3');
-    await p.fill('#rv-body', 'Three episodes in and the time skips already have me hooked on this mystery. '.repeat(4));
+    await p.fill('#rv-eps', '1');
+    await p.fill('#rv-body', 'A whole megacity chase in one sitting, and I loved every minute of this special. '.repeat(4));
     await p.click('button:has-text("Submit Review")');
     await p.waitForURL(/reviews#review-/);
     await p.getByRole('link', { name: user, exact: true }).first().waitFor();
@@ -126,7 +126,7 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await p.getByText('Hello from a new member').first().waitFor();
   });
   await step('favorite character', async () => {
-    await p.goto(BASE + '/character/124/Nico_Vale');
+    await p.goto(BASE + '/character/126/Aria_Moonbirth');
     await p.click('button:has-text("Add to Favorites")');
     await p.locator('button:has-text("Remove from Favorites")').waitFor();
   });
@@ -135,13 +135,13 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     await p.goto(BASE + '/forum/thread/t-21990');
     await p.getByText('This topic does not exist yet').waitFor();
   });
-  await step('time travel: Jan 5, 2012 Glass Cathedral is Not yet aired', async () => {
-    await travel('2012-01-05T12:00');
-    await p.goto(BASE + '/anime/4407/Glass_Cathedral');
-    await p.getByText('Not yet aired').first().waitFor();
-    const html = await p.content();
-    if (html.includes('7.71')) throw new Error('score leaked before capture');
-    if (html.includes('Stained Memory')) throw new Error('OP leaked before premiere');
+  await step('time travel: Jan 10, 2012 Sinful Apex is still airing, Jan 24 it has finished', async () => {
+    await travel('2012-01-10T12:00');
+    await p.goto(BASE + '/anime/10380/Sinful_Apex');
+    await p.getByText('Currently Airing').first().waitFor();
+    await travel('2012-01-24T12:00');
+    await p.goto(BASE + '/anime/10380/Sinful_Apex');
+    await p.getByText('Finished Airing').first().waitFor();
   });
   await step('time travel: Jan 24 03:00 JST finale thread shows only its first 3 posts', async () => {
     await travel('2012-01-24T03:00');
@@ -149,27 +149,22 @@ const BASE = process.env.YAL_URL || 'http://localhost:3000';
     const n = await p.locator('.post').count();
     if (n !== 3) throw new Error('expected the 3 posts made by 03:00 JST, got ' + n);
   });
-  await step('time travel: Jan 10, 2012 Nico bio holds back the episode 23 reveal', async () => {
-    await travel('2012-01-10T12:00');
-    await p.goto(BASE + '/character/124/Nico_Vale');
-    const html = await p.content();
-    if (html.includes('Chooses what the wish will be')) throw new Error('episode 23 fact leaked');
-    await p.getByText('More is revealed').waitFor();
-  });
-  await step('time travel: Dec 15, 2012 Vacant Crown finale thread opens at 17:31 JST', async () => {
-    await travel('2012-12-15T17:00');
-    await p.goto(BASE + '/forum/thread/t-28655');
+  await step('time travel: Feb 4, 2012 the rewatch club thread opens at 19:31 JST', async () => {
+    await travel('2012-02-04T19:00');
+    await p.goto(BASE + '/forum/thread/t-22310');
     await p.getByText('This topic does not exist yet').waitFor();
-    await travel('2012-12-15T18:00');
-    await p.goto(BASE + '/forum/thread/t-28655');
-    await p.getByText('Vacant No More').first().waitFor();
+    await travel('2012-02-04T20:00');
+    await p.goto(BASE + '/forum/thread/t-22310');
+    await p.getByText('no homework required').first().waitFor();
+    const html = await p.content();
+    if (html.includes('Skyfall Chronicle week')) throw new Error('a March post showed up in February');
   });
   await step('member account hidden before join date', async () => {
     await p.goto(BASE + '/profile/' + user);
     await p.getByText("hasn't joined yet").waitFor();
   });
   await step('cannot post before join date', async () => {
-    await p.goto(BASE + '/forum/thread/t-28655');
+    await p.goto(BASE + '/forum/thread/t-22310');
     await p.locator('#reply-body').fill('hello from the past');
     await p.click('button:has-text("Post Reply")');
     await p.getByText('Travel to a date after that').waitFor();

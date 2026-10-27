@@ -20,5 +20,8 @@ export const SRC = {
   munchyRoll: { cite: ioe("MunchyRoll catalogue page for Impact of Eden (2013)", "MunchyRoll catalogue page (2013)") },
   adultDrift: { cite: ioe("AdultDrift programme page for Impact of Eden", "AdultDrift programme page (2013)") },
   reconstruction: { cite: "Written for the Lumine StarWorks reconstruction" },
-  voiceCast: { cite: "Voice cast of the reconstructed catalogue, chosen from actors already working when each title aired" },
+  bibleCatalogue: { cite: "Connected Era Master Bible v1.0, ch. 18: Flow Pictures earlier catalogue" },
+  biblePeople: { cite: "Connected Era Master Bible v1.0, ch. 18: people registry" },
+  bibleFranchise: { cite: "Connected Era Master Bible v1.0, ch. 16: franchise registry" },
+  bibleMusic: { cite: "Connected Era Master Bible v1.0, ch. 19: LUNE's documented trajectory [F07]" },
 } satisfies Record<string, SourceNote>;

@@ -26,6 +26,7 @@ export type RelationKind =
   | "Prequel"
   | "Sequel"
   | "Side story"
+  | "Parent story"
   | "Alternative version"
   | "Special"
   | "Other"
@@ -91,7 +92,8 @@ export interface VoiceCredit {
 }
 
 export interface ThemeSong {
-  kind: "Opening" | "Ending" | "Insert";
+  /** "Theme" = a credited song whose placement (opening, ending, insert) isn't recorded. */
+  kind: "Opening" | "Ending" | "Insert" | "Theme";
   title: string;
   artist: string;
   episodes?: string;

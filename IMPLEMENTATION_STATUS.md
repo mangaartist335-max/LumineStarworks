@@ -25,13 +25,13 @@ All results below are from this phase's final runs.
 
 | Check | Command | Result |
 | --- | --- | --- |
-| Desktop unit tests | `cd connected && npm test` | 29 passed, 0 failed |
+| Desktop unit tests | `cd connected && npm test` | 31 passed, 0 failed |
 | Desktop typecheck | `npm run typecheck` | clean |
 | Desktop lint | `npm run lint` | 0 errors, 20 style warnings (comma-expression shorthands and `<img>` for local pictures) |
 | Desktop production build | `npm run build` | succeeds |
 | First milestone, end to end | `npm run e2e` (with `npm run dev:all` running) | all 19 steps pass with no console errors |
 | Milestone on the production build | `next start -p 3200` + `BASE_URL=http://localhost:3200 npm run e2e` | steps 1-18 pass; step 19 (YAL in a frame) is blocked as designed, because YAL only allows framing from the origins in `NEXT_PUBLIC_YAL_EMBED_ORIGINS` (port 3000 by default) |
-| YAL unit tests | `cd yal && npm test` | 53 passed, 0 failed |
+| YAL unit tests | `cd yal && npm test` | 55 passed, 0 failed |
 | YAL typecheck | `cd yal && npx tsc --noEmit` | clean |
 
 The milestone test (`connected/scripts/e2e.cjs`) drives a real Chromium through: launch the desktop, open the browser, search MeTube, play a video (checks it is really playing), open a second tab, search MangaShelf, read to page 3, download a wallpaper, find it in Downloads, set it as the background, open Messenger, share the MeTube link, close everything, restart, and confirm that the bookmark, the downloaded file, the messages, the reading progress and the wallpaper are all still there. It then relaunches the whole browser on the same profile and checks again, exercises window controls (drag, resize, minimize, maximize, switch), posts on three community sites and opens YAL inside the browser.
@@ -113,7 +113,7 @@ Legend: **Done** works end to end and persists. **Partly done** works, with the 
 These need a decision or material from outside this repository:
 
 1. **The Master Bible is now in the repository** (`docs/bible/Connected_Era_Master_Bible_v1.0.pdf`). Every site has moved to `*.connectedera.local` and the search engine is Connected Search, as Appendix D asks. Old addresses forward automatically. Names the Bible doesn't cover (Birdie, Tum, 3Chan, TechNook, HomePlot, InkPocket, MangaShelf, WallpaperGarden, Freeware Corner, Pantry Recipes and the sample contacts) are still our own and live in data files.
-2. **Rust Veil Junction wasn't added to YAL.** There are no credits, dates or episode details for it in the repository, and inventing them would be fabrication. It can be added as soon as the details are supplied.
+2. **YAL now follows the Bible's catalogue.** All 18 Flow Pictures titles from chapter 18 (Rust Veil Junction included) are listed with their year, format, description, registry staff and LUNE's songs. Ghost Eater, Destiny/Infinite, A Mystical Skyline/Finger and Azure Sorcerer have title entries only. The Bible doesn't record episode titles, casts, air dates or most studio credits for these, so they show as pending rather than being made up. The earlier reconstructed casts, characters and episode lists were removed to match.
 3. **No outside services.** Everything runs locally in the browser. There are no server-side accounts, no syncing between devices and no real email; that is intentional for this phase. No API keys or tokens are used anywhere.
 
 ## Known limits

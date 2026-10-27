@@ -7,6 +7,7 @@
 
 import type { ForumBoard, Thread } from "./types";
 import { IOE_ID, IRON_ID, SINFUL_APEX_ID } from "./anime";
+import { BLACK_AEGIS_ID } from "./catalogue-anime";
 import { active, IOE_PHASE, type FuturePhase } from "./release";
 
 export const boards: ForumBoard[] = [
@@ -298,12 +299,12 @@ export const allSeedThreads: SeedThread[] = [
       {
         author: "HollowToast",
         at: "2012-01-24T21:15:00Z",
-        body: "Try [b]Zero Latitude[/b]. Same director, Kaihatsu Miura, and it has one of the best long-take action sequences I've ever seen.",
+        body: "Try [b]Zero Latitude[/b]. It's a Kaihatsu Miura TV special from last year: one long chase across a megacity during a blackout. Same confident direction, and you can watch it in a single evening.",
       },
       {
         author: "SakugaThreadZero",
         at: "2012-01-25T03:02:00Z",
-        body: "Seconding Zero Latitude. Tomoe Suzuhara boarded that long take. Also check out [b]Skyfall Chronicle: Black Aegis[/b], which Miura co-directed.",
+        body: "Seconding Zero Latitude. For something longer, [b]Skyfall Chronicle[/b] is Miura too: two cours of floating citadels at war. And if it was the fights you loved, Yusuke Kagura choreographed [b]River of Sparks[/b] back in 2004.",
       },
       {
         phase: IOE_PHASE,
@@ -467,7 +468,7 @@ export const allSeedThreads: SeedThread[] = [
     ],
   },
 
-  // ── Episode Discussion: finales of the 2012–2013 back catalogue ─────────
+  // ── Episode Discussion ──────────────────────────────────────────────────
   {
     id: "t-21990",
     board: "episode",
@@ -481,22 +482,22 @@ export const allSeedThreads: SeedThread[] = [
       {
         author: "YALBot",
         at: "2012-01-23T16:31:00Z",
-        body: "[b]Episode 24 (\"Sinful Apex\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 24.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+        body: "[b]Episode 24 is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 24.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
       },
       {
         author: "ShounenLifer_VHS",
         at: "2012-01-23T16:52:00Z",
-        body: "Twenty-four weeks and Miura didn't waste a single minute. That last climb up the Apex stairway with the whole city lit up underneath them... I'm out of words. Flow Pictures went out swinging.",
+        body: "Twenty-four weeks and Miura didn't waste a single minute. Every episode felt like two. Flow Pictures went out swinging with this one.",
       },
       {
         author: "MahouShoujoLifer",
         at: "2012-01-23T17:20:00Z",
-        body: "Aria Moonbirth singing [i]Moonbirth[/i] over the final credits while every tower lord shows up in the crowd was SO good. LUNE really did make Aria feel like a real singer all season.",
+        body: "LUNE as Aria Moonbirth was such a treat all season. She really made Aria feel like a real singer. I hope she keeps working with this crew!",
       },
       {
         author: "StormWallTheory",
         at: "2012-01-23T18:05:00Z",
-        body: "I said back in October that Nico's wish would be for someone else and I was RIGHT. She was the heart of this show from episode 2 onward. Mariya Ise, thank you.\n\n[spoiler=the wish]The look on Lyle's face when she says it. Perfect ending.[/spoiler]",
+        body: "I posted my theory back in October and I'm keeping the details inside the tags.\n\n[spoiler=my theory]Called it: the ending was set up from episode 2. Perfect payoff.[/spoiler]",
       },
       {
         author: "HollowToast",
@@ -506,160 +507,117 @@ export const allSeedThreads: SeedThread[] = [
       {
         author: "ED_Appreciator",
         at: "2012-01-24T11:15:00Z",
-        body: "Full version of Moonbirth when?? The TV size isn't enough, I need all of it.",
+        body: "Soundtrack release when?? I need every track from this show on my MP3 player.",
       },
     ],
   },
+
+  // ── Music ───────────────────────────────────────────────────────────────
   {
-    id: "t-24410",
-    board: "episode",
-    title: "Glass Cathedral Episode 12 Discussion",
-    author: "YALBot",
-    createdAt: "2012-03-28T17:00:00Z",
-    animeId: 4407,
-    episode: 12,
+    id: "t-21998",
+    board: "music",
+    title: "LUNE appreciation thread",
+    author: "MahouShoujoLifer",
+    createdAt: "2012-01-25T09:15:00Z",
     provenance: "reconstructed",
     posts: [
       {
-        author: "YALBot",
-        at: "2012-03-28T17:00:00Z",
-        body: "[b]Episode 12 (\"Glass Cathedral\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 12.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
-      },
-      {
-        author: "NovaFanPixel",
-        at: "2012-03-28T17:24:00Z",
-        body: "Every window lighting up again at once during the morning bells. Kinemachi saved the best shot of the season for last. Saori Hayami's narration over it was beautiful.",
-      },
-      {
-        author: "QuietWatcher_X",
-        at: "2012-03-28T18:10:00Z",
-        body: "I've been lurking all season, but I have to post: the reveal of whose memories were fading was set up from the very first episode. Rewatching the whole thing this weekend.",
-      },
-      {
-        author: "KaichouEnjoyer",
-        at: "2012-03-29T02:45:00Z",
-        body: "Tobias finally getting his own window made me so happy. The lamplighter deserved it.",
-      },
-      {
-        author: "NekoToast92",
-        at: "2012-03-29T11:30:00Z",
-        body: "Quiet, gentle, and the ending made me smile for an hour. Easily my favourite show of the winter.",
-      },
-    ],
-  },
-  {
-    id: "t-26890",
-    board: "episode",
-    title: "Circuit Hearts: Reload Episode 12 Discussion",
-    author: "YALBot",
-    createdAt: "2012-06-22T16:01:00Z",
-    animeId: 9608,
-    episode: 12,
-    provenance: "reconstructed",
-    posts: [
-      {
-        author: "YALBot",
-        at: "2012-06-22T16:01:00Z",
-        body: "[b]Episode 12 (\"Circuit Hearts: Reload\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 12.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
-      },
-      {
-        author: "RetroBluRay_AMV",
-        at: "2012-06-22T16:30:00Z",
-        body: "THEY FINISHED THE CONCERT. Ten years late and it was worth it. Pulsewave animated the whole final song with no cuts, I'm going to be making AMVs of this until I'm old.",
+        author: "MahouShoujoLifer",
+        at: "2012-01-25T09:15:00Z",
+        body: "Now that Sinful Apex is over, can we have a thread just for LUNE? She played Aria Moonbirth, she's sung for Flow Pictures shows for years, and she writes her own songs. Post your favourites!",
       },
       {
         author: "JustHereForOPs",
-        at: "2012-06-22T17:05:00Z",
-        body: "[i]Reload My Heart[/i] as the encore instead of the closing song was a great choice. Full-size OP in the finale, the classic move.",
+        at: "2012-01-25T11:02:00Z",
+        body: "[i]AFTER//IMAGE[/i] from Neon Afterimage, no contest. Rainy-night city music at its finest.",
       },
       {
-        author: "HyperNekoMimi",
-        at: "2012-06-22T19:40:00Z",
-        body: "Yuu finally singing one (very bad) line on stage and the crowd cheering anyway. I loved that so much.",
+        author: "RetroBluRay_AMV",
+        at: "2012-01-25T14:40:00Z",
+        body: "[i]PULSE:RE[/i] from Circuit Hearts: Reload. I've made at least four AMVs with it and I regret nothing.",
+      },
+      {
+        author: "ED_Appreciator",
+        at: "2012-01-26T08:20:00Z",
+        body: "[i]ALETHEIA[/i] from Steelbound Testament for me. Fun fact: she debuted professionally in 2006 when she was 13, and she's stayed independent the whole time. Respect.",
       },
       {
         author: "ChibiComet_92",
-        at: "2012-06-23T09:12:00Z",
-        body: "Pico stole every scene she was in. Please give us an OVA of the band's world tour!",
+        at: "2012-01-27T19:05:00Z",
+        body: "[i]Gesshoku / Requiem for Zero[/i], the Vacant Crown one! Still gives me goosebumps every time.",
       },
     ],
   },
+
+  // ── General: catalogue rewatches ────────────────────────────────────────
   {
-    id: "t-28655",
-    board: "episode",
-    title: "Vacant Crown: Liminal War Episode 24 Discussion",
-    author: "YALBot",
-    createdAt: "2012-12-15T08:31:00Z",
-    animeId: 9871,
-    episode: 24,
+    id: "t-22310",
+    board: "general",
+    title: "Flow Pictures catalogue rewatch club",
+    author: "FinalBossu",
+    createdAt: "2012-02-04T10:31:00Z",
     provenance: "reconstructed",
     posts: [
-      {
-        author: "YALBot",
-        at: "2012-12-15T08:31:00Z",
-        body: "[b]Episode 24 (\"Vacant No More\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 24.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
-      },
-      {
-        author: "StormWallTheory",
-        at: "2012-12-15T08:52:00Z",
-        body: "Twenty-four episodes of setup and the crown speaks in the last ten minutes. Sendo and Tobe planned every map, every banner and every treaty for this moment, and it LANDED.",
-      },
       {
         author: "FinalBossu",
-        at: "2012-12-15T09:30:00Z",
-        body: "Mirelle drawing the new border in the final shot while the second OP plays. Show of the year for me, no contest.",
-      },
-      {
-        author: "NodeCoreOmega",
-        at: "2012-12-15T11:02:00Z",
-        body: "Kazane Ichijo's choir track for the coronation gave me chills. Buying the soundtrack the day it's out.",
-      },
-      {
-        author: "SakugaThreadZero",
-        at: "2012-12-15T13:45:00Z",
-        body: "Arc Meridian kept the battle animation consistent across two full cours. The liminal army charge in the finale is going in my sakuga folder.",
-      },
-      {
-        author: "OldSenseiKnees",
-        at: "2012-12-16T01:20:00Z",
-        body: "Pell running the last message across the border made me cheer out loud. Best kid character of 2012.",
-      },
-    ],
-  },
-  {
-    id: "t-30120",
-    board: "episode",
-    title: "Ghost Eater Episode 12 Discussion",
-    author: "YALBot",
-    createdAt: "2013-03-28T16:58:00Z",
-    animeId: 6811,
-    episode: 12,
-    provenance: "reconstructed",
-    posts: [
-      {
-        author: "YALBot",
-        at: "2013-03-28T16:58:00Z",
-        body: "[b]Episode 12 (\"Thanks for the Meal\") is now available.[/b]\n\nThis is the final episode. Please keep discussion focused on Episode 12.\n\n[small]— Automated post by YALBot. Replies are open.[/small]",
+        at: "2012-02-04T10:31:00Z",
+        body: "Sinful Apex left a Monday-shaped hole, so let's fill it with Flow Pictures' back catalogue! One title every couple of weeks, oldest first:\n\n[list]\n[*]Vacant Crown: Liminal War (2000)\n[*]River of Sparks (winter 2004)\n[*]Glass Cathedral (2005 film)\n[*]Skyfall Chronicle (2006–07)\n[*]Neon Afterimage and Tearfall Resonance (both 2007 films)\n[*]Steelbound Testament (2008–09)\n[/list]\n\nJump in whenever you like, no homework required :)",
       },
       {
         author: "NekoToast92",
-        at: "2013-03-28T17:15:00Z",
-        body: "Granny Fumi finally finishing her drama and moving on with a smile... and then Kenji saying \"thanks for the meal\" to her. What a sweet ending.",
+        at: "2012-02-04T12:15:00Z",
+        body: "I'm in! I've never seen Vacant Crown. My older cousin used to talk about the battle scenes all the time, so this is my chance.",
       },
       {
-        author: "PlanetationBro",
-        at: "2013-03-28T17:48:00Z",
-        body: "Tsubaki's business plan actually WORKING in the end is the funniest possible payoff. This show never stopped being fun.",
+        author: "SakugaThreadZero",
+        at: "2012-02-05T03:40:00Z",
+        body: "Good order. Look out for Tomoe Suzuhara's storyboards in Vacant Crown and then again in Glass Cathedral. Those wide shots of whole armies are a treat.",
       },
       {
-        author: "AnoneAnoneAnone",
-        at: "2013-03-28T20:30:00Z",
-        body: "Detective Ozaki asking to be transferred to Kenji's cases permanently. Character growth!",
+        author: "HollowToast",
+        at: "2012-02-19T20:05:00Z",
+        body: "River of Sparks done! Delinquents, street magic and the most readable close-quarters fights I've seen. Yusuke Kagura's choreography holds up beautifully.",
       },
       {
-        author: "ToonblockKid",
-        at: "2013-03-29T10:05:00Z",
-        body: "Ashgrove did it again. Azure Sorcerer was my childhood and Ghost Eater just became my winter. Season 2 please!",
+        author: "NovaFanPixel",
+        at: "2012-03-04T11:30:00Z",
+        body: "Glass Cathedral was gorgeous. All that stained glass, and LUNE's [i]VITRAIL[/i] has been stuck in my head for days. Aoi Tachikaze's sound direction is lovely too.",
+      },
+      {
+        author: "FinalBossu",
+        at: "2012-03-18T10:00:00Z",
+        body: "Skyfall Chronicle week! Two cours of floating citadels, so this one is a fortnight-long marathon. Bring snacks.",
+      },
+    ],
+  },
+  {
+    id: "t-29802",
+    board: "general",
+    title: "Skyfall Chronicle: Black Aegis — can I watch it without the series?",
+    author: "HyperNekoMimi",
+    createdAt: "2013-01-12T13:00:00Z",
+    animeId: BLACK_AEGIS_ID,
+    provenance: "reconstructed",
+    posts: [
+      {
+        author: "HyperNekoMimi",
+        at: "2013-01-12T13:00:00Z",
+        body: "Friends keep telling me to see Black Aegis, but I never watched the original Skyfall Chronicle. Can I just jump in?",
+      },
+      {
+        author: "FinalBossu",
+        at: "2013-01-12T15:22:00Z",
+        body: "You can, but the series makes it so much better. Two cours from 2006–07, all floating citadels. Our rewatch club did it last spring and it holds up!",
+      },
+      {
+        author: "StormWallTheory",
+        at: "2013-01-13T02:10:00Z",
+        body: "Series first. The film is a sequel, so the series gives it a lot more weight. Kaihatsu Miura directed the series, so you're in good hands either way.",
+      },
+      {
+        author: "HyperNekoMimi",
+        at: "2013-01-27T18:45:00Z",
+        body: "Update: watched both. Series first was the right call, and the sky battles in the film are something else. Thanks everyone!",
       },
     ],
   },

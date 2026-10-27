@@ -34,20 +34,20 @@ Impact of Eden is held back for a later development phase, so these comparisons 
 | Screenshot | Moment | Check |
 | --- | --- | --- |
 | `01-sinful-apex-finale-thread.png` | Oct 24, 2013 | The episode-thread template with a reconstructed finale thread: metadata table, controls, posts, spoiler, reply box |
-| `02-glass-cathedral-finale-thread.png` | Oct 24, 2013 | Same template, another finale thread |
+| `02-rewatch-club-thread.png` | Oct 24, 2013 | Same template on the General board: the Flow Pictures rewatch club |
 | `03-iron-to-requiem.png` | Jun 1, 2013 | Iron to Requiem mid-season: documented credits, aired episodes, next slot |
-| `04-sinful-apex.png` | Oct 24, 2013 | Built-out profile with every tab; established facts kept (Flow Pictures, Aug 15, 2011 – Jan 23, 2012, 24 eps, dir. Kaihatsu Miura, LUNE as Aria Moonbirth) |
-| `05-character-nico-vale.png` | Oct 24, 2013 | Character page: biography gated by episode, voice actor, relationships |
+| `04-sinful-apex.png` | Oct 24, 2013 | Profile from the Master Bible: Flow Pictures, Aug 15, 2011 – Jan 23, 2012, 24 eps, registry staff, LUNE as Aria Moonbirth; the rest marked pending |
+| `05-character-aria-moonbirth.png` | Oct 24, 2013 | Character page: Aria Moonbirth, played by LUNE |
 | `06-home.png` | Oct 24, 2013 | Home with no Impact of Eden material: news, latest forum posts, reviews, Top Anime, newest members |
 | `07-spring-2013.png` | May 1, 2013 | Seasonal chart with Iron to Requiem airing |
 | `08-company-flow-pictures.png` | Oct 24, 2013 | Company page with its productions |
 | `09-forums.png` | Oct 24, 2013 | Board index grouped Anime & Manga / Community / YAL |
 | `10-finale-thread-at-0300.png` | Jan 24, 2012 03:00 JST | The Sinful Apex finale thread half an hour after it opened: only the first replies |
-| `11-glass-cathedral-before-premiere.png` | Jan 5, 2012 | "Not yet aired", no score, no opening theme, no reviews |
+| `11-sinful-apex-mid-run.png` | Jan 10, 2012 | Currently Airing with 22 episodes aired and the next slot listed |
 | `12-thread-mobile.png` | Oct 24, 2013 | Single column at 390px; the desktop look is kept |
 | `13-about-the-archive.png` | Oct 24, 2013 | Provenance table and known gaps, with the held-back phase noted |
-| `14-vacant-crown.png` | Oct 24, 2013 | Two-cour entry with two opening themes, five-character cast and its finale thread |
-| `15-summer-2012.png` | Aug 1, 2012 | Summer 2012 chart while Vacant Crown is airing |
-| `16-vacant-crown-finale-thread.png` | Oct 24, 2013 | A reconstructed finale thread using the archived thread template |
+| `14-vacant-crown.png` | Oct 24, 2013 | A catalogue entry: year, format, description, registry staff and LUNE's song, with pending notes |
+| `15-people-lune.png` | Oct 24, 2013 | LUNE's page: her Bible biography, Aria Moonbirth and five theme-song credits |
+| `16-lune-appreciation-thread.png` | Oct 24, 2013 | A Music board thread about LUNE's songs |
 
 Legend: ✅ matches · ⚠️ deliberate difference · ➕ addition outside the original page
