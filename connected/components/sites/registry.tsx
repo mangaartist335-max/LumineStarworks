@@ -1,0 +1,44 @@
+"use client";
+
+// Which archive website serves which address.
+
+import { lazy, type ComponentType, type LazyExoticComponent } from "react";
+import type { IconName } from "@/components/desktop/Icon";
+
+export interface SiteDef {
+  host: string;
+  name: string;
+  icon: IconName;
+  /** Served inside the desktop as a component. YAL is a separate server shown in a frame. */
+  Component?: LazyExoticComponent<ComponentType>;
+  frame?: "yal";
+}
+
+const site = (host: string, name: string, icon: IconName, loader: () => Promise<{ default: ComponentType }>): SiteDef => ({ host, name, icon, Component: lazy(loader) });
+
+export const SITES: SiteDef[] = [
+  site("search.connectedera.local", "Connected Search", "search", () => import("./search/ConnectedSearch")),
+  site("metube.connectedera.local", "MeTube", "metube", () => import("./metube/MeTube")),
+  site("manga.connectedera.local", "MangaShelf", "manga", () => import("./manga/MangaShelf")),
+  site("wallpapers.connectedera.local", "WallpaperGarden", "photos", () => import("./wallpapers/WallpaperGarden")),
+  site("birdie.connectedera.local", "Birdie", "messenger", () => import("./community/Birdie")),
+  site("tum.connectedera.local", "Tum", "file-image", () => import("./community/Tum")),
+  site("3chan.connectedera.local", "3Chan", "file-text", () => import("./community/ThreeChan")),
+  site("technook.connectedera.local", "TechNook Forums", "computer", () => import("./community/TechNook")),
+  site("homeplot.connectedera.local", "HomePlot", "home", () => import("./community/HomePlot")),
+  site("inkpocket.connectedera.local", "InkPocket", "notepad", () => import("./community/InkPocket")),
+  site("freewarecorner.connectedera.local", "Freeware Corner", "download", () => import("./static/StaticSite")),
+  site("pantryrecipes.connectedera.local", "Pantry Recipes", "file-text", () => import("./static/StaticSite")),
+  site("mail.connectedera.local", "ConnectMail", "mail", () => import("./static/StaticSite")),
+  site("aniwire.connectedera.local", "AniWire", "file-text", () => import("./aniwire/AniWire")),
+  site("flowpictures.connectedera.local", "Flow Pictures", "video", () => import("./flow/FlowPictures")),
+  site("wiki.connectedera.local", "AniFanWiki", "info", () => import("./wiki/AniFanWiki")),
+  site("snapnest.connectedera.local", "SnapNest", "photos", () => import("./snapnest/SnapNest")),
+  site("corkboard.connectedera.local", "Corkboard", "file-text", () => import("./corkboard/Corkboard")),
+  { host: "yal.connectedera.local", name: "YourAnimeList", icon: "star", frame: "yal" },
+];
+
+export function siteForHost(host: string): SiteDef | undefined {
+  const h = host.toLowerCase().replace(/^www\./, "");
+  return SITES.find((s) => h === s.host || h.endsWith(`.${s.host}`));
+}
