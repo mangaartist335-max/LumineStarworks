@@ -10,6 +10,11 @@ import { staticSites } from "./web-pages";
 import { birdieUsers, birdiePosts, tumBlogs, threeChanThreads, techNookThreads } from "./community";
 import { archiveHomepages, HOMEPLOT_HOST } from "./homepages";
 import { archiveStories, fandoms, INKPOCKET_HOST } from "./fanfic";
+import { ANIWIRE_HOST, articles } from "./aniwire";
+import { catalogue, FORMAT_LABEL, LUNE } from "./catalogue";
+import { FLOW_HOST, flowNews, workListedFrom } from "./flow";
+import { WIKI_NAME, wikiPages, wikiUrl } from "./wiki";
+import { plainText } from "@/lib/wiki";
 import yalIndex from "./generated/yal-index.json";
 
 const http = (host: string, path = "/") => `http://${host}${path}`;
@@ -106,6 +111,22 @@ export function buildSearchDocs(): SearchDoc[] {
   for (const f of fandoms) docs.push({ id: `page_inkpocket_${f.id.replace(/-/g, "_")}`, url: http(INKPOCKET_HOST, `/fandom/${f.id}`), title: `${f.name} fan fiction - InkPocket`, description: `Stories by fans of ${f.name}.`, kind: "web", publishedAt: f.since, site: "InkPocket", tags: ["fan fiction", f.name] });
   for (const st of archiveStories) {
     docs.push({ id: `page_${st.id}`, url: http(INKPOCKET_HOST, `/s/${st.id}`), title: `${st.title} - ${fandoms.find((f) => f.id === st.fandom)?.name ?? ""} fan fiction - InkPocket`, description: `${st.summary} By ${st.author}.`, kind: "web", publishedAt: st.chapters[0].at, site: "InkPocket", tags: ["fan fiction", "fanfic", st.author, ...st.genres] });
+  }
+
+  docs.push({ id: "page_aniwire", url: http(ANIWIRE_HOST), title: "AniWire - Anime news, features and reviews", description: "Anime news, features, reviews and interviews, updated every week.", kind: "web", publishedAt: "2008-09-01T00:00:00Z", site: "AniWire", tags: ["anime", "news", "reviews", "aniwire"] });
+  for (const a of articles) docs.push({ id: `page_${a.id}`, url: http(ANIWIRE_HOST, `/article/${a.slug}`), title: `${a.title} - AniWire`, description: a.dek, body: a.body.filter((p) => p !== "@catalogue").join(" "), kind: "web", image: a.image, publishedAt: a.publishedAt, site: "AniWire", tags: ["anime", a.kind.toLowerCase(), ...a.tags] });
+
+  docs.push({ id: "page_flowpictures", url: http(FLOW_HOST), title: "Flow Pictures - Official site", description: "Flow Pictures, the animation studio behind Sinful Apex: news, works, staff and music.", kind: "web", publishedAt: "2005-01-01T00:00:00Z", site: "Flow Pictures", tags: ["flow pictures", "studio", "anime"] });
+  for (const w of catalogue) {
+    const listed = workListedFrom(w.year);
+    docs.push({ id: `page_flow_${w.slug.replace(/-/g, "_")}`, url: http(FLOW_HOST, `/works/${w.slug}`), title: `${w.title} - Flow Pictures`, description: `${w.years}, ${FORMAT_LABEL[w.format]}. ${w.description}`, kind: "web", publishedAt: listed ? new Date(listed).toISOString() : `${Math.max(w.year, 2005)}-01-01T00:00:00Z`, site: "Flow Pictures", tags: ["flow pictures", "anime", w.title, ...(w.song ? [w.song, "LUNE"] : [])] });
+  }
+  for (const n of flowNews) docs.push({ id: `page_${n.id}`, url: http(FLOW_HOST), title: `${n.title} - Flow Pictures`, description: n.body, kind: "web", publishedAt: n.at, site: "Flow Pictures", tags: ["flow pictures", "news"] });
+  docs.push({ id: "page_flow_music", url: http(FLOW_HOST, "/music"), title: "Music: LUNE - Flow Pictures", description: LUNE.bio, kind: "web", publishedAt: "2006-06-01T00:00:00Z", site: "Flow Pictures", tags: ["LUNE", "music", "songs", ...LUNE.songs.map((s) => s.song)] });
+
+  for (const p of wikiPages) {
+    const first = p.revisions[0];
+    docs.push({ id: `page_wiki_${p.title.replace(/[^a-z0-9]+/gi, "_")}`, url: wikiUrl(p.title), title: `${p.title} - ${WIKI_NAME}`, description: plainText(first.text).split("\n")[0].slice(0, 220), body: plainText(first.text), kind: "web", publishedAt: first.at, site: WIKI_NAME, tags: ["wiki", "encyclopedia", p.title] });
   }
 
   docs.push(...(yalIndex as SearchDoc[]));

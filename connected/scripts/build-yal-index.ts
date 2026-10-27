@@ -30,9 +30,8 @@ docs.push({
 });
 
 for (const a of anime) {
-  if (a.provenance === "documented" && !a.synopsis && a.episodeList.length === 0) continue; // credit-only entries
   const firstSeen = a.visibleFrom ?? a.airedFrom ?? YAL_OPENED;
-  const year = a.airedFrom ? new Date(a.airedFrom).getUTCFullYear() : null;
+  const year = a.year ?? (a.airedFrom ? new Date(a.airedFrom).getUTCFullYear() : null);
   docs.push({
     id: `page_yal_anime_${a.id}`,
     url: `${HOST}/anime/${a.id}/${a.slug}`,

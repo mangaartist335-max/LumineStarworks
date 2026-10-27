@@ -30,6 +30,9 @@ export const SITES: SiteDef[] = [
   site("freewarecorner.connectedera.local", "Freeware Corner", "download", () => import("./static/StaticSite")),
   site("pantryrecipes.connectedera.local", "Pantry Recipes", "file-text", () => import("./static/StaticSite")),
   site("mail.connectedera.local", "ConnectMail", "mail", () => import("./static/StaticSite")),
+  site("aniwire.connectedera.local", "AniWire", "file-text", () => import("./aniwire/AniWire")),
+  site("flowpictures.connectedera.local", "Flow Pictures", "video", () => import("./flow/FlowPictures")),
+  site("wiki.connectedera.local", "AniFanWiki", "info", () => import("./wiki/AniFanWiki")),
   { host: "yal.connectedera.local", name: "YourAnimeList", icon: "star", frame: "yal" },
 ];
 

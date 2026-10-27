@@ -21,6 +21,9 @@ export const HOST = {
   freeware: `freewarecorner.${DOMAIN}`,
   recipes: `pantryrecipes.${DOMAIN}`,
   mail: `mail.${DOMAIN}`,
+  aniwire: `aniwire.${DOMAIN}`,
+  flow: `flowpictures.${DOMAIN}`,
+  wiki: `wiki.${DOMAIN}`,
 } as const;
 
 /** Email addresses on this computer: name@mail.connectedera.local */
