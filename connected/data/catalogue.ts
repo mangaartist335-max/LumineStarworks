@@ -1,8 +1,8 @@
 // The anime facts every Connected Era site shares, taken from the Connected
 // Era Master Bible (docs/bible): Flow Pictures' earlier catalogue (ch. 18),
 // its people registry, LUNE's songs (ch. 19) and the franchise registry
-// (ch. 16). AniWire, the Flow Pictures site, AniFanWiki and MunchyRoll all
-// read from here, and YourAnimeList carries the same facts, so the sites
+// (ch. 16). AniWire, the Flow Pictures site and AniFanWiki all read from
+// here, and YourAnimeList carries the same facts, so the sites
 // never disagree. Anything the Bible leaves open stays out.
 
 export type Format = "TV" | "Film" | "OVA" | "TV special";

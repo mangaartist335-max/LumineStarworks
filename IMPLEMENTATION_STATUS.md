@@ -68,6 +68,8 @@ Legend: **Done** works end to end and persists. **Partly done** works, with the 
 | Archive Manager | Done | Open ZIP and CBZ, extract all or selected, open a file from inside, create ZIP files from files and folders. Uses a ZIP reader and writer built for this project (deflate via the browser's CompressionStream). |
 | PDF Reader | Done | Renders with PDF.js: page navigation, zoom, fit width, continuous scrolling. |
 | Calculator | Done | Standard calculator with memory keys and keyboard input. |
+| Radio | Done | The Bible's six stations (CV Pop FM, Garage Noise 101.7, Ambient Echo, TalkWave AM, Pixel Beats and Golden Oldies) with 27 programmes on their own schedules. Tuning in follows the computer's clock, so you join mid-song, and a station only plays songs and adverts that exist by that date. The songs, station idents, adverts and DJ links are original and generated (the DJs are synthesized voices). Keeps playing while minimized. |
+| News Reader | Done | Follow sites through 22 RSS feeds (AniWire, Flow Pictures, wiki recent changes, MangaShelf, InkPocket, TechNook, MeTube channels and Tum blogs). Refreshing fetches into an offline cache, with unread counts, folders and a fetch history. Items only arrive once their date has come. |
 
 ### Web
 
@@ -75,14 +77,20 @@ Legend: **Done** works end to end and persists. **Partly done** works, with the 
 | --- | --- | --- |
 | Tabbed browser | Done | Tabs, address bar, back, forward, reload, home, bookmarks and bookmarks bar, history, downloads page, preferences, session restore, new tab page, keyboard shortcuts (Ctrl+T, W, L, D, H, J, R, N, Tab). |
 | Live websites | Done | Any address outside the archive gets a clear "live website, not part of the archive" page with a button to open today's site in your real browser. Nothing live is ever shown as a 2012-2013 page. |
-| Goggle (search engine) | Done | Ranked results with titles, descriptions and highlighted snippets, suggestions, image and video search, pagination, date filters, search history and typing an address to go straight there. 301 indexed pages, each shown only once its publication date has passed. |
-| MeTube | Done | Home and featured videos, search, channels, subscriptions, real playback (play, pause, seek, volume, full screen, progress), comments, likes, favourites, playlists, history, uploads from your computer, view counts and upload dates, related videos. 13 original videos across 9 channels (gaming, pets, music, tutorials, sports, editing, desktop customization, vlogs, anime commentary). Archive videos and your uploads are kept apart. |
+| Connected Search | Done | Ranked results with titles, descriptions and highlighted snippets, suggestions, image and video search, pagination, date filters, search history and typing an address to go straight there. 311 indexed pages, each shown only once its publication date has passed. |
+| Addresses | Done | Every site lives under `*.connectedera.local`, a reserved name that can't clash with a real website. Old addresses from early builds (goggle.com, metube.com and friends) forward to their new home, and mistyped archive addresses get a friendly "no such site" page. |
+| MeTube | Done | Home and featured videos, search, channels, subscriptions, real playback (play, pause, seek, volume, full screen, progress), comments, likes, favourites, playlists, history, uploads from your computer, view counts and upload dates, related videos. 17 original videos across 13 channels (gaming, pets, music, tutorials, sports, editing, desktop customization, vlogs, anime commentary). Four of the channels are the creators the Master Bible names (XXICEBURNERXX, HEARTCORE_ANGEL, NOOBDESTROYER92 and STRAWBERRY_STATIC); their videos are labelled on the watch page as constructed reconstructions. Archive videos and your uploads are kept apart. |
 | MangaShelf | Done | Browse, search by title, author or genre, title pages, dated chapters, right-to-left and left-to-right reading, zoom, full screen, page bookmarks, progress and continue reading, favourites, history, import from images or a CBZ/ZIP. 3 original series, 5 chapters. |
 | WallpaperGarden | Done | 8 original wallpapers with dates, categories and downloads. |
+| AniWire | Done | Anime news, features, reviews and an interview: 11 articles, each with its corrections and reader comments on their own dates. Leave your own comments (shared by every account on the computer). Show facts come from the Master Bible. |
+| Flow Pictures | Done | The studio's official site: news posts on the dates the Bible records, the 18-title works catalogue, the staff registry and LUNE's songs, with links to YourAnimeList and the wiki. |
+| AniFanWiki | Done | An anime encyclopedia anyone can edit: 37 starting pages whose 74 revisions unfold with the computer's date. Edit and create pages in wiki markup, preview, view history and line-by-line diffs, restore older versions, recent changes, search and spoiler tags. Gaps the Bible leaves open are stated on the pages, never filled in. |
 | YourAnimeList | Done | Shown inside the browser in a frame (embed mode keeps it in sync with the address bar). Needs `npm run dev:all`. |
 | Birdie, Tum, 3Chan, TechNook | Done | Microblog (follow, like, reply), blogs and fan art (reblog, notes, tags, your own customizable blog), anonymous boards (threads, replies, quotes, pictures) and forums (threads, quotes, signatures). |
 | HomePlot | Done | Personal homepages with dated updates, hit counters and guestbooks. Sign any guestbook, and make and edit your own page. |
 | InkPocket | Done | Fan fiction for the era's original manga and Star Courier: chapters, reviews, favourites, continue reading, and posting your own stories chapter by chapter. |
+| SnapNest | Done | Photo albums: 3 starting albums from around town, plus your own albums (public, unlisted with a share link, or private) with uploads from your files, tags, a slideshow and downloads. |
+| Corkboard | Done | Town classifieds: 16 listings (for sale, free, wanted, swap, services, events) that close when sold, claimed or finished. Post your own, mark it sold, and message sellers who have an account on this computer. No payments happen here, and the site says so. |
 | Small sites | Done | Freeware Corner (where Star Courier installs from), Pantry Recipes and ConnectMail's home page. |
 
 ### People
@@ -90,6 +98,7 @@ Legend: **Done** works end to end and persists. **Partly done** works, with the 
 | Feature | Status | Notes |
 | --- | --- | --- |
 | Messenger | Partly done | Contacts, statuses and personal messages, one-to-one and group chats, timestamps, history, typing indicators, emoticons, nudges, profile pictures, unread counts, notifications and links that open in the browser. Chats between accounts on this computer are real, including across two browser tabs. The six sample contacts (Dana, Sky, Nadia, Akira, Olivia, Tom) answer with **scripted, clearly labelled automatic replies** and keep their own online hours; they are not people. |
+| Relay Chat | Done | IRC-style client for `irc.connectedera.local`: 5 channels with the regulars' scrollback, live chat between every account on this computer (including across tabs), nicknames, topics, `/me`, private messages, away messages, channel operators who can set topics and kick, and logs saved as plain text. The regulars appear only in the scrollback, so nobody pretends to be online. |
 | Mail | Partly done | Inbox, compose, reply, reply all, forward, drafts that save themselves, sent, archive, deleted, custom folders, attachments from your files, saving attachments, search, unread state. Mail between accounts on this computer is delivered for real. Sample contacts send a labelled automatic reply. Any other address bounces with a delivery report, because there is no outside mail server. A welcome note and a few friendly messages arrive after an account is created; newsletters arrive on their dates. |
 
 ### Games
@@ -114,7 +123,8 @@ These need a decision or material from outside this repository:
 
 1. **The Master Bible is now in the repository** (`docs/bible/Connected_Era_Master_Bible_v1.0.pdf`). Every site has moved to `*.connectedera.local` and the search engine is Connected Search, as Appendix D asks. Old addresses forward automatically. Names the Bible doesn't cover (Birdie, Tum, 3Chan, TechNook, HomePlot, InkPocket, MangaShelf, WallpaperGarden, Freeware Corner, Pantry Recipes and the sample contacts) are still our own and live in data files.
 2. **YAL now follows the Bible's catalogue.** All 18 Flow Pictures titles from chapter 18 (Rust Veil Junction included) are listed with their year, format, description, registry staff and LUNE's songs. Ghost Eater, Destiny/Infinite, A Mystical Skyline/Finger and Azure Sorcerer have title entries only. The Bible doesn't record episode titles, casts, air dates or most studio credits for these, so they show as pending rather than being made up. The earlier reconstructed casts, characters and episode lists were removed to match.
-3. **No outside services.** Everything runs locally in the browser. There are no server-side accounts, no syncing between devices and no real email; that is intentional for this phase. No API keys or tokens are used anywhere.
+3. **MunchyRoll and the AdultDrift guide aren't built.** The Bible gives no 2012-2013 catalogue or schedule for either outside the held-back Impact of Eden material, and there are no licensed episodes to stream. They're ready to build as soon as a catalogue or schedule for this period is decided. YourAnimeList still lists both companies.
+4. **No outside services.** Everything runs locally in the browser. There are no server-side accounts, no syncing between devices and no real email; that is intentional for this phase. No API keys or tokens are used anywhere.
 
 ## Known limits
 

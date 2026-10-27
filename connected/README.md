@@ -26,6 +26,11 @@ Open http://localhost:3000, pick a name and a picture, and you're in.
 - Share a MeTube video with a friend in **Messenger**, or email it from the video page.
 - Sign a guestbook on HomePlot, or post a story on InkPocket.
 - Install **Star Courier** from Freeware Corner and play it from **Games**.
+- Read the latest anime news on AniWire (`aniwire.connectedera.local`), then look the show up on AniFanWiki and fix a page while you're there.
+- Open **Radio** from the Start menu and flip between the six stations.
+- Subscribe to a few sites in **News Reader** and see what's new.
+- Hop into `#anime` in **Relay Chat**. Log in as a second account in another tab and you can chat with yourself.
+- Make a photo album on SnapNest, or post something to give away on Corkboard.
 - Change the date in **Control Panel > Date and Time** and see which sites, videos and chapters are around.
 
 ## Put it online
@@ -38,7 +43,7 @@ The desktop and YourAnimeList deploy to Vercel as two projects from this reposit
 | --- | --- |
 | `npm run dev` | Desktop only, on port 3000 |
 | `npm run dev:all` | Desktop and YourAnimeList together |
-| `npm test` | Unit tests (file system, window manager, browser, search, ZIP, mail, Messenger, games, archive data) |
+| `npm test` | Unit tests (file system, window manager, browser, search, ZIP, mail, Messenger, Relay Chat, radio, News Reader, wiki, games, archive data) |
 | `npm run e2e` | Drives the first milestone in Chromium: needs `npm run dev:all` running. Add `--headed` to watch. Screenshots go to `test-results/`. |
 | `npm run typecheck` / `npm run lint` | TypeScript and ESLint |
 | `npm run build` | Production build |
@@ -61,7 +66,7 @@ No accounts, keys or outside services are needed: everything runs and is stored 
 - `components/apps/`: every program, loaded when its window opens. `catalog.ts` lists them and which files they open.
 - `components/sites/`: the archive websites, served inside the browser. `registry.tsx` maps addresses to sites.
 - `lib/`: logic without React (time, file system, window manager, browser history, search, ZIP, mail, Messenger, games), all covered by tests.
-- `data/`: archive content (videos, manga, wallpapers, posts, homepages, fan fiction, mail, contacts) with dates, plus generated media and the YAL index.
+- `data/`: archive content (videos, manga, wallpapers, posts, homepages, fan fiction, news, wiki pages, radio, chat logs, albums, classifieds, mail, contacts) with dates, plus generated media and the YAL index. `catalogue.ts` holds the Master Bible's anime facts that every site shares.
 - `scripts/media/`: the Python generators for every picture, video, song, manga page and PDF. All media is original.
 
 See `../IMPLEMENTATION_STATUS.md` for what's done, what's partly done and the open questions.
