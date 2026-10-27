@@ -11,7 +11,7 @@ import { iso, timeAgo } from "@/lib/time";
 import { userHandle } from "../metube/store";
 import { Linkified } from "./text";
 
-const bd = (path = "/") => `http://www.birdie.com${path}`;
+const bd = (path = "/") => `http://birdie.connectedera.local${path}`;
 
 interface UserChirp {
   id: string;

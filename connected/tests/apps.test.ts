@@ -86,14 +86,14 @@ test("Messenger: shared chat ids, presence schedules, status messages", () => {
   assert.equal(presenceAt(dana, wallTimeToUtc(2013, 8, 10, 12, 30, zone), zone), "away");
   assert.equal(statusMessageAt(dana, Date.parse("2012-07-05T00:00:00Z")), "picnic weather!! ☀");
   assert.equal(statusMessageAt(dana, Date.parse("2013-09-07T00:00:00Z")), "autumn sketch walks start soon 🍂");
-  for (const c of sampleContacts) assert.ok(c.email.endsWith("@connectmail.net"));
+  for (const c of sampleContacts) assert.ok(c.email.endsWith("@mail.connectedera.local"));
   assert.equal(accountPresence({ status: "busy", message: "", at: 1000 }, 1000 + 30_000), "busy");
   assert.equal(accountPresence({ status: "busy", message: "", at: 1000 }, 1000 + 200_000), "offline");
 });
 
 test("Messenger: automatic replies fit what was said", () => {
   const sky = sampleContactById("ct_sky")!;
-  assert.ok(sky.links.metube.includes(scriptedReply(sky, "lol watch this http://www.metube.com/watch?v=vid_mt0002", 0)));
+  assert.ok(sky.links.metube.includes(scriptedReply(sky, "lol watch this http://metube.connectedera.local/watch?v=vid_mt0002", 0)));
   assert.ok(sky.greetings.includes(scriptedReply(sky, "hey!", 1)));
   assert.ok(sky.howAreYou.includes(scriptedReply(sky, "how are you doing?", 0)));
   assert.ok(sky.topics[0].replies.includes(scriptedReply(sky, "did you beat the boss in star courier", 0)));
@@ -101,24 +101,24 @@ test("Messenger: automatic replies fit what was said", () => {
 });
 
 test("Messenger: emoticons and links become tokens", () => {
-  const t = tokenize("hi :) see www.metube.com/watch?v=vid_mt0002 <3");
+  const t = tokenize("hi :) see metube.connectedera.local/watch?v=vid_mt0002 <3");
   assert.deepEqual(
     t.map((x) => x.kind),
     ["text", "emoticon", "text", "link", "text", "emoticon"],
   );
   const link = t.find((x) => x.kind === "link");
-  assert.equal(link && link.kind === "link" && link.url, "http://www.metube.com/watch?v=vid_mt0002");
-  assert.deepEqual(tokenize("http://www.goggle.com/").map((x) => x.kind), ["link"]);
+  assert.equal(link && link.kind === "link" && link.url, "http://metube.connectedera.local/watch?v=vid_mt0002");
+  assert.deepEqual(tokenize("http://search.connectedera.local/").map((x) => x.kind), ["link"]);
 });
 
 test("ConnectMail: addresses, subjects and archive delivery", async () => {
-  assert.deepEqual(parseAddresses("Dana <dana.doodles@connectmail.net>, sam@connectmail.net; nope").bad, ["nope"]);
-  assert.equal(parseAddresses("Dana <dana.doodles@connectmail.net>").ok[0].name, "Dana");
+  assert.deepEqual(parseAddresses("Dana <dana.doodles@mail.connectedera.local>, sam@mail.connectedera.local; nope").bad, ["nope"]);
+  assert.equal(parseAddresses("Dana <dana.doodles@mail.connectedera.local>").ok[0].name, "Dana");
   assert.equal(replySubject("Re: hi", "reply"), "Re: hi");
   assert.equal(replySubject("hi", "forward"), "Fw: hi");
 
   const store = new MemoryStore();
-  const account = { id: "usr_sam", name: "Sam", email: "sam@connectmail.net", createdAt: "2013-09-07T20:00:00.000Z" };
+  const account = { id: "usr_sam", name: "Sam", email: "sam@mail.connectedera.local", createdAt: "2013-09-07T20:00:00.000Z" };
   const first = await deliverArchiveMail(store, account, Date.parse("2013-09-07T20:01:00Z"));
   assert.deepEqual(first.map((m) => m.id), ["usr_sam_mail_welcome"]);
   // Later: Dana's hello and Tom's tips arrive, and October's newsletter once its date passes.
@@ -132,18 +132,18 @@ test("ConnectMail: addresses, subjects and archive delivery", async () => {
 
 test("ConnectMail: local delivery, automatic replies and bounces", async () => {
   const store = new MemoryStore();
-  const sam = { id: "usr_sam", name: "Sam", email: "sam@connectmail.net", createdAt: "2013-09-07T20:00:00.000Z" };
-  const alex = { id: "usr_alex", name: "Alex", email: "alex@connectmail.net", createdAt: "2013-09-07T20:00:00.000Z" };
+  const sam = { id: "usr_sam", name: "Sam", email: "sam@mail.connectedera.local", createdAt: "2013-09-07T20:00:00.000Z" };
+  const alex = { id: "usr_alex", name: "Alex", email: "alex@mail.connectedera.local", createdAt: "2013-09-07T20:00:00.000Z" };
   await store.putBlob("blob_pic", new Blob(["picture"]));
   const report = await sendMail(
     store,
     sam,
     [sam, alex],
-    { to: [{ email: "alex@connectmail.net" }, { email: "dana.doodles@connectmail.net" }, { email: "someone@example.com" }], cc: [], subject: "Hello", body: "Hi!", attachments: [{ id: "att_1", name: "pic.png", mime: "image/png", size: 7, blobId: "blob_pic" }] },
+    { to: [{ email: "alex@mail.connectedera.local" }, { email: "dana.doodles@mail.connectedera.local" }, { email: "someone@example.com" }], cc: [], subject: "Hello", body: "Hi!", attachments: [{ id: "att_1", name: "pic.png", mime: "image/png", size: 7, blobId: "blob_pic" }] },
     Date.parse("2013-09-07T21:00:00Z"),
   );
-  assert.deepEqual(report.delivered.map((a) => a.email), ["alex@connectmail.net"]);
-  assert.deepEqual(report.automatic.map((a) => a.email), ["dana.doodles@connectmail.net"]);
+  assert.deepEqual(report.delivered.map((a) => a.email), ["alex@mail.connectedera.local"]);
+  assert.deepEqual(report.automatic.map((a) => a.email), ["dana.doodles@mail.connectedera.local"]);
   assert.deepEqual(report.bounced.map((a) => a.email), ["someone@example.com"]);
   const all = await store.list<MailMessage>(COL_MAIL);
   const alexInbox = all.filter((m) => m.owner === "usr_alex" && m.folder === "inbox");
@@ -152,6 +152,6 @@ test("ConnectMail: local delivery, automatic replies and bounces", async () => {
   assert.equal(await (await store.getBlob(alexInbox[0].attachments[0].blobId!))!.text(), "picture");
   const samInbox = all.filter((m) => m.owner === "usr_sam" && m.folder === "inbox");
   assert.ok(samInbox.some((m) => m.subject === "Undeliverable: Hello" && m.origin === "system"));
-  assert.ok(samInbox.some((m) => m.from.email === "dana.doodles@connectmail.net" && m.body.includes("Automatic reply")));
+  assert.ok(samInbox.some((m) => m.from.email === "dana.doodles@mail.connectedera.local" && m.body.includes("Automatic reply")));
   assert.equal(all.filter((m) => m.owner === "usr_sam" && m.folder === "sent").length, 1);
 });

@@ -348,7 +348,7 @@ function EditorForm({ existing, onSave, owner, slug, name, at }: { existing?: Us
           onSave({ id: slug, owner, title: title.trim().slice(0, 80) || `${name}'s Homepage`, tagline: tagline.trim().slice(0, 120), about: about.trim().slice(0, 3000), themeName, links: parsed, pictureBlob, createdAt: existing?.createdAt ?? at, updatedAt: at, origin: "user" });
         }}
       >
-        <p className="hp-muted">Your address will be www.homeplot.net/~{slug}</p>
+        <p className="hp-muted">Your address will be homeplot.connectedera.local/~{slug}</p>
         <label>
           Page title <input className="field" value={title} onChange={(e) => setTitle(e.target.value)} aria-label="Page title" maxLength={80} />
         </label>
@@ -370,7 +370,7 @@ function EditorForm({ existing, onSave, owner, slug, name, at }: { existing?: Us
           Picture <PicturePicker value={picture} onChange={setPicture} />
         </label>
         <label>
-          Links (one per line: name | address) <textarea className="field" rows={4} value={links} onChange={(e) => setLinks(e.target.value)} aria-label="Links" placeholder="My Tum | danasdoodles.tum.com" />
+          Links (one per line: name | address) <textarea className="field" rows={4} value={links} onChange={(e) => setLinks(e.target.value)} aria-label="Links" placeholder="My Tum | danasdoodles.tum.connectedera.local" />
         </label>
         <button className="hp-btn">{existing ? "Save changes" : "Publish my page"}</button>
       </form>

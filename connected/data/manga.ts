@@ -5,7 +5,7 @@
 import type { Availability } from "@/lib/availability";
 import { media } from "./media";
 
-export const MANGASHELF_HOST = "mangashelf.net";
+export const MANGASHELF_HOST = "manga.connectedera.local";
 
 export interface MangaChapter {
   id: string;

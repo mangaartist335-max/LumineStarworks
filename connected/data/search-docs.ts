@@ -12,13 +12,13 @@ import { archiveHomepages, HOMEPLOT_HOST } from "./homepages";
 import { archiveStories, fandoms, INKPOCKET_HOST } from "./fanfic";
 import yalIndex from "./generated/yal-index.json";
 
-const http = (host: string, path = "/") => `http://www.${host}${path}`;
+const http = (host: string, path = "/") => `http://${host}${path}`;
 
 export function buildSearchDocs(): SearchDoc[] {
   const docs: SearchDoc[] = [];
 
   docs.push(
-    { id: "page_goggle", url: http("goggle.com"), title: "Goggle", description: "Search the web, images and videos.", kind: "web", publishedAt: "2006-01-01T00:00:00Z", site: "Goggle", tags: ["search", "search engine"] },
+    { id: "page_search", url: http("search.connectedera.local"), title: "Connected Search", description: "Search the web, images and videos.", kind: "web", publishedAt: "2006-01-01T00:00:00Z", site: "Connected Search", tags: ["search", "search engine"] },
     { id: "page_metube", url: http(METUBE_HOST), title: "MeTube - Broadcast Yourself", description: "Watch, upload and share videos with friends and the world. Gaming, music, pets, tutorials, sports and vlogs.", kind: "web", publishedAt: "2006-01-01T00:00:00Z", site: "MeTube", tags: ["video", "videos", "watch", "upload", "metube"] },
     { id: "page_mangashelf", url: http(MANGASHELF_HOST), title: "MangaShelf - Read Manga Online", description: "Read manga chapters online for free: slice of life, adventure, sci-fi, comedy and one-shots.", kind: "web", publishedAt: "2010-04-01T00:00:00Z", site: "MangaShelf", tags: ["manga", "read", "comics", "chapters"] },
     { id: "page_wallpapergarden", url: http(WALLPAPER_HOST), title: "WallpaperGarden - Free Desktop Wallpapers", description: "Free HD desktop backgrounds: nature, space, city, retro and abstract wallpapers for personal use.", kind: "web", publishedAt: "2008-02-01T00:00:00Z", site: "WallpaperGarden", tags: ["wallpaper", "wallpapers", "background", "desktop", "hd"] },
@@ -76,7 +76,7 @@ export function buildSearchDocs(): SearchDoc[] {
   }
 
   for (const g of games) {
-    docs.push({ id: `page_${g.id}`, url: http("freewarecorner.com", `/games/${g.id.replace("game_", "").replace(/_/g, "-")}`), title: `${g.title} - Free ${g.genre} Game - Freeware Corner`, description: `${g.description} By ${g.developer}.`, kind: "web", publishedAt: g.availability.publishedAt, site: "Freeware Corner", tags: ["game", "games", "download", "free", g.genre] });
+    docs.push({ id: `page_${g.id}`, url: http("freewarecorner.connectedera.local", `/games/${g.id.replace("game_", "").replace(/_/g, "-")}`), title: `${g.title} - Free ${g.genre} Game - Freeware Corner`, description: `${g.description} By ${g.developer}.`, kind: "web", publishedAt: g.availability.publishedAt, site: "Freeware Corner", tags: ["game", "games", "download", "free", g.genre] });
   }
 
   for (const s of staticSites) {
@@ -85,18 +85,18 @@ export function buildSearchDocs(): SearchDoc[] {
     }
   }
 
-  docs.push({ id: "page_birdie", url: http("birdie.com"), title: "Birdie - What's happening?", description: "Short updates from friends, creators and everyone else. Follow people and join the conversation.", kind: "web", publishedAt: "2007-03-01T00:00:00Z", site: "Birdie", tags: ["birdie", "microblog", "social"] });
-  for (const u of birdieUsers) docs.push({ id: `page_birdie_${u.handle}`, url: http("birdie.com", `/${u.handle}`), title: `${u.name} (@${u.handle}) on Birdie`, description: u.bio, kind: "web", publishedAt: u.joinedAt, site: "Birdie", tags: ["birdie", u.handle] });
-  for (const p of birdiePosts.slice(0, 200)) docs.push({ id: `page_${p.id}`, url: http("birdie.com", `/${p.author}/status/${p.id}`), title: `@${p.author} on Birdie`, description: p.text, kind: "web", publishedAt: p.at, site: "Birdie" });
-  docs.push({ id: "page_tum", url: http("tum.com"), title: "Tum - Blogs, art and everything you love", description: "Make a blog, share drawings, photos and thoughts, and follow blogs you like.", kind: "web", publishedAt: "2008-06-01T00:00:00Z", site: "Tum", tags: ["tum", "blog", "art"] });
+  docs.push({ id: "page_birdie", url: http("birdie.connectedera.local"), title: "Birdie - What's happening?", description: "Short updates from friends, creators and everyone else. Follow people and join the conversation.", kind: "web", publishedAt: "2007-03-01T00:00:00Z", site: "Birdie", tags: ["birdie", "microblog", "social"] });
+  for (const u of birdieUsers) docs.push({ id: `page_birdie_${u.handle}`, url: http("birdie.connectedera.local", `/${u.handle}`), title: `${u.name} (@${u.handle}) on Birdie`, description: u.bio, kind: "web", publishedAt: u.joinedAt, site: "Birdie", tags: ["birdie", u.handle] });
+  for (const p of birdiePosts.slice(0, 200)) docs.push({ id: `page_${p.id}`, url: http("birdie.connectedera.local", `/${p.author}/status/${p.id}`), title: `@${p.author} on Birdie`, description: p.text, kind: "web", publishedAt: p.at, site: "Birdie" });
+  docs.push({ id: "page_tum", url: http("tum.connectedera.local"), title: "Tum - Blogs, art and everything you love", description: "Make a blog, share drawings, photos and thoughts, and follow blogs you like.", kind: "web", publishedAt: "2008-06-01T00:00:00Z", site: "Tum", tags: ["tum", "blog", "art"] });
   for (const b of tumBlogs) {
-    docs.push({ id: `page_tum_${b.name}`, url: `http://${b.name}.tum.com/`, title: `${b.title} - Tum`, description: b.description, kind: "web", publishedAt: b.createdAt, site: "Tum", tags: ["tum", "blog", ...b.tags] });
-    for (const p of b.posts) docs.push({ id: `page_${p.id}`, url: `http://${b.name}.tum.com/post/${p.id}`, title: `${p.title ?? "Post"} - ${b.title}`, description: p.text, kind: p.image ? "image" : "web", image: p.image, publishedAt: p.at, site: "Tum", tags: p.tags });
+    docs.push({ id: `page_tum_${b.name}`, url: `http://${b.name}.tum.connectedera.local/`, title: `${b.title} - Tum`, description: b.description, kind: "web", publishedAt: b.createdAt, site: "Tum", tags: ["tum", "blog", ...b.tags] });
+    for (const p of b.posts) docs.push({ id: `page_${p.id}`, url: `http://${b.name}.tum.connectedera.local/post/${p.id}`, title: `${p.title ?? "Post"} - ${b.title}`, description: p.text, kind: p.image ? "image" : "web", image: p.image, publishedAt: p.at, site: "Tum", tags: p.tags });
   }
-  docs.push({ id: "page_3chan", url: http("3chan.org"), title: "3Chan - anonymous discussion boards", description: "Anonymous image boards for games, anime and manga, technology, music and random chat.", kind: "web", publishedAt: "2006-01-01T00:00:00Z", site: "3Chan", tags: ["3chan", "imageboard", "forum", "anonymous"] });
-  for (const t of threeChanThreads) docs.push({ id: `page_${t.id}`, url: http("3chan.org", `/${t.board}/thread/${t.id}`), title: `/${t.board}/ - ${t.subject || t.posts[0].text.slice(0, 50)}`, description: t.posts[0].text, kind: "web", publishedAt: t.posts[0].at, site: "3Chan", tags: ["3chan", t.board] });
-  docs.push({ id: "page_technook", url: http("technook.net"), title: "TechNook Forums - PC help, customization and software", description: "Friendly forums for PC help, desktop customization, software and hardware.", kind: "web", publishedAt: "2005-09-01T00:00:00Z", site: "TechNook", tags: ["forum", "forums", "technology", "pc", "help"] });
-  for (const t of techNookThreads) docs.push({ id: `page_${t.id}`, url: http("technook.net", `/thread/${t.id}`), title: `${t.title} - TechNook Forums`, description: t.posts[0].text.slice(0, 200), kind: "web", publishedAt: t.posts[0].at, site: "TechNook", tags: ["forum", "technology", t.board] });
+  docs.push({ id: "page_3chan", url: http("3chan.connectedera.local"), title: "3Chan - anonymous discussion boards", description: "Anonymous image boards for games, anime and manga, technology, music and random chat.", kind: "web", publishedAt: "2006-01-01T00:00:00Z", site: "3Chan", tags: ["3chan", "imageboard", "forum", "anonymous"] });
+  for (const t of threeChanThreads) docs.push({ id: `page_${t.id}`, url: http("3chan.connectedera.local", `/${t.board}/thread/${t.id}`), title: `/${t.board}/ - ${t.subject || t.posts[0].text.slice(0, 50)}`, description: t.posts[0].text, kind: "web", publishedAt: t.posts[0].at, site: "3Chan", tags: ["3chan", t.board] });
+  docs.push({ id: "page_technook", url: http("technook.connectedera.local"), title: "TechNook Forums - PC help, customization and software", description: "Friendly forums for PC help, desktop customization, software and hardware.", kind: "web", publishedAt: "2005-09-01T00:00:00Z", site: "TechNook", tags: ["forum", "forums", "technology", "pc", "help"] });
+  for (const t of techNookThreads) docs.push({ id: `page_${t.id}`, url: http("technook.connectedera.local", `/thread/${t.id}`), title: `${t.title} - TechNook Forums`, description: t.posts[0].text.slice(0, 200), kind: "web", publishedAt: t.posts[0].at, site: "TechNook", tags: ["forum", "technology", t.board] });
 
   docs.push({ id: "page_homeplot", url: http(HOMEPLOT_HOST), title: "HomePlot - Free personal homepages", description: "Make your own free homepage with a guestbook, a hit counter and your favourite links. Browse pages made by people everywhere.", kind: "web", publishedAt: "2004-03-01T00:00:00Z", site: "HomePlot", tags: ["homepage", "personal page", "guestbook", "free website"] });
   for (const h of archiveHomepages) {

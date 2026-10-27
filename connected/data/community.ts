@@ -32,10 +32,10 @@ export const birdieUsers: BirdieUser[] = [
   { handle: "AkiraKeys", name: "Akira", avatar: av("guitar"), bio: "One original piano song a month. Rain is my favourite sound.", joinedAt: "2011-05-22T12:00:00Z" },
   { handle: "TechTipsTom", name: "Tom", avatar: av("robot"), bio: "Easy computer tips. Ask me anything about your PC!", joinedAt: "2009-01-10T12:00:00Z" },
   { handle: "skyblue_kid", name: "Sky", avatar: av("rocket"), bio: "games, paper planes and space stuff", joinedAt: "2012-02-11T12:00:00Z" },
-  { handle: "Nadia_draws", name: "Nadia", avatar: av("palette"), bio: "Drawing every day. Fan art on my Tum: nadiadraws.tum.com", joinedAt: "2011-07-19T12:00:00Z" },
+  { handle: "Nadia_draws", name: "Nadia", avatar: av("palette"), bio: "Drawing every day. Fan art on my Tum: nadiadraws.tum.connectedera.local", joinedAt: "2011-07-19T12:00:00Z" },
   { handle: "OtakuOlivia", name: "Olivia", avatar: av("star"), bio: "Anime every night, manga every lunch break. YAL addict.", joinedAt: "2010-10-01T12:00:00Z" },
   { handle: "MeTube", name: "MeTube", avatar: av("sun"), bio: "Broadcast Yourself. Official account.", joinedAt: "2008-03-01T12:00:00Z" },
-  { handle: "MangaShelf", name: "MangaShelf", avatar: av("leaf"), bio: "New chapters every week. Read free at mangashelf.net", joinedAt: "2010-04-05T12:00:00Z" },
+  { handle: "MangaShelf", name: "MangaShelf", avatar: av("leaf"), bio: "New chapters every week. Read free at manga.connectedera.local", joinedAt: "2010-04-05T12:00:00Z" },
 ];
 
 let bn = 0;
@@ -45,13 +45,13 @@ export const birdiePosts: BirdiePost[] = [
   chirp("DailyDana", "2012-07-12T14:10:00Z", "First sunny weekend in ages. Picnic, sketchbook, done.", 8),
   chirp("skyblue_kid", "2012-07-21T18:02:00Z", "Just watched @DailyDana's paper plane video. 24 METRES. I'm folding all night", 5),
   chirp("DailyDana", "2012-07-21T18:30:00Z", "@skyblue_kid folding guide is coming next week, promise!", 4, "post_b0002"),
-  chirp("AkiraKeys", "2012-07-28T20:15:00Z", "New song is up! Summer Rain, written during last week's storm. metube.com/watch?v=vid_mt0003", 21),
+  chirp("AkiraKeys", "2012-07-28T20:15:00Z", "New song is up! Summer Rain, written during last week's storm. metube.connectedera.local/watch?v=vid_mt0003", 21),
   chirp("MangaShelf", "2012-08-03T04:00:00Z", "New series! Lantern Street Couriers chapter 1 is up now. Stairs. So many stairs.", 30),
   chirp("Nadia_draws", "2012-08-05T16:40:00Z", "Lantern Street Couriers is SO cute. Drew Mei already, it's on my Tum", 12),
   chirp("OtakuOlivia", "2012-08-20T23:10:00Z", "Vacant Crown episode 7 tonight. Mirelle with the maps is my favourite thing this summer.", 6),
   chirp("TechTipsTom", "2012-09-02T15:00:00Z", "Tip: right-click any picture in Photo Viewer and set it as your desktop background. Takes two seconds!", 14),
   chirp("MangaShelf", "2012-09-07T04:00:00Z", "Lantern Street Couriers chapter 2: Rooftop Shortcut is out! Melon bread is involved.", 25),
-  chirp("skyblue_kid", "2012-09-15T19:00:00Z", "MOCHI VS THE LASER POINTER. I'm crying laughing metube.com/watch?v=vid_mt0002", 40),
+  chirp("skyblue_kid", "2012-09-15T19:00:00Z", "MOCHI VS THE LASER POINTER. I'm crying laughing metube.connectedera.local/watch?v=vid_mt0002", 40),
   chirp("TechTipsTom", "2012-11-10T16:20:00Z", "New tutorial: make your own wallpaper in Paint. Beginner friendly, five minutes.", 18),
   chirp("PixelPilot", "2012-11-21T10:00:00Z", "Star Courier came out yesterday and I've already played it for six hours. Walkthrough series incoming!", 22),
   chirp("skyblue_kid", "2012-11-22T21:30:00Z", "Star Courier level 3 is HARD. Help @PixelPilot", 3),
@@ -215,7 +215,7 @@ const SIG: Record<string, [string, string]> = {
   ModMyMachine: [av("rocket"), "Current wallpaper: Retro Grid. Previous wallpaper: also Retro Grid."],
   grandpa_bill: [av("sun"), "Learning something new every day."],
   retro_ricky: [av("gamepad"), "High score hunter. Star Courier PB: 18,250"],
-  Nadia_draws: [av("palette"), "nadiadraws.tum.com"],
+  Nadia_draws: [av("palette"), "nadiadraws.tum.connectedera.local"],
 };
 const np = (author: string, at: string, text: string): NookPost => ({ author, avatar: SIG[author][0], signature: SIG[author][1], text, at });
 

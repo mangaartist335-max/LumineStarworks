@@ -1,6 +1,6 @@
 "use client";
 
-// Goggle: the Connected Era's search engine. Results come from the archive
+// Connected Search: the Connected Era's search engine. Results come from the archive
 // index and only include pages that existed at the computer's current date.
 // A separate, clearly labelled link searches today's live web in the real
 // browser; those results are never presented as part of the archive.
@@ -25,13 +25,10 @@ interface SearchEntry {
 
 function Logo({ small }: { small?: boolean }) {
   return (
-    <div className={`goggle-logo${small ? " small" : ""}`} aria-label="Goggle">
-      <span>G</span>
-      <span>o</span>
-      <span>g</span>
-      <span>g</span>
-      <span>l</span>
-      <span>e</span>
+    <div className={`search-logo${small ? " small" : ""}`} aria-label="Connected Search">
+      <span className="search-logo-mark" aria-hidden />
+      <span className="search-logo-word">Connected</span>
+      <span className="search-logo-sub">Search</span>
     </div>
   );
 }
@@ -46,12 +43,12 @@ function SearchBox({ initial, autoFocus, kind }: { initial: string; autoFocus?: 
     const past = [...history].sort((a, b) => b.at.localeCompare(a.at)).map((h) => h.q);
     return getSearchIndex().suggest(q, now(), [...new Set(past)], 8);
   }, [q, history, now]);
-  const submit = async (text: string, lucky = false) => {
+  const submit = async (text: string, straight = false) => {
     const t = text.trim();
     if (!t) return;
     setOpen(false);
     if (user) await store.put<SearchEntry>("searches", { id: newId("srch"), owner: user.id, q: t, at: iso(now()), origin: "user" });
-    if (lucky) {
+    if (straight) {
       const top = getSearchIndex().search(t, { now: now() }).hits[0];
       if (top) return navigate(top.doc.url);
     }
@@ -59,13 +56,13 @@ function SearchBox({ initial, autoFocus, kind }: { initial: string; autoFocus?: 
   };
   return (
     <form
-      className="goggle-form"
+      className="search-form"
       onSubmit={(e) => {
         e.preventDefault();
         void submit(q);
       }}
     >
-      <div className="goggle-box">
+      <div className="search-box">
         <input
           value={q}
           onChange={(e) => (setQ(e.target.value), setOpen(true))}
@@ -77,7 +74,7 @@ function SearchBox({ initial, autoFocus, kind }: { initial: string; autoFocus?: 
           autoComplete="off"
         />
         {open && suggestions.length > 0 && (
-          <ul className="goggle-suggest" role="listbox">
+          <ul className="search-suggest" role="listbox">
             {suggestions.map((s) => (
               <li key={s} role="option" aria-selected={false} onMouseDown={(e) => (e.preventDefault(), setQ(s), void submit(s))}>
                 {s}
@@ -86,10 +83,10 @@ function SearchBox({ initial, autoFocus, kind }: { initial: string; autoFocus?: 
           </ul>
         )}
       </div>
-      <div className="goggle-buttons">
-        <button className="goggle-btn">Goggle Search</button>
-        <button type="button" className="goggle-btn" onClick={() => submit(q, true)}>
-          I&apos;m Feeling Lucky
+      <div className="search-buttons">
+        <button className="search-btn">Search</button>
+        <button type="button" className="search-btn" onClick={() => submit(q, true)}>
+          Take Me There
         </button>
       </div>
     </form>
@@ -97,17 +94,17 @@ function SearchBox({ initial, autoFocus, kind }: { initial: string; autoFocus?: 
 }
 
 function Home() {
-  usePageTitle("Goggle");
+  usePageTitle("Connected Search");
   return (
-    <div className="goggle-home">
-      <div className="goggle-top">
-        <A href="http://www.metube.com/">MeTube</A>
-        <A href="http://www.mangashelf.net/">MangaShelf</A>
-        <A href="http://www.connectmail.net/">Mail</A>
+    <div className="search-home">
+      <div className="search-top">
+        <A href="http://metube.connectedera.local/">MeTube</A>
+        <A href="http://manga.connectedera.local/">MangaShelf</A>
+        <A href="http://mail.connectedera.local/">Mail</A>
       </div>
       <Logo />
       <SearchBox initial="" autoFocus />
-      <p className="goggle-note">Searching the Connected Era web, as of your computer&apos;s date.</p>
+      <p className="search-note">Searching the Connected Era web, as of your computer&apos;s date.</p>
     </div>
   );
 }
@@ -121,7 +118,7 @@ function Results() {
   const dateFilter = DATE_FILTERS.find((f) => f.id === (url.params.get("tbs") ?? "any")) ?? DATE_FILTERS[0];
   const page = Math.max(1, Number(url.params.get("page") ?? 1));
   const t = now();
-  usePageTitle(`${q} - Goggle Search`);
+  usePageTitle(`${q} - Connected Search`);
   const results = useMemo(
     () => getSearchIndex().search(q, { now: t, kind: kind === "all" ? "all" : kind, since: dateFilter.days ? t - dateFilter.days * 86400_000 : undefined, page, perPage: kind === "image" ? 24 : 10 }),
     [q, t, kind, dateFilter, page],
@@ -133,14 +130,14 @@ function Results() {
     return searchUrl(q, Object.fromEntries(Object.entries(p).filter(([k]) => k !== "q")));
   };
   return (
-    <div className="goggle-results">
-      <div className="goggle-header">
-        <A href="http://www.goggle.com/" aria-label="Goggle home">
+    <div className="search-results">
+      <div className="search-header">
+        <A href="http://search.connectedera.local/" aria-label="Connected Search home">
           <Logo small />
         </A>
         <SearchBox key={q} initial={q} kind={tbm ?? undefined} />
       </div>
-      <nav className="goggle-tabs">
+      <nav className="search-tabs">
         <A href={link({ tbm: undefined, page: undefined })} className={kind === "all" ? "on" : ""}>
           Web
         </A>
@@ -150,7 +147,7 @@ function Results() {
         <A href={link({ tbm: "vid", page: undefined })} className={kind === "video" ? "on" : ""}>
           Videos
         </A>
-        <span className="goggle-tools">
+        <span className="search-tools">
           {DATE_FILTERS.map((f) => (
             <A key={f.id} href={link({ tbs: f.id === "any" ? undefined : f.id, page: undefined })} className={f.id === dateFilter.id ? "on" : ""}>
               {f.label}
@@ -158,11 +155,11 @@ function Results() {
           ))}
         </span>
       </nav>
-      <div className="goggle-stats">
+      <div className="search-stats">
         About {results.total.toLocaleString("en-US")} result{results.total === 1 ? "" : "s"}
       </div>
       {results.total === 0 && (
-        <div className="goggle-none">
+        <div className="search-none">
           <p>
             Your search - <b>{q}</b> - did not match any documents{dateFilter.days ? ` from the ${dateFilter.label.toLowerCase()}` : ""}.
           </p>
@@ -174,9 +171,9 @@ function Results() {
         </div>
       )}
       {kind === "image" ? (
-        <div className="goggle-images">
+        <div className="search-images">
           {results.hits.map((h) => (
-            <A key={h.doc.id} href={h.doc.url} className="goggle-image" title={h.doc.title}>
+            <A key={h.doc.id} href={h.doc.url} className="search-image" title={h.doc.title}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={h.doc.image} alt={h.doc.title} />
               <small>{h.doc.site}</small>
@@ -184,7 +181,7 @@ function Results() {
           ))}
         </div>
       ) : (
-        <ol className="goggle-list">
+        <ol className="search-list">
           {results.hits.map((h) => (
             <li key={h.doc.id} className={h.doc.kind === "video" ? "video-result" : ""}>
               {h.doc.kind === "video" && h.doc.image && (
@@ -208,9 +205,9 @@ function Results() {
         </ol>
       )}
       {results.pages > 1 && (
-        <nav className="goggle-pages" aria-label="Result pages">
-          <span className="goggle-o" aria-hidden>
-            G{"o".repeat(Math.min(10, results.pages + 1))}ggle
+        <nav className="search-pages" aria-label="Result pages">
+          <span className="search-page-of">
+            Page {page} of {results.pages}
           </span>
           <div>
             {page > 1 && <A href={link({ page: String(page - 1) })}>Previous</A>}
@@ -227,7 +224,7 @@ function Results() {
           </div>
         </nav>
       )}
-      <div className="goggle-live">
+      <div className="search-live">
         Looking for today&apos;s web instead?{" "}
         <button className="link-btn" onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, "_blank", "noopener,noreferrer")}>
           Search the live web for &quot;{q}&quot;
@@ -238,7 +235,7 @@ function Results() {
   );
 }
 
-export default function Goggle() {
+export default function ConnectedSearch() {
   const { url } = useSite();
   if (url.path === "/search" && url.params.get("q")) return <Results />;
   return <Home />;

@@ -13,7 +13,7 @@ import { newId } from "@/lib/ids";
 import { formatDateTime, iso } from "@/lib/time";
 import { Linkified } from "./text";
 
-const tn = (path = "/") => `http://www.technook.net${path}`;
+const tn = (path = "/") => `http://technook.connectedera.local${path}`;
 
 interface UserThread {
   id: string;

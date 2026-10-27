@@ -1,7 +1,7 @@
 // Addresses inside the Connected Era browser.
 //
 // Original Connected Era sites live at fictional addresses
-// (http://www.metube.com/watch?v=...). The browser parses whatever is typed
+// (http://metube.connectedera.local/watch?v=...). The browser parses whatever is typed
 // into the address bar, decides whether it is an address or a search, and
 // routes archive hosts to the site that serves them. Anything else is a live
 // website outside the archive and is never presented as a 2012-2013 page.
@@ -16,13 +16,13 @@ export interface WebUrl {
   hash: string;
 }
 
-export const SEARCH_HOST = "goggle.com";
-export const HOME_URL = "http://www.goggle.com/";
+export const SEARCH_HOST = "search.connectedera.local";
+export const HOME_URL = "http://search.connectedera.local/";
 export const NEW_TAB_URL = "about:newtab";
 
 export function searchUrl(query: string, extra: Record<string, string> = {}): string {
   const p = new URLSearchParams({ q: query, ...extra });
-  return `http://www.${SEARCH_HOST}/search?${p.toString()}`;
+  return `http://${SEARCH_HOST}/search?${p.toString()}`;
 }
 
 export function canonicalHost(host: string): string {
@@ -74,12 +74,12 @@ export function interpretInput(input: string): { kind: "address" | "search"; url
   return { kind: "search", url: searchUrl(v) };
 }
 
-/** Builds an archive address: `site("metube.com", "/watch", { v: id })`. */
+/** Builds an archive address: `site("metube.connectedera.local", "/watch", { v: id })`. */
 export function siteUrl(host: string, path = "/", params?: Record<string, string | number | undefined>): string {
   const p = new URLSearchParams();
   for (const [k, val] of Object.entries(params ?? {})) if (val !== undefined && val !== "") p.set(k, String(val));
   const q = p.toString();
-  return `http://www.${host}${path}${q ? `?${q}` : ""}`;
+  return `http://${host}${path}${q ? `?${q}` : ""}`;
 }
 
 /** Same page, ignoring the fragment. */

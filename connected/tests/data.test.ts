@@ -8,6 +8,8 @@ import { join } from "node:path";
 import { buildSearchDocs } from "../data/search-docs";
 import { SearchIndex } from "../lib/search";
 import { parseUrl } from "../lib/web/url";
+import { isArchiveHost } from "../lib/web/hosts";
+import { siteForHost } from "../components/sites/registry";
 import { ERA_END, ERA_START } from "../lib/time";
 import { archiveHomepages } from "../data/homepages";
 import { archiveReviews, archiveStories, fandomById } from "../data/fanfic";
@@ -15,7 +17,6 @@ import { archiveMail } from "../data/mail";
 import { sampleContacts } from "../data/messenger";
 
 const IOE_WORDS = /Impact of Eden|Studio Burst|\bBurst\b|Nightpolis|Sora Gauthier|Miyuki Kagemitsu|Human x Inhuman|Natsuki Takuya|AniBlex/;
-const ARCHIVE_HOSTS = ["goggle.com", "metube.com", "mangashelf.net", "wallpapergarden.com", "birdie.com", "tum.com", "3chan.org", "technook.net", "homeplot.net", "inkpocket.net", "freewarecorner.com", "pantryrecipes.com", "connectmail.net", "youranimelist.net"];
 const within = (iso: string) => Date.parse(iso) >= Date.parse(ERA_START) && Date.parse(iso) <= Date.parse(ERA_END);
 
 test("search documents have unique ids, archive addresses and era dates", () => {
@@ -27,7 +28,8 @@ test("search documents have unique ids, archive addresses and era dates", () => 
     ids.add(d.id);
     const u = parseUrl(d.url);
     assert.ok(u, `bad url ${d.url}`);
-    assert.ok(ARCHIVE_HOSTS.some((h) => u!.host === h || u!.host.endsWith(`.${h}`)), `not an archive host: ${d.url}`);
+    assert.ok(siteForHost(u!.host), `no site serves ${d.url}`);
+    assert.ok(isArchiveHost(u!.host), `not an archive host: ${d.url}`);
     assert.ok(!Number.isNaN(Date.parse(d.publishedAt)), `bad date on ${d.id}`);
   }
 });

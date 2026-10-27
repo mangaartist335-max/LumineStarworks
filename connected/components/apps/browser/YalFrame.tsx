@@ -11,7 +11,7 @@ import { useSite } from "@/components/sites/SiteContext";
 import { iso } from "@/lib/time";
 
 export const YAL_ORIGIN = process.env.NEXT_PUBLIC_YAL_ORIGIN ?? "http://localhost:3100";
-export const YAL_PUBLIC = "http://www.youranimelist.net";
+export const YAL_PUBLIC = "http://yal.connectedera.local";
 
 interface LocationMessage {
   type: "yal:location";

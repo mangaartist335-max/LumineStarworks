@@ -2,7 +2,7 @@
 // Connected Era's original manga and games, and each chapter appears on
 // its posting date.
 
-export const INKPOCKET_HOST = "inkpocket.net";
+export const INKPOCKET_HOST = "inkpocket.connectedera.local";
 
 export interface Fandom {
   id: string;
@@ -42,11 +42,11 @@ export interface ArchiveReview {
 }
 
 export const fandoms: Fandom[] = [
-  { id: "lantern-street-couriers", name: "Lantern Street Couriers", kind: "Manga", sourceUrl: "http://www.mangashelf.net/manga/lantern-street-couriers", since: "2012-08-03T03:00:00Z" },
-  { id: "paper-planet", name: "Paper Planet", kind: "Manga", sourceUrl: "http://www.mangashelf.net/manga/paper-planet", since: "2013-01-11T03:00:00Z" },
-  { id: "moonlit-bakery", name: "Moonlit Bakery", kind: "Manga", sourceUrl: "http://www.mangashelf.net/manga/moonlit-bakery", since: "2013-06-20T03:00:00Z" },
-  { id: "star-courier", name: "Star Courier", kind: "Game", sourceUrl: "http://www.freewarecorner.com/games/star-courier", since: "2012-11-20T15:00:00Z" },
-  { id: "crossover", name: "Crossovers", kind: "Crossover", sourceUrl: "http://www.mangashelf.net/", since: "2009-05-01T00:00:00Z" },
+  { id: "lantern-street-couriers", name: "Lantern Street Couriers", kind: "Manga", sourceUrl: "http://manga.connectedera.local/manga/lantern-street-couriers", since: "2012-08-03T03:00:00Z" },
+  { id: "paper-planet", name: "Paper Planet", kind: "Manga", sourceUrl: "http://manga.connectedera.local/manga/paper-planet", since: "2013-01-11T03:00:00Z" },
+  { id: "moonlit-bakery", name: "Moonlit Bakery", kind: "Manga", sourceUrl: "http://manga.connectedera.local/manga/moonlit-bakery", since: "2013-06-20T03:00:00Z" },
+  { id: "star-courier", name: "Star Courier", kind: "Game", sourceUrl: "http://freewarecorner.connectedera.local/games/star-courier", since: "2012-11-20T15:00:00Z" },
+  { id: "crossover", name: "Crossovers", kind: "Crossover", sourceUrl: "http://manga.connectedera.local/", since: "2009-05-01T00:00:00Z" },
 ];
 
 export const archiveStories: ArchiveStory[] = [

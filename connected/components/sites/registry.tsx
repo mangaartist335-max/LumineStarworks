@@ -17,20 +17,20 @@ export interface SiteDef {
 const site = (host: string, name: string, icon: IconName, loader: () => Promise<{ default: ComponentType }>): SiteDef => ({ host, name, icon, Component: lazy(loader) });
 
 export const SITES: SiteDef[] = [
-  site("goggle.com", "Goggle", "search", () => import("./goggle/Goggle")),
-  site("metube.com", "MeTube", "metube", () => import("./metube/MeTube")),
-  site("mangashelf.net", "MangaShelf", "manga", () => import("./manga/MangaShelf")),
-  site("wallpapergarden.com", "WallpaperGarden", "photos", () => import("./wallpapers/WallpaperGarden")),
-  site("birdie.com", "Birdie", "messenger", () => import("./community/Birdie")),
-  site("tum.com", "Tum", "file-image", () => import("./community/Tum")),
-  site("3chan.org", "3Chan", "file-text", () => import("./community/ThreeChan")),
-  site("technook.net", "TechNook Forums", "computer", () => import("./community/TechNook")),
-  site("homeplot.net", "HomePlot", "home", () => import("./community/HomePlot")),
-  site("inkpocket.net", "InkPocket", "notepad", () => import("./community/InkPocket")),
-  site("freewarecorner.com", "Freeware Corner", "download", () => import("./static/StaticSite")),
-  site("pantryrecipes.com", "Pantry Recipes", "file-text", () => import("./static/StaticSite")),
-  site("connectmail.net", "ConnectMail", "mail", () => import("./static/StaticSite")),
-  { host: "youranimelist.net", name: "YourAnimeList", icon: "star", frame: "yal" },
+  site("search.connectedera.local", "Connected Search", "search", () => import("./search/ConnectedSearch")),
+  site("metube.connectedera.local", "MeTube", "metube", () => import("./metube/MeTube")),
+  site("manga.connectedera.local", "MangaShelf", "manga", () => import("./manga/MangaShelf")),
+  site("wallpapers.connectedera.local", "WallpaperGarden", "photos", () => import("./wallpapers/WallpaperGarden")),
+  site("birdie.connectedera.local", "Birdie", "messenger", () => import("./community/Birdie")),
+  site("tum.connectedera.local", "Tum", "file-image", () => import("./community/Tum")),
+  site("3chan.connectedera.local", "3Chan", "file-text", () => import("./community/ThreeChan")),
+  site("technook.connectedera.local", "TechNook Forums", "computer", () => import("./community/TechNook")),
+  site("homeplot.connectedera.local", "HomePlot", "home", () => import("./community/HomePlot")),
+  site("inkpocket.connectedera.local", "InkPocket", "notepad", () => import("./community/InkPocket")),
+  site("freewarecorner.connectedera.local", "Freeware Corner", "download", () => import("./static/StaticSite")),
+  site("pantryrecipes.connectedera.local", "Pantry Recipes", "file-text", () => import("./static/StaticSite")),
+  site("mail.connectedera.local", "ConnectMail", "mail", () => import("./static/StaticSite")),
+  { host: "yal.connectedera.local", name: "YourAnimeList", icon: "star", frame: "yal" },
 ];
 
 export function siteForHost(host: string): SiteDef | undefined {

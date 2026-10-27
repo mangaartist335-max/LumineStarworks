@@ -112,7 +112,7 @@ Legend: **Done** works end to end and persists. **Partly done** works, with the 
 
 These need a decision or material from outside this repository:
 
-1. **The Master Bible isn't in the repository.** No Bible PDF or Markdown was found, so site, product and character names in this phase are placeholders chosen to fit the era: Goggle, MeTube, Birdie, Tum, 3Chan, TechNook, HomePlot, InkPocket, ConnectMail, MangaShelf, WallpaperGarden, Freeware Corner, Pantry Recipes, Connected PC, and the sample contacts. They live in data files, so renaming is straightforward once the Bible is available.
+1. **The Master Bible is now in the repository** (`docs/bible/Connected_Era_Master_Bible_v1.0.pdf`). Every site has moved to `*.connectedera.local` and the search engine is Connected Search, as Appendix D asks. Old addresses forward automatically. Names the Bible doesn't cover (Birdie, Tum, 3Chan, TechNook, HomePlot, InkPocket, MangaShelf, WallpaperGarden, Freeware Corner, Pantry Recipes and the sample contacts) are still our own and live in data files.
 2. **Rust Veil Junction wasn't added to YAL.** There are no credits, dates or episode details for it in the repository, and inventing them would be fabrication. It can be added as soon as the details are supplied.
 3. **No outside services.** Everything runs locally in the browser. There are no server-side accounts, no syncing between devices and no real email; that is intentional for this phase. No API keys or tokens are used anywhere.
 

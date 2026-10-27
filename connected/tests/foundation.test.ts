@@ -26,6 +26,8 @@ import { Vfs, validateName } from "../lib/vfs";
 import { cascadeRect, emptyWm, taskbarAction, wmReducer, type WmState } from "../lib/wm";
 import { activeTab, browserReducer, canGoBack, canGoForward, currentEntry, newBrowser } from "../lib/browser-model";
 import { interpretInput, parseUrl, searchUrl } from "../lib/web/url";
+import { isArchiveHost, upgradeLegacyUrl } from "../lib/web/hosts";
+import { containsLink, linkHref, LINK_PATTERN, trimLink } from "../lib/web/links";
 import { SearchIndex, tokenize, type SearchDoc } from "../lib/search";
 
 test("clock: time zones, DST and wall-time input", () => {
@@ -155,15 +157,15 @@ test("window manager: open, focus, minimize, maximize, close", () => {
 
 test("browser: tabs, history, back/forward, replace, close", () => {
   let s = newBrowser("t1", "about:newtab");
-  s = browserReducer(s, { type: "navigate", url: "http://www.goggle.com/" });
-  s = browserReducer(s, { type: "navigate", url: "http://www.metube.com/" });
-  assert.equal(currentEntry(activeTab(s)).url, "http://www.metube.com/");
+  s = browserReducer(s, { type: "navigate", url: "http://search.connectedera.local/" });
+  s = browserReducer(s, { type: "navigate", url: "http://metube.connectedera.local/" });
+  assert.equal(currentEntry(activeTab(s)).url, "http://metube.connectedera.local/");
   s = browserReducer(s, { type: "back" });
-  assert.equal(currentEntry(activeTab(s)).url, "http://www.goggle.com/");
+  assert.equal(currentEntry(activeTab(s)).url, "http://search.connectedera.local/");
   assert.ok(canGoForward(activeTab(s)));
-  s = browserReducer(s, { type: "navigate", url: "http://www.mangashelf.net/" });
+  s = browserReducer(s, { type: "navigate", url: "http://manga.connectedera.local/" });
   assert.ok(!canGoForward(activeTab(s)), "navigating drops the forward history");
-  s = browserReducer(s, { type: "replace", url: "http://www.mangashelf.net/browse", title: "Browse" });
+  s = browserReducer(s, { type: "replace", url: "http://manga.connectedera.local/browse", title: "Browse" });
   assert.equal(activeTab(s).entries.length, 3);
   s = browserReducer(s, { type: "newTab", id: "t2", url: "about:newtab" });
   assert.equal(s.active, "t2");
@@ -176,15 +178,34 @@ test("browser: tabs, history, back/forward, replace, close", () => {
   assert.equal(s.tabs.length, 0);
 });
 
+test("addresses: old bookmarks move to their connectedera.local home", () => {
+  assert.equal(upgradeLegacyUrl("http://www.goggle.com/search?q=mochi"), "http://search.connectedera.local/search?q=mochi");
+  assert.equal(upgradeLegacyUrl("http://www.YourAnimeList.net/anime/10380#top"), "http://yal.connectedera.local/anime/10380#top");
+  assert.equal(upgradeLegacyUrl("http://nadiadraws.tum.com/"), "http://nadiadraws.tum.connectedera.local/");
+  assert.equal(upgradeLegacyUrl("http://metube.connectedera.local/"), null, "current addresses stay as they are");
+  assert.equal(upgradeLegacyUrl("http://example.com/"), null);
+  assert.ok(isArchiveHost("tum.connectedera.local") && isArchiveHost("nadiadraws.tum.connectedera.local"));
+  assert.ok(!isArchiveHost("connectedera.local.example.com"));
+});
+
+test("links: chat and post text links to archive and outside addresses", () => {
+  const found = (t: string) => [...t.matchAll(LINK_PATTERN)].map((m) => trimLink(m[1]));
+  assert.deepEqual(found("look at metube.connectedera.local/watch?v=abc!"), ["metube.connectedera.local/watch?v=abc"]);
+  assert.deepEqual(found("my page is nadiadraws.tum.connectedera.local, say hi"), ["nadiadraws.tum.connectedera.local"]);
+  assert.equal(linkHref("manga.connectedera.local/series/x"), "http://manga.connectedera.local/series/x");
+  assert.equal(linkHref("example.com"), "http://www.example.com");
+  assert.ok(containsLink("try www.example.org") && !containsLink("see you at 5"));
+});
+
 test("addresses: typed text becomes an address or a search", () => {
-  assert.deepEqual(interpretInput("metube.com/watch?v=x"), { kind: "address", url: "http://metube.com/watch?v=x" });
-  assert.equal(interpretInput("http://www.YourAnimeList.net/anime/10380")!.url, "http://www.youranimelist.net/anime/10380");
+  assert.deepEqual(interpretInput("metube.connectedera.local/watch?v=x"), { kind: "address", url: "http://metube.connectedera.local/watch?v=x" });
+  assert.equal(interpretInput("http://YAL.ConnectedEra.local/anime/10380")!.url, "http://yal.connectedera.local/anime/10380");
   assert.deepEqual(interpretInput("star courier walkthrough"), { kind: "search", url: searchUrl("star courier walkthrough") });
   assert.equal(interpretInput("about:history")!.url, "about:history");
   assert.equal(interpretInput("   "), null);
   assert.equal(interpretInput("javascript:alert(1)")!.kind, "search", "scripts are never addresses");
-  const u = parseUrl("http://www.metube.com/watch?v=abc#t=30")!;
-  assert.equal(u.host, "metube.com");
+  const u = parseUrl("http://metube.connectedera.local/watch?v=abc#t=30")!;
+  assert.equal(u.host, "metube.connectedera.local");
   assert.equal(u.params.get("v"), "abc");
   assert.equal(parseUrl("file:///etc/passwd"), null);
 });

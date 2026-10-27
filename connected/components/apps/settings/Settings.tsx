@@ -87,7 +87,7 @@ function Personalize() {
           ))}
         </div>
       )}
-      <p className="muted">Find more free backgrounds at www.wallpapergarden.com.</p>
+      <p className="muted">Find more free backgrounds at wallpapers.connectedera.local.</p>
       <h2>Picture position</h2>
       <div className="st-row">
         {(["fill", "fit", "center", "tile"] as UserSettings["wallpaperFit"][]).map((fit) => (

@@ -40,7 +40,7 @@ export const sampleContacts: SampleContact[] = [
   {
     id: "ct_dana",
     name: "Dana",
-    email: "dana.doodles@connectmail.net",
+    email: "dana.doodles@mail.connectedera.local",
     avatar: "flower",
     statusMessages: [
       { from: "2012-07-01T00:00:00Z", text: "picnic weather!! ☀" },
@@ -68,7 +68,7 @@ export const sampleContacts: SampleContact[] = [
   {
     id: "ct_sky",
     name: "Sky",
-    email: "skyblue.kid@connectmail.net",
+    email: "skyblue.kid@mail.connectedera.local",
     avatar: "rocket",
     statusMessages: [
       { from: "2012-07-01T00:00:00Z", text: "folding paper planes all summer ✈" },
@@ -95,10 +95,10 @@ export const sampleContacts: SampleContact[] = [
   {
     id: "ct_nadia",
     name: "Nadia",
-    email: "nadia.draws@connectmail.net",
+    email: "nadia.draws@mail.connectedera.local",
     avatar: "palette",
     statusMessages: [
-      { from: "2012-07-01T00:00:00Z", text: "drawing every day! nadiadraws.tum.com" },
+      { from: "2012-07-01T00:00:00Z", text: "drawing every day! nadiadraws.tum.connectedera.local" },
       { from: "2012-08-05T00:00:00Z", text: "Lantern Street Couriers fan art is up ♥" },
       { from: "2013-01-15T00:00:00Z", text: "Paper Planet is so cute aaa" },
       { from: "2013-06-25T00:00:00Z", text: "taking commissions soon!" },
@@ -121,7 +121,7 @@ export const sampleContacts: SampleContact[] = [
   {
     id: "ct_akira",
     name: "Akira",
-    email: "akira.keys@connectmail.net",
+    email: "akira.keys@mail.connectedera.local",
     avatar: "guitar",
     statusMessages: [
       { from: "2012-07-01T00:00:00Z", text: "♪ new song every month" },
@@ -145,7 +145,7 @@ export const sampleContacts: SampleContact[] = [
   {
     id: "ct_olivia",
     name: "Olivia",
-    email: "otaku.olivia@connectmail.net",
+    email: "otaku.olivia@mail.connectedera.local",
     avatar: "star",
     statusMessages: [
       { from: "2012-07-01T00:00:00Z", text: "summer anime season!!" },
@@ -171,7 +171,7 @@ export const sampleContacts: SampleContact[] = [
   {
     id: "ct_tom",
     name: "Tom",
-    email: "techtips.tom@connectmail.net",
+    email: "techtips.tom@mail.connectedera.local",
     avatar: "robot",
     statusMessages: [
       { from: "2012-07-01T00:00:00Z", text: "Ask me anything about your PC!" },

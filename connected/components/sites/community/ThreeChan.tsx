@@ -9,7 +9,7 @@ import { newId } from "@/lib/ids";
 import { formatDateTime, iso } from "@/lib/time";
 import { BlobImage, PicturePicker } from "./text";
 
-const tc = (path = "/") => `http://www.3chan.org${path}`;
+const tc = (path = "/") => `http://3chan.connectedera.local${path}`;
 
 interface UserChanPost {
   id: string;

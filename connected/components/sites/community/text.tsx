@@ -6,17 +6,17 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSystem } from "@/components/system/system";
 import { A } from "../SiteContext";
+import { LINK_PATTERN, linkHref, trimLink } from "@/lib/web/links";
 
-const LINK = /\b((?:https?:\/\/)?(?:www\.)?[a-z0-9-]+\.(?:com|net|org)(?:\/[^\s]*)?)/gi;
 
 export function Linkified({ text }: { text: string }) {
   const parts: React.ReactNode[] = [];
   let last = 0;
-  for (const m of text.matchAll(LINK)) {
+  for (const m of text.matchAll(LINK_PATTERN)) {
     const start = m.index!;
     if (start > last) parts.push(text.slice(last, start));
-    const raw = m[1].replace(/[.,!?)]+$/, "");
-    const href = raw.startsWith("http") ? raw : `http://${raw.startsWith("www.") ? raw : `www.${raw}`}`;
+    const raw = trimLink(m[1]);
+    const href = linkHref(raw);
     parts.push(
       <A key={start} href={href}>
         {raw}

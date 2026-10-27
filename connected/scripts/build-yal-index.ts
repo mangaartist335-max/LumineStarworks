@@ -13,7 +13,7 @@ import { companies, people } from "../../yal/data/industry";
 import { seedThreads } from "../../yal/data/forums";
 import type { SearchDoc } from "../lib/search";
 
-const HOST = "http://www.youranimelist.net";
+const HOST = "http://yal.connectedera.local";
 const SITE = "YourAnimeList";
 const YAL_OPENED = "2008-06-01T00:00:00Z";
 const docs: SearchDoc[] = [];

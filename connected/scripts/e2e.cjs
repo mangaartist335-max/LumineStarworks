@@ -81,12 +81,12 @@ async function bootToDesktop(page) {
 
   await run("Open the browser", async () => {
     await page.dblclick('button.desktop-icon:has-text("Web Browser")');
-    await page.waitForSelector(`${activeTab} .goggle-home, ${activeTab} .goggle-results`, { timeout: 30000 });
-    ok("browser opened on the Goggle home page");
+    await page.waitForSelector(`${activeTab} .search-home, ${activeTab} .search-results`, { timeout: 30000 });
+    ok("browser opened on the Connected Search home page");
   });
 
   await run("Search MeTube", async () => {
-    await go(page, "metube.com");
+    await go(page, "metube.connectedera.local");
     await page.fill(`${activeTab} input[aria-label="Search MeTube"]`, "Mochi");
     await page.press(`${activeTab} input[aria-label="Search MeTube"]`, "Enter");
     await page.waitForSelector(`${activeTab} .mt-tile-title:has-text("Mochi vs. the Laser Pointer")`, { timeout: 20000 });
@@ -114,7 +114,7 @@ async function bootToDesktop(page) {
   });
 
   await run("Search for a manga", async () => {
-    await go(page, "mangashelf.net");
+    await go(page, "manga.connectedera.local");
     await page.fill(`${activeTab} input[aria-label="Search manga"]`, "Lantern");
     await page.press(`${activeTab} input[aria-label="Search manga"]`, "Enter");
     await page.waitForSelector(`${activeTab} .ms-title-link:has-text("Lantern Street Couriers")`);
@@ -135,7 +135,7 @@ async function bootToDesktop(page) {
   });
 
   await run("Download a wallpaper", async () => {
-    await go(page, "wallpapergarden.com");
+    await go(page, "wallpapers.connectedera.local");
     await page.click(`${activeTab} a.wg-card:has-text("Starfield")`);
     await page.click(`${activeTab} .wg-download`);
     await page.waitForSelector('.toast:has-text("Download complete")', { timeout: 90000 });
@@ -174,9 +174,9 @@ async function bootToDesktop(page) {
     await page.waitForSelector(`${win("messenger")} .im-share`);
     await page.click(`${win("messenger")} .im-contact[data-contact="Dana"]`);
     const box = page.locator(`${win("messenger")} textarea[aria-label="Message"]`);
-    await page.waitForFunction((sel) => document.querySelector(sel)?.value.includes("metube.com/watch"), `${win("messenger")} textarea[aria-label="Message"]`);
+    await page.waitForFunction((sel) => document.querySelector(sel)?.value.includes("metube.connectedera.local/watch"), `${win("messenger")} textarea[aria-label="Message"]`);
     await box.press("Enter");
-    await page.waitForSelector(`${win("messenger")} .im-msg.mine .im-text a[href*="metube.com/watch"]`);
+    await page.waitForSelector(`${win("messenger")} .im-msg.mine .im-text a[href*="metube.connectedera.local/watch"]`);
     await page.waitForSelector(`${win("messenger")} .im-says:has-text("automatic reply")`, { timeout: 15000 });
     ok("link sent to Dana (and Dana's automatic reply arrived)");
   });
@@ -237,11 +237,11 @@ async function bootToDesktop(page) {
     await page.locator(`${win("explorer")} tr[data-name="${saved.file}"]`).waitFor();
     await page.dblclick('button.desktop-icon:has-text("Web Browser")');
     await page.waitForSelector(`${win("browser")} .bookmarks-bar .bookmark:has-text("Mochi")`);
-    await go(page, "mangashelf.net");
+    await go(page, "manga.connectedera.local");
     await page.waitForSelector(`${activeTab} .ms-continue-card:has-text("Page 3 of")`);
     await page.dblclick('button.desktop-icon:has-text("Messenger")');
     await page.click(`${win("messenger")} .im-contact[data-contact="Dana"]`);
-    await page.waitForSelector(`${win("messenger")} .im-msg.mine .im-text a[href*="metube.com/watch"]`);
+    await page.waitForSelector(`${win("messenger")} .im-msg.mine .im-text a[href*="metube.connectedera.local/watch"]`);
     ok(`${label}: wallpaper, downloaded file, bookmark, reading progress (page 3) and messages are all still there`);
     await page.screenshot({ path: path.join(shots, `e2e-${label.replace(/\W+/g, "-").toLowerCase()}.png`) });
     await closeAll(page);
@@ -261,16 +261,16 @@ async function bootToDesktop(page) {
 
   await run("Community sites: sign a guestbook, review a story, chirp", async () => {
     await page.dblclick('button.desktop-icon:has-text("Web Browser")');
-    await go(page, "homeplot.net/~skys-hangar/guestbook");
+    await go(page, "homeplot.connectedera.local/~skys-hangar/guestbook");
     await page.fill(`${activeTab} textarea[aria-label="Guestbook message"]`, "Hi Sky! Love the hangar.");
     await page.click(`${activeTab} button:has-text("Sign guestbook")`);
     await page.waitForSelector(`${activeTab} .hp-entry:has-text("Hi Sky! Love the hangar.")`);
-    await go(page, "inkpocket.net/s/fic_longway/2");
+    await go(page, "inkpocket.connectedera.local/s/fic_longway/2");
     await page.fill(`${activeTab} textarea[aria-label="Review"]`, "The seagull!");
     await page.click(`${activeTab} button:has-text("Post review")`);
     await page.waitForSelector(`${activeTab} .ip-review:has-text("The seagull!")`);
-    await go(page, "birdie.com");
-    await page.fill(`${activeTab} textarea[aria-label="What's happening?"]`, "Reading fan fiction on InkPocket inkpocket.net");
+    await go(page, "birdie.connectedera.local");
+    await page.fill(`${activeTab} textarea[aria-label="What's happening?"]`, "Reading fan fiction on InkPocket inkpocket.connectedera.local");
     await page.click(`${activeTab} .bd-btn:has-text("Chirp")`);
     await page.waitForSelector(`${activeTab} .bd-post:has-text("Reading fan fiction on InkPocket")`);
     ok("guestbook signed on HomePlot, review posted on InkPocket, chirp posted on Birdie");
@@ -284,7 +284,7 @@ async function bootToDesktop(page) {
       return;
     }
     await page.dblclick('button.desktop-icon:has-text("Web Browser")');
-    await go(page, "youranimelist.net");
+    await go(page, "yal.connectedera.local");
     const frame = page.frameLocator(`${activeTab} .yal-frame iframe`);
     await frame.locator("body").waitFor({ timeout: 30000 });
     await page.waitForFunction(() => /YourAnimeList/.test(document.querySelector('.window[data-app="browser"] .tab.active')?.textContent ?? ""), null, { timeout: 30000 });

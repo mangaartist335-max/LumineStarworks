@@ -16,11 +16,11 @@ npm run dev:all      # desktop on http://localhost:3000, YourAnimeList on http:/
 
 Open http://localhost:3000, pick a name and a picture, and you're in.
 
-`npm run dev:all` needs YourAnimeList's dependencies too (`cd ../yal && npm install`). To run only the desktop, use `npm run dev`; the browser will then show a friendly note when you visit youranimelist.net.
+`npm run dev:all` needs YourAnimeList's dependencies too (`cd ../yal && npm install`). To run only the desktop, use `npm run dev`; the browser will then show a friendly note when you visit yal.connectedera.local.
 
 ## Things to try
 
-- Double-click **Web Browser**, search Goggle for "Mochi", and watch a video on MeTube.
+- Double-click **Web Browser**, search Connected Search for "Mochi", and watch a video on MeTube.
 - Read a chapter of *Lantern Street Couriers* on MangaShelf (it reads right to left).
 - Download a wallpaper from WallpaperGarden, find it in **Computer > Downloads**, right-click it and choose **Set as desktop background**.
 - Share a MeTube video with a friend in **Messenger**, or email it from the video page.
@@ -39,7 +39,7 @@ Open http://localhost:3000, pick a name and a picture, and you're in.
 | `npm run typecheck` / `npm run lint` | TypeScript and ESLint |
 | `npm run build` | Production build |
 | `npm run media` | Regenerates all original media into `public/media/` (needs Python 3 with Pillow and NumPy, and ffmpeg) |
-| `npm run index:yal` | Rebuilds the YourAnimeList pages Goggle knows about, from `../yal/data` |
+| `npm run index:yal` | Rebuilds the YourAnimeList pages Connected Search knows about, from `../yal/data` |
 
 ## Settings
 

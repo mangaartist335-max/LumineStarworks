@@ -354,7 +354,7 @@ export default function Mail({ win }: AppProps) {
             >
               <label>
                 To
-                <input className="field" value={draft.to} onChange={(e) => updateDraft({ to: e.target.value })} placeholder="name@connectmail.net, ..." aria-label="To" autoFocus={!draft.to} list="ml-addressbook" />
+                <input className="field" value={draft.to} onChange={(e) => updateDraft({ to: e.target.value })} placeholder="name@mail.connectedera.local, ..." aria-label="To" autoFocus={!draft.to} list="ml-addressbook" />
               </label>
               <datalist id="ml-addressbook">
                 {users

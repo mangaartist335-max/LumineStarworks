@@ -4,7 +4,7 @@
 import type { Availability } from "@/lib/availability";
 import { media } from "./media";
 
-export const WALLPAPER_HOST = "wallpapergarden.com";
+export const WALLPAPER_HOST = "wallpapers.connectedera.local";
 
 export interface Wallpaper {
   id: string;

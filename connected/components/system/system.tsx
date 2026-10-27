@@ -11,6 +11,7 @@ import { emptyWm, wmReducer, cascadeRect, type WmAction } from "@/lib/wm";
 import { Vfs, type SpecialFolder } from "@/lib/vfs";
 import { newId } from "@/lib/ids";
 import { iso, simNow } from "@/lib/time";
+import { upgradeLegacyEmail, upgradeLegacyUrl } from "@/lib/web/hosts";
 import { APPS } from "@/components/apps/catalog";
 import { defaultComputer, defaultSettings, sampleFiles } from "./defaults";
 import { hashPassword, verifyPassword } from "./password";
@@ -99,6 +100,7 @@ export function SystemProvider({ children }: { children: React.ReactNode }) {
     async (s: Store, account: UserAccount) => {
       const saved = await s.kvGet<Partial<UserSettings>>(`settings:${account.id}`);
       const merged = { ...defaultSettings(), ...saved, browser: { ...defaultSettings().browser, ...saved?.browser }, messenger: { ...defaultSettings().messenger, ...saved?.messenger } };
+      merged.browser.homepage = upgradeLegacyUrl(merged.browser.homepage) ?? merged.browser.homepage;
       const fs = new Vfs(s, account.id, now, account.name);
       const f = await fs.ensureHome(sampleFiles());
       const dls = (await s.list<DownloadRecord>("downloads")).filter((d) => d.owner === account.id);
@@ -122,6 +124,13 @@ export function SystemProvider({ children }: { children: React.ReactNode }) {
     const t = setTimeout(async () => {
       await setComputer({ bootCount: computerRef.current.bootCount + 1 });
       const list = await store.list<UserAccount>("users");
+      // Accounts made before the sites moved to connectedera.local get their new mail address.
+      for (const account of list) {
+        const email = upgradeLegacyEmail(account.email);
+        if (email === account.email) continue;
+        account.email = email;
+        await store.put("users", account);
+      }
       setUsers(list);
       if (list.length === 1 && !list[0].passwordHash) await loadSession(store, list[0]);
       else setPhase("login");
@@ -140,7 +149,7 @@ export function SystemProvider({ children }: { children: React.ReactNode }) {
         id: newId("usr"),
         name: clean,
         picture,
-        email: `${clean.toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.|\.$/g, "") || "user"}@connectmail.net`,
+        email: `${clean.toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.|\.$/g, "") || "user"}@mail.connectedera.local`,
         createdAt: iso(now()),
         origin: "user",
         ...(secret ? { passwordHash: secret.hash, salt: secret.salt } : {}),

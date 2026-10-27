@@ -5,6 +5,7 @@
 import type { Presence } from "@/components/system/types";
 import type { SampleContact } from "@/data/messenger";
 import { zonedParts } from "./time";
+import { containsLink, LINK_PATTERN, linkHref, trimLink } from "./web/links";
 
 export interface Conversation {
   id: string;
@@ -62,9 +63,9 @@ const HOW_ARE_YOU = /how ('?re|are) (you|u)|how'?s it going|what'?s up|wassup|ho
 export function scriptedReply(c: SampleContact, text: string, n: number): string {
   const pick = (list: string[]) => list[n % list.length];
   const t = text.toLowerCase();
-  if (/metube\.com/.test(t)) return pick(c.links.metube);
-  if (/mangashelf\.net/.test(t)) return pick(c.links.manga);
-  if (/(https?:\/\/|www\.)\S+|\b[a-z0-9-]+\.(com|net|org)\b/.test(t)) return pick(c.links.other);
+  if (/metube\.connectedera\.local/.test(t)) return pick(c.links.metube);
+  if (/manga\.connectedera\.local/.test(t)) return pick(c.links.manga);
+  if (containsLink(t)) return pick(c.links.other);
   if (HOW_ARE_YOU.test(t)) return pick(c.howAreYou);
   if (GREETING.test(t.trim())) return pick(c.greetings);
   for (const topic of c.topics) if (new RegExp(`\\b(${topic.match})`, "i").test(t)) return pick(topic.replies);
@@ -97,7 +98,6 @@ export const EMOTICONS: [string, string][] = [
 /** Splits text into plain runs, emoticons and links for display. */
 export type ChatToken = { kind: "text"; text: string } | { kind: "emoticon"; code: string; emoji: string } | { kind: "link"; text: string; url: string };
 
-const LINK = /((?:https?:\/\/|www\.)[^\s]+|\b[a-z0-9-]+\.(?:com|net|org)(?:\/[^\s]*)?)/gi;
 
 export function tokenize(text: string): ChatToken[] {
   const out: ChatToken[] = [];
@@ -119,11 +119,10 @@ export function tokenize(text: string): ChatToken[] {
       rest = rest.slice(best.i + best.code.length);
     }
   };
-  for (const m of text.matchAll(LINK)) {
-    const raw = m[1].replace(/[.,!?)]+$/, "");
+  for (const m of text.matchAll(LINK_PATTERN)) {
+    const raw = trimLink(m[1]);
     if (m.index! > last) pushText(text.slice(last, m.index));
-    const url = /^https?:\/\//i.test(raw) ? raw : `http://${raw.toLowerCase().startsWith("www.") ? raw : `www.${raw}`}`;
-    out.push({ kind: "link", text: raw, url });
+    out.push({ kind: "link", text: raw, url: linkHref(raw) });
     last = m.index! + raw.length;
   }
   if (last < text.length) pushText(text.slice(last));

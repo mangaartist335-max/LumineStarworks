@@ -30,7 +30,7 @@ const attach = (key: string, name: string, mime: string): ArchiveAttachment => {
 export const archiveMail: ArchiveMail[] = [
   {
     id: "mail_welcome",
-    from: { name: "ConnectMail Team", email: "welcome@connectmail.net" },
+    from: { name: "ConnectMail Team", email: "welcome@mail.connectedera.local" },
     subject: "Welcome to ConnectMail!",
     body: `Hi there,
 
@@ -43,13 +43,13 @@ Welcome to ConnectMail, the email that comes with your Connected PC. A few thing
 We've attached a short guide to your new PC. Have fun!
 
 The ConnectMail Team
-www.connectmail.net`,
+mail.connectedera.local`,
     attachments: [attach("doc:welcome-pdf", "Welcome to your Connected PC.pdf", "application/pdf")],
     deliver: { afterMinutes: 0 },
   },
   {
     id: "mail_dana_hello",
-    from: { name: "Dana", email: "dana.doodles@connectmail.net" },
+    from: { name: "Dana", email: "dana.doodles@mail.connectedera.local" },
     subject: "hiii + a sketch for you",
     body: `Hey!!
 
@@ -64,7 +64,7 @@ Dana ✿`,
   },
   {
     id: "mail_tom_tips",
-    from: { name: "Tom (TechTips)", email: "techtips.tom@connectmail.net" },
+    from: { name: "Tom (TechTips)", email: "techtips.tom@mail.connectedera.local" },
     subject: "5 quick tips for your new PC",
     body: `Hi! Tom here from TechTips. Since you're new, here are my five favourite tricks:
 
@@ -80,27 +80,27 @@ Tom`,
   },
   {
     id: "mail_mangashelf_2012_09",
-    from: { name: "MangaShelf", email: "news@mangashelf.net" },
+    from: { name: "MangaShelf", email: "news@manga.connectedera.local" },
     subject: "New chapter: Lantern Street Couriers, Chapter 2",
     body: `Lantern Street Couriers Chapter 2: "Rooftop Shortcut" is out now!
 
 Mei finds a faster route across the rooftops of Lantern Street, and there may be melon bread involved.
 
-Read it free: www.mangashelf.net/manga/lantern-street-couriers
+Read it free: manga.connectedera.local/manga/lantern-street-couriers
 
 You're getting this because you have a ConnectMail account. Happy reading!`,
     deliver: { at: "2012-09-07T05:00:00Z" },
   },
   {
     id: "mail_freeware_2012_11",
-    from: { name: "Freeware Corner", email: "newsletter@freewarecorner.com" },
+    from: { name: "Freeware Corner", email: "newsletter@freewarecorner.connectedera.local" },
     subject: "Just released: Star Courier (free arcade game)",
     body: `This week on Freeware Corner:
 
 STAR COURIER by Tinybolt Games
 Fly parcels across an asteroid field, dodge the rocks and take on the boss on level 4. Free, small download, works great on Connected PCs.
 
-Get it here: www.freewarecorner.com/games/star-courier
+Get it here: freewarecorner.connectedera.local/games/star-courier
 
 Have a great weekend!
 The Freeware Corner team`,
@@ -108,25 +108,25 @@ The Freeware Corner team`,
   },
   {
     id: "mail_mangashelf_2013_01",
-    from: { name: "MangaShelf", email: "news@mangashelf.net" },
+    from: { name: "MangaShelf", email: "news@manga.connectedera.local" },
     subject: "New series: Paper Planet",
     body: `A brand new series just started on MangaShelf!
 
 PAPER PLANET, Chapter 1: "Fold Here"
 A boy folds a planet. A small one. What happens next is up to Pip.
 
-Read it free: www.mangashelf.net/manga/paper-planet`,
+Read it free: manga.connectedera.local/manga/paper-planet`,
     deliver: { at: "2013-01-11T05:00:00Z" },
   },
   {
     id: "mail_wallgarden_2013_09",
-    from: { name: "WallpaperGarden", email: "hello@wallpapergarden.com" },
+    from: { name: "WallpaperGarden", email: "hello@wallpapers.connectedera.local" },
     subject: "Autumn is here: new wallpapers 🍂",
     body: `Fresh on WallpaperGarden this month:
 
 "Autumn Path" by Aya Morita - a quiet path through glowing autumn trees.
 
-Download it free: www.wallpapergarden.com/wallpaper/autumn-path
+Download it free: wallpapers.connectedera.local/wallpaper/autumn-path
 
 Enjoy the season!
 WallpaperGarden`,
@@ -134,7 +134,7 @@ WallpaperGarden`,
   },
   {
     id: "mail_metube_2013_10",
-    from: { name: "MeTube", email: "noreply@metube.com" },
+    from: { name: "MeTube", email: "noreply@metube.connectedera.local" },
     subject: "Your weekly MeTube highlights",
     body: `Here's what's popular on MeTube this week:
 
@@ -142,25 +142,25 @@ WallpaperGarden`,
 - Summer Rain - Original Piano Piece (AkiraKeys)
 - Star Courier - Levels 1-3 Walkthrough (PixelPilotGaming)
 
-Watch now at www.metube.com
+Watch now at metube.connectedera.local
 
 Broadcast Yourself.`,
     deliver: { at: "2013-10-05T15:00:00Z" },
   },
   {
     id: "mail_mangashelf_2013_11",
-    from: { name: "MangaShelf", email: "news@mangashelf.net" },
+    from: { name: "MangaShelf", email: "news@manga.connectedera.local" },
     subject: "Paper Planet, Chapter 2 is out!",
     body: `Paper Planet Chapter 2 is out now on MangaShelf.
 
 Pip's planet gets its first weather. It's mostly confetti.
 
-Read it free: www.mangashelf.net/manga/paper-planet`,
+Read it free: manga.connectedera.local/manga/paper-planet`,
     deliver: { at: "2013-11-08T05:00:00Z" },
   },
   {
     id: "mail_connectmail_2013_12",
-    from: { name: "ConnectMail Team", email: "welcome@connectmail.net" },
+    from: { name: "ConnectMail Team", email: "welcome@mail.connectedera.local" },
     subject: "Happy holidays from ConnectMail ❄",
     body: `Season's greetings!
 

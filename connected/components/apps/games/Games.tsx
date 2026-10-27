@@ -77,10 +77,10 @@ export default function Games({ win }: AppProps) {
         ))}
         <div className="gm-more">
           <a
-            href="http://www.freewarecorner.com/games"
+            href="http://freewarecorner.connectedera.local/games"
             onClick={(e) => {
               e.preventDefault();
-              openApp("browser", { url: "http://www.freewarecorner.com/games" });
+              openApp("browser", { url: "http://freewarecorner.connectedera.local/games" });
             }}
           >
             Get more games at Freeware Corner

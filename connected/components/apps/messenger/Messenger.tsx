@@ -292,7 +292,7 @@ function AddContact({ existing, onDone }: { existing: string[]; onDone: () => vo
     >
       <label>
         Their email address
-        <input className="field" type="email" value={email} onChange={(e) => (setEmail(e.target.value), setError(null))} placeholder="name@connectmail.net" autoFocus aria-label="Contact email" />
+        <input className="field" type="email" value={email} onChange={(e) => (setEmail(e.target.value), setError(null))} placeholder="name@mail.connectedera.local" autoFocus aria-label="Contact email" />
       </label>
       {error && <div className="error-text">{error}</div>}
       <div className="im-row">

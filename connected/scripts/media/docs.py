@@ -17,7 +17,8 @@ GUIDE = [
     ]),
     ("Getting online", [
         "Open the Web Browser from the desktop or the Start menu.",
-        "Type an address (like metube.com) or anything you want to search for.",
+        "Type an address (like metube.connectedera.local) or anything",
+        "you want to search for, and Connected Search will find it.",
         "",
         "Handy shortcuts:",
         "  Ctrl+T  new tab          Ctrl+W  close tab",

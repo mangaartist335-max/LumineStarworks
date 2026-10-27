@@ -51,7 +51,7 @@ export default function StaticSite() {
   const page = site.pages.find((p) => p.path === (url.path.replace(/\/+$/, "") || "/"));
   const exists = page && Date.parse(page.publishedAt) <= now();
   usePageTitle(exists ? `${page.title} - ${site.name}` : `404 Not Found - ${site.name}`);
-  const base = `http://www.${site.host}`;
+  const base = `http://${site.host}`;
   const t = site.theme;
   return (
     <div className="static-site" style={{ background: t.bg, fontFamily: t.font, ["--ss-accent" as string]: t.accent }}>

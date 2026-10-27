@@ -15,18 +15,18 @@ import type { Bookmark, HistoryItem } from "./Browser";
 
 /** Archive sites to get started with. */
 const POPULAR: [string, string][] = [
-  ["MeTube", "http://www.metube.com/"],
-  ["MangaShelf", "http://www.mangashelf.net/"],
-  ["YourAnimeList", "http://www.youranimelist.net/"],
-  ["Birdie", "http://www.birdie.com/"],
-  ["Tum", "http://www.tum.com/"],
-  ["InkPocket", "http://www.inkpocket.net/"],
-  ["HomePlot", "http://www.homeplot.net/"],
-  ["WallpaperGarden", "http://www.wallpapergarden.com/"],
-  ["Freeware Corner", "http://www.freewarecorner.com/"],
-  ["TechNook Forums", "http://www.technook.net/"],
-  ["3Chan", "http://www.3chan.org/"],
-  ["Pantry Recipes", "http://www.pantryrecipes.com/"],
+  ["MeTube", "http://metube.connectedera.local/"],
+  ["MangaShelf", "http://manga.connectedera.local/"],
+  ["YourAnimeList", "http://yal.connectedera.local/"],
+  ["Birdie", "http://birdie.connectedera.local/"],
+  ["Tum", "http://tum.connectedera.local/"],
+  ["InkPocket", "http://inkpocket.connectedera.local/"],
+  ["HomePlot", "http://homeplot.connectedera.local/"],
+  ["WallpaperGarden", "http://wallpapers.connectedera.local/"],
+  ["Freeware Corner", "http://freewarecorner.connectedera.local/"],
+  ["TechNook Forums", "http://technook.connectedera.local/"],
+  ["3Chan", "http://3chan.connectedera.local/"],
+  ["Pantry Recipes", "http://pantryrecipes.connectedera.local/"],
 ];
 
 function NewTab() {
@@ -52,15 +52,12 @@ function NewTab() {
           if (q.trim()) navigate(searchUrl(q.trim()));
         }}
       >
-        <div className="goggle-logo small" aria-hidden>
-          <span>G</span>
-          <span>o</span>
-          <span>g</span>
-          <span>g</span>
-          <span>l</span>
-          <span>e</span>
+        <div className="search-logo small" aria-hidden>
+          <span className="search-logo-mark" />
+          <span className="search-logo-word">Connected</span>
+          <span className="search-logo-sub">Search</span>
         </div>
-        <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search Goggle" aria-label="Search Goggle" autoFocus />
+        <input className="field" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search Connected Search" aria-label="Search Connected Search" autoFocus />
       </form>
       <h2>Most visited</h2>
       {top.length === 0 ? (
@@ -297,7 +294,7 @@ function PreferencesPage() {
         >
           <input className="field" style={{ width: 360 }} value={home} onChange={(e) => setHome(e.target.value)} aria-label="Home page address" /> <button className="btn">Save</button>{" "}
           <button type="button" className="btn" onClick={() => (setHome(HOME_URL), updateSettings({ browser: { ...b, homepage: HOME_URL } }))}>
-            Use Goggle
+            Use Connected Search
           </button>
         </form>
       </section>
@@ -309,7 +306,7 @@ function PreferencesPage() {
       </section>
       <section>
         <h3>Search</h3>
-        <p>Address bar searches use Goggle, the Connected Era&apos;s search engine. Goggle&apos;s results page also offers a separate link to search today&apos;s live web in your real browser.</p>
+        <p>Address bar searches use Connected Search, the Connected Era&apos;s search engine. Its results page also offers a separate link to search today&apos;s live web in your real browser.</p>
       </section>
       <section>
         <h3>Connection</h3>

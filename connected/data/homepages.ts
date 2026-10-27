@@ -4,7 +4,7 @@
 
 import { media } from "./media";
 
-export const HOMEPLOT_HOST = "homeplot.net";
+export const HOMEPLOT_HOST = "homeplot.connectedera.local";
 
 export interface HomeSection {
   heading: string;
@@ -67,13 +67,13 @@ export const archiveHomepages: ArchiveHomepage[] = [
       { heading: "Update: back to school", body: "Folding during lunch only now. The Dart is still the champion.", at: "2013-09-03T20:00:00Z" },
     ],
     links: [
-      { label: "Dana's paper plane challenge on MeTube", url: "http://www.metube.com/watch?v=vid_mt0013" },
-      { label: "Star Courier at Freeware Corner", url: "http://www.freewarecorner.com/games/star-courier" },
-      { label: "Me on Birdie", url: "http://www.birdie.com/skyblue_kid" },
+      { label: "Dana's paper plane challenge on MeTube", url: "http://metube.connectedera.local/watch?v=vid_mt0013" },
+      { label: "Star Courier at Freeware Corner", url: "http://freewarecorner.connectedera.local/games/star-courier" },
+      { label: "Me on Birdie", url: "http://birdie.connectedera.local/skyblue_kid" },
     ],
     baseVisits: 1287,
     guestbook: [
-      { name: "Dana", from: "danasdoodles.tum.com", message: "Love the hangar!! Your Hammerhead fold is genius. Rematch soon?", at: "2012-07-26T15:20:00Z" },
+      { name: "Dana", from: "danasdoodles.tum.connectedera.local", message: "Love the hangar!! Your Hammerhead fold is genius. Rematch soon?", at: "2012-07-26T15:20:00Z" },
       { name: "PixelPilot", message: "Great page! For Star Courier, stay low in the bottom lane. Trust me.", at: "2012-11-24T11:05:00Z" },
       { name: "Grandma Jo", message: "Very nice website sweetheart. I printed the Dart instructions and made one. It flew into the cat.", at: "2012-12-02T14:40:00Z" },
       { name: "Akira", message: "These guides are so clear. I folded a Glider during a piano break and it floated the whole room.", at: "2013-02-10T21:15:00Z" },
@@ -97,14 +97,14 @@ export const archiveHomepages: ArchiveHomepage[] = [
       { heading: "Faster, for once", body: "Practising a faster piece this month. My fingers are learning new tricks.", at: "2013-05-10T20:00:00Z" },
     ],
     links: [
-      { label: "Summer Rain on MeTube", url: "http://www.metube.com/watch?v=vid_mt0003" },
-      { label: "My MeTube channel", url: "http://www.metube.com/user/AkiraKeys" },
-      { label: "Birdie", url: "http://www.birdie.com/AkiraKeys" },
+      { label: "Summer Rain on MeTube", url: "http://metube.connectedera.local/watch?v=vid_mt0003" },
+      { label: "My MeTube channel", url: "http://metube.connectedera.local/user/AkiraKeys" },
+      { label: "Birdie", url: "http://birdie.connectedera.local/AkiraKeys" },
     ],
     baseVisits: 3410,
     guestbook: [
       { name: "Olivia", message: "Summer Rain is my study music now. Thank you!", at: "2012-07-30T19:00:00Z" },
-      { name: "Nadia", from: "nadiadraws.tum.com", message: "I drew a rainy window while listening to this. Perfect match.", at: "2012-08-12T23:10:00Z" },
+      { name: "Nadia", from: "nadiadraws.tum.connectedera.local", message: "I drew a rainy window while listening to this. Perfect match.", at: "2012-08-12T23:10:00Z" },
       { name: "Tom", message: "Lovely playing. Your recordings sound great, nice microphone placement!", at: "2012-09-20T18:30:00Z" },
       { name: "Leo", message: "Please do a harbour song! I painted that harbour wallpaper and would love a soundtrack for it.", at: "2013-03-01T20:45:00Z" },
     ],
@@ -127,9 +127,9 @@ export const archiveHomepages: ArchiveHomepage[] = [
       { heading: "Family news: summer holiday", body: "Back from a week at the seaside. Mochi stayed with Grandma and was spoiled rotten.", at: "2013-08-18T12:00:00Z" },
     ],
     links: [
-      { label: "Mochi vs. the Laser Pointer", url: "http://www.metube.com/watch?v=vid_mt0002" },
-      { label: "Biscuit's First Snow Day!", url: "http://www.metube.com/watch?v=vid_mt0012" },
-      { label: "Our MeTube channel", url: "http://www.metube.com/user/TheHendersonsHome" },
+      { label: "Mochi vs. the Laser Pointer", url: "http://metube.connectedera.local/watch?v=vid_mt0002" },
+      { label: "Biscuit's First Snow Day!", url: "http://metube.connectedera.local/watch?v=vid_mt0012" },
+      { label: "Our MeTube channel", url: "http://metube.connectedera.local/user/TheHendersonsHome" },
     ],
     baseVisits: 15802,
     guestbook: [
@@ -157,9 +157,9 @@ export const archiveHomepages: ArchiveHomepage[] = [
       { heading: "Summer 2013", body: "Read Moonlit Bakery, a one-shot about a midnight bakery. Made me want fresh bread at 2am.", at: "2013-06-25T22:00:00Z" },
     ],
     links: [
-      { label: "My YourAnimeList", url: "http://www.youranimelist.net/" },
-      { label: "MangaShelf", url: "http://www.mangashelf.net/" },
-      { label: "AnimeTalkTuesday on MeTube", url: "http://www.metube.com/user/AnimeTalkTuesday" },
+      { label: "My YourAnimeList", url: "http://yal.connectedera.local/" },
+      { label: "MangaShelf", url: "http://manga.connectedera.local/" },
+      { label: "AnimeTalkTuesday on MeTube", url: "http://metube.connectedera.local/user/AnimeTalkTuesday" },
     ],
     baseVisits: 6025,
     guestbook: [

@@ -81,7 +81,7 @@ endobj
 << /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> >>
 endobj
 6 0 obj
-<< /Length 946 >>
+<< /Length 1027 >>
 stream
 BT
 /F2 22 Tf
@@ -99,51 +99,56 @@ ET
 BT
 /F1 12 Tf
 72 662 Td
-(Type an address \(like metube.com\) or anything you want to search for.) Tj
+(Type an address \(like metube.connectedera.local\) or anything) Tj
 ET
 BT
 /F1 12 Tf
 72 644 Td
-() Tj
+(you want to search for, and Connected Search will find it.) Tj
 ET
 BT
 /F1 12 Tf
 72 626 Td
-(Handy shortcuts:) Tj
-ET
-BT
-/F1 12 Tf
-72 608 Td
-(  Ctrl+T  new tab          Ctrl+W  close tab) Tj
-ET
-BT
-/F1 12 Tf
-72 590 Td
-(  Ctrl+L  address bar      Ctrl+D  bookmark this page) Tj
-ET
-BT
-/F1 12 Tf
-72 572 Td
-(  Ctrl+H  history          Ctrl+J  downloads) Tj
-ET
-BT
-/F1 12 Tf
-72 554 Td
-(  F5      reload           Alt+Left / Alt+Right  back / forward) Tj
-ET
-BT
-/F1 12 Tf
-72 536 Td
 () Tj
 ET
 BT
 /F1 12 Tf
+72 608 Td
+(Handy shortcuts:) Tj
+ET
+BT
+/F1 12 Tf
+72 590 Td
+(  Ctrl+T  new tab          Ctrl+W  close tab) Tj
+ET
+BT
+/F1 12 Tf
+72 572 Td
+(  Ctrl+L  address bar      Ctrl+D  bookmark this page) Tj
+ET
+BT
+/F1 12 Tf
+72 554 Td
+(  Ctrl+H  history          Ctrl+J  downloads) Tj
+ET
+BT
+/F1 12 Tf
+72 536 Td
+(  F5      reload           Alt+Left / Alt+Right  back / forward) Tj
+ET
+BT
+/F1 12 Tf
 72 518 Td
-(Downloads are saved to your Downloads folder. Pictures can be set as) Tj
+() Tj
 ET
 BT
 /F1 12 Tf
 72 500 Td
+(Downloads are saved to your Downloads folder. Pictures can be set as) Tj
+ET
+BT
+/F1 12 Tf
+72 482 Td
 (your desktop background straight from Photo Viewer.) Tj
 ET
 BT
@@ -232,13 +237,13 @@ xref
 0000000229 00000 n 
 0000001285 00000 n 
 0000001421 00000 n 
-0000002418 00000 n 
-0000002554 00000 n 
-0000003321 00000 n 
-0000003457 00000 n 
-0000003507 00000 n 
+0000002500 00000 n 
+0000002636 00000 n 
+0000003403 00000 n 
+0000003539 00000 n 
+0000003589 00000 n 
 trailer
 << /Size 12 /Root 10 0 R /Info 11 0 R >>
 startxref
-3610
+3692
 %%EOF

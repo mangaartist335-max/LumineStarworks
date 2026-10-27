@@ -9,6 +9,7 @@ import { sampleContactByEmail } from "@/data/messenger";
 import { newId } from "./ids";
 import type { Store } from "./storage/types";
 import { iso } from "./time";
+import { upgradeLegacyEmail } from "./web/hosts";
 
 export const COL_MAIL = "mail.messages";
 export const COL_MAIL_FOLDERS = "mail.folders";
@@ -157,7 +158,7 @@ export async function sendMail(
   const report: SendReport = { delivered: [], automatic: [], bounced: [], sent };
   const seen = new Set<string>();
   for (const addr of [...draft.to, ...draft.cc]) {
-    const email = addr.email.toLowerCase();
+    const email = upgradeLegacyEmail(addr.email).toLowerCase();
     if (seen.has(email)) continue;
     seen.add(email);
     const account = accounts.find((a) => a.email.toLowerCase() === email);
@@ -203,7 +204,7 @@ export async function sendMail(
       id: newId("mail"),
       owner: sender.id,
       folder: "inbox",
-      from: { name: "Mail Delivery System", email: "mailer-daemon@connectmail.net" },
+      from: { name: "Mail Delivery System", email: "mailer-daemon@mail.connectedera.local" },
       to: [base.from],
       cc: [],
       subject: `Undeliverable: ${base.subject}`,

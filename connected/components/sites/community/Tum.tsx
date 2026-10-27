@@ -1,8 +1,8 @@
 "use client";
 
 // Tum: personal blogs with custom themes, art posts, reblogs, likes,
-// follows and comments. Blogs live at <name>.tum.com; the dashboard and
-// Explore pages live at tum.com.
+// follows and comments. Blogs live at <name>.tum.connectedera.local; the dashboard and
+// Explore pages live at tum.connectedera.local.
 
 import { useState } from "react";
 import { useSystem } from "@/components/system/system";
@@ -67,8 +67,8 @@ interface Post {
   owner?: string;
 }
 
-const blogUrl = (name: string, path = "/") => `http://${name}.tum.com${path}`;
-const tum = (path = "/") => `http://www.tum.com${path}`;
+const blogUrl = (name: string, path = "/") => `http://${name}.tum.connectedera.local${path}`;
+const tum = (path = "/") => `http://tum.connectedera.local${path}`;
 
 const THEMES: { name: string; theme: TumBlog["theme"] }[] = [
   { name: "Paper", theme: { bg: "#fbf8f2", text: "#2d2a26", accent: "#b5522c", font: "Georgia, serif" } },
@@ -259,7 +259,7 @@ function Dashboard() {
                   })
                 }
               >
-                Create {userHandle(user.name).toLowerCase()}.tum.com
+                Create {userHandle(user.name).toLowerCase()}.tum.connectedera.local
               </button>
             </div>
           )
@@ -423,7 +423,7 @@ function Blog({ name }: { name: string }) {
 
 export default function Tum() {
   const { url } = useSite();
-  const sub = url.host.endsWith(".tum.com") ? url.host.slice(0, -".tum.com".length) : null;
+  const sub = url.host.endsWith(".tum.connectedera.local") ? url.host.slice(0, -".tum.connectedera.local".length) : null;
   if (sub) return <Blog name={sub} />;
   const tagged = url.path.startsWith("/tagged/") ? decodeURIComponent(url.path.slice(8)) : null;
   return (

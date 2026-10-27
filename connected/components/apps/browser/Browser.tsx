@@ -13,7 +13,8 @@ import { SiteCtx, type SiteContextValue } from "@/components/sites/SiteContext";
 import { siteForHost } from "@/components/sites/registry";
 import { getSearchIndex } from "@/components/sites/searchIndex";
 import { AboutPage } from "./AboutPages";
-import { LivePage, NotFoundPage } from "./SpecialPages";
+import { LivePage, MovedPage, NoSuchSitePage, NotFoundPage } from "./SpecialPages";
+import { isArchiveHost, upgradeLegacyUrl } from "@/lib/web/hosts";
 import { YalFrame } from "./YalFrame";
 
 export interface Bookmark {
@@ -61,7 +62,9 @@ function PageView({ url, tabId, active, reloadKey, dispatchNav, setStatus }: { u
     content = <AboutPage key={reloadKey} page={parsed.path} />;
   } else {
     const site = siteForHost(parsed.host);
-    if (!site) content = <LivePage key={reloadKey} />;
+    const moved = site ? null : upgradeLegacyUrl(parsed.href);
+    if (moved) content = <MovedPage to={moved} />;
+    else if (!site) content = isArchiveHost(parsed.host) ? <NoSuchSitePage key={reloadKey} /> : <LivePage key={reloadKey} />;
     else if (site.frame === "yal") content = <YalFrame key={reloadKey} />;
     else if (site.Component) {
       const C = site.Component;
@@ -259,7 +262,7 @@ export default function Browser({ win }: AppProps) {
           <input
             ref={addressRef}
             value={shownAddress}
-            placeholder="Search Goggle or type an address"
+            placeholder="Search or type an address"
             aria-label="Address and search bar"
             onChange={(e) => (setAddress(e.target.value), setEditing(true), setSuggestOpen(true))}
             onFocus={(e) => (setAddress(pageAddress), setEditing(true), e.target.select())}
@@ -322,7 +325,7 @@ export default function Browser({ win }: AppProps) {
           return (
             <div key={t.id} className="tab-page" hidden={t.id !== state.active}>
               {/* YAL pages share one frame per tab, so navigating inside YAL doesn't reload it. */}
-              <PageView key={parseUrl(e.url)?.host === "youranimelist.net" ? "yal" : `${t.index}:${e.url}`} url={e.url} tabId={t.id} active={t.id === state.active} reloadKey={t.reloadKey} dispatchNav={dispatch} setStatus={setStatus} />
+              <PageView key={parseUrl(e.url)?.host === "yal.connectedera.local" ? "yal" : `${t.index}:${e.url}`} url={e.url} tabId={t.id} active={t.id === state.active} reloadKey={t.reloadKey} dispatchNav={dispatch} setStatus={setStatus} />
             </div>
           );
         })}

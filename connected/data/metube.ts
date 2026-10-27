@@ -6,7 +6,7 @@
 import type { Availability } from "@/lib/availability";
 import { media } from "./media";
 
-export const METUBE_HOST = "metube.com";
+export const METUBE_HOST = "metube.connectedera.local";
 
 export interface Channel {
   id: string;
@@ -116,7 +116,7 @@ export const videos: Video[] = [
   video("vid_mt0007", "desktop-tour-2013", "ch_modmymachine", "My Desktop Tour 2013 - Themes, Icons and Docks", "2013-02-09T19:00:00Z", "Science & Technology", ["desktop", "customization", "wallpaper", "theme", "dock"],
     "Four wallpapers, one dock, a clock gadget and a weather widget. All wallpapers are from WallpaperGarden (links in the comments).",
     [["2013-02-16T00:00:00Z", 4400], ["2013-12-31T00:00:00Z", 22900]],
-    [["skyblue_kid", "rocket", "2013-02-10T09:15:00Z", "Retro Grid is so good. Changing mine right now"], ["ModMyMachine", "rocket", "2013-02-10T12:00:00Z", "Wallpapers are on wallpapergarden.com, all free for personal use!"]]),
+    [["skyblue_kid", "rocket", "2013-02-10T09:15:00Z", "Retro Grid is so good. Changing mine right now"], ["ModMyMachine", "rocket", "2013-02-10T12:00:00Z", "Wallpapers are on wallpapers.connectedera.local, all free for personal use!"]]),
   video("vid_mt0001", "star-courier-1", "ch_pixelpilot", "Star Courier - Levels 1-3 Walkthrough (No Deaths!)", "2013-03-02T18:00:00Z", "Gaming", ["star courier", "walkthrough", "gaming", "arcade", "no deaths"],
     "Part 1 of my Star Courier walkthrough. Levels 1 to 3 with every parcel collected and no deaths. Tip: the blue rocks drift slower, so use them as cover! Part 2 (the boss) coming soon.",
     [["2013-03-09T00:00:00Z", 6100], ["2013-12-31T00:00:00Z", 38500]],

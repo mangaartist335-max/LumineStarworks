@@ -27,7 +27,7 @@ export interface StaticSite {
 
 export const staticSites: StaticSite[] = [
   {
-    host: "freewarecorner.com",
+    host: "freewarecorner.connectedera.local",
     name: "Freeware Corner",
     tagline: "Free, friendly software for your PC since 2004",
     theme: { bg: "#eef3e6", header: "#2f6b2f", headerText: "#ffffff", accent: "#2f6b2f", font: "Verdana, Geneva, sans-serif" },
@@ -117,7 +117,7 @@ export const staticSites: StaticSite[] = [
         tags: ["wallpaper", "backgrounds", "free"],
         blocks: [
           { kind: "p", text: "WallpaperGarden is our favourite: original artwork, free for personal desktop use, in proper HD sizes." },
-          { kind: "action", label: "Visit WallpaperGarden", action: "link", target: "http://www.wallpapergarden.com/" },
+          { kind: "action", label: "Visit WallpaperGarden", action: "link", target: "http://wallpapers.connectedera.local/" },
         ],
       },
       {
@@ -131,7 +131,7 @@ export const staticSites: StaticSite[] = [
     ],
   },
   {
-    host: "pantryrecipes.com",
+    host: "pantryrecipes.connectedera.local",
     name: "Pantry Recipes",
     tagline: "Easy home cooking from what's already in your cupboard",
     theme: { bg: "#fff8ee", header: "#b5522c", headerText: "#fff6e8", accent: "#b5522c", font: "Georgia, 'Times New Roman', serif" },
@@ -209,7 +209,7 @@ export const staticSites: StaticSite[] = [
     ],
   },
   {
-    host: "connectmail.net",
+    host: "mail.connectedera.local",
     name: "ConnectMail",
     tagline: "Free email for everyone with a Connected PC",
     theme: { bg: "#eef4fb", header: "#1f5fae", headerText: "#ffffff", accent: "#1f5fae", font: "Arial, Helvetica, sans-serif" },
