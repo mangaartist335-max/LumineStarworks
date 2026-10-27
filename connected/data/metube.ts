@@ -41,6 +41,8 @@ export interface Video {
   views: [string, number][];
   likeRatio: number;
   comments: ArchiveComment[];
+  /** Made for the archive in the style of a period upload (Master Bible ch. 7); MeTube says so on the page. */
+  reconstruction?: boolean;
 }
 
 const av = (k: string) => media(`avatar:${k}`).url;
@@ -54,6 +56,11 @@ export const channels: Channel[] = [
   { id: "ch_cutabove", handle: "CutAboveEdits", name: "CutAboveEdits", avatar: av("star"), joinedAt: "2010-10-10T12:00:00Z", color: "#333344", about: "Editing tips for montage makers. Short, sweet and easy to follow." },
   { id: "ch_modmymachine", handle: "ModMyMachine", name: "ModMyMachine", avatar: av("rocket"), joinedAt: "2009-02-27T12:00:00Z", color: "#24507a", about: "Desktop customisation: themes, icons, wallpapers and docks." },
   { id: "ch_dailydana", handle: "DailyDanaVlogs", name: "DailyDanaVlogs", avatar: av("flower"), joinedAt: "2011-09-01T12:00:00Z", color: "#b5577c", about: "Weekend vlogs, sketchbook adventures and lots of tea." },
+  // The four creators named in the Master Bible (ch. 7). Their videos are constructed reconstructions.
+  { id: "ch_iceburner", handle: "XXICEBURNERXX", name: "XXICEBURNERXX", avatar: av("ball"), joinedAt: "2011-07-02T12:00:00Z", color: "#1d7a3a", about: "soccer is life. under 14s left wing. subscribe for goals!!" },
+  { id: "ch_heartcore", handle: "HEARTCORE_ANGEL", name: "HEARTCORE_ANGEL", avatar: av("star"), joinedAt: "2011-11-18T12:00:00Z", color: "#b04a9a", about: "nightcore mixes + my own drawings ~ always credit the original artists <3" },
+  { id: "ch_noobdestroyer", handle: "NOOBDESTROYER92", name: "NOOBDESTROYER92", avatar: av("gamepad"), joinedAt: "2010-12-24T12:00:00Z", color: "#2c3e8f", about: "games, arcades and the occasional mall adventure. not actually a noob destroyer." },
+  { id: "ch_strawberry", handle: "STRAWBERRY_STATIC", name: "STRAWBERRY_STATIC", avatar: av("flower"), joinedAt: "2012-02-11T12:00:00Z", color: "#c23a64", about: "keyboard, karaoke and talent shows. strawberry milk enthusiast." },
   { id: "ch_animetalk", handle: "AnimeTalkTuesday", name: "AnimeTalkTuesday", avatar: av("sun"), joinedAt: "2010-01-12T12:00:00Z", color: "#8a2f5c", about: "Spoiler-free anime reviews and first impressions every Tuesday." },
 ];
 
@@ -141,6 +148,24 @@ export const videos: Video[] = [
     "My spoiler-free look at Flow Pictures' Sinful Apex (24 episodes, Aug 2011 to Jan 2012, directed by Kaihatsu Miura) and why the ending lands so well.",
     [["2012-02-14T00:00:00Z", 5200], ["2012-12-31T00:00:00Z", 21800], ["2013-12-31T00:00:00Z", 29400]],
     [["OtakuOlivia", "star", "2012-02-07T20:00:00Z", "The music section is spot on. That ending song!"], ["quietwatcher_x", "leaf", "2012-02-08T12:40:00Z", "Great review, no spoilers at all. Thank you!"]]),
+  ...[
+    video("vid_mt0101", "summer-league-top5", "ch_iceburner", "TOP 5 GOALS of my Summer 2012 League!!! (u14)", "2012-08-26T19:00:00Z", "Sports", ["soccer", "football", "goals", "summer 2012", "under 14"],
+      "my best 5 goals from this summer!! #1 is my first ever volley. shoutout to coach and the whole team, best season ever. (Constructed reconstruction for the Connected Era archive.)",
+      [["2012-09-02T00:00:00Z", 640], ["2012-12-31T00:00:00Z", 2310], ["2013-12-31T00:00:00Z", 3900]],
+      [["SundayStrikers", "ball", "2012-08-26T21:30:00Z", "That volley!! Come play Sunday league with us when you're older"], ["skyblue_kid", "rocket", "2012-08-27T16:02:00Z", "number 3 nutmeg was so clean lol"]], 0.03),
+    video("vid_mt0102", "nightcore-glow-stick-summer", "ch_heartcore", "Nightcore - Glow Stick Summer", "2012-09-08T21:00:00Z", "Music", ["nightcore", "glow stick summer", "neon postcards", "mix", "art"],
+      "Original song: Glow Stick Summer by Neon Postcards (Brightside Records), sped up for fun! Drawing is mine, please don't repost without credit ^_^ Go listen to the original too, it's on CV Pop FM all the time. (Constructed reconstruction for the Connected Era archive.)",
+      [["2012-09-15T00:00:00Z", 2100], ["2012-12-31T00:00:00Z", 9800], ["2013-12-31T00:00:00Z", 17400]],
+      [["Nadia_draws", "palette", "2012-09-09T10:15:00Z", "the glow sticks in the drawing!! so cute"], ["OtakuOlivia", "star", "2012-09-09T19:40:00Z", "added to my homework playlist, it's so energetic"]], 0.02),
+    video("vid_mt0103", "claw-machine-20-tries", "ch_noobdestroyer", "MALL FAIL?? 20 Tries at the Claw Machine", "2012-10-13T18:30:00Z", "Comedy", ["mall", "claw machine", "arcade", "fail", "win"],
+      "took 20 tries and all my quarters but Sir Fluffington is finally home. never give up guys. (Constructed reconstruction for the Connected Era archive.)",
+      [["2012-10-20T00:00:00Z", 1500], ["2012-12-31T00:00:00Z", 6400], ["2013-12-31T00:00:00Z", 11200]],
+      [["PixelPilotGaming", "gamepad", "2012-10-13T20:05:00Z", "The persistence! Sir Fluffington deserves his own channel"], ["MochiFan2001", "fish", "2012-10-14T09:12:00Z", "I screamed when it picked him up"]], 0.025),
+    video("vid_mt0104", "talent-show-unplugged", "ch_strawberry", "Talent show mishap!! (it turned out great)", "2013-03-02T20:00:00Z", "Music", ["talent show", "keyboard", "school", "live", "spring 2013"],
+      "my keyboard plug fell out halfway through and the whole gym started clapping the beat until i plugged it back in. we got second place!!! thank you everyone <3 (Constructed reconstruction for the Connected Era archive.)",
+      [["2013-03-09T00:00:00Z", 980], ["2013-06-30T00:00:00Z", 4300], ["2013-12-31T00:00:00Z", 6100]],
+      [["AkiraKeys", "guitar", "2013-03-02T22:10:00Z", "Keeping your cool like that is a real musician move. Great playing!"], ["DailyDanaVlogs", "flower", "2013-03-03T11:20:00Z", "The clapping part made me so happy omg"]], 0.02),
+  ].map((v) => ({ ...v, reconstruction: true })),
 ];
 
 export const channelById = (id: string) => channels.find((c) => c.id === id);

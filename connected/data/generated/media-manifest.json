@@ -738,6 +738,10 @@
   "url": "/media/videos/thumbs/biscuit-snow-day.jpg",
   "size": 5302
  },
+ "video-thumb:claw-machine-20-tries": {
+  "url": "/media/videos/thumbs/claw-machine-20-tries.jpg",
+  "size": 7826
+ },
  "video-thumb:desktop-tour-2013": {
   "url": "/media/videos/thumbs/desktop-tour-2013.jpg",
   "size": 5977
@@ -753,6 +757,10 @@
  "video-thumb:mochi-laser": {
   "url": "/media/videos/thumbs/mochi-laser.jpg",
   "size": 5213
+ },
+ "video-thumb:nightcore-glow-stick-summer": {
+  "url": "/media/videos/thumbs/nightcore-glow-stick-summer.jpg",
+  "size": 5788
  },
  "video-thumb:paint-wallpaper-tutorial": {
   "url": "/media/videos/thumbs/paint-wallpaper-tutorial.jpg",
@@ -778,9 +786,17 @@
   "url": "/media/videos/thumbs/star-courier-boss.jpg",
   "size": 6255
  },
+ "video-thumb:summer-league-top5": {
+  "url": "/media/videos/thumbs/summer-league-top5.jpg",
+  "size": 6368
+ },
  "video-thumb:summer-rain": {
   "url": "/media/videos/thumbs/summer-rain.jpg",
   "size": 8438
+ },
+ "video-thumb:talent-show-unplugged": {
+  "url": "/media/videos/thumbs/talent-show-unplugged.jpg",
+  "size": 5598
  },
  "video:backyard-trick-shot": {
   "url": "/media/videos/backyard-trick-shot.webm",
@@ -792,6 +808,13 @@
  "video:biscuit-snow-day": {
   "url": "/media/videos/biscuit-snow-day.webm",
   "size": 640678,
+  "duration": 22.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:claw-machine-20-tries": {
+  "url": "/media/videos/claw-machine-20-tries.webm",
+  "size": 351813,
   "duration": 22.0,
   "width": 640,
   "height": 360
@@ -821,6 +844,13 @@
   "url": "/media/videos/mochi-laser.webm",
   "size": 405225,
   "duration": 22.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:nightcore-glow-stick-summer": {
+  "url": "/media/videos/nightcore-glow-stick-summer.webm",
+  "size": 914742,
+  "duration": 35.0,
   "width": 640,
   "height": 360
  },
@@ -866,10 +896,24 @@
   "width": 640,
   "height": 360
  },
+ "video:summer-league-top5": {
+  "url": "/media/videos/summer-league-top5.webm",
+  "size": 301275,
+  "duration": 24.0,
+  "width": 640,
+  "height": 360
+ },
  "video:summer-rain": {
   "url": "/media/videos/summer-rain.webm",
   "size": 3452790,
   "duration": 40.0,
+  "width": 640,
+  "height": 360
+ },
+ "video:talent-show-unplugged": {
+  "url": "/media/videos/talent-show-unplugged.webm",
+  "size": 354846,
+  "duration": 24.0,
   "width": 640,
   "height": 360
  },

@@ -3090,3 +3090,12 @@
   margin-top: 6px;
   font-size: 12px;
 }
+
+.mt-reconstruction {
+  margin-top: 6px;
+  padding: 4px 8px;
+  border-left: 3px solid #e2b33a;
+  background: #fff8e1;
+  font-size: 11px;
+  color: #6b5a24;
+}

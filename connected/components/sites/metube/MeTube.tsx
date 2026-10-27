@@ -35,6 +35,7 @@ interface Vid {
   likeRatio: number;
   archiveComments: { id: string; author: string; avatar: string; text: string; at: string }[];
   origin: "archive" | "user";
+  reconstruction?: boolean;
 }
 
 const mt = (path: string, params?: Record<string, string | number | undefined>) => siteUrl(METUBE_HOST, path, params);
@@ -59,6 +60,7 @@ function fromArchive(v: Video, now: number): Vid {
     likeRatio: v.likeRatio,
     archiveComments: v.comments.filter((c) => Date.parse(c.at) <= now),
     origin: "archive",
+    reconstruction: v.reconstruction,
   };
 }
 
@@ -465,6 +467,7 @@ function Watch() {
             Category: {v.category}
             {v.origin === "user" && " · Uploaded from this computer"}
           </div>
+          {v.reconstruction && <div className="mt-reconstruction">Constructed reconstruction: made for the Connected Era archive in the style of a 2012–2013 upload.</div>}
         </div>
         <section className="mt-comments">
           <h3>All Comments ({allComments.length})</h3>
