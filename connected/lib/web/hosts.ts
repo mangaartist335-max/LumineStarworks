@@ -24,6 +24,8 @@ export const HOST = {
   aniwire: `aniwire.${DOMAIN}`,
   flow: `flowpictures.${DOMAIN}`,
   wiki: `wiki.${DOMAIN}`,
+  snap: `snapnest.${DOMAIN}`,
+  cork: `corkboard.${DOMAIN}`,
 } as const;
 
 /** Email addresses on this computer: name@mail.connectedera.local */

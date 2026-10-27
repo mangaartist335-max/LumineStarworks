@@ -33,6 +33,8 @@ export const SITES: SiteDef[] = [
   site("aniwire.connectedera.local", "AniWire", "file-text", () => import("./aniwire/AniWire")),
   site("flowpictures.connectedera.local", "Flow Pictures", "video", () => import("./flow/FlowPictures")),
   site("wiki.connectedera.local", "AniFanWiki", "info", () => import("./wiki/AniFanWiki")),
+  site("snapnest.connectedera.local", "SnapNest", "photos", () => import("./snapnest/SnapNest")),
+  site("corkboard.connectedera.local", "Corkboard", "file-text", () => import("./corkboard/Corkboard")),
   { host: "yal.connectedera.local", name: "YourAnimeList", icon: "star", frame: "yal" },
 ];
 

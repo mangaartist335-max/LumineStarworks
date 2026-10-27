@@ -143,3 +143,20 @@ test("Relay Chat: commands, nicknames and saved logs", async () => {
   }
   assert.ok(RESERVED_NICKS.has("relayserv") && RESERVED_NICKS.has("techtom"));
 });
+
+test("SnapNest and Corkboard archives are dated, tidy and in order", async () => {
+  const { archiveAlbums } = await import("../data/snapnest");
+  const { archiveListings, CATEGORIES } = await import("../data/corkboard");
+  for (const a of archiveAlbums) {
+    assert.ok(a.photos.length > 0 && a.photos[0].at >= a.createdAt, `${a.id}: photos after the album`);
+    for (const p of a.photos) assert.ok(p.at <= "2013-12-31T23:59:59Z" && p.tags.length > 0, p.id);
+  }
+  const ids = new Set<string>();
+  for (const l of archiveListings) {
+    assert.ok(!ids.has(l.id), l.id);
+    ids.add(l.id);
+    assert.ok(CATEGORIES.includes(l.category), l.id);
+    if (l.doneAt) assert.ok(l.doneAt > l.at, `${l.id}: done after posting`);
+    if (l.endsAt) assert.ok(l.endsAt > l.at && l.category === "Events", `${l.id}: only events end`);
+  }
+});

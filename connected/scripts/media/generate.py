@@ -12,6 +12,7 @@ import manga  # noqa: E402
 import music  # noqa: E402
 import radio  # noqa: E402
 import creators  # noqa: E402
+import snapshots  # noqa: E402
 import videos  # noqa: E402
 import wallpapers  # noqa: E402
 
@@ -24,5 +25,6 @@ if __name__ == "__main__":
     manga.main()
     docs.main()
     art.main()
+    snapshots.main()
     common.save_manifest()
     print("done")

@@ -730,6 +730,48 @@
   "size": 35968,
   "name": "Spring Hills.jpg"
  },
+ "snapshot:farmers-market": {
+  "url": "/media/snapshots/farmers-market.jpg",
+  "size": 36648,
+  "title": "Saturday farmers' market",
+  "width": 800,
+  "height": 600
+ },
+ "snapshot:harvest-pumpkin": {
+  "url": "/media/snapshots/harvest-pumpkin.jpg",
+  "size": 24728,
+  "title": "Harvest fair pumpkins",
+  "width": 800,
+  "height": 600
+ },
+ "snapshot:ice-rink": {
+  "url": "/media/snapshots/ice-rink.jpg",
+  "size": 27341,
+  "title": "Free skate at the rink",
+  "width": 800,
+  "height": 600
+ },
+ "snapshot:kite-day": {
+  "url": "/media/snapshots/kite-day.jpg",
+  "size": 23516,
+  "title": "Kite day",
+  "width": 800,
+  "height": 600
+ },
+ "snapshot:picnic-park": {
+  "url": "/media/snapshots/picnic-park.jpg",
+  "size": 27526,
+  "title": "Picnic in the park",
+  "width": 800,
+  "height": 600
+ },
+ "snapshot:tuxedo-snowman": {
+  "url": "/media/snapshots/tuxedo-snowman.jpg",
+  "size": 23581,
+  "title": "The tuxedo snowman",
+  "width": 800,
+  "height": 600
+ },
  "video-thumb:backyard-trick-shot": {
   "url": "/media/videos/thumbs/backyard-trick-shot.jpg",
   "size": 7717

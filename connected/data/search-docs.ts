@@ -15,6 +15,8 @@ import { catalogue, FORMAT_LABEL, LUNE } from "./catalogue";
 import { FLOW_HOST, flowNews, workListedFrom } from "./flow";
 import { WIKI_NAME, wikiPages, wikiUrl } from "./wiki";
 import { plainText } from "@/lib/wiki";
+import { archiveAlbums, SNAPNEST_HOST } from "./snapnest";
+import { archiveListings, CORKBOARD_HOST } from "./corkboard";
 import yalIndex from "./generated/yal-index.json";
 
 const http = (host: string, path = "/") => `http://${host}${path}`;
@@ -128,6 +130,14 @@ export function buildSearchDocs(): SearchDoc[] {
     const first = p.revisions[0];
     docs.push({ id: `page_wiki_${p.title.replace(/[^a-z0-9]+/gi, "_")}`, url: wikiUrl(p.title), title: `${p.title} - ${WIKI_NAME}`, description: plainText(first.text).split("\n")[0].slice(0, 220), body: plainText(first.text), kind: "web", publishedAt: first.at, site: WIKI_NAME, tags: ["wiki", "encyclopedia", p.title] });
   }
+
+  docs.push({ id: "page_snapnest", url: http(SNAPNEST_HOST), title: "SnapNest - Share your photos", description: "Make photo albums and share them with friends and family. Public, unlisted or private: you choose.", kind: "web", publishedAt: "2007-05-01T00:00:00Z", site: "SnapNest", tags: ["photos", "albums", "pictures", "share"] });
+  for (const a of archiveAlbums) {
+    docs.push({ id: `page_${a.id}`, url: http(SNAPNEST_HOST, `/album/${a.id}`), title: `${a.title} by ${a.owner} - SnapNest`, description: a.description, kind: "web", publishedAt: a.createdAt, site: "SnapNest", tags: ["photos", "album", a.owner] });
+    for (const p of a.photos) docs.push({ id: `page_${p.id}`, url: http(SNAPNEST_HOST, `/photo/${a.id}/${p.id}`), title: `${p.title} - SnapNest`, description: p.description, kind: "image", image: p.url, publishedAt: p.at, site: "SnapNest", tags: p.tags });
+  }
+  docs.push({ id: "page_corkboard", url: http(CORKBOARD_HOST), title: "Corkboard - Classifieds around town", description: "Buy, swap, give away and find things around town. Free listings, no fees.", kind: "web", publishedAt: "2006-03-01T00:00:00Z", site: "Corkboard", tags: ["classifieds", "for sale", "free", "swap", "events"] });
+  for (const l of archiveListings) docs.push({ id: `page_${l.id}`, url: http(CORKBOARD_HOST, `/listing/${l.id}`), title: `${l.title} - Corkboard`, description: `${l.category}${l.price ? ` · ${l.price}` : ""}. ${l.description}`, kind: "web", publishedAt: l.at, site: "Corkboard", tags: ["classifieds", l.category.toLowerCase()] });
 
   docs.push(...(yalIndex as SearchDoc[]));
   return docs;
