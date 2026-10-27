@@ -428,6 +428,21 @@
   flex-wrap: wrap;
   margin: 16px 0;
 }
+.special-page h2.wayback-heading {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+  margin: 24px 0 6px;
+}
+.wayback-pick {
+  align-items: center;
+}
+.wayback-pick input[type="date"] {
+  font: inherit;
+  padding: 3px 4px;
+  border: 1px solid #aab4c0;
+  border-radius: 2px;
+}
 
 /* ── Open / Save dialog ────────────────────────────────────────────────── */
 

@@ -31,6 +31,7 @@ Open http://localhost:3000, pick a name and a picture, and you're in.
 - Subscribe to a few sites in **News Reader** and see what's new.
 - Hop into `#anime` in **Relay Chat**. Log in as a second account in another tab and you can chat with yourself.
 - Make a photo album on SnapNest, or post something to give away on Corkboard.
+- Type a real address like `youtube.com` and choose **See it around Sep 7, 2013 on the Wayback Machine** to see how it really looked back then (it opens in your real browser).
 - Change the date in **Control Panel > Date and Time** and see which sites, videos and chapters are around.
 
 ## Put it online

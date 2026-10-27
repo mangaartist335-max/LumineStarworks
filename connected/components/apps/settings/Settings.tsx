@@ -337,7 +337,7 @@ function Network() {
       </div>
       <h2>About the web on this computer</h2>
       <p className="muted">
-        Sites like MeTube, MangaShelf, Birdie and YourAnimeList are part of the Connected Era archive and work offline. Any other address is a live website from today, and the browser labels it clearly instead of showing it as a 2012-2013 page.
+        Sites like MeTube, MangaShelf, Birdie and YourAnimeList are part of the Connected Era archive and work offline. Any other address is a live website. The browser labels it clearly and offers to open it in your real browser, either today&apos;s version or the Wayback Machine&apos;s copy from back then, instead of showing it as a 2012-2013 page.
       </p>
     </section>
   );

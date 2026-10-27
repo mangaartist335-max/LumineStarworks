@@ -28,6 +28,7 @@ import { activeTab, browserReducer, canGoBack, canGoForward, currentEntry, newBr
 import { interpretInput, parseUrl, searchUrl } from "../lib/web/url";
 import { isArchiveHost, upgradeLegacyUrl } from "../lib/web/hosts";
 import { containsLink, linkHref, LINK_PATTERN, trimLink } from "../lib/web/links";
+import { isInternetArchiveHost, waybackTimestamp, waybackUrl } from "../lib/web/wayback";
 import { SearchIndex, tokenize, type SearchDoc } from "../lib/search";
 
 test("clock: time zones, DST and wall-time input", () => {
@@ -186,6 +187,15 @@ test("addresses: old bookmarks move to their connectedera.local home", () => {
   assert.equal(upgradeLegacyUrl("http://example.com/"), null);
   assert.ok(isArchiveHost("tum.connectedera.local") && isArchiveHost("nadiadraws.tum.connectedera.local"));
   assert.ok(!isArchiveHost("connectedera.local.example.com"));
+});
+
+test("addresses: live websites as the Wayback Machine captured them", () => {
+  const boot = ms(DEFAULT_BOOT_TIME);
+  assert.equal(waybackTimestamp(boot), "20130907200000");
+  assert.equal(waybackUrl("http://youtube.com/", boot), "https://web.archive.org/web/20130907200000/http://youtube.com/");
+  assert.equal(waybackUrl("https://www.example.com/page?q=1&n=2#top", ms("2005-03-01T12:00:00Z")), "https://web.archive.org/web/20050301120000/https://www.example.com/page?q=1&n=2");
+  assert.ok(isInternetArchiveHost("web.archive.org") && isInternetArchiveHost("archive.org"));
+  assert.ok(!isInternetArchiveHost("notarchive.org") && !isInternetArchiveHost("example.com"));
 });
 
 test("links: chat and post text links to archive and outside addresses", () => {

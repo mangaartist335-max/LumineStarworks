@@ -108,7 +108,7 @@ function NetworkFlyout({ onClose }: { onClose: () => void }) {
         <Icon name="network" size={14} /> Connected Era network (the 2012-2013 web archive)
       </p>
       <p style={{ margin: "6px 0", color: "#5f6b7a" }}>
-        Websites from the archive open here as they were at the computer&apos;s current date. Live websites from today open in your real browser instead, so they&apos;re never mistaken for archive pages.
+        Websites from the archive open here as they were at the computer&apos;s current date. Live websites open in your real browser instead, either as they are today or as the Internet Archive&apos;s Wayback Machine saved them back then, so they&apos;re never mistaken for archive pages.
       </p>
     </div>
   );
