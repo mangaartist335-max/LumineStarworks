@@ -142,7 +142,6 @@ export function BuildBriefView({
 
   async function handleRegenerate() {
     setRegenerating(true);
-    const since = new Date().toISOString();
     try {
       const res = await fetch(`/api/projects/${project.id}/regenerate`, {
         method: "POST",
@@ -150,23 +149,19 @@ export function BuildBriefView({
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Regeneration failed.");
 
-      startPolling(
-        { projectId: project.id, since },
-        (brief) => {
+      startPolling(project.id, {
+        onDone: (brief) => {
           setSavedBrief(brief);
           setDraft(brief);
           setEditing(false);
           setRegenerating(false);
           flash("success", "Regenerated a fresh BuildBrief.");
         },
-        () => {
+        onFailed: (message) => {
           setRegenerating(false);
-          flash(
-            "error",
-            "Regeneration is taking longer than expected. Please try again."
-          );
-        }
-      );
+          flash("error", `Regeneration failed: ${message}`);
+        },
+      });
     } catch (err) {
       setRegenerating(false);
       flash("error", err instanceof Error ? err.message : "Regeneration failed.");

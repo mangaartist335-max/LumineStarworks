@@ -1,14 +1,13 @@
 import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { generateBuildBrief } from "@/lib/anthropic";
+import { runGeneration } from "@/lib/run-generation";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import type { ProjectRow } from "@/lib/types";
 
-// The actual generation work happens in `after()`, which keeps running
-// for up to this long after the response is already sent — the browser
-// never has to hold a request open while Claude works, so it can't time
-// out or fail with a bare network error no matter how long generation takes.
-export const maxDuration = 60;
+// Generation runs in `after()`, which keeps going after the response is
+// sent, so the browser never waits on Claude. Must match
+// GENERATION_MAX_SECONDS in lib/types.ts (this value has to be a literal).
+export const maxDuration = 300;
 
 export async function POST(
   _request: Request,
@@ -47,29 +46,38 @@ export async function POST(
     return NextResponse.json({ error: limit.message }, { status: 429 });
   }
 
-  after(async () => {
-    try {
-      const brief = await generateBuildBrief({
+  const { error: markError } = await supabase
+    .from("projects")
+    .update({
+      generation_status: "generating",
+      generation_error: null,
+      generation_started_at: new Date().toISOString(),
+    })
+    .eq("id", id);
+
+  if (markError) {
+    console.error("[projects.regenerate.mark]", markError);
+    return NextResponse.json(
+      { error: "Couldn't start generation. Please try again." },
+      { status: 500 }
+    );
+  }
+
+  after(() =>
+    runGeneration(
+      supabase,
+      project.id,
+      {
         name: project.name,
         projectType: project.project_type,
         idea: project.idea,
         targetUser: project.target_user,
         preferredTech: project.preferred_tech,
         extraRequirements: project.extra_requirements,
-      });
-
-      const { error: updateError } = await supabase
-        .from("projects")
-        .update({ generated_brief: brief })
-        .eq("id", id);
-
-      if (updateError) {
-        console.error("[projects.regenerate.update]", updateError);
-      }
-    } catch (error) {
-      console.error("[projects.regenerate.generate]", error);
-    }
-  });
+      },
+      { markReadyToBuild: !project.generated_brief }
+    )
+  );
 
   return NextResponse.json({ started: true });
 }

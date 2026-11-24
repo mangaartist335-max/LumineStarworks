@@ -2,68 +2,85 @@
 
 import { useCallback, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import type { BuildBrief } from "@/lib/types";
+import {
+  GENERATION_MAX_SECONDS,
+  type BuildBrief,
+  type GenerationStatus,
+} from "@/lib/types";
 
-interface PollOptions {
-  projectId: string;
-  /** Only treat the row as "done" once its updated_at is newer than this
-   * (ISO string). Needed for regenerate, where a brief already exists and
-   * mere presence doesn't tell you the new one has landed yet. Omit for a
-   * brand-new project, where any non-null brief means it's done. */
-  since?: string;
-  intervalMs?: number;
-  timeoutMs?: number;
+// The server marks a run failed itself, but if the platform kills the
+// function outright (time limit reached) nothing gets to record that — so
+// a run still "generating" past the server's limit is treated as cut off.
+const STALE_AFTER_MS = (GENERATION_MAX_SECONDS + 20) * 1000;
+const POLL_INTERVAL_MS = 3000;
+
+const TIMED_OUT_MESSAGE =
+  "Generation took too long and was stopped. Please try again. A shorter idea description finishes faster.";
+
+interface PollCallbacks {
+  onDone: (brief: BuildBrief) => void;
+  onFailed: (message: string) => void;
 }
 
-// Generation runs server-side in the background (see the after() calls in
-// the projects API routes). This polls the row directly via Supabase — no
-// extra API route needed, RLS already scopes it to the signed-in owner.
+interface GenerationRow {
+  generated_brief: BuildBrief | null;
+  generation_status: GenerationStatus | null;
+  generation_error: string | null;
+  generation_started_at: string | null;
+}
+
+// Background generation (see lib/run-generation.ts) records its progress on
+// the project row; this polls that row directly through Supabase — RLS
+// already limits it to the signed-in owner, so no extra API route is needed.
 export function usePollForBrief() {
   const [polling, setPolling] = useState(false);
-  const [timedOut, setTimedOut] = useState(false);
   const stopRef = useRef(false);
 
   const start = useCallback(
-    (
-      { projectId, since, intervalMs = 2500, timeoutMs = 55000 }: PollOptions,
-      onFound: (brief: BuildBrief) => void,
-      onTimeout?: () => void
-    ) => {
+    (projectId: string, { onDone, onFailed }: PollCallbacks) => {
       stopRef.current = false;
-      setTimedOut(false);
       setPolling(true);
       const supabase = createClient();
-      const startedAt = Date.now();
-      const sinceTime = since ? new Date(since).getTime() : null;
+      const pollStartedAt = Date.now();
+
+      const finish = (fn: () => void) => {
+        stopRef.current = true;
+        setPolling(false);
+        fn();
+      };
 
       const tick = async () => {
         if (stopRef.current) return;
-        if (Date.now() - startedAt > timeoutMs) {
-          setPolling(false);
-          setTimedOut(true);
-          onTimeout?.();
-          return;
-        }
 
         const { data } = await supabase
           .from("projects")
-          .select("generated_brief, updated_at")
+          .select(
+            "generated_brief, generation_status, generation_error, generation_started_at"
+          )
           .eq("id", projectId)
-          .maybeSingle();
+          .maybeSingle<GenerationRow>();
 
         if (stopRef.current) return;
 
-        const isFresh =
-          sinceTime === null ||
-          (data?.updated_at ? new Date(data.updated_at).getTime() > sinceTime : false);
-
-        if (data?.generated_brief && isFresh) {
-          setPolling(false);
-          onFound(data.generated_brief as BuildBrief);
-          return;
+        if (data?.generation_status === "done" && data.generated_brief) {
+          const brief = data.generated_brief;
+          return finish(() => onDone(brief));
+        }
+        if (data?.generation_status === "failed") {
+          const message =
+            data.generation_error ||
+            "Generation failed. Please try again.";
+          return finish(() => onFailed(message));
         }
 
-        setTimeout(tick, intervalMs);
+        const startedAt = data?.generation_started_at
+          ? new Date(data.generation_started_at).getTime()
+          : pollStartedAt;
+        if (Date.now() - startedAt > STALE_AFTER_MS) {
+          return finish(() => onFailed(TIMED_OUT_MESSAGE));
+        }
+
+        setTimeout(tick, POLL_INTERVAL_MS);
       };
 
       tick();
@@ -76,5 +93,5 @@ export function usePollForBrief() {
     setPolling(false);
   }, []);
 
-  return { polling, timedOut, start, stop };
+  return { polling, start, stop };
 }
