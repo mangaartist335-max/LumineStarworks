@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { runGeneration } from "@/lib/run-generation";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import { newProjectSchema } from "@/lib/validation";
+import { isMissingColumnError, MISSING_MIGRATION_MESSAGE } from "@/lib/db-errors";
 import type { ProjectRow } from "@/lib/types";
 
 // Generation runs in `after()`, which keeps going after the response is
@@ -64,7 +65,11 @@ export async function POST(request: Request) {
   if (insertError || !inserted) {
     console.error("[projects.insert]", insertError);
     return NextResponse.json(
-      { error: "Could not create the project. Please try again." },
+      {
+        error: isMissingColumnError(insertError)
+          ? MISSING_MIGRATION_MESSAGE
+          : "Could not create the project. Please try again.",
+      },
       { status: 500 }
     );
   }
