@@ -37,9 +37,19 @@ export interface ProjectRow {
   extra_requirements: string | null;
   status: ProjectStatus;
   generated_brief: BuildBrief | null;
+  generation_status: GenerationStatus | null;
+  generation_error: string | null;
+  generation_started_at: string | null;
   created_at: string;
   updated_at: string;
 }
+
+export type GenerationStatus = "generating" | "done" | "failed";
+
+// Generation runs in the background after the API responds. The routes'
+// `maxDuration` must be a literal (Next.js reads it statically), so keep it
+// in sync with this value by hand.
+export const GENERATION_MAX_SECONDS = 300;
 
 export interface ProfileRow {
   id: string;

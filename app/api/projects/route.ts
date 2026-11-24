@@ -1,15 +1,14 @@
 import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { generateBuildBrief } from "@/lib/anthropic";
+import { runGeneration } from "@/lib/run-generation";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import { newProjectSchema } from "@/lib/validation";
 import type { ProjectRow } from "@/lib/types";
 
-// The actual generation work happens in `after()`, which keeps running
-// for up to this long after the response is already sent — the browser
-// never has to hold a request open while Claude works, so it can't time
-// out or fail with a bare network error no matter how long generation takes.
-export const maxDuration = 60;
+// Generation runs in `after()`, which keeps going after the response is
+// sent, so the browser never waits on Claude. Must match
+// GENERATION_MAX_SECONDS in lib/types.ts (this value has to be a literal).
+export const maxDuration = 300;
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -56,6 +55,8 @@ export async function POST(request: Request) {
       preferred_tech: input.preferredTech || null,
       extra_requirements: input.extraRequirements || null,
       status: "planning",
+      generation_status: "generating",
+      generation_started_at: new Date().toISOString(),
     })
     .select()
     .single<ProjectRow>();
@@ -68,32 +69,21 @@ export async function POST(request: Request) {
     );
   }
 
-  after(async () => {
-    try {
-      const brief = await generateBuildBrief({
+  after(() =>
+    runGeneration(
+      supabase,
+      inserted.id,
+      {
         name: input.name,
         projectType: input.projectType,
         idea: input.idea,
         targetUser: input.targetUser,
         preferredTech: input.preferredTech,
         extraRequirements: input.extraRequirements,
-      });
-
-      const { error: updateError } = await supabase
-        .from("projects")
-        .update({ generated_brief: brief, status: "ready_to_build" })
-        .eq("id", inserted.id);
-
-      if (updateError) {
-        console.error("[projects.update]", updateError);
-      }
-    } catch (error) {
-      console.error("[projects.generate]", error);
-      // Leave the project row in place with no brief. The project page
-      // polls for a brief and falls back to a manual retry once it's
-      // waited long enough, so a background failure here isn't a dead end.
-    }
-  });
+      },
+      { markReadyToBuild: true }
+    )
+  );
 
   return NextResponse.json({ project: inserted });
 }
