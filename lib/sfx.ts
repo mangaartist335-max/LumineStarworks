@@ -61,17 +61,27 @@ function audio(): AudioContext | null {
         (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!Ctor) return null;
       ctx = new Ctor();
-      // Boost, then limit: loud but clean even when notes overlap.
+      // Loudness maximizer: big boost, hard compressor, then a soft clipper
+      // capped just under full scale. As loud as speakers allow, no crackle.
       const boost = ctx.createGain();
-      boost.gain.value = 2.2;
+      boost.gain.value = 6;
       const limiter = ctx.createDynamicsCompressor();
-      limiter.threshold.value = -10;
-      limiter.knee.value = 4;
-      limiter.ratio.value = 16;
-      limiter.attack.value = 0.002;
-      limiter.release.value = 0.15;
+      limiter.threshold.value = -24;
+      limiter.knee.value = 0;
+      limiter.ratio.value = 20;
+      limiter.attack.value = 0.001;
+      limiter.release.value = 0.12;
+      const clipper = ctx.createWaveShaper();
+      const curve = new Float32Array(2048);
+      for (let i = 0; i < curve.length; i++) {
+        const x = (i * 2) / (curve.length - 1) - 1;
+        curve[i] = (Math.tanh(2.5 * x) / Math.tanh(2.5)) * 0.98;
+      }
+      clipper.curve = curve;
+      clipper.oversample = "2x";
       boost.connect(limiter);
-      limiter.connect(ctx.destination);
+      limiter.connect(clipper);
+      clipper.connect(ctx.destination);
       output = boost;
     }
     if (ctx.state === "suspended") void ctx.resume();
