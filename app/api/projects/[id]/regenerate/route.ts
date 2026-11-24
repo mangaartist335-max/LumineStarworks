@@ -2,6 +2,7 @@ import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { runGeneration } from "@/lib/run-generation";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
+import { isMissingColumnError, MISSING_MIGRATION_MESSAGE } from "@/lib/db-errors";
 import type { ProjectRow } from "@/lib/types";
 
 // Generation runs in `after()`, which keeps going after the response is
@@ -36,16 +37,6 @@ export async function POST(
     return NextResponse.json({ error: "Project not found." }, { status: 404 });
   }
 
-  const limit = await checkAndRecordGeneration(
-    supabase,
-    user.id,
-    "regenerate",
-    project.id
-  );
-  if (!limit.allowed) {
-    return NextResponse.json({ error: limit.message }, { status: 429 });
-  }
-
   const { error: markError } = await supabase
     .from("projects")
     .update({
@@ -58,9 +49,34 @@ export async function POST(
   if (markError) {
     console.error("[projects.regenerate.mark]", markError);
     return NextResponse.json(
-      { error: "Couldn't start generation. Please try again." },
+      {
+        error: isMissingColumnError(markError)
+          ? MISSING_MIGRATION_MESSAGE
+          : "Couldn't start generation. Please try again.",
+      },
       { status: 500 }
     );
+  }
+
+  // Counted only once the project is marked, so a setup problem above
+  // doesn't use up one of the user's daily generations.
+  const limit = await checkAndRecordGeneration(
+    supabase,
+    user.id,
+    "regenerate",
+    project.id
+  );
+  if (!limit.allowed) {
+    // Put the project back the way it was before we marked it.
+    await supabase
+      .from("projects")
+      .update({
+        generation_status: project.generation_status,
+        generation_error: project.generation_error,
+        generation_started_at: project.generation_started_at,
+      })
+      .eq("id", id);
+    return NextResponse.json({ error: limit.message }, { status: 429 });
   }
 
   after(() =>
