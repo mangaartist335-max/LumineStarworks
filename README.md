@@ -15,9 +15,10 @@ definition of done, and a ready-to-paste Claude Code prompt with matching
 
 ## Other apps in this repository
 
-This repository also contains two separate apps that share nothing with BuildBrief:
+This repository also contains separate apps that share nothing with BuildBrief:
 
 - [`connected/`](connected/README.md): **Connected Desktop**, a 2012-2013 style computer that runs in the browser, with its own web archive, programs and games.
+- [`plantpal/`](plantpal/README.md): **PlantPal**, an Expo mobile app that reminds you when to water your houseplants.
 - [`yal/`](yal/README.md): **YourAnimeList**, the anime database and forums shown inside the desktop's browser.
 
 To put those two online as their own Vercel projects (this app's deployment stays as it is), follow [`docs/DEPLOY_VERCEL.md`](docs/DEPLOY_VERCEL.md).
