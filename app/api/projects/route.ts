@@ -1,6 +1,7 @@
 import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateBuildBrief } from "@/lib/anthropic";
+import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import { newProjectSchema } from "@/lib/validation";
 import type { ProjectRow } from "@/lib/types";
 
@@ -38,6 +39,11 @@ export async function POST(request: Request) {
     );
   }
   const input = parsed.data;
+
+  const limit = await checkAndRecordGeneration(supabase, user.id, "create", null);
+  if (!limit.allowed) {
+    return NextResponse.json({ error: limit.message }, { status: 429 });
+  }
 
   const { data: inserted, error: insertError } = await supabase
     .from("projects")

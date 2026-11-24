@@ -1,6 +1,7 @@
 import { NextResponse, after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { generateBuildBrief } from "@/lib/anthropic";
+import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import type { ProjectRow } from "@/lib/types";
 
 // The actual generation work happens in `after()`, which keeps running
@@ -34,6 +35,16 @@ export async function POST(
 
   if (!project) {
     return NextResponse.json({ error: "Project not found." }, { status: 404 });
+  }
+
+  const limit = await checkAndRecordGeneration(
+    supabase,
+    user.id,
+    "regenerate",
+    project.id
+  );
+  if (!limit.allowed) {
+    return NextResponse.json({ error: limit.message }, { status: 429 });
   }
 
   after(async () => {
