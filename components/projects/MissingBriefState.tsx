@@ -69,13 +69,13 @@ export function MissingBriefState({ project }: { project: ProjectRow }) {
       </div>
       <h1 className="text-xl font-semibold">
         {error
-          ? "Your BuildBrief didn't finish"
-          : "This project doesn't have a BuildBrief yet"}
+          ? "Your plan didn't finish"
+          : "Let's make a plan for this idea"}
       </h1>
       <p className="mt-2 text-sm text-muted">
         {error
           ? `Generation for "${project.name}" stopped before it was done.`
-          : `Generate a full development blueprint for "${project.name}" now.`}
+          : `Plan out "${project.name}" first, then build it into a working app.`}
       </p>
       {error && (
         <div className="mt-4 flex items-start gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3.5 py-2.5 text-left text-sm text-danger">
@@ -89,7 +89,7 @@ export function MissingBriefState({ project }: { project: ProjectRow }) {
         onClick={handleGenerate}
         disabled={triggering}
       >
-        {error ? "Try again" : "Generate BuildBrief"}
+        {error ? "Try again" : "Plan my app"}
       </Button>
     </div>
   );

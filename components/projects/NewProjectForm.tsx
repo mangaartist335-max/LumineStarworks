@@ -68,7 +68,7 @@ export function NewProjectForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <Label htmlFor="name">Project name</Label>
+            <Label htmlFor="name">Name</Label>
             <Input
               id="name"
               value={name}
@@ -78,7 +78,7 @@ export function NewProjectForm() {
             />
           </div>
           <div>
-            <Label htmlFor="projectType">Project type</Label>
+            <Label htmlFor="projectType">What kind of thing is it?</Label>
             <Select
               id="projectType"
               value={projectType}
@@ -95,7 +95,7 @@ export function NewProjectForm() {
 
         <div>
           <Label htmlFor="idea" hint={`${idea.length} characters`}>
-            Idea description
+            Describe your idea
           </Label>
           <Textarea
             id="idea"
@@ -108,7 +108,7 @@ export function NewProjectForm() {
         </div>
 
         <div>
-          <Label htmlFor="targetUser">Target user</Label>
+          <Label htmlFor="targetUser">Who is it for?</Label>
           <Input
             id="targetUser"
             value={targetUser}
@@ -117,8 +117,23 @@ export function NewProjectForm() {
           />
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2">
-          <div>
+        <div>
+          <Label htmlFor="extraRequirements" hint="Optional">
+            Anything else?
+          </Label>
+          <Input
+            id="extraRequirements"
+            value={extraRequirements}
+            onChange={(e) => setExtraRequirements(e.target.value)}
+            placeholder="e.g. dark mode, a cute pixel-art style, works offline"
+          />
+        </div>
+
+        <details className="group rounded-lg border border-border px-4 py-3">
+          <summary className="cursor-pointer list-none text-sm [&::-webkit-details-marker]:hidden text-muted hover:text-foreground">
+            For developers <span className="text-muted-foreground">(optional)</span>
+          </summary>
+          <div className="mt-3">
             <Label htmlFor="preferredTech" hint="Optional">
               Preferred technology
             </Label>
@@ -126,21 +141,10 @@ export function NewProjectForm() {
               id="preferredTech"
               value={preferredTech}
               onChange={(e) => setPreferredTech(e.target.value)}
-              placeholder="e.g. React Native, or none — let BuildBrief decide"
+              placeholder="e.g. React Native, or leave empty and we'll choose"
             />
           </div>
-          <div>
-            <Label htmlFor="extraRequirements" hint="Optional">
-              Extra requirements
-            </Label>
-            <Input
-              id="extraRequirements"
-              value={extraRequirements}
-              onChange={(e) => setExtraRequirements(e.target.value)}
-              placeholder="e.g. must work offline, needs dark mode"
-            />
-          </div>
-        </div>
+        </details>
 
         {error && (
           <div className="flex items-start gap-2 rounded-lg border border-danger/30 bg-danger/10 px-3.5 py-3 text-sm text-danger">
@@ -151,7 +155,7 @@ export function NewProjectForm() {
 
         <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={submitting}>
           <Sparkles className="h-4 w-4" />
-          Generate BuildBrief
+          Plan my app
         </Button>
       </form>
     </>

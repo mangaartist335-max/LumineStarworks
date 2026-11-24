@@ -15,11 +15,12 @@ export type SfxName =
   | "error";
 
 const STORAGE_KEY = "buildbrief:sfx";
-const MASTER_VOLUME = 0.18;
+const MASTER_VOLUME = 0.5;
 
 let enabledCache: boolean | null = null;
 const listeners = new Set<() => void>();
 let ctx: AudioContext | null = null;
+let output: AudioNode | null = null;
 
 function readEnabled(): boolean {
   if (enabledCache !== null) return enabledCache;
@@ -60,6 +61,15 @@ function audio(): AudioContext | null {
         (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!Ctor) return null;
       ctx = new Ctor();
+      // A gentle limiter so louder, overlapping notes stay clean.
+      const limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.value = -10;
+      limiter.knee.value = 6;
+      limiter.ratio.value = 8;
+      limiter.attack.value = 0.003;
+      limiter.release.value = 0.15;
+      limiter.connect(ctx.destination);
+      output = limiter;
     }
     if (ctx.state === "suspended") void ctx.resume();
     return ctx;
@@ -99,7 +109,7 @@ function playNotes(notes: Note[]) {
     amp.gain.exponentialRampToValueAtTime(peak, start + 0.012);
     amp.gain.exponentialRampToValueAtTime(0.0001, end);
 
-    osc.connect(amp).connect(ac.destination);
+    osc.connect(amp).connect(output ?? ac.destination);
     osc.start(start);
     osc.stop(end + 0.02);
   }

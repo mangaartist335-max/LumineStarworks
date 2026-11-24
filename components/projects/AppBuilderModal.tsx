@@ -40,10 +40,12 @@ type Device = "phone" | "desktop";
 export function AppBuilderModal({
   open,
   onClose,
+  onBuilt,
   project,
 }: {
   open: boolean;
   onClose: () => void;
+  onBuilt?: () => void;
   project: ProjectRow;
 }) {
   const { polling, start, stop } = usePollForApp();
@@ -62,6 +64,7 @@ export function AppBuilderModal({
     start(project.id, {
       onDone: (built) => {
         playSfx("fanfare");
+        onBuilt?.();
         setHtml(built);
         setError(null);
         setIsBuilding(false);
@@ -73,7 +76,7 @@ export function AppBuilderModal({
         setIsBuilding(false);
       },
     });
-  }, [project.id, start]);
+  }, [project.id, start, onBuilt]);
 
   // Pick up a build that's already running whenever the window opens.
   useEffect(() => {
@@ -130,7 +133,7 @@ export function AppBuilderModal({
         <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3 sm:px-5">
           <div className="mr-auto flex min-w-0 items-center gap-2">
             <Hammer className="h-4 w-4 shrink-0 text-accent" />
-            <h2 className="truncate text-base font-semibold">Build App · {project.name}</h2>
+            <h2 className="truncate text-base font-semibold">{project.name}</h2>
           </div>
 
           {showPreview && (
@@ -270,12 +273,13 @@ function IdleState({
         {error ? "Let's give it another go" : `Turn ${projectName} into a working app`}
       </h3>
       <p className="mt-2 max-w-md text-sm text-muted">
-        BuildBrief builds a real, clickable version of your idea from this blueprint. Try it
+        BuildBrief builds a real, clickable version of your idea from your plan. Try it
         right here, then download it as a single file that opens in any browser.
       </p>
       <ul className="mt-5 space-y-1.5 text-left text-sm text-muted">
         <li>✨ Your MVP features, working for real</li>
-        <li>🎨 A polished design with sample data</li>
+        <li>🎨 A polished design with sample content</li>
+        <li>🔊 Sound effects, with a mute button</li>
         <li>📦 One file you can share or keep building on</li>
       </ul>
       {error && <ErrorBox message={error} className="mt-6 max-w-md" />}

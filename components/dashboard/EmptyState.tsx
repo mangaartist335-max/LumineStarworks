@@ -9,11 +9,11 @@ export function EmptyState() {
       </div>
       <h3 className="text-base font-semibold">No projects yet</h3>
       <p className="mt-1.5 max-w-sm text-sm text-muted">
-        Describe your first idea and BuildBrief will turn it into a complete,
-        build-ready development plan.
+        Describe your first idea and BuildBrief will plan it and build a
+        working app you can play with.
       </p>
       <ButtonLink href="/projects/new" className="mt-5">
-        Create your first BuildBrief
+        Make your first app
       </ButtonLink>
     </div>
   );

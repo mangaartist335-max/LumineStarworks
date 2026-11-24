@@ -1,48 +1,50 @@
 import {
   ArrowRight,
-  Blocks,
-  Boxes,
-  Database,
-  FileCode2,
+  Code2,
+  Download,
   Gamepad2,
-  LayoutGrid,
   ListChecks,
-  Map,
-  Rocket,
+  Smartphone,
   Sparkles,
-  Terminal,
-  Wrench,
+  Volume2,
+  Wand2,
 } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { MarketingHeader } from "@/components/marketing/MarketingHeader";
 import { Logo } from "@/components/Logo";
 import { createClient } from "@/lib/supabase/server";
 
-const GENERATES = [
-  { icon: Sparkles, label: "Project Overview & MVP Definition" },
-  { icon: ListChecks, label: "Core Features vs. Later Features" },
-  { icon: LayoutGrid, label: "Screens, User Flow & UI Checklist" },
-  { icon: Wrench, label: "Suggested Tech Stack" },
-  { icon: Database, label: "Database Plan & Schema" },
-  { icon: Boxes, label: "Project & Folder Structure" },
-  { icon: Map, label: "48-Hour Development Plan" },
-  { icon: Terminal, label: "Claude Code Build Prompt" },
-  { icon: FileCode2, label: "CLAUDE.md & AGENTS.md" },
+const YOU_GET = [
+  { icon: Gamepad2, label: "A working app or game you can play" },
+  { icon: Wand2, label: "Your features, built for real" },
+  { icon: Smartphone, label: "Phone and desktop preview" },
+  { icon: Volume2, label: "Sound effects built in" },
+  { icon: Download, label: "Download it and share it" },
+  { icon: ListChecks, label: "A clear plan of your idea" },
 ];
 
 const STEPS = [
   {
     title: "Describe your idea",
-    body: "Tell BuildBrief what you want to build in plain language — an app, a game, a SaaS, anything.",
+    body: "Tell BuildBrief what you want in plain words: an app, a website, a game, anything. No tech knowledge needed.",
   },
   {
-    title: "Claude builds the blueprint",
-    body: "In under a minute you get an MVP scope, screens, tech stack, database plan, and a 48-hour build plan.",
+    title: "Get your plan",
+    body: "In about a minute you get the main features, the screens, and how people will use it, all laid out clearly.",
   },
   {
-    title: "Ship it with an AI coding agent",
-    body: "Copy the ready-made Claude Code prompt, CLAUDE.md, and AGENTS.md and start building immediately.",
+    title: "Hit Build and play",
+    body: "One click turns your plan into a working app with sound, right in your browser. Rebuild for a fresh take any time.",
   },
+];
+
+const BUBBLES = [
+  { left: "12%", top: "62%", size: 34, color: "#f472b6" },
+  { left: "38%", top: "40%", size: 46, color: "#60a5fa" },
+  { left: "66%", top: "58%", size: 30, color: "#34d399" },
+  { left: "56%", top: "22%", size: 38, color: "#fbbf24" },
+  { left: "20%", top: "26%", size: 26, color: "#a78bfa" },
+  { left: "74%", top: "34%", size: 22, color: "#f87171" },
 ];
 
 export default async function Home() {
@@ -58,23 +60,22 @@ export default async function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-radial-glow">
         <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black_20%,transparent_80%)]" />
-        <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-20 text-center">
+        <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-16 text-center">
           <div className="animate-fade-up mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-muted">
             <Sparkles className="h-3.5 w-3.5 text-accent" />
-            From idea to AI-ready build plan
+            Describe it. Play it.
           </div>
           <h1 className="animate-fade-up text-4xl font-semibold tracking-tight text-gradient sm:text-6xl [animation-delay:80ms]">
-            Turn an idea into something you can actually build.
+            Turn your idea into a real app.
           </h1>
           <p className="animate-fade-up mx-auto mt-6 max-w-2xl text-balance text-lg text-muted [animation-delay:150ms]">
-            BuildBrief transforms a rough app, website, SaaS, or game idea
-            into a structured technical plan — MVP scope, screens, tech
-            stack, database, and a 48-hour build plan — ready to hand to an
-            AI coding agent like Claude Code.
+            Describe an app, website or game in your own words. BuildBrief
+            plans it out and builds a working version you can play with,
+            share and download, in minutes.
           </p>
           <div className="animate-fade-up mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row [animation-delay:220ms]">
             <ButtonLink href="/auth/sign-up" size="lg">
-              Create a BuildBrief
+              Make my app
               <ArrowRight className="h-4 w-4" />
             </ButtonLink>
             <ButtonLink href="#how-it-works" variant="secondary" size="lg">
@@ -83,44 +84,51 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Idea -> blueprint visual */}
+        {/* Idea -> app visual */}
         <div className="relative mx-auto max-w-4xl px-6 pb-24">
-          <div className="grid items-center gap-4 md:grid-cols-[1fr_auto_1.3fr]">
+          <div className="grid items-center gap-6 md:grid-cols-[1fr_auto_1fr]">
             <div className="animate-fade-up rounded-xl border border-border bg-surface p-5 text-left shadow-xl [animation-delay:280ms]">
               <p className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 Your idea
               </p>
               <p className="text-sm leading-relaxed text-foreground">
-                &ldquo;I want to build a dinosaur endless runner with
-                unlockable skins, mobile controls, leaderboards, and a
-                shop.&rdquo;
+                &ldquo;A relaxing game where colourful bubbles float up and
+                you pop them for points. Golden bubbles give bonus points,
+                and it gets a little faster over time.&rdquo;
               </p>
             </div>
 
-            <ArrowRight className="mx-auto hidden h-5 w-5 rotate-90 text-muted-foreground md:block md:rotate-0" />
+            <ArrowRight className="mx-auto h-5 w-5 rotate-90 text-muted-foreground md:rotate-0" />
 
-            <div className="animate-fade-up rounded-xl border border-border bg-surface p-5 text-left shadow-xl [animation-delay:340ms]">
-              <div className="mb-3 flex items-center gap-2">
-                <Logo wordmarkClassName="text-xs" />
-                <span className="text-xs text-muted-foreground">
-                  Structured BuildBrief
-                </span>
+            <div className="animate-fade-up mx-auto w-full max-w-[240px] [animation-delay:340ms]">
+              <div className="rounded-[2rem] border-[6px] border-neutral-800 bg-gradient-to-b from-sky-200 to-indigo-200 shadow-2xl">
+                <div className="relative aspect-[9/16] overflow-hidden rounded-[1.6rem]">
+                  <div className="flex items-center justify-between px-4 pt-4 text-[11px] font-semibold text-indigo-900">
+                    <span>Bubble Pop</span>
+                    <span>⭐ 1,240</span>
+                  </div>
+                  {BUBBLES.map((b, i) => (
+                    <span
+                      key={i}
+                      className="absolute rounded-full shadow-inner"
+                      style={{
+                        left: b.left,
+                        top: b.top,
+                        width: b.size,
+                        height: b.size,
+                        background: `radial-gradient(circle at 30% 30%, white, ${b.color} 55%)`,
+                        opacity: 0.9,
+                      }}
+                    />
+                  ))}
+                  <div className="absolute inset-x-4 bottom-4 rounded-full bg-white/80 py-1.5 text-center text-[11px] font-semibold text-indigo-900">
+                    Tap to pop! 🫧
+                  </div>
+                </div>
               </div>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-muted">
-                {[
-                  "MVP Features",
-                  "Screens & Flow",
-                  "Tech Stack",
-                  "Database Schema",
-                  "48h Build Plan",
-                  "Claude Prompt",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-1.5">
-                    <span className="h-1 w-1 rounded-full bg-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-3 text-center text-xs text-muted-foreground">
+                Your app, ready to play
+              </p>
             </div>
           </div>
         </div>
@@ -133,7 +141,7 @@ export default async function Home() {
             How it works
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-center text-muted">
-            Three steps between a rough idea and a plan you can build from.
+            Three steps from &ldquo;what if&hellip;&rdquo; to something you can actually use.
           </p>
           <div className="mt-14 grid gap-8 md:grid-cols-3">
             {STEPS.map((step, i) => (
@@ -151,17 +159,17 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* What BuildBrief generates */}
-      <section id="generates" className="border-b border-border py-24">
+      {/* What you get */}
+      <section id="you-get" className="border-b border-border py-24">
         <div className="mx-auto max-w-5xl px-6">
           <h2 className="text-center text-3xl font-semibold tracking-tight">
-            What BuildBrief generates
+            What you get
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-center text-muted">
-            One idea in, a complete build-ready document out.
+            One idea in, a working app out.
           </p>
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {GENERATES.map(({ icon: Icon, label }) => (
+            {YOU_GET.map(({ icon: Icon, label }) => (
               <div
                 key={label}
                 className="flex items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3.5 transition-colors hover:border-border-strong"
@@ -173,67 +181,12 @@ export default async function Home() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Built for AI-assisted development */}
-      <section id="ai-native" className="border-b border-border py-24">
-        <div className="mx-auto grid max-w-5xl items-center gap-12 px-6 md:grid-cols-2">
-          <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted">
-              <Terminal className="h-3.5 w-3.5 text-accent" />
-              Built for AI-assisted development
-            </div>
-            <h2 className="text-3xl font-semibold tracking-tight">
-              Every brief ships with a real Claude Code prompt.
-            </h2>
-            <p className="mt-4 text-muted leading-relaxed">
-              No re-explaining your idea to an AI coding agent. Every
-              BuildBrief includes a self-contained build prompt plus a
-              CLAUDE.md and AGENTS.md tailored to your project, so a coding
-              agent can start shipping immediately.
-            </p>
-            <ul className="mt-6 space-y-3 text-sm text-muted">
-              <li className="flex items-start gap-2.5">
-                <Blocks className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                Copy the full prompt with one click and paste it into Claude
-                Code.
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Rocket className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                Download CLAUDE.md and AGENTS.md straight into your repo.
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Gamepad2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                Works for web apps, SaaS, games, mobile apps, and dev tools.
-              </li>
-            </ul>
-          </div>
-          <div className="rounded-xl border border-border bg-surface p-5 font-mono text-xs leading-relaxed text-muted shadow-xl">
-            <div className="mb-3 flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-danger/60" />
-              <span className="h-2.5 w-2.5 rounded-full bg-warning/60" />
-              <span className="h-2.5 w-2.5 rounded-full bg-success/60" />
-              <span className="ml-2 text-muted-foreground">
-                claude-code-prompt.txt
-              </span>
-            </div>
-            <p className="text-foreground">
-              Build &ldquo;DinoRun&rdquo;, a dinosaur endless runner...
-            </p>
-            <p className="mt-2">
-              MVP: procedural obstacle spawner, jump/duck controls, run
-              distance scoring, local leaderboard, 3 unlockable skins...
-            </p>
-            <p className="mt-2">
-              Stack: Next.js + Canvas renderer, Supabase for
-              leaderboard/skins, Tailwind for the shop UI...
-            </p>
-            <p className="mt-2 text-muted-foreground">
-              [ full brief context continues — no follow-up questions
-              needed ]
-            </p>
-          </div>
+          <p className="mx-auto mt-10 flex max-w-xl items-start justify-center gap-2 text-center text-sm text-muted-foreground">
+            <Code2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+            Are you a developer? Every project also includes a full technical
+            plan and ready-made files for AI coding tools, tucked away until
+            you need them.
+          </p>
         </div>
       </section>
 
@@ -241,14 +194,14 @@ export default async function Home() {
       <section className="bg-radial-glow py-24">
         <div className="mx-auto max-w-2xl px-6 text-center">
           <h2 className="text-3xl font-semibold tracking-tight">
-            Stop staring at a blank prompt.
+            Your next idea deserves to exist.
           </h2>
           <p className="mt-3 text-muted">
-            Describe your idea and get a build-ready blueprint in minutes.
+            Describe it, and be playing with it in a few minutes.
           </p>
           <div className="mt-8">
             <ButtonLink href="/auth/sign-up" size="lg">
-              Create a BuildBrief
+              Make my app
               <ArrowRight className="h-4 w-4" />
             </ButtonLink>
           </div>
