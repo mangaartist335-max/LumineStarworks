@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { GenerateLoadingOverlay } from "@/components/projects/GenerateLoadingOverlay";
 import { usePollForBrief } from "@/lib/usePollForBrief";
 import type { ProjectRow } from "@/lib/types";
+import { playSfx } from "@/lib/sfx";
 
 export function MissingBriefState({ project }: { project: ProjectRow }) {
   const router = useRouter();
@@ -20,8 +21,14 @@ export function MissingBriefState({ project }: { project: ProjectRow }) {
 
   const watch = useCallback(() => {
     start(project.id, {
-      onDone: () => router.refresh(),
-      onFailed: (message) => setError(message),
+      onDone: () => {
+        playSfx("complete");
+        router.refresh();
+      },
+      onFailed: (message) => {
+        playSfx("error");
+        setError(message);
+      },
     });
   }, [project.id, router, start]);
 
@@ -35,6 +42,7 @@ export function MissingBriefState({ project }: { project: ProjectRow }) {
   async function handleGenerate() {
     setTriggering(true);
     setError(null);
+    playSfx("start");
     try {
       const res = await fetch(`/api/projects/${project.id}/regenerate`, {
         method: "POST",
@@ -43,6 +51,7 @@ export function MissingBriefState({ project }: { project: ProjectRow }) {
       if (!res.ok) throw new Error(data.error || "Generation failed.");
       watch();
     } catch (err) {
+      playSfx("error");
       setError(err instanceof Error ? err.message : "Generation failed.");
     } finally {
       setTriggering(false);

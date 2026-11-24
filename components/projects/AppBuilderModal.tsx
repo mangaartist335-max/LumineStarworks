@@ -18,6 +18,7 @@ import { usePollForApp } from "@/lib/usePollForApp";
 import { downloadTextFile } from "@/lib/markdown";
 import { cn, slugify } from "@/lib/utils";
 import type { ProjectRow } from "@/lib/types";
+import { playSfx } from "@/lib/sfx";
 
 const BUILD_STEPS = [
   "Reading your blueprint…",
@@ -60,12 +61,14 @@ export function AppBuilderModal({
   const watch = useCallback(() => {
     start(project.id, {
       onDone: (built) => {
+        playSfx("fanfare");
         setHtml(built);
         setError(null);
         setIsBuilding(false);
         setPreviewKey((k) => k + 1);
       },
       onFailed: (message) => {
+        playSfx("error");
         setError(message);
         setIsBuilding(false);
       },
@@ -95,6 +98,7 @@ export function AppBuilderModal({
   async function handleBuild() {
     setStarting(true);
     setError(null);
+    playSfx("start");
     try {
       const res = await fetch(`/api/projects/${project.id}/build-app`, { method: "POST" });
       const data = await res.json().catch(() => ({}));
@@ -102,6 +106,7 @@ export function AppBuilderModal({
       setIsBuilding(true);
       watch();
     } catch (err) {
+      playSfx("error");
       setError(err instanceof Error ? err.message : "Couldn't start the build. Please try again.");
     } finally {
       setStarting(false);
@@ -110,6 +115,7 @@ export function AppBuilderModal({
 
   function handleDownload() {
     if (!html) return;
+    playSfx("success");
     downloadTextFile(`${slugify(project.name) || "app"}.html`, html, "text/html");
   }
 

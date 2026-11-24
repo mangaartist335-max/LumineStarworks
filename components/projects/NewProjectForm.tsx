@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input, Textarea, Select, Label } from "@/components/ui/Field";
 import { GenerateLoadingOverlay } from "@/components/projects/GenerateLoadingOverlay";
 import { PROJECT_TYPES, type ProjectType } from "@/lib/types";
+import { playSfx } from "@/lib/sfx";
 
 export function NewProjectForm() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export function NewProjectForm() {
     }
 
     setSubmitting(true);
+    playSfx("start");
     try {
       const res = await fetch("/api/projects", {
         method: "POST",
@@ -46,6 +48,7 @@ export function NewProjectForm() {
       const data = await res.json();
 
       if (!res.ok) {
+        playSfx("error");
         setError(data.error || "Something went wrong. Please try again.");
         setSubmitting(false);
         return;
@@ -53,6 +56,7 @@ export function NewProjectForm() {
 
       router.push(`/projects/${data.project.id}`);
     } catch {
+      playSfx("error");
       setError("Couldn't reach the server. Check your connection and try again.");
       setSubmitting(false);
     }
