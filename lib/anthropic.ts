@@ -88,6 +88,8 @@ Rules:
 - The Claude Code prompt, CLAUDE.md, and AGENTS.md must be fully self-contained: someone should be able to paste the Claude Code prompt into a coding agent with zero additional back-and-forth about what the app is.
 - Write in clear, confident, professional language. No hedging, no meta-commentary about being an AI.
 
+Also fill in architecture, apiRequirements, testingPlan and deploymentPlan with specifics for this project.
+
 Minimum item counts (the tool call will be rejected and you'll be asked to redo it if these aren't met):
 - mvpFeatures: at least 3
 - laterFeatures: at least 2

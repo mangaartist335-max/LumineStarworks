@@ -2,6 +2,7 @@ import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { BriefGenerationError } from "@/lib/anthropic";
 import { buildAppHtml, type BuildAppParams } from "@/lib/app-builder";
+import { notifyUser } from "@/lib/push";
 
 // Runs inside after(), once the API response has been sent, and records the
 // outcome on the project row for the client's poll to pick up.
@@ -19,7 +20,13 @@ export async function runAppBuild(
     if (error) {
       console.error("[app-build.save]", error);
       await markFailed(supabase, projectId, "Your app was built but couldn't be saved. Please try again.");
+      return;
     }
+    await notifyUser(supabase, {
+      title: "Your app is ready 🎉",
+      body: `${params.name} is built and ready to play.`,
+      projectId,
+    });
   } catch (error) {
     console.error("[app-build.run]", error);
     const message =
@@ -27,6 +34,11 @@ export async function runAppBuild(
         ? error.message
         : "Something went wrong while building your app. Please try again.";
     await markFailed(supabase, projectId, message);
+    await notifyUser(supabase, {
+      title: "Your app build didn't finish",
+      body: `${params.name}: tap to try again.`,
+      projectId,
+    });
   }
 }
 

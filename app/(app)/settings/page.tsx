@@ -3,7 +3,8 @@ import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { DisplayNameForm } from "@/components/settings/DisplayNameForm";
 import { signOutAction } from "@/app/auth/actions";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/ui/Button";
+import { DeleteAccount } from "@/components/settings/DeleteAccount";
 
 export default async function SettingsPage() {
   const supabase = await createClient();
@@ -40,14 +41,29 @@ export default async function SettingsPage() {
       <div className="mt-6 rounded-xl border border-border bg-surface p-6">
         <h2 className="text-sm font-semibold text-foreground">Session</h2>
         <p className="mt-1.5 text-sm text-muted">
-          Sign out of BuildBrief on this device.
+          Change your password or sign out of BuildBrief on this device.
         </p>
-        <form action={signOutAction} className="mt-4">
-          <Button type="submit" variant="secondary">
-            <LogOut className="h-4 w-4" />
-            Sign out
-          </Button>
-        </form>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <ButtonLink href="/settings/password" variant="secondary">
+            Change password
+          </ButtonLink>
+          <form action={signOutAction}>
+            <Button type="submit" variant="secondary">
+              <LogOut className="h-4 w-4" />
+              Sign out
+            </Button>
+          </form>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-xl border border-danger/30 bg-surface p-6">
+        <h2 className="text-sm font-semibold text-foreground">Delete account</h2>
+        <p className="mt-1.5 text-sm text-muted">
+          Permanently delete your account and everything in it.
+        </p>
+        <div className="mt-4">
+          <DeleteAccount />
+        </div>
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ const eslintConfig = defineConfig([
     "yal/**",
     "connected/**",
     "plantpal/**",
+    "apps/**",
   ]),
 ]);
 

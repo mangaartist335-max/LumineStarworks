@@ -121,6 +121,29 @@ export const buildBriefSchema = z.object({
   agentsMd: nonEmpty("AGENTS.md").describe(
     "Full contents of a concise AGENTS.md file with repository-level agent instructions"
   ),
+  // Added later; optional so briefs generated before they existed stay valid.
+  architecture: z
+    .string()
+    .optional()
+    .describe(
+      "How the system fits together: clients, server/API, data stores, background jobs and third-party services, and how data flows between them (a short paragraph or two)"
+    ),
+  apiRequirements: z
+    .array(z.string())
+    .optional()
+    .describe(
+      "The API endpoints or server functions the MVP needs, e.g. 'POST /api/runs: save a finished run and return the new high score'. Empty if none."
+    ),
+  testingPlan: z
+    .array(z.string())
+    .optional()
+    .describe("Concrete tests and manual checks that prove the MVP works"),
+  deploymentPlan: z
+    .string()
+    .optional()
+    .describe(
+      "How to ship it: hosting, environment variables, build/release steps and app-store notes where relevant"
+    ),
 });
 
 export type BuildBriefInput = z.infer<typeof buildBriefSchema>;

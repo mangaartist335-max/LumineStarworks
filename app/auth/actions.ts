@@ -85,3 +85,25 @@ export async function signOutAction() {
   await supabase.auth.signOut();
   redirect("/");
 }
+
+export async function requestPasswordResetAction(
+  _prevState: AuthActionState,
+  formData: FormData
+): Promise<AuthActionState> {
+  const email = String(formData.get("email") || "").trim();
+  if (!email) return { error: "Enter your email." };
+
+  const origin = (await headers()).get("origin") || "";
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/callback?next=/settings/password`,
+  });
+  if (error) {
+    console.error("[auth.resetPassword]", error.message);
+  }
+  // Same message either way, so this can't be used to discover accounts.
+  return {
+    error: null,
+    info: "If there's an account for that email, a reset link is on its way.",
+  };
+}

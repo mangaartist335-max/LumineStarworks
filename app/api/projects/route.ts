@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { getRequestAuth } from "@/lib/supabase/request";
 import { runGeneration } from "@/lib/run-generation";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import { newProjectSchema } from "@/lib/validation";
@@ -12,10 +12,7 @@ import type { ProjectRow } from "@/lib/types";
 export const maxDuration = 300;
 
 export async function POST(request: Request) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { supabase, user } = await getRequestAuth(request);
 
   if (!user) {
     return NextResponse.json(

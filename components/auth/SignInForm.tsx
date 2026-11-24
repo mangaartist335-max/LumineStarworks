@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import { AlertCircle } from "lucide-react";
 import { signInAction, type AuthActionState } from "@/app/auth/actions";
 import { Button } from "@/components/ui/Button";
@@ -36,7 +37,15 @@ export function SignInForm({
         />
       </div>
       <div>
-        <Label htmlFor="password">Password</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="password">Password</Label>
+          <Link
+            href="/auth/forgot-password"
+            className="mb-1.5 text-xs text-muted-foreground hover:text-foreground"
+          >
+            Forgot password?
+          </Link>
+        </div>
         <Input
           id="password"
           name="password"
