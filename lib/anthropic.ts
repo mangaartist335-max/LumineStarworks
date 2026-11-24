@@ -7,9 +7,16 @@ import type { BuildBrief, ProjectType } from "./types";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
 const TOOL_NAME = "submit_build_brief";
 
-// Haiku-tier models cap max_tokens far lower than Sonnet/Opus; asking for
-// more than a model supports is a 400 at request time, not a soft limit.
-const MAX_TOKENS = MODEL.includes("haiku") ? 8192 : 20000;
+// A full BuildBrief is long, so give the model plenty of room. Current
+// models (Haiku 4.5 and newer, Sonnet, Opus) allow far more output than
+// this; only the retired Claude 3 Haiku models have small caps, and asking
+// for more than a model supports is a 400 at request time.
+function maxTokensFor(model: string): number {
+  if (model.startsWith("claude-3-haiku")) return 4096;
+  if (model.startsWith("claude-3-5-haiku")) return 8192;
+  return 32000;
+}
+const MAX_TOKENS = maxTokensFor(MODEL);
 
 const RETRYABLE_STATUS_CODES = new Set([408, 409, 429, 500, 502, 503, 529]);
 
