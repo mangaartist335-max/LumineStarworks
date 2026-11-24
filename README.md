@@ -13,6 +13,10 @@ tech stack, a database schema, a folder structure, a 48-hour build plan, a
 definition of done, and a ready-to-paste Claude Code prompt with matching
 `CLAUDE.md` and `AGENTS.md` files.
 
+Then hit **Build App**: BuildBrief turns the blueprint into a working,
+clickable single-file web app (or game) you can try right in the page and
+download.
+
 ## Other apps in this repository
 
 This repository also contains separate apps that share nothing with BuildBrief:
@@ -54,7 +58,7 @@ npm install
 ### 3. Run the database migration
 
 Apply the files in `supabase/migrations/` to your project, in order
-(`0001_init.sql`, `0002_generation_events.sql`, then `0003_generation_status.sql`). Either:
+(`0001_init.sql`, `0002_generation_events.sql`, `0003_generation_status.sql`, then `0004_app_builds.sql`). Either:
 
 - Paste each file's contents into the Supabase Dashboard's **SQL Editor** and run it, or
 - Use the Supabase CLI:
@@ -74,7 +78,9 @@ in `lib/generation-limit.ts` to adjust it. Generation is blocked with an
 error until this table exists. `0003` adds `generation_status`,
 `generation_error` and `generation_started_at` to `projects`: generation runs
 in the background, and these let the project page show progress and the
-real reason a generation failed.
+real reason a generation failed. `0004` adds the Build App columns
+(`app_html`, `app_status`, `app_error`, `app_started_at`) and a separate
+daily allowance of 5 app builds per user (`DAILY_APP_BUILD_LIMIT`).
 
 ### 4. Get an Anthropic API key
 
@@ -113,11 +119,21 @@ BuildBrief deploys cleanly to [Vercel](https://vercel.com):
 1. Push this repository to GitHub and import it in Vercel.
 2. Add the four environment variables from `.env.example` in the Vercel
    project settings.
-3. Deploy. The generation endpoints (`app/api/projects/route.ts` and
-   `app/api/projects/[id]/regenerate/route.ts`) set `maxDuration = 120` so
-   the Claude call has enough time to finish on Vercel's Node.js runtime.
+3. Deploy. Generation and app builds run in the background after the
+   request returns (`after()`), with `maxDuration = 300` on the generation
+   and build routes so Claude has time to finish.
 4. In Supabase, add your production URL under **Authentication → URL
    Configuration → Redirect URLs** if you use email confirmation links.
+
+## Build App
+
+The **Build App** button on a project asks Claude to turn the blueprint into
+one self-contained HTML file (inline CSS and JS, no external requests) that
+implements the MVP features with sample data. The result is stored on the
+project and previewed in an `<iframe sandbox>` **without** `allow-same-origin`,
+so the generated code runs in an opaque origin and can't touch BuildBrief's
+session, cookies or storage. Users can switch between phone and desktop
+previews, rebuild, or download the `.html` file.
 
 ## Project structure
 

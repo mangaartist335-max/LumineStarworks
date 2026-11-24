@@ -12,7 +12,7 @@ import {
   Loader2,
   Pencil,
   RotateCw,
-  Rocket,
+  Hammer,
   Save,
   X,
 } from "lucide-react";
@@ -24,7 +24,7 @@ import { GenerateLoadingOverlay } from "@/components/projects/GenerateLoadingOve
 import { usePollForBrief } from "@/lib/usePollForBrief";
 import { BriefSection } from "@/components/projects/BriefSection";
 import { SectionNav } from "@/components/projects/SectionNav";
-import { BuildWithClaudeModal } from "@/components/projects/BuildWithClaudeModal";
+import { AppBuilderModal } from "@/components/projects/AppBuilderModal";
 import {
   ObjectListEditor,
   StringListEditor,
@@ -81,7 +81,7 @@ export function BuildBriefView({
   const { start: startPolling, stop: stopPolling } = usePollForBrief();
 
   useEffect(() => stopPolling, [stopPolling]);
-  const [claudeModalOpen, setClaudeModalOpen] = useState(false);
+  const [appBuilderOpen, setAppBuilderOpen] = useState(false);
   const [banner, setBanner] = useState<{ type: "error" | "success"; text: string } | null>(null);
   const [copiedAction, setCopiedAction] = useState<string | null>(null);
 
@@ -290,9 +290,9 @@ export function BuildBriefView({
         </div>
 
         <div className="flex shrink-0 flex-wrap items-center gap-2">
-          <Button onClick={() => setClaudeModalOpen(true)} size="md">
-            <Rocket className="h-4 w-4" />
-            Build with Claude
+          <Button onClick={() => setAppBuilderOpen(true)} size="md" disabled={editing}>
+            <Hammer className="h-4 w-4" />
+            Build App
           </Button>
 
           {editing ? (
@@ -793,10 +793,10 @@ export function BuildBriefView({
         </div>
       </div>
 
-      <BuildWithClaudeModal
-        open={claudeModalOpen}
-        onClose={() => setClaudeModalOpen(false)}
-        prompt={brief.claudePrompt}
+      <AppBuilderModal
+        open={appBuilderOpen}
+        onClose={() => setAppBuilderOpen(false)}
+        project={project}
       />
     </div>
   );

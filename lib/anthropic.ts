@@ -4,7 +4,7 @@ import { z } from "zod";
 import { buildBriefSchema } from "./brief-schema";
 import type { BuildBrief, ProjectType } from "./types";
 
-const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
+export const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
 const TOOL_NAME = "submit_build_brief";
 
 // A full BuildBrief is long, so give the model plenty of room. Current
@@ -16,25 +16,25 @@ function maxTokensFor(model: string): number {
   if (model.startsWith("claude-3-5-haiku")) return 8192;
   return 32000;
 }
-const MAX_TOKENS = maxTokensFor(MODEL);
+export const MAX_TOKENS = maxTokensFor(MODEL);
 
 const RETRYABLE_STATUS_CODES = new Set([408, 409, 429, 500, 502, 503, 529]);
 
-function isRetryable(error: unknown): boolean {
+export function isRetryable(error: unknown): boolean {
   const status = (error as { status?: unknown })?.status;
   if (typeof status === "number") return RETRYABLE_STATUS_CODES.has(status);
   // Network-level failures (DNS, connection reset, timeout) have no status.
   return error instanceof Error && !("status" in error);
 }
 
-function anthropicErrorMessage(error: unknown): string | null {
+export function anthropicErrorMessage(error: unknown): string | null {
   const body = (error as { error?: { error?: { message?: unknown } } })
     ?.error?.error;
   if (body && typeof body.message === "string") return body.message;
   return null;
 }
 
-function sleep(ms: number) {
+export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -67,7 +67,7 @@ export interface GenerateBriefParams {
   extraRequirements?: string | null;
 }
 
-function client() {
+export function client() {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     throw new BriefGenerationError(
