@@ -112,8 +112,12 @@ export function fullBriefToMarkdown(project: ProjectRow, brief: BuildBrief): str
   return `${header}\n${body}\n`;
 }
 
-export function downloadTextFile(filename: string, content: string) {
-  const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
+export function downloadTextFile(
+  filename: string,
+  content: string,
+  mimeType = "text/markdown"
+) {
+  const blob = new Blob([content], { type: `${mimeType};charset=utf-8` });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
