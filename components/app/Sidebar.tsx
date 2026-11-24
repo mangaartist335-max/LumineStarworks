@@ -7,6 +7,7 @@ import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
 import { signOutAction } from "@/app/auth/actions";
 import { SoundToggle } from "@/components/app/SoundToggle";
+import { InstallAppButton } from "@/components/app/InstallAppButton";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -78,6 +79,7 @@ export function Sidebar({
             <p className="truncate text-xs text-muted-foreground">{email}</p>
           </div>
         </div>
+        <InstallAppButton />
         <SoundToggle />
         <form action={signOutAction}>
           <button
