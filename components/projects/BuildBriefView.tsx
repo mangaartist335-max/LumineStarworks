@@ -12,7 +12,9 @@ import {
   Loader2,
   Pencil,
   RotateCw,
+  Code2,
   Hammer,
+  Play,
   Save,
   X,
 } from "lucide-react";
@@ -56,6 +58,57 @@ import {
   updateProjectBrief,
 } from "@/app/(app)/projects/actions";
 
+const NAV_SECTIONS = [
+  { id: "your-app", label: "Your app" },
+  { id: "overview", label: "What it is" },
+  { id: "goal", label: "The goal" },
+  { id: "target-user", label: "Who it's for" },
+  { id: "mvp-features", label: "Main features" },
+  { id: "later-features", label: "Ideas for later" },
+  { id: "screens", label: "Screens" },
+  { id: "user-flow", label: "How people use it" },
+  { id: "definition-of-done", label: "What “finished” looks like" },
+  { id: "developer-details", label: "For developers" },
+];
+
+function YourAppCard({
+  projectName,
+  hasApp,
+  onOpen,
+  disabled,
+}: {
+  projectName: string;
+  hasApp: boolean;
+  onOpen: () => void;
+  disabled: boolean;
+}) {
+  return (
+    <section
+      id="your-app"
+      className="relative mb-10 scroll-mt-24 overflow-hidden rounded-2xl border border-border-strong bg-surface p-6 sm:p-8"
+    >
+      <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full accent-gradient opacity-20 blur-3xl" />
+      <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-wide text-accent">Your app</p>
+          <h2 className="mt-1 text-xl font-semibold sm:text-2xl">
+            {hasApp ? `${projectName} is ready to play` : `Bring ${projectName} to life`}
+          </h2>
+          <p className="mt-1.5 max-w-md text-sm text-muted">
+            {hasApp
+              ? "Open it, click around, and share it. Rebuild any time for a fresh take."
+              : "One click turns this plan into a working app you can try right here, with sound and sample content."}
+          </p>
+        </div>
+        <Button size="lg" onClick={onOpen} disabled={disabled} className="shrink-0">
+          {hasApp ? <Play className="h-4 w-4" /> : <Hammer className="h-4 w-4" />}
+          {hasApp ? "Open my app" : "Build my app"}
+        </Button>
+      </div>
+    </section>
+  );
+}
+
 function cleanStringList(items: string[]): string[] {
   return items.map((s) => s.trim()).filter(Boolean);
 }
@@ -83,6 +136,8 @@ export function BuildBriefView({
 
   useEffect(() => stopPolling, [stopPolling]);
   const [appBuilderOpen, setAppBuilderOpen] = useState(false);
+  const [devOpen, setDevOpen] = useState(false);
+  const [hasApp, setHasApp] = useState(!!project.app_html);
   const [banner, setBanner] = useState<{ type: "error" | "success"; text: string } | null>(null);
   const [copiedAction, setCopiedAction] = useState<string | null>(null);
 
@@ -300,8 +355,8 @@ export function BuildBriefView({
 
         <div className="flex shrink-0 flex-wrap items-center gap-2">
           <Button onClick={() => setAppBuilderOpen(true)} size="md" disabled={editing}>
-            <Hammer className="h-4 w-4" />
-            Build App
+            {hasApp ? <Play className="h-4 w-4" /> : <Hammer className="h-4 w-4" />}
+            {hasApp ? "Open my app" : "Build my app"}
           </Button>
 
           {editing ? (
@@ -334,7 +389,7 @@ export function BuildBriefView({
             trigger={
               <Button variant="ghost" size="md">
                 <Download className="h-4 w-4" />
-                Export
+                Share
                 <ChevronDown className="h-3.5 w-3.5" />
               </Button>
             }
@@ -348,18 +403,8 @@ export function BuildBriefView({
                     close();
                   }}
                 >
-                  Copy full brief
+                  Copy the plan
                 </MenuItem>
-                <MenuItem
-                  icon={<Copy className="h-3.5 w-3.5" />}
-                  onClick={() => {
-                    copyWithFeedback("prompt", brief.claudePrompt);
-                    close();
-                  }}
-                >
-                  Copy Claude prompt
-                </MenuItem>
-                <div className="my-1 h-px bg-border" />
                 <MenuItem
                   icon={<Download className="h-3.5 w-3.5" />}
                   onClick={() => {
@@ -367,7 +412,20 @@ export function BuildBriefView({
                     close();
                   }}
                 >
-                  Download Markdown
+                  Download the plan
+                </MenuItem>
+                <div className="my-1 h-px bg-border" />
+                <p className="px-2.5 pb-1 pt-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  For developers
+                </p>
+                <MenuItem
+                  icon={<Copy className="h-3.5 w-3.5" />}
+                  onClick={() => {
+                    copyWithFeedback("prompt", brief.claudePrompt);
+                    close();
+                  }}
+                >
+                  Copy AI coding prompt
                 </MenuItem>
                 <MenuItem
                   icon={<Download className="h-3.5 w-3.5" />}
@@ -403,16 +461,23 @@ export function BuildBriefView({
           )}
         >
           {banner?.text ||
-            (copiedAction === "full" ? "Full brief copied to clipboard." : "Claude prompt copied to clipboard.")}
+            (copiedAction === "full" ? "Plan copied to clipboard." : "Copied to clipboard.")}
         </div>
       )}
 
       {/* Body */}
       <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_220px]">
         <div className="min-w-0">
+          <YourAppCard
+            projectName={project.name}
+            hasApp={hasApp}
+            onOpen={() => setAppBuilderOpen(true)}
+            disabled={editing}
+          />
+
           <BriefSection
             id="overview"
-            title="Project Overview"
+            title="What it is"
             onCopy={() => copyWithFeedback("overview", briefSectionToMarkdown("overview", brief))}
           >
             {editing ? (
@@ -424,7 +489,7 @@ export function BuildBriefView({
 
           <BriefSection
             id="goal"
-            title="Product Goal"
+            title="The goal"
             onCopy={() => copyWithFeedback("goal", briefSectionToMarkdown("goal", brief))}
           >
             {editing ? (
@@ -436,7 +501,7 @@ export function BuildBriefView({
 
           <BriefSection
             id="target-user"
-            title="Target User"
+            title="Who it's for"
             onCopy={() => copyWithFeedback("target-user", briefSectionToMarkdown("target-user", brief))}
           >
             {editing ? (
@@ -448,7 +513,7 @@ export function BuildBriefView({
 
           <BriefSection
             id="mvp-features"
-            title="MVP Features"
+            title="Main features"
             onCopy={() => copyWithFeedback("mvp-features", briefSectionToMarkdown("mvp-features", brief))}
           >
             {editing ? (
@@ -489,7 +554,7 @@ export function BuildBriefView({
 
           <BriefSection
             id="later-features"
-            title="Later Features"
+            title="Ideas for later"
             onCopy={() => copyWithFeedback("later-features", briefSectionToMarkdown("later-features", brief))}
           >
             {editing ? (
@@ -517,7 +582,7 @@ export function BuildBriefView({
 
           <BriefSection
             id="screens"
-            title="Screens / Pages"
+            title="Screens"
             onCopy={() => copyWithFeedback("screens", briefSectionToMarkdown("screens", brief))}
           >
             {editing ? (
@@ -557,7 +622,7 @@ export function BuildBriefView({
 
           <BriefSection
             id="user-flow"
-            title="User Flow"
+            title="How people use it"
             onCopy={() => copyWithFeedback("user-flow", briefSectionToMarkdown("user-flow", brief))}
           >
             {editing ? (
@@ -576,6 +641,44 @@ export function BuildBriefView({
             )}
           </BriefSection>
 
+          <BriefSection
+            id="definition-of-done"
+            title={"What “finished” looks like"}
+            onCopy={() => copyWithFeedback("definition-of-done", briefSectionToMarkdown("definition-of-done", brief))}
+          >
+            {editing ? (
+              <StringListEditor items={draft.definitionOfDone} onChange={(items) => update("definitionOfDone", items)} />
+            ) : (
+              <ul className="space-y-2">
+                {brief.definitionOfDone.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-muted">
+                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-border-strong" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </BriefSection>
+
+          <details
+            id="developer-details"
+            open={devOpen}
+            onToggle={(e) => setDevOpen(e.currentTarget.open)}
+            className="group mt-4 scroll-mt-24 rounded-xl border border-border bg-surface/40"
+          >
+            <summary className="flex cursor-pointer list-none items-center [&::-webkit-details-marker]:hidden justify-between gap-3 rounded-xl px-5 py-4 hover:bg-surface">
+              <div>
+                <p className="flex items-center gap-2 text-sm font-semibold">
+                  <Code2 className="h-4 w-4 text-accent" />
+                  For developers
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  Tech stack, database, build plan and AI coding files. Totally optional.
+                </p>
+              </div>
+              <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="px-5 pb-2">
           <BriefSection
             id="tech-stack"
             title="Recommended Tech Stack"
@@ -721,25 +824,6 @@ export function BuildBriefView({
           </BriefSection>
 
           <BriefSection
-            id="definition-of-done"
-            title="Definition of Done"
-            onCopy={() => copyWithFeedback("definition-of-done", briefSectionToMarkdown("definition-of-done", brief))}
-          >
-            {editing ? (
-              <StringListEditor items={draft.definitionOfDone} onChange={(items) => update("definitionOfDone", items)} />
-            ) : (
-              <ul className="space-y-2">
-                {brief.definitionOfDone.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-muted">
-                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-border-strong" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </BriefSection>
-
-          <BriefSection
             id="claude-prompt"
             title="Claude Code Prompt"
             onCopy={() => copyWithFeedback("claude-prompt", brief.claudePrompt)}
@@ -795,16 +879,19 @@ export function BuildBriefView({
               </pre>
             )}
           </BriefSection>
+            </div>
+          </details>
         </div>
 
         <div className="hidden lg:block">
-          <SectionNav />
+          <SectionNav sections={NAV_SECTIONS} />
         </div>
       </div>
 
       <AppBuilderModal
         open={appBuilderOpen}
         onClose={() => setAppBuilderOpen(false)}
+        onBuilt={() => setHasApp(true)}
         project={project}
       />
     </div>

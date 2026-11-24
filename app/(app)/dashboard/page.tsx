@@ -29,8 +29,8 @@ export default async function DashboardPage() {
           </h1>
           <p className="mt-1 text-sm text-muted">
             {projects?.length
-              ? "Pick up a project or start a new blueprint."
-              : "Turn your next idea into a build-ready plan."}
+              ? "Jump back into an app or start something new."
+              : "Turn your next idea into a real app."}
           </p>
         </div>
         <ButtonLink href="/projects/new">New Project</ButtonLink>

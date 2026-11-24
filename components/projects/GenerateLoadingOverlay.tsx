@@ -5,12 +5,12 @@ import { Loader2 } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 const MESSAGES = [
-  "Understanding your idea…",
-  "Defining the MVP…",
-  "Mapping the architecture…",
-  "Designing the database…",
-  "Creating your build plan…",
-  "Preparing your Claude prompt…",
+  "Reading your idea…",
+  "Picking the main features…",
+  "Sketching the screens…",
+  "Thinking about who'll use it…",
+  "Putting your plan together…",
+  "Almost ready…",
 ];
 
 export function GenerateLoadingOverlay({ active }: { active: boolean }) {

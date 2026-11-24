@@ -13,11 +13,8 @@ export function MarketingHeader({ isAuthed }: { isAuthed: boolean }) {
           <a href="#how-it-works" className="hover:text-foreground transition-colors">
             How it works
           </a>
-          <a href="#generates" className="hover:text-foreground transition-colors">
+          <a href="#you-get" className="hover:text-foreground transition-colors">
             What you get
-          </a>
-          <a href="#ai-native" className="hover:text-foreground transition-colors">
-            AI-assisted dev
           </a>
         </nav>
         <div className="flex items-center gap-3">
@@ -31,7 +28,7 @@ export function MarketingHeader({ isAuthed }: { isAuthed: boolean }) {
                 Sign in
               </ButtonLink>
               <ButtonLink href="/auth/sign-up" size="sm">
-                Create a BuildBrief
+                Make my app
               </ButtonLink>
             </>
           )}

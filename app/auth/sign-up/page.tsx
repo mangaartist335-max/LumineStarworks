@@ -6,7 +6,7 @@ export default function SignUpPage() {
   return (
     <AuthShell
       title="Create your account"
-      subtitle="Start turning ideas into build-ready plans."
+      subtitle="Start turning your ideas into real apps."
       footer={
         <>
           Already have an account?{" "}

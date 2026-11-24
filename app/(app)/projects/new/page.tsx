@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { NewProjectForm } from "@/components/projects/NewProjectForm";
-import { DAILY_GENERATION_LIMIT } from "@/lib/generation-limit";
+import { DAILY_GENERATION_LIMIT, DAILY_APP_BUILD_LIMIT } from "@/lib/generation-limit";
 
 export default function NewProjectPage() {
   return (
@@ -14,14 +14,13 @@ export default function NewProjectPage() {
         Back to dashboard
       </Link>
       <h1 className="text-2xl font-semibold tracking-tight">
-        Describe your idea
+        What do you want to make?
       </h1>
       <p className="mt-1.5 text-sm text-muted">
-        The more specific you are, the better your BuildBrief will be.
+        Describe it in your own words. The more detail you give, the better your app turns out.
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        You can generate up to {DAILY_GENERATION_LIMIT} BuildBriefs (including
-        regenerations) every 24 hours.
+        You can make up to {DAILY_GENERATION_LIMIT} plans and {DAILY_APP_BUILD_LIMIT} app builds every 24 hours.
       </p>
 
       <div className="mt-8 rounded-xl border border-border bg-surface p-6 sm:p-8">

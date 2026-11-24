@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BuildBrief — Turn an idea into something you can actually build",
+  title: "BuildBrief — Turn your idea into a real app",
   description:
-    "BuildBrief transforms a rough app, website, SaaS, or game idea into a structured development blueprint you can hand straight to an AI coding agent.",
+    "Describe an app, website or game idea in your own words. BuildBrief plans it and builds a working version you can play with, share and download.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
