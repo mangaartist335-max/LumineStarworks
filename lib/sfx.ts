@@ -15,7 +15,7 @@ export type SfxName =
   | "error";
 
 const STORAGE_KEY = "buildbrief:sfx";
-const MASTER_VOLUME = 0.5;
+const MASTER_VOLUME = 0.9;
 
 let enabledCache: boolean | null = null;
 const listeners = new Set<() => void>();
@@ -61,15 +61,18 @@ function audio(): AudioContext | null {
         (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!Ctor) return null;
       ctx = new Ctor();
-      // A gentle limiter so louder, overlapping notes stay clean.
+      // Boost, then limit: loud but clean even when notes overlap.
+      const boost = ctx.createGain();
+      boost.gain.value = 2.2;
       const limiter = ctx.createDynamicsCompressor();
       limiter.threshold.value = -10;
-      limiter.knee.value = 6;
-      limiter.ratio.value = 8;
-      limiter.attack.value = 0.003;
+      limiter.knee.value = 4;
+      limiter.ratio.value = 16;
+      limiter.attack.value = 0.002;
       limiter.release.value = 0.15;
+      boost.connect(limiter);
       limiter.connect(ctx.destination);
-      output = limiter;
+      output = boost;
     }
     if (ctx.state === "suspended") void ctx.resume();
     return ctx;
@@ -118,12 +121,12 @@ function playNotes(notes: Note[]) {
 const C5 = 523.25, E5 = 659.25, G5 = 783.99, C6 = 1046.5, E6 = 1318.5, G6 = 1568;
 
 const SOUNDS: Record<SfxName, Note[]> = {
-  tap: [{ freq: 880, at: 0, dur: 0.06, type: "sine", gain: 0.5 }],
+  tap: [{ freq: 880, at: 0, dur: 0.07, type: "triangle", gain: 0.7 }],
   copy: [
     { freq: 1175, at: 0, dur: 0.05, type: "triangle", gain: 0.6 },
     { freq: 1568, at: 0.06, dur: 0.07, type: "triangle", gain: 0.6 },
   ],
-  start: [{ freq: 320, at: 0, dur: 0.28, type: "sine", gain: 0.7, slideTo: 760 }],
+  start: [{ freq: 320, at: 0, dur: 0.3, type: "triangle", gain: 0.9, slideTo: 760 }],
   success: [
     { freq: E5, at: 0, dur: 0.12, type: "triangle" },
     { freq: G5 * 1.0, at: 0.09, dur: 0.18, type: "triangle" },
@@ -143,8 +146,8 @@ const SOUNDS: Record<SfxName, Note[]> = {
     { freq: E6, at: 0.3, dur: 0.5, type: "sine", gain: 0.5 },
   ],
   error: [
-    { freq: 392, at: 0, dur: 0.16, type: "sine", gain: 0.7 },
-    { freq: 294, at: 0.14, dur: 0.26, type: "sine", gain: 0.7 },
+    { freq: 392, at: 0, dur: 0.16, type: "triangle", gain: 0.9 },
+    { freq: 294, at: 0.14, dur: 0.26, type: "triangle", gain: 0.9 },
   ],
 };
 

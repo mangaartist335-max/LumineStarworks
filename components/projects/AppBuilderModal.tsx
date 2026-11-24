@@ -19,6 +19,7 @@ import { downloadTextFile } from "@/lib/markdown";
 import { cn, slugify } from "@/lib/utils";
 import type { ProjectRow } from "@/lib/types";
 import { playSfx } from "@/lib/sfx";
+import { withAudioBoost } from "@/lib/audio-boost";
 
 const BUILD_STEPS = [
   "Reading your blueprint…",
@@ -119,7 +120,7 @@ export function AppBuilderModal({
   function handleDownload() {
     if (!html) return;
     playSfx("success");
-    downloadTextFile(`${slugify(project.name) || "app"}.html`, html, "text/html");
+    downloadTextFile(`${slugify(project.name) || "app"}.html`, withAudioBoost(html), "text/html");
   }
 
   if (!open || typeof document === "undefined") return null;
@@ -189,7 +190,7 @@ export function AppBuilderModal({
                 <iframe
                   key={previewKey}
                   title={`${project.name} app preview`}
-                  srcDoc={html ?? ""}
+                  srcDoc={html ? withAudioBoost(html) : ""}
                   sandbox={SANDBOX}
                   referrerPolicy="no-referrer"
                   className="h-full w-full border-0 bg-white"
