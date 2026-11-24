@@ -6,6 +6,7 @@ import { LayoutDashboard, Plus, Settings, LogOut } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
 import { signOutAction } from "@/app/auth/actions";
+import { SoundToggle } from "@/components/app/SoundToggle";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -77,6 +78,7 @@ export function Sidebar({
             <p className="truncate text-xs text-muted-foreground">{email}</p>
           </div>
         </div>
+        <SoundToggle />
         <form action={signOutAction}>
           <button
             type="submit"

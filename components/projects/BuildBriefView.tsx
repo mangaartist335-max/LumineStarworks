@@ -25,6 +25,7 @@ import { usePollForBrief } from "@/lib/usePollForBrief";
 import { BriefSection } from "@/components/projects/BriefSection";
 import { SectionNav } from "@/components/projects/SectionNav";
 import { AppBuilderModal } from "@/components/projects/AppBuilderModal";
+import { playSfx, type SfxName } from "@/lib/sfx";
 import {
   ObjectListEditor,
   StringListEditor,
@@ -91,13 +92,19 @@ export function BuildBriefView({
     setDraft((d) => ({ ...d, [key]: value }));
   }
 
-  function flash(type: "error" | "success", text: string) {
+  function flash(
+    type: "error" | "success",
+    text: string,
+    sound: SfxName | null = type === "error" ? "error" : "success"
+  ) {
+    if (sound) playSfx(sound);
     setBanner({ type, text });
     setTimeout(() => setBanner(null), 4000);
   }
 
   function copyWithFeedback(key: string, text: string) {
     navigator.clipboard.writeText(text);
+    playSfx("copy");
     setCopiedAction(key);
     setTimeout(() => setCopiedAction(null), 1500);
   }
@@ -142,6 +149,7 @@ export function BuildBriefView({
 
   async function handleRegenerate() {
     setRegenerating(true);
+    playSfx("start");
     try {
       const res = await fetch(`/api/projects/${project.id}/regenerate`, {
         method: "POST",
@@ -155,7 +163,7 @@ export function BuildBriefView({
           setDraft(brief);
           setEditing(false);
           setRegenerating(false);
-          flash("success", "Regenerated a fresh BuildBrief.");
+          flash("success", "Regenerated a fresh BuildBrief.", "complete");
         },
         onFailed: (message) => {
           setRegenerating(false);
@@ -188,6 +196,7 @@ export function BuildBriefView({
 
   function handleStatusChange(next: ProjectStatus) {
     setStatus(next);
+    playSfx("tap");
     startTransition(async () => {
       try {
         await updateProjectStatus(project.id, next);
