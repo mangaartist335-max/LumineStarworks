@@ -5,6 +5,7 @@ import {
   generateBuildBrief,
   type GenerateBriefParams,
 } from "@/lib/anthropic";
+import { notifyUser } from "@/lib/push";
 
 // Runs inside after(), once the API response has already been sent, and
 // records the outcome on the project row so the client's poll can show it.
@@ -28,7 +29,13 @@ export async function runGeneration(
     if (error) {
       console.error("[generation.save]", error);
       await markFailed(supabase, projectId, "Your BuildBrief was generated but couldn't be saved. Please try again.");
+      return;
     }
+    await notifyUser(supabase, {
+      title: "Your plan is ready ✨",
+      body: `${params.name} is planned out. Tap to take a look.`,
+      projectId,
+    });
   } catch (error) {
     console.error("[generation.run]", error);
     const message =
@@ -36,6 +43,11 @@ export async function runGeneration(
         ? error.message
         : "Something went wrong while generating your BuildBrief. Please try again.";
     await markFailed(supabase, projectId, message);
+    await notifyUser(supabase, {
+      title: "Your plan didn't finish",
+      body: `${params.name}: tap to try again.`,
+      projectId,
+    });
   }
 }
 

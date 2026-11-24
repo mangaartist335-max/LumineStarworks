@@ -22,6 +22,7 @@ download.
 This repository also contains separate apps that share nothing with BuildBrief:
 
 - [`connected/`](connected/README.md): **Connected Desktop**, a 2012-2013 style computer that runs in the browser, with its own web archive, programs and games.
+- [`apps/mobile/`](apps/mobile/README.md): **BuildBrief for iOS and Android**, the native mobile app. It shares this app's accounts, projects and AI.
 - [`plantpal/`](plantpal/README.md): **PlantPal**, an Expo mobile app that reminds you when to water your houseplants.
 - [`yal/`](yal/README.md): **YourAnimeList**, the anime database and forums shown inside the desktop's browser.
 
@@ -58,7 +59,7 @@ npm install
 ### 3. Run the database migration
 
 Apply the files in `supabase/migrations/` to your project, in order
-(`0001_init.sql`, `0002_generation_events.sql`, `0003_generation_status.sql`, then `0004_app_builds.sql`). Either:
+(`0001_init.sql`, `0002_generation_events.sql`, `0003_generation_status.sql`, `0004_app_builds.sql`, then `0005_mobile_app.sql`). Either:
 
 - Paste each file's contents into the Supabase Dashboard's **SQL Editor** and run it, or
 - Use the Supabase CLI:
@@ -81,6 +82,9 @@ in the background, and these let the project page show progress and the
 real reason a generation failed. `0004` adds the Build App columns
 (`app_html`, `app_status`, `app_error`, `app_started_at`) and a separate
 daily allowance of 5 app builds per user (`DAILY_APP_BUILD_LIMIT`).
+`0005` adds what the mobile app needs: project archiving and task progress,
+a push-notification token on profiles, and `delete_my_account()` so people
+can delete their own account (used by the website and the app).
 
 ### 4. Get an Anthropic API key
 

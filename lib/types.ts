@@ -4,6 +4,10 @@ export const PROJECT_TYPES = [
   "SaaS",
   "Game",
   "Website",
+  "Desktop App",
+  "AI App",
+  "Productivity App",
+  "Business App",
   "Developer Tool",
   "Other",
 ] as const;
@@ -128,6 +132,10 @@ export interface BuildBrief {
   claudePrompt: string;
   claudeMd: string;
   agentsMd: string;
+  architecture?: string;
+  apiRequirements?: string[];
+  testingPlan?: string[];
+  deploymentPlan?: string;
 }
 
 export interface BriefSectionMeta {

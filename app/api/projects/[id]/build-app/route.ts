@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { getRequestAuth } from "@/lib/supabase/request";
 import { runAppBuild } from "@/lib/run-app-build";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import { isMissingColumnError, MISSING_APP_MIGRATION_MESSAGE } from "@/lib/db-errors";
@@ -10,14 +10,11 @@ import { GENERATION_MAX_SECONDS, type ProjectRow } from "@/lib/types";
 export const maxDuration = 300;
 
 export async function POST(
-  _request: Request,
+  request: Request,
   ctx: RouteContext<"/api/projects/[id]/build-app">
 ) {
   const { id } = await ctx.params;
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { supabase, user } = await getRequestAuth(request);
 
   if (!user) {
     return NextResponse.json({ error: "You must be signed in." }, { status: 401 });

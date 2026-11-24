@@ -823,6 +823,56 @@ export function BuildBriefView({
             )}
           </BriefSection>
 
+          {brief.architecture && (
+            <BriefSection
+              id="architecture"
+              title="Architecture"
+              onCopy={() => copyWithFeedback("architecture", briefSectionToMarkdown("architecture", brief))}
+            >
+              <p className="whitespace-pre-line leading-relaxed text-muted">{brief.architecture}</p>
+            </BriefSection>
+          )}
+
+          {!!brief.apiRequirements?.length && (
+            <BriefSection
+              id="api"
+              title="API Requirements"
+              onCopy={() => copyWithFeedback("api", briefSectionToMarkdown("api", brief))}
+            >
+              <ul className="space-y-2 text-sm text-muted">
+                {brief.apiRequirements.map((item, i) => (
+                  <li key={i} className="rounded-lg border border-border bg-background-elevated px-3.5 py-2.5 font-mono text-xs">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </BriefSection>
+          )}
+
+          {!!brief.testingPlan?.length && (
+            <BriefSection
+              id="testing"
+              title="Testing Plan"
+              onCopy={() => copyWithFeedback("testing", briefSectionToMarkdown("testing", brief))}
+            >
+              <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted">
+                {brief.testingPlan.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </BriefSection>
+          )}
+
+          {brief.deploymentPlan && (
+            <BriefSection
+              id="deployment"
+              title="Deployment"
+              onCopy={() => copyWithFeedback("deployment", briefSectionToMarkdown("deployment", brief))}
+            >
+              <p className="whitespace-pre-line leading-relaxed text-muted">{brief.deploymentPlan}</p>
+            </BriefSection>
+          )}
+
           <BriefSection
             id="claude-prompt"
             title="Claude Code Prompt"

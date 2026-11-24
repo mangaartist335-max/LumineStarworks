@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { getRequestAuth } from "@/lib/supabase/request";
 import { runGeneration } from "@/lib/run-generation";
 import { checkAndRecordGeneration } from "@/lib/generation-limit";
 import { isMissingColumnError, MISSING_MIGRATION_MESSAGE } from "@/lib/db-errors";
@@ -11,14 +11,11 @@ import type { ProjectRow } from "@/lib/types";
 export const maxDuration = 300;
 
 export async function POST(
-  _request: Request,
+  request: Request,
   ctx: RouteContext<"/api/projects/[id]/regenerate">
 ) {
   const { id } = await ctx.params;
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { supabase, user } = await getRequestAuth(request);
 
   if (!user) {
     return NextResponse.json(

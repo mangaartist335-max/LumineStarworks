@@ -71,6 +71,22 @@ function sectionMarkdown(sectionId: string, brief: BuildBrief): string {
       return `${heading(2, "Definition of Done")}\n${brief.definitionOfDone
         .map((d) => `- [ ] ${d}`)
         .join("\n")}`;
+    case "architecture":
+      return brief.architecture
+        ? `${heading(2, "Architecture")}\n${brief.architecture}`
+        : "";
+    case "api":
+      return brief.apiRequirements?.length
+        ? `${heading(2, "API Requirements")}\n${list(brief.apiRequirements)}`
+        : "";
+    case "testing":
+      return brief.testingPlan?.length
+        ? `${heading(2, "Testing Plan")}\n${list(brief.testingPlan)}`
+        : "";
+    case "deployment":
+      return brief.deploymentPlan
+        ? `${heading(2, "Deployment")}\n${brief.deploymentPlan}`
+        : "";
     case "claude-prompt":
       return `${heading(2, "Claude Code Prompt")}\n\`\`\`\n${brief.claudePrompt}\n\`\`\``;
     case "claude-md":
@@ -97,17 +113,24 @@ export function fullBriefToMarkdown(project: ProjectRow, brief: BuildBrief): str
     "user-flow",
     "tech-stack",
     "database",
+    "architecture",
+    "api",
     "structure",
     "components",
     "build-plan",
     "definition-of-done",
+    "testing",
+    "deployment",
     "claude-prompt",
     "claude-md",
     "agents-md",
   ];
 
   const header = `${heading(1, project.name)}\n*${project.project_type} — BuildBrief*\n`;
-  const body = sectionIds.map((id) => sectionMarkdown(id, brief)).join("\n\n");
+  const body = sectionIds
+    .map((id) => sectionMarkdown(id, brief))
+    .filter(Boolean)
+    .join("\n\n");
 
   return `${header}\n${body}\n`;
 }
