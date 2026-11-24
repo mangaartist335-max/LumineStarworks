@@ -52,9 +52,10 @@ npm install
 
 ### 3. Run the database migration
 
-Apply `supabase/migrations/0001_init.sql` to your project. Either:
+Apply the files in `supabase/migrations/` to your project, in order
+(`0001_init.sql`, then `0002_generation_events.sql`). Either:
 
-- Paste its contents into the Supabase Dashboard's **SQL Editor** and run it, or
+- Paste each file's contents into the Supabase Dashboard's **SQL Editor** and run it, or
 - Use the Supabase CLI:
 
   ```bash
@@ -65,6 +66,11 @@ Apply `supabase/migrations/0001_init.sql` to your project. Either:
 This creates the `profiles` and `projects` tables, enables Row Level
 Security so each user can only read/write their own rows, and adds a
 trigger that creates a `profiles` row automatically when someone signs up.
+`0002` adds `generation_events`, which caps each user at 5 generations
+(new BuildBriefs plus regenerations) per rolling 24 hours, so a single
+account can't run up your Anthropic bill. Change `DAILY_GENERATION_LIMIT`
+in `lib/generation-limit.ts` to adjust it. Generation is blocked with an
+error until this table exists.
 
 ### 4. Get an Anthropic API key
 
