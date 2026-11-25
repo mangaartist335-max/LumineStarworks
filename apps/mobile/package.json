@@ -38,22 +38,26 @@
     "react-native-worklets": "0.13.0"
   },
   "devDependencies": {
+    "@expo/ngrok": "^4.1.3",
     "@types/react": "~19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-expo": "^58.0.4",
     "typescript": "~6.0.3"
   },
   "scripts": {
-    "start": "expo start",
+    "start": "node scripts/doctor.mjs && expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "doctor": "expo-doctor",
     "sounds": "node scripts/generate-sounds.mjs",
     "build:dev": "eas build --profile development",
     "build:preview": "eas build --profile preview",
-    "build:production": "eas build --profile production"
+    "build:production": "eas build --profile production",
+    "tunnel": "node scripts/doctor.mjs && expo start --tunnel=ngrok",
+    "check": "node scripts/doctor.mjs",
+    "setup": "node scripts/doctor.mjs --fix",
+    "expo-doctor": "expo-doctor"
   },
   "private": true
 }

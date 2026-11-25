@@ -55,14 +55,36 @@ the app.**
 
 ### 3. Run it
 
+**Windows, the easy way:** double-click **`start-buildbrief.cmd`** in this
+folder. It checks your setup, installs everything the first time, and
+starts the app with a QR code. Scan the QR code with **Expo Go** on your
+phone, and keep the window open while you use the app.
+
+**Any computer, from a terminal in `apps/mobile`:**
+
 ```bash
-npm install
-npx expo start
+npm run setup     # checks everything and installs packages (npm ci) if needed
+npm run tunnel    # start + QR code that works on any network
+# or: npm start   # same, but your phone must be on the same Wi-Fi
 ```
 
-Scan the QR code with **Expo Go** (iOS or Android) to try it. Push
-notifications need a development build (below); everything else works in
-Expo Go.
+Push notifications need a development build (below); everything else works
+in Expo Go.
+
+### If something goes wrong
+
+Run `npm run check`. It tells you, in plain words, what's wrong and how to
+fix it: Node.js version, an Expo version that was changed, missing packages,
+or a `.env` with a missing or wrong key.
+
+> **Never run `npm audit fix --force` in this folder.** npm suggests it
+> after installs, but for Expo apps it downgrades Expo to an old version and
+> the app stops starting (`Package subpath './src/lib/TerminalReporter' is not
+> defined by "exports"`). If that already happened, download a fresh copy of
+> the project, copy your `.env` into `apps/mobile`, and start again. The
+> audit warnings are about build tools on your computer, not the app itself;
+> `.npmrc` hides the summary so nobody gets tempted. Run `npm audit` if you
+> want to see it.
 
 ## Testing
 
