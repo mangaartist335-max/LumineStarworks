@@ -211,6 +211,10 @@ export default async function Home() {
       <footer className="border-t border-border py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-muted-foreground sm:flex-row">
           <Logo wordmarkClassName="text-sm text-muted" />
+          <nav className="flex gap-5">
+            <a href="/support" className="hover:text-foreground">Support</a>
+            <a href="/privacy" className="hover:text-foreground">Privacy</a>
+          </nav>
           <p>&copy; {new Date().getFullYear()} BuildBrief. All rights reserved.</p>
         </div>
       </footer>

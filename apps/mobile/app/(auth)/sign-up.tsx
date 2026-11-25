@@ -11,6 +11,7 @@ import { friendlyAuthError } from "@/lib/auth";
 import { API_BASE_URL } from "@/lib/config";
 import { feedback } from "@/lib/feedback";
 import { supabase } from "@/lib/supabase";
+import * as WebBrowser from "expo-web-browser";
 import { useTheme } from "@/theme";
 
 export default function SignUp() {
@@ -63,6 +64,13 @@ export default function SignUp() {
       {error ? <Banner tone="danger" icon="alert-circle" text={error} /> : null}
       {info ? <Banner tone="success" icon="mail" text={info} /> : null}
       <Button title="Create account" size="lg" fullWidth loading={busy} onPress={submit} icon="sparkles" />
+      <AppText variant="caption" align="center" color="faint">
+        By creating an account you agree to our{" "}
+        <AppText variant="caption" style={{ color: colors.accent }} onPress={() => WebBrowser.openBrowserAsync(`${API_BASE_URL}/privacy`)} accessibilityRole="link">
+          Privacy Policy
+        </AppText>
+        .
+      </AppText>
       <Link href="/(auth)/sign-in" replace style={{ alignSelf: "center" }}>
         <AppText color="muted">Already have an account? <AppText variant="bodyStrong" style={{ color: colors.accent }}>Sign in</AppText></AppText>
       </Link>
