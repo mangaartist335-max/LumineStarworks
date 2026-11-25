@@ -211,6 +211,8 @@ export default function SettingsScreen() {
       <AppText variant="label">About</AppText>
       <Card style={{ gap: 12 }}>
         <Row icon="information-circle-outline" label="BuildBrief" detail={`Version ${Constants.expoConfig?.version ?? "1.0.0"} · From idea to application.`} />
+        <Button title="Help & Support" variant="ghost" icon="help-buoy-outline" fullWidth onPress={() => WebBrowser.openBrowserAsync(`${API_BASE_URL}/support`)} />
+        <Button title="Privacy Policy" variant="ghost" icon="shield-checkmark-outline" fullWidth onPress={() => WebBrowser.openBrowserAsync(`${API_BASE_URL}/privacy`)} />
         <Button title="Open BuildBrief on the web" variant="ghost" icon="globe-outline" fullWidth onPress={() => WebBrowser.openBrowserAsync(API_BASE_URL)} />
       </Card>
 

@@ -114,6 +114,10 @@ Manual checklist on a device:
 | `preview` | Share a test build with friends | Android **APK**, internal iOS build |
 | `production` | App Store / Google Play | iOS build for TestFlight, Android App Bundle |
 
+**Publishing to the App Store from Windows:** double-click **`publish-ios.cmd`**.
+The full submission kit (listing text, privacy answers, review notes and
+screenshots) is in [`store/`](store/APP_STORE.md).
+
 ```bash
 npm install -g eas-cli
 eas login

@@ -11,7 +11,7 @@
     "ios": {
       "bundleIdentifier": "com.buildbrief.app",
       "buildNumber": "1",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
@@ -19,7 +19,9 @@
         "NSPrivacyAccessedAPITypes": [
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
-            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
           }
         ]
       }
@@ -42,8 +44,15 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "data": [{ "scheme": "buildbrief" }],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "data": [
+            {
+              "scheme": "buildbrief"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -59,22 +68,32 @@
           "imageWidth": 120,
           "resizeMode": "contain",
           "backgroundColor": "#F7F7FB",
-          "dark": { "image": "./assets/splash-icon.png", "backgroundColor": "#08090D" }
+          "dark": {
+            "image": "./assets/splash-icon.png",
+            "backgroundColor": "#08090D"
+          }
         }
       ],
       "expo-secure-store",
-      ["expo-audio", { "microphonePermission": false, "recordAudioAndroid": false, "enableBackgroundPlayback": false }],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": false
+        }
+      ],
       "expo-sharing",
       "expo-web-browser",
-      ["expo-notifications", { "color": "#5B7CFA" }]
+      [
+        "expo-notifications",
+        {
+          "color": "#5B7CFA"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "eas": {
-        "projectId": ""
-      }
     }
   }
 }

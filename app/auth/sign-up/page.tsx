@@ -17,6 +17,10 @@ export default function SignUpPage() {
       }
     >
       <SignUpForm />
+      <p className="mt-4 text-center text-xs text-muted-foreground">
+        By creating an account you agree to our{" "}
+        <Link href="/privacy" className="underline underline-offset-2">Privacy Policy</Link>.
+      </p>
     </AuthShell>
   );
 }

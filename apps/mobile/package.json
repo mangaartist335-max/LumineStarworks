@@ -53,11 +53,12 @@
     "sounds": "node scripts/generate-sounds.mjs",
     "build:dev": "eas build --profile development",
     "build:preview": "eas build --profile preview",
-    "build:production": "eas build --profile production",
+    "build:production": "node scripts/doctor.mjs && eas build --profile production",
     "tunnel": "node scripts/doctor.mjs && expo start --tunnel=ngrok",
     "check": "node scripts/doctor.mjs",
     "setup": "node scripts/doctor.mjs --fix",
-    "expo-doctor": "expo-doctor"
+    "expo-doctor": "expo-doctor",
+    "publish:ios": "node scripts/doctor.mjs && eas build --platform ios --profile production --auto-submit"
   },
   "private": true
 }
