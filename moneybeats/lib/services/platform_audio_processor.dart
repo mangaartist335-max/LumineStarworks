@@ -99,10 +99,10 @@ abstract final class EffectMath {
     ];
   }
 
-  /// How much a low-shelf bass boost (around 100 Hz) affects a band:
+  /// How much a low-shelf bass boost (corner 160 Hz) affects a band:
   /// 1 well below the corner, fading to 0 an octave and a half above it.
   static double lowShelfWeight(double frequency) {
-    const corner = 100.0;
+    const corner = 160.0;
     if (frequency <= corner) return 1;
     final octaves = math.log(frequency / corner) / math.ln2;
     return (1 - octaves / 1.5).clamp(0.0, 1.0);

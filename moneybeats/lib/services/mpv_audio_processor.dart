@@ -114,7 +114,7 @@ abstract final class MpvFilterChain {
     }
 
     if (s.hasBass) {
-      filters.add('bass=g=${_n(s.bassBoostDb, 1)}:f=100:t=s:w=0.6');
+      filters.add('bass=g=${_n(s.bassBoostDb, 1)}:f=160:t=s:w=0.7');
     }
 
     if (s.hasReverb) filters.addAll(_reverb(s));
@@ -145,8 +145,10 @@ abstract final class MpvFilterChain {
       final decays = [
         for (final d in delays) (level(d) * wet).clamp(0.001, 0.95),
       ];
-      final sum = decays.fold<double>(0, (a, b) => a + b);
-      final out = (1 / (1 + sum * 0.6)).clamp(0.3, 1.0);
+      // Echoes add up in power for real music, so normalise by power to keep
+      // the overall loudness (the limiter catches any coherent peaks).
+      final power = decays.fold<double>(0, (a, b) => a + b * b);
+      final out = (1 / math.sqrt(1 + power)).clamp(0.5, 1.0);
       return 'aecho=1:${_n(out, 3)}:'
           '${delays.map((d) => _n(d, 1)).join('|')}:'
           '${decays.map((d) => _n(d, 3)).join('|')}';
