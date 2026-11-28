@@ -114,7 +114,13 @@ class AudioEffectsService {
     _currentTrackId = trackId;
     final assigned = trackId == null ? null : _assignments[trackId];
     if (assigned != null) {
-      final preset = await _presets.getById(assigned);
+      AudioPreset? preset;
+      try {
+        preset = await _presets.getById(assigned);
+      } catch (e) {
+        debugPrint('Could not load the song preset: $e');
+      }
+      if (_state.isClosed) return;
       if (preset != null && _currentTrackId == trackId) {
         _emit(
           state.copyWith(
@@ -142,11 +148,19 @@ class AudioEffectsService {
   }
 
   Future<void> _onPresetsChanged() async {
-    _assignments = await _presets.getTrackAssignments();
-    final defaultId = await _presets.getDefaultPresetId();
+    final String? defaultId;
+    final bool stillExists;
     final active = state.activePresetId;
-    final stillExists =
-        active == null || await _presets.getById(active) != null;
+    try {
+      _assignments = await _presets.getTrackAssignments();
+      defaultId = await _presets.getDefaultPresetId();
+      stillExists = active == null || await _presets.getById(active) != null;
+    } catch (e) {
+      // Usually the app shutting down mid-refresh; the next change retries.
+      if (!_state.isClosed) debugPrint('Could not refresh presets: $e');
+      return;
+    }
+    if (_state.isClosed) return;
     _emit(
       state.copyWith(
         defaultPresetId: defaultId,

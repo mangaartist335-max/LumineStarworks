@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:moneybeats/models/audio_effects.dart';
 import 'package:moneybeats/models/playback.dart';
 import 'package:moneybeats/models/track.dart';
 import 'package:moneybeats/services/audio_service.dart';
 import 'package:moneybeats/services/import_service.dart';
+import 'package:moneybeats/services/platform_audio_processor.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Builds a [Track] with sensible defaults for tests.
@@ -322,3 +324,45 @@ class FakeAudioFilePicker implements AudioFilePicker {
 /// Absolute path of a file in test/fixtures.
 String fixturePath(String name) =>
     '${Directory.current.path}/test/fixtures/$name';
+
+/// Everything on: lets tests drive every Studio control.
+const allEffectsCapabilities = AudioEffectsCapabilities(
+  engine: 'Test',
+  speed: true,
+  pitch: true,
+  equalizer: true,
+  equalizerBands: referenceEqBands,
+  bass: true,
+  reverb: true,
+  reverbMix: true,
+  reverbDecay: true,
+  reverbRoomSize: true,
+);
+
+/// Records what the effects service asks the engine to apply.
+class FakeAudioProcessor implements PlatformAudioProcessor {
+  FakeAudioProcessor({this._caps = allEffectsCapabilities});
+
+  AudioEffectsCapabilities _caps;
+  final applied = <AudioEffectSettings>[];
+  final _controller = StreamController<AudioEffectsCapabilities>.broadcast();
+
+  void setCapabilities(AudioEffectsCapabilities caps) {
+    _caps = caps;
+    _controller.add(caps);
+  }
+
+  @override
+  AudioEffectsCapabilities get capabilities => _caps;
+  @override
+  Stream<AudioEffectsCapabilities> get capabilitiesStream => _controller.stream;
+  @override
+  bool get handlesPitch => false;
+  @override
+  Future<void> initialize() async {}
+  @override
+  Future<void> apply(AudioEffectSettings settings) async =>
+      applied.add(settings);
+  @override
+  Future<void> dispose() async => _controller.close();
+}

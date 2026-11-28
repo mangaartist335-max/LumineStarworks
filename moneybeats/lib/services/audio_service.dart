@@ -220,6 +220,10 @@ class JustAudioPlayerService implements AudioPlayerService {
   bool _wasActuallyPlaying = false;
   bool _startedCurrentTrack = false;
   bool _userChangedTrack = false;
+  // Internal queue rebuilds and removals change the current entry without
+  // the song finishing; lifecycle tracking waits until they're done.
+  int _queueEdits = 0;
+  DateTime? _lastLoopAt;
   final _errors = StreamController<PlaybackError>.broadcast();
   final _resolvedDurations = StreamController<ResolvedDuration>.broadcast();
   final _subscriptions = <StreamSubscription<Object?>>[];
@@ -237,6 +241,29 @@ class JustAudioPlayerService implements AudioPlayerService {
         }),
       )
       ..add(_player.sequenceStateStream.listen(_onSequenceState))
+      ..add(
+        // A song looping on itself (repeat one) finished without changing
+        // the current entry, so the track-change rule can't see it.
+        _player.positionDiscontinuityStream
+            .where(
+              (d) =>
+                  d.reason == PositionDiscontinuityReason.autoAdvance &&
+                  d.previousEvent.currentIndex == d.event.currentIndex,
+            )
+            .listen((_) {
+              if (_queueEdits > 0 || _currentTrackId == null) return;
+              // The loop heuristic can fire twice for one loop on desktop.
+              final now = DateTime.now();
+              final last = _lastLoopAt;
+              if (last != null &&
+                  now.difference(last) < const Duration(milliseconds: 800)) {
+                return;
+              }
+              _lastLoopAt = now;
+              _emit(PlaybackLifecycleType.trackCompleted);
+              _emit(PlaybackLifecycleType.started);
+            }),
+      )
       ..add(
         Rx.combineLatest3<Duration, Duration, Duration?, PositionState>(
           _player.positionStream,
@@ -342,7 +369,9 @@ class JustAudioPlayerService implements AudioPlayerService {
       _startedCurrentTrack = false;
       return;
     }
-    if (playing && !_wasActuallyPlaying) {
+    // A new song "starts" when audio first flows for it, including after a
+    // skip or auto-advance while music was already playing.
+    if (playing && (!_wasActuallyPlaying || !_startedCurrentTrack)) {
       _emit(
         _startedCurrentTrack
             ? PlaybackLifecycleType.resumed
@@ -358,7 +387,27 @@ class JustAudioPlayerService implements AudioPlayerService {
     if (!status.isBusy) _wasActuallyPlaying = playing;
   }
 
+  /// Runs a queue edit without reporting its intermediate track changes;
+  /// afterwards only the net change (if any) is reported, never as a
+  /// completed song.
+  Future<void> _editingQueue(Future<void> Function() edit) async {
+    _queueEdits++;
+    try {
+      await edit();
+    } finally {
+      _queueEdits--;
+      if (_queueEdits == 0) {
+        final current = _queue.value.currentTrack?.id;
+        if (current != _currentTrackId) {
+          _userChangedTrack = true;
+          _onTrackForLifecycle(current);
+        }
+      }
+    }
+  }
+
   void _onTrackForLifecycle(String? trackId) {
+    if (_queueEdits > 0) return;
     if (trackId == _currentTrackId) return;
     final previous = _currentTrackId;
     if (previous != null && trackId != null && !_userChangedTrack) {
@@ -576,12 +625,14 @@ class JustAudioPlayerService implements AudioPlayerService {
     final wasPlaying = _player.playing;
     final position = _player.position;
     final newIndex = target.indexWhere((s) => identical(s, current));
-    await _player.setAudioSources(
-      target,
-      initialIndex: newIndex < 0 ? 0 : newIndex,
-      initialPosition: position,
-      preload: wasPlaying,
-    );
+    await _editingQueue(() async {
+      await _player.setAudioSources(
+        target,
+        initialIndex: newIndex < 0 ? 0 : newIndex,
+        initialPosition: position,
+        preload: wasPlaying,
+      );
+    });
     if (wasPlaying) _startPlayback();
   }
 
@@ -633,8 +684,10 @@ class JustAudioPlayerService implements AudioPlayerService {
     if (_queue.value.isEmpty) return;
     await _guard(() async {
       if (_player.processingState == ProcessingState.completed) {
-        // The queue finished: start again from the top.
+        // The queue finished: start again from the top. (Its last song
+        // was already reported as completed.)
         final order = _queue.value.playOrder;
+        _userChangedTrack = true;
         await _player.seek(
           Duration.zero,
           index: order.isEmpty ? 0 : order.first,
@@ -799,16 +852,18 @@ class JustAudioPlayerService implements AudioPlayerService {
   });
 
   @override
-  Future<void> removeFromQueue(int index) => _guard(() async {
-    if (index < 0 || index >= _player.audioSources.length) return;
-    if (_player.audioSources.length == 1) {
-      await _player.stop();
-      await _player.clearAudioSources();
-      _sourceLabel = null;
-      return;
-    }
-    await _player.removeAudioSourceAt(index);
-  });
+  Future<void> removeFromQueue(int index) => _guard(
+    () => _editingQueue(() async {
+      if (index < 0 || index >= _player.audioSources.length) return;
+      if (_player.audioSources.length == 1) {
+        await _player.stop();
+        await _player.clearAudioSources();
+        _sourceLabel = null;
+        return;
+      }
+      await _player.removeAudioSourceAt(index);
+    }),
+  );
 
   @override
   Future<void> moveInQueue(int from, int to) => _guard(() async {

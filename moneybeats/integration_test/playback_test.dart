@@ -102,6 +102,8 @@ void main() {
   ) async {
     final errors = <String>[];
     final errorSub = audio.errorStream.listen((e) => errors.add(e.message));
+    final events = <PlaybackLifecycleEvent>[];
+    final lifecycleSub = audio.lifecycleStream.listen(events.add);
 
     // Play.
     await audio.playTracks(tracks, sourceLabel: 'Test · Real files');
@@ -194,6 +196,7 @@ void main() {
 
     // Repeat one: the song starts again instead of advancing.
     final repeatedId = audio.queue.currentTrack!.id;
+    final eventsBeforeLoop = events.length;
     await audio.seek(
       (audio.positionState.duration ?? const Duration(seconds: 2)) -
           const Duration(milliseconds: 300),
@@ -203,6 +206,14 @@ void main() {
     expect(
       audio.positionState.position,
       lessThan(const Duration(milliseconds: 1500)),
+    );
+    expect(
+      events
+          .skip(eventsBeforeLoop)
+          .where((e) => e.type == PlaybackLifecycleType.trackCompleted)
+          .map((e) => e.trackId),
+      [repeatedId],
+      reason: 'a repeat-one loop counts as finishing the song once',
     );
 
     await audio.cycleRepeatMode();
@@ -261,9 +272,70 @@ void main() {
     );
     await _waitFor('playing again', () => audio.status.isActuallyPlaying);
 
+    // Speed is a lifecycle event too (media time vs. real time).
+    await audio.setSpeed(1.5);
+    await audio.setSpeed(1.0);
     await audio.pause();
+    await _waitFor(
+      'paused event',
+      () => events.last.type == PlaybackLifecycleType.paused,
+    );
+
+    // Clearing the queue stops playback.
+    for (final t in tracks) {
+      await audio.removeTrackEverywhere(t.id);
+    }
+    await _waitFor('queue cleared', () => audio.queue.tracks.isEmpty);
+    await _waitFor(
+      'stopped event',
+      () => events.any((e) => e.type == PlaybackLifecycleType.stopped),
+    );
+
+    // Every lifecycle event fired from the real engine.
+    final names = {for (var i = 0; i < tracks.length; i++) tracks[i].id: 't$i'};
+    final timeline = events
+        .map((e) => '${e.type.name}:${names[e.trackId]}')
+        .join(' ');
+    final types = events.map((e) => e.type).toSet();
+    expect(types, containsAll(PlaybackLifecycleType.values), reason: timeline);
+    final firstStart = events.firstWhere(
+      (e) => e.type == PlaybackLifecycleType.started,
+    );
+    expect(firstStart.trackId, tracks[0].id);
+    // Auto-advance: track 1 completes, then track 2 changes in and starts.
+    final advance = events.indexWhere(
+      (e) =>
+          e.type == PlaybackLifecycleType.trackCompleted &&
+          e.trackId == tracks[0].id,
+    );
+    expect(advance, isNot(-1), reason: 'auto-advance completes the song');
+    expect(events[advance + 1].type, PlaybackLifecycleType.trackChanged);
+    expect(events[advance + 1].trackId, tracks[1].id);
+    // Queue edits (shuffle rebuilds, removals) never count as finishing.
+    final completions = events
+        .where((e) => e.type == PlaybackLifecycleType.trackCompleted)
+        .length;
+    expect(
+      completions,
+      3,
+      reason: 'repeat-one loop, auto-advance, queue end: $timeline',
+    );
+    // Skipping while playing starts the next song.
+    expect(
+      events.where((e) => e.type == PlaybackLifecycleType.started).length,
+      greaterThan(4),
+    );
+    expect(
+      events
+          .where((e) => e.type == PlaybackLifecycleType.speedChanged)
+          .first
+          .speed,
+      1.5,
+    );
+
     expect(errors, isEmpty);
     await errorSub.cancel();
+    await lifecycleSub.cancel();
   });
 
   testWidgets('the full app plays imported music from the library', (
@@ -299,6 +371,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 800));
     expect(find.byType(NowPlayingScreen), findsOneWidget);
 
+    // Repeat all, so Next always has somewhere to go whatever the order.
+    await audio.setRepeatMode(PlayerRepeatMode.all);
     final before = audio.queue.currentTrack!.id;
     await tester.tap(find.byTooltip('Next').last);
     await _waitFor('next song', () => audio.queue.currentTrack!.id != before);
@@ -312,6 +386,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     await audio.pause();
+    await audio.setRepeatMode(PlayerRepeatMode.off);
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpWidget(const SizedBox());
   });

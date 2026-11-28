@@ -16,7 +16,10 @@ class TrackRepository {
       _database.changes.where((c) => c == DataChange.tracks);
 
   Future<List<Track>> getAll() async {
-    final rows = await _db.query('tracks', orderBy: 'date_added DESC');
+    final rows = await _db.query(
+      'tracks',
+      orderBy: 'date_added DESC, rowid DESC',
+    );
     return rows.map(_fromRow).toList();
   }
 

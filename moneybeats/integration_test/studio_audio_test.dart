@@ -93,7 +93,11 @@ double rms(Float64List x) =>
 
 /// The middle part of a recording (skips start-up and filter changes).
 Float64List middle(Float64List x, {double from = 0.35, double to = 0.95}) =>
-    Float64List.sublistView(x, (x.length * from).round(), (x.length * to).round());
+    Float64List.sublistView(
+      x,
+      (x.length * from).round(),
+      (x.length * to).round(),
+    );
 
 /// Energy left in the gaps between bursts relative to the bursts, in dB.
 /// Dry audio is silent between bursts; reverb fills the gaps with a tail.
@@ -196,7 +200,8 @@ void main() {
     expect(
       processor.capabilities.equalizer,
       isTrue,
-      reason: 'libmpv rejected the filter chain: ${MpvFilterChain.build(settings)}',
+      reason:
+          'libmpv rejected the filter chain: ${MpvFilterChain.build(settings)}',
     );
     return samples;
   }
@@ -207,7 +212,9 @@ void main() {
     final report = _Report();
 
     // Baseline: the 440 Hz tone comes out at 440 Hz.
-    final base = middle(await playAndRecord('Tone 440', AudioEffectSettings.original));
+    final base = middle(
+      await playAndRecord('Tone 440', AudioEffectSettings.original),
+    );
     expect(rms(base), greaterThan(0.01), reason: 'nothing was recorded');
     final baseFreq = dominant(base, 300, 1000);
     report.writeln('original: ${baseFreq.toStringAsFixed(0)} Hz');
@@ -215,17 +222,27 @@ void main() {
 
     // Pitch +2 st -> 493.9 Hz; -12 st -> 220 Hz.
     final up2 = middle(
-      await playAndRecord('Tone 440', const AudioEffectSettings(pitchSemitones: 2)),
+      await playAndRecord(
+        'Tone 440',
+        const AudioEffectSettings(pitchSemitones: 2),
+      ),
     );
     final up2Freq = dominant(up2, 300, 1000);
-    report.writeln('pitch +2 st: ${up2Freq.toStringAsFixed(1)} Hz (expected 493.9)');
+    report.writeln(
+      'pitch +2 st: ${up2Freq.toStringAsFixed(1)} Hz (expected 493.9)',
+    );
     expect(up2Freq, closeTo(440 * pitchFactorForSemitones(2), 5));
 
     final down12 = middle(
-      await playAndRecord('Tone 440', const AudioEffectSettings(pitchSemitones: -12)),
+      await playAndRecord(
+        'Tone 440',
+        const AudioEffectSettings(pitchSemitones: -12),
+      ),
     );
     final down12Freq = dominant(down12, 150, 1000);
-    report.writeln('pitch -12 st: ${down12Freq.toStringAsFixed(1)} Hz (expected 220)');
+    report.writeln(
+      'pitch -12 st: ${down12Freq.toStringAsFixed(1)} Hz (expected 220)',
+    );
     expect(down12Freq, closeTo(220, 4));
 
     // Speed 1.5x keeps the pitch at 440 Hz and plays faster.
@@ -233,7 +250,9 @@ void main() {
       await playAndRecord('Tone 440', const AudioEffectSettings(speed: 1.5)),
     );
     final fastFreq = dominant(fast, 300, 1000);
-    report.writeln('speed 1.5x: ${fastFreq.toStringAsFixed(1)} Hz (pitch kept)');
+    report.writeln(
+      'speed 1.5x: ${fastFreq.toStringAsFixed(1)} Hz (pitch kept)',
+    );
     expect(fastFreq, closeTo(440, 5));
 
     // Speed measured from the audio: the burst file has one burst per second.
@@ -249,8 +268,10 @@ void main() {
     );
     final normalPeriod = burstPeriodMs(burstsNormal);
     final fastPeriod = burstPeriodMs(burstsFast);
-    report.writeln('burst spacing: ${normalPeriod.toStringAsFixed(0)} ms at 1.0x, '
-        '${fastPeriod.toStringAsFixed(0)} ms at 1.5x (expected 1000 / 667)');
+    report.writeln(
+      'burst spacing: ${normalPeriod.toStringAsFixed(0)} ms at 1.0x, '
+      '${fastPeriod.toStringAsFixed(0)} ms at 1.5x (expected 1000 / 667)',
+    );
     expect(normalPeriod, closeTo(1000, 40));
     expect(fastPeriod, closeTo(1000 / 1.5, 40));
 
@@ -262,16 +283,22 @@ void main() {
       ),
     );
     final slowedFreq = dominant(slowed, 300, 1000);
-    report.writeln('slowed (0.85x, -2 st): ${slowedFreq.toStringAsFixed(1)} Hz (expected 392)');
+    report.writeln(
+      'slowed (0.85x, -2 st): ${slowedFreq.toStringAsFixed(1)} Hz (expected 392)',
+    );
     expect(slowedFreq, closeTo(440 * pitchFactorForSemitones(-2), 5));
 
     // EQ: cut 125 Hz band, boost 4 kHz band -> treble/bass ratio rises.
-    final twoBase = middle(await playAndRecord('Two Tone', AudioEffectSettings.original));
+    final twoBase = middle(
+      await playAndRecord('Two Tone', AudioEffectSettings.original),
+    );
     final baseRatio = power(twoBase, 3000) / power(twoBase, 100);
     final eq = middle(
       await playAndRecord(
         'Two Tone',
-        const AudioEffectSettings(eqGains: [-12, -12, -12, 0, 0, 0, 6, 12, 6, 0]),
+        const AudioEffectSettings(
+          eqGains: [-12, -12, -12, 0, 0, 0, 6, 12, 6, 0],
+        ),
       ),
     );
     final eqRatio = power(eq, 3000) / power(eq, 100);
@@ -281,15 +308,24 @@ void main() {
 
     // Bass boost +12 dB -> bass/treble ratio rises.
     final bass = middle(
-      await playAndRecord('Two Tone', const AudioEffectSettings(bassBoostDb: 12)),
+      await playAndRecord(
+        'Two Tone',
+        const AudioEffectSettings(bassBoostDb: 12),
+      ),
     );
-    final bassChange = db((power(bass, 100) / power(bass, 3000)) / (1 / baseRatio));
-    report.writeln('bass boost +12 dB: bass vs treble +${bassChange.toStringAsFixed(1)} dB');
+    final bassChange = db(
+      (power(bass, 100) / power(bass, 3000)) / (1 / baseRatio),
+    );
+    report.writeln(
+      'bass boost +12 dB: bass vs treble +${bassChange.toStringAsFixed(1)} dB',
+    );
     expect(bassChange, greaterThan(8));
 
     // Headroom/limiter: big boosts never clip.
     final peak = eq.fold<double>(0, (m, v) => math.max(m, v.abs()));
-    report.writeln('peak with EQ boost: ${(peak * 100).toStringAsFixed(0)}% of full scale');
+    report.writeln(
+      'peak with EQ boost: ${(peak * 100).toStringAsFixed(0)}% of full scale',
+    );
     expect(peak, lessThan(0.99));
 
     // Reverb: burst tails get much longer.
@@ -310,9 +346,11 @@ void main() {
     );
     final dryGap = gapLevelDb(dry), wetGap = gapLevelDb(wet);
     final loudness = db(rms(wet) * rms(wet) / (rms(dry) * rms(dry)));
-    report.writeln('reverb: level between bursts ${dryGap.toStringAsFixed(0)} dB dry, '
-        '${wetGap.toStringAsFixed(0)} dB wet; overall loudness '
-        '${loudness.toStringAsFixed(1)} dB vs dry');
+    report.writeln(
+      'reverb: level between bursts ${dryGap.toStringAsFixed(0)} dB dry, '
+      '${wetGap.toStringAsFixed(0)} dB wet; overall loudness '
+      '${loudness.toStringAsFixed(1)} dB vs dry',
+    );
     expect(wetGap, greaterThan(dryGap + 20));
     expect(wetGap, greaterThan(-35));
     // A pure tone through echoes comb-filters; music loses less.
@@ -335,7 +373,9 @@ void main() {
     final compared = middle(await record(const Duration(milliseconds: 2400)));
     await audio.pause();
     final comparedFreq = dominant(compared, 300, 1000);
-    report.writeln('compare original (pitch +5 kept): ${comparedFreq.toStringAsFixed(1)} Hz');
+    report.writeln(
+      'compare original (pitch +5 kept): ${comparedFreq.toStringAsFixed(1)} Hz',
+    );
     expect(comparedFreq, closeTo(440, 4));
     expect(effects.state.settings.pitchSemitones, 5);
 
