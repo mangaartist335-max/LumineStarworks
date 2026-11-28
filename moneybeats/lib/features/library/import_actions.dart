@@ -116,7 +116,7 @@ class ImportProgressBanner extends ConsumerWidget {
                       const Icon(
                         Icons.download_rounded,
                         size: 18,
-                        color: AppColors.mint,
+                        color: AppColors.primary,
                       ),
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(

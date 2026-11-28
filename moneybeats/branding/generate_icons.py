@@ -30,7 +30,7 @@ from PIL import Image, ImageDraw, ImageFilter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE = os.path.join(ROOT, "branding", "moneybeats_logo_source.webp")
 
-BACKGROUND = (16, 17, 18)  # AppColors.background, #101112
+BACKGROUND = (12, 14, 20)  # AppColors.background, #0C0E14
 GLOW = (20, 70, 160)  # soft blue halo behind the logo
 RENDER = 1024  # icons are drawn at this size, then downscaled
 

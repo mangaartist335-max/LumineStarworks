@@ -109,7 +109,7 @@ class TrackTile extends ConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontSize: 15,
-                      color: isCurrent ? AppColors.mint : AppColors.textPrimary,
+                      color: isCurrent ? AppColors.primary : AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 3),
@@ -119,7 +119,7 @@ class TrackTile extends ConsumerWidget {
                         const Icon(
                           Icons.favorite_rounded,
                           size: 13,
-                          color: AppColors.mint,
+                          color: AppColors.primary,
                         ),
                         const SizedBox(width: 4),
                       ],

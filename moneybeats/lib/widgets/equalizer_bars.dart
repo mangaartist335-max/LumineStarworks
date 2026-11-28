@@ -8,7 +8,7 @@ class EqualizerBars extends StatefulWidget {
   const EqualizerBars({
     super.key,
     this.animating = true,
-    this.color = AppColors.mint,
+    this.color = AppColors.primary,
     this.size = 16,
   });
 

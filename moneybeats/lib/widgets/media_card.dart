@@ -149,7 +149,7 @@ class QuickTile extends StatelessWidget {
               Container(
                 width: 60,
                 height: 60,
-                color: iconBackground ?? AppColors.mintSoft,
+                color: iconBackground ?? AppColors.primarySoft,
                 child: Icon(icon, color: iconColor, size: 26),
               )
             else

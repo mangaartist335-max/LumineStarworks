@@ -48,7 +48,7 @@ class _PlayPauseButtonState extends ConsumerState<PlayPauseButton>
     }
 
     final foreground = widget.filled
-        ? (hasQueue ? AppColors.onMint : AppColors.textMuted)
+        ? (hasQueue ? AppColors.onPrimary : AppColors.textMuted)
         : (widget.color ?? AppColors.textPrimary);
     final icon = AnimatedIcon(
       icon: AnimatedIcons.play_pause,
@@ -89,11 +89,11 @@ class _PlayPauseButtonState extends ConsumerState<PlayPauseButton>
           children: [
             Material(
               color: hasQueue
-                  ? (widget.color ?? AppColors.mint)
+                  ? (widget.color ?? AppColors.primary)
                   : AppColors.surfaceHigh,
               elevation: hasQueue ? 8 : 0,
               shape: const CircleBorder(),
-              shadowColor: AppColors.mint.withValues(alpha: 0.35),
+              shadowColor: AppColors.primary.withValues(alpha: 0.35),
               child: InkWell(
                 customBorder: const CircleBorder(),
                 onTap: onTap,
@@ -109,7 +109,7 @@ class _PlayPauseButtonState extends ConsumerState<PlayPauseButton>
                   dimension: widget.size + 6,
                   child: const CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    color: AppColors.mint,
+                    color: AppColors.primary,
                   ),
                 ),
               ),
@@ -227,7 +227,7 @@ class _ModeButton extends StatelessWidget {
             child: Icon(
               icon,
               key: ValueKey('$icon$active'),
-              color: active ? AppColors.mint : AppColors.textSecondary,
+              color: active ? AppColors.primary : AppColors.textSecondary,
             ),
           ),
           AnimatedOpacity(
@@ -238,7 +238,7 @@ class _ModeButton extends StatelessWidget {
               height: 4,
               margin: const EdgeInsets.only(top: 2),
               decoration: const BoxDecoration(
-                color: AppColors.mint,
+                color: AppColors.primary,
                 shape: BoxShape.circle,
               ),
             ),

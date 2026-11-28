@@ -206,7 +206,7 @@ class FavoriteButton extends ConsumerWidget {
         child: Icon(
           liked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
           key: ValueKey(liked),
-          color: liked ? AppColors.mint : AppColors.textPrimary,
+          color: liked ? AppColors.primary : AppColors.textPrimary,
         ),
       ),
     );

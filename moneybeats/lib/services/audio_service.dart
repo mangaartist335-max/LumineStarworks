@@ -117,7 +117,7 @@ abstract final class AudioBootstrap {
         androidNotificationChannelDescription:
             AppConstants.notificationChannelDescription,
         androidNotificationOngoing: true,
-        notificationColor: AppColors.mint,
+        notificationColor: AppColors.primary,
         androidNotificationIcon: AppConstants.notificationIcon,
         artDownscaleWidth: 512,
         artDownscaleHeight: 512,

@@ -277,7 +277,7 @@ class _Sidebar extends ConsumerWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         gradient: const LinearGradient(
-                          colors: [Color(0xFF7C5CFF), Color(0xFF40E8AE)],
+                          colors: [AppColors.electric, AppColors.ice],
                         ),
                       ),
                       child: const Icon(Icons.favorite_rounded, size: 18),
@@ -347,7 +347,7 @@ class _SidebarItem extends StatelessWidget {
               children: [
                 Icon(
                   icon,
-                  color: selected ? AppColors.mint : AppColors.textSecondary,
+                  color: selected ? AppColors.primary : AppColors.textSecondary,
                 ),
                 const SizedBox(width: AppSpacing.lg),
                 Text(

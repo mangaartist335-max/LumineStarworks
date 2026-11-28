@@ -75,10 +75,10 @@ class EmptyState extends StatelessWidget {
                 width: 76,
                 height: 76,
                 decoration: const BoxDecoration(
-                  color: AppColors.mintSoft,
+                  color: AppColors.primarySoft,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, size: 36, color: AppColors.mint),
+                child: Icon(icon, size: 36, color: AppColors.primary),
               ),
               const SizedBox(height: AppSpacing.xl),
               Text(
@@ -126,10 +126,10 @@ class BigPlayButton extends StatelessWidget {
     return SizedBox.square(
       dimension: size,
       child: Material(
-        color: AppColors.mint,
+        color: AppColors.primary,
         shape: const CircleBorder(),
         elevation: 6,
-        shadowColor: AppColors.mint.withValues(alpha: 0.4),
+        shadowColor: AppColors.primary.withValues(alpha: 0.4),
         child: InkWell(
           customBorder: const CircleBorder(),
           onTap: onPressed,
@@ -141,7 +141,7 @@ class BigPlayButton extends StatelessWidget {
               isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
               key: ValueKey(isPlaying),
               size: size * 0.55,
-              color: AppColors.onMint,
+              color: AppColors.onPrimary,
               semanticLabel: isPlaying ? 'Pause' : 'Play',
             ),
           ),

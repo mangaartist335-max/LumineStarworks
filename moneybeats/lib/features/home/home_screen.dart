@@ -60,25 +60,25 @@ class HomeScreen extends ConsumerWidget {
       QuickTile(
         label: 'Liked songs',
         icon: Icons.favorite_rounded,
-        iconBackground: const Color(0xFF5B3FD1),
+        iconBackground: AppColors.electric,
         onTap: () => open(const CollectionRef.likedSongs()),
       ),
       QuickTile(
         label: 'Recently played',
         icon: Icons.history_rounded,
-        iconBackground: const Color(0xFF2D4A5C),
+        iconBackground: const Color(0xFF24406B),
         onTap: () => open(const CollectionRef.recentlyPlayed()),
       ),
       QuickTile(
         label: 'Recently added',
         icon: Icons.auto_awesome_rounded,
-        iconBackground: const Color(0xFF1E6B57),
+        iconBackground: const Color(0xFF1B5E8C),
         onTap: () => open(const CollectionRef.recentlyAdded()),
       ),
       QuickTile(
         label: importing ? 'Importing…' : 'Import music',
         icon: Icons.add_rounded,
-        iconBackground: const Color(0xFF6B4E2E),
+        iconBackground: const Color(0xFF33415C),
         onTap: () => startImport(context, ref),
       ),
       for (final playlist in playlists.take(isDesktop ? 4 : 2))
@@ -252,10 +252,10 @@ class _WelcomeCard extends ConsumerWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF0B2E66), Color(0xFF15191B)],
+            colors: [Color(0xFF14336E), AppColors.backgroundSecondary],
           ),
           border: Border.all(
-            color: const Color(0xFF19C6FF).withValues(alpha: 0.28),
+            color: AppColors.ice.withValues(alpha: 0.25),
           ),
         ),
         child: Column(
@@ -284,7 +284,7 @@ class _WelcomeCard extends ConsumerWidget {
                       dimension: 18,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: AppColors.onMint,
+                        color: AppColors.onPrimary,
                       ),
                     )
                   : const Icon(Icons.library_add_rounded),

@@ -30,7 +30,7 @@ class WalletScreen extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color(0xFF2A2414), Color(0xFF17181A)],
+                  colors: [Color(0xFF2A2414), AppColors.surface],
                 ),
                 border: Border.all(
                   color: AppColors.rewardsGold.withValues(alpha: 0.35),
@@ -149,10 +149,10 @@ class _Upcoming extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: const BoxDecoration(
-              color: AppColors.mintSoft,
+              color: AppColors.primarySoft,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: AppColors.mint),
+            child: Icon(icon, color: AppColors.primary),
           ),
           const SizedBox(width: AppSpacing.lg),
           Expanded(

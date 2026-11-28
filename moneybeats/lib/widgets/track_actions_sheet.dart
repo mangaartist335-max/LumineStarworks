@@ -109,7 +109,7 @@ class _TrackActionsSheet extends ConsumerWidget {
               icon: live.isFavorite
                   ? Icons.favorite_rounded
                   : Icons.favorite_border_rounded,
-              iconColor: live.isFavorite ? AppColors.mint : null,
+              iconColor: live.isFavorite ? AppColors.primary : null,
               label: live.isFavorite
                   ? 'Remove from Liked songs'
                   : 'Add to Liked songs',

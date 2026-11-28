@@ -192,7 +192,7 @@ class _QueueRow extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleSmall?.copyWith(
-                      color: highlight ? AppColors.mint : AppColors.textPrimary,
+                      color: highlight ? AppColors.primary : AppColors.textPrimary,
                     ),
                   ),
                   Text(

@@ -10,10 +10,10 @@ abstract final class AppTheme {
   static ThemeData dark() {
     const scheme = ColorScheme(
       brightness: Brightness.dark,
-      primary: AppColors.mint,
-      onPrimary: AppColors.onMint,
-      secondary: AppColors.mint,
-      onSecondary: AppColors.onMint,
+      primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
+      secondary: AppColors.primary,
+      onSecondary: AppColors.onPrimary,
       tertiary: AppColors.rewardsGold,
       onTertiary: Color(0xFF2B1F00),
       error: AppColors.danger,
@@ -85,7 +85,7 @@ abstract final class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.background,
         surfaceTintColor: Colors.transparent,
-        indicatorColor: AppColors.mintSoft,
+        indicatorColor: AppColors.primarySoft,
         height: 68,
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) => TextStyle(
@@ -102,7 +102,7 @@ abstract final class AppTheme {
         iconTheme: WidgetStateProperty.resolveWith(
           (states) => IconThemeData(
             color: states.contains(WidgetState.selected)
-                ? AppColors.mint
+                ? AppColors.primary
                 : AppColors.textMuted,
           ),
         ),
@@ -118,8 +118,8 @@ abstract final class AppTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.mint,
-          foregroundColor: AppColors.onMint,
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.onPrimary,
           textStyle: const TextStyle(
             fontFamily: fontFamily,
             fontWeight: FontWeight.w800,
@@ -143,7 +143,7 @@ abstract final class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.mint,
+          foregroundColor: AppColors.primary,
           textStyle: const TextStyle(
             fontFamily: fontFamily,
             fontWeight: FontWeight.w700,
@@ -152,7 +152,7 @@ abstract final class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surfaceHigh,
-        selectedColor: AppColors.mint,
+        selectedColor: AppColors.primary,
         side: BorderSide.none,
         shape: const StadiumBorder(),
         labelStyle: const TextStyle(
@@ -163,7 +163,7 @@ abstract final class AppTheme {
         secondaryLabelStyle: const TextStyle(
           fontFamily: fontFamily,
           fontWeight: FontWeight.w700,
-          color: AppColors.onMint,
+          color: AppColors.onPrimary,
         ),
         showCheckmark: false,
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
@@ -183,7 +183,7 @@ abstract final class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
-          borderSide: const BorderSide(color: AppColors.mint, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
       ),
       bottomSheetTheme: const BottomSheetThemeData(
@@ -224,13 +224,13 @@ abstract final class AppTheme {
           color: AppColors.textPrimary,
           fontWeight: FontWeight.w600,
         ),
-        actionTextColor: AppColors.mint,
+        actionTextColor: AppColors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
         ),
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.mint,
+        color: AppColors.primary,
         linearTrackColor: Color(0x33FFFFFF),
       ),
       listTileTheme: const ListTileThemeData(

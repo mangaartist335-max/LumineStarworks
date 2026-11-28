@@ -178,7 +178,7 @@ class _SongsView extends ConsumerWidget {
                               if (option == sort)
                                 const Icon(
                                   Icons.check_rounded,
-                                  color: AppColors.mint,
+                                  color: AppColors.primary,
                                   size: 18,
                                 ),
                             ],
@@ -368,7 +368,7 @@ class _PlaylistsView extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               gradient: const LinearGradient(
-                colors: [Color(0xFF7C5CFF), Color(0xFF40E8AE)],
+                colors: [AppColors.electric, AppColors.ice],
               ),
             ),
             child: const Icon(Icons.favorite_rounded, color: Colors.white),
@@ -389,7 +389,7 @@ class _PlaylistsView extends ConsumerWidget {
               color: AppColors.surfaceHigh,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Icon(Icons.add_rounded, color: AppColors.mint),
+            child: const Icon(Icons.add_rounded, color: AppColors.primary),
           ),
           title: 'New playlist',
           subtitle: 'Collect your favourites in one place',

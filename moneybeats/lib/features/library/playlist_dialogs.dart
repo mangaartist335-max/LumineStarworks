@@ -196,10 +196,10 @@ class _AddToPlaylistSheet extends ConsumerWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: AppColors.mintSoft,
+                  color: AppColors.primarySoft,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Icon(Icons.add_rounded, color: AppColors.mint),
+                child: const Icon(Icons.add_rounded, color: AppColors.primary),
               ),
               title: const Text(
                 'New playlist',

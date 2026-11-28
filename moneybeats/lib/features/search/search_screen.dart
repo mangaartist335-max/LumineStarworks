@@ -204,37 +204,37 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       (
         'All songs',
         Icons.library_music_rounded,
-        const [Color(0xFF1FB985), Color(0xFF0E5A47)],
+        const [Color(0xFF3478F6), Color(0xFF1E3A8A)],
         () => open(const CollectionRef.allSongs()),
       ),
       (
         'Liked songs',
         Icons.favorite_rounded,
-        const [Color(0xFF7C5CFF), Color(0xFF3A2896)],
+        const [Color(0xFF4F6BF5), Color(0xFF26246B)],
         () => open(const CollectionRef.likedSongs()),
       ),
       (
         'Albums',
         Icons.album_rounded,
-        const [Color(0xFFFF8A4C), Color(0xFFA2304A)],
+        const [Color(0xFF3FA9E8), Color(0xFF16406E)],
         () => openLibrary(LibraryFilter.albums),
       ),
       (
         'Artists',
         Icons.mic_external_on_rounded,
-        const [Color(0xFF3BA7FF), Color(0xFF1A4D99)],
+        const [Color(0xFF6E7BF2), Color(0xFF2B2A5E)],
         () => openLibrary(LibraryFilter.artists),
       ),
       (
         'Recently added',
         Icons.auto_awesome_rounded,
-        const [Color(0xFFFF5FA2), Color(0xFF7A2A8C)],
+        const [Color(0xFF2FB5D9), Color(0xFF0E4A63)],
         () => open(const CollectionRef.recentlyAdded()),
       ),
       (
         'Recently played',
         Icons.history_rounded,
-        const [Color(0xFFD9B65B), Color(0xFF8A5A1A)],
+        const [Color(0xFF7C8AA5), Color(0xFF2D3648)],
         () => open(const CollectionRef.recentlyPlayed()),
       ),
     ];
