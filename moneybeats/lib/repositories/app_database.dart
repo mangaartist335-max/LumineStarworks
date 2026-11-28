@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 /// Which part of the data changed. Repositories broadcast these so state
 /// providers know when to reload.
-enum DataChange { tracks, playlists }
+enum DataChange { tracks, playlists, presets }
 
 /// Owns the SQLite connection, the schema and its migrations.
 class AppDatabase {
@@ -13,7 +13,9 @@ class AppDatabase {
   final Database db;
   final _changes = StreamController<DataChange>.broadcast();
 
-  static const schemaVersion = 1;
+  /// v1: library, playlists, listening sessions, settings (Phase 1).
+  /// v2: audio presets, per-track presets, media time in listening sessions.
+  static const schemaVersion = 2;
 
   Stream<DataChange> get changes => _changes.stream;
 
@@ -35,11 +37,19 @@ class AppDatabase {
         onCreate: (db, version) async {
           final batch = db.batch();
           _createSchema(batch);
+          _createV2(batch);
           await batch.commit(noResult: true);
         },
         onUpgrade: (db, from, to) async {
-          // Future schema versions add their migration steps here, e.g.
-          // if (from < 2) { ... }
+          // Additive migrations only: existing library data is never touched.
+          final batch = db.batch();
+          if (from < 2) {
+            _createV2(batch);
+            batch.execute(
+              'ALTER TABLE listening_sessions ADD COLUMN media_ms INTEGER NOT NULL DEFAULT 0',
+            );
+          }
+          await batch.commit(noResult: true);
         },
       ),
     );
@@ -104,7 +114,8 @@ class AppDatabase {
         track_id TEXT NOT NULL REFERENCES tracks(id) ON DELETE CASCADE,
         started_at INTEGER NOT NULL,
         listened_ms INTEGER NOT NULL,
-        completed INTEGER NOT NULL DEFAULT 0
+        completed INTEGER NOT NULL DEFAULT 0,
+        media_ms INTEGER NOT NULL DEFAULT 0
       )
     ''');
     batch.execute(
@@ -115,6 +126,28 @@ class AppDatabase {
       CREATE TABLE settings (
         key TEXT PRIMARY KEY,
         value TEXT NOT NULL
+      )
+    ''');
+  }
+
+  /// Phase 2 tables (Audio Studio).
+  static void _createV2(Batch batch) {
+    // User-made sound presets. Built-in presets live in code.
+    batch.execute('''
+      CREATE TABLE audio_presets (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        settings TEXT NOT NULL,
+        created_at INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL
+      )
+    ''');
+    // A preset chosen for one specific song (built-in or custom id).
+    batch.execute('''
+      CREATE TABLE track_audio_presets (
+        track_id TEXT PRIMARY KEY REFERENCES tracks(id) ON DELETE CASCADE,
+        preset_id TEXT NOT NULL,
+        assigned_at INTEGER NOT NULL
       )
     ''');
   }

@@ -109,7 +109,9 @@ class TrackTile extends ConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontSize: 15,
-                      color: isCurrent ? AppColors.primary : AppColors.textPrimary,
+                      color: isCurrent
+                          ? AppColors.primary
+                          : AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 3),

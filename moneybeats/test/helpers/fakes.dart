@@ -49,7 +49,13 @@ class FakeAudioPlayerService implements AudioPlayerService {
   final _queue = BehaviorSubject<QueueState>.seeded(QueueState.empty);
   final _position = BehaviorSubject<PositionState>.seeded(PositionState.zero);
   final _volume = BehaviorSubject<double>.seeded(1.0);
-  final _effects = BehaviorSubject<AudioEffects>.seeded(AudioEffects.neutral);
+  final _lifecycle = StreamController<PlaybackLifecycleEvent>.broadcast();
+  final _sessionIds = BehaviorSubject<int?>.seeded(null);
+
+  /// Engine-level values set by the effects service.
+  double speed = 1.0;
+  double pitch = 1.0;
+  double effectsGain = 1.0;
   final _errors = StreamController<PlaybackError>.broadcast();
   final _resolved = StreamController<ResolvedDuration>.broadcast();
 
@@ -97,9 +103,18 @@ class FakeAudioPlayerService implements AudioPlayerService {
   @override
   Stream<double> get volumeStream => _volume.stream;
   @override
-  AudioEffects get effects => _effects.value;
+  Stream<int?> get audioSessionIdStream => _sessionIds.stream;
   @override
-  Stream<AudioEffects> get effectsStream => _effects.stream;
+  Stream<PlaybackLifecycleEvent> get lifecycleStream => _lifecycle.stream;
+
+  /// Simulates a lifecycle event from the engine.
+  void emitLifecycle(PlaybackLifecycleType type) => _lifecycle.add(
+    PlaybackLifecycleEvent(
+      type: type,
+      at: DateTime.now(),
+      trackId: queue.currentTrack?.id,
+    ),
+  );
   @override
   Stream<PlaybackError> get errorStream => _errors.stream;
   @override
@@ -261,12 +276,19 @@ class FakeAudioPlayerService implements AudioPlayerService {
   void updateTracks(List<Track> tracks) {}
 
   @override
-  Future<void> setSpeed(double speed) async =>
-      _effects.add(_effects.value.copyWith(speed: speed));
+  Future<void> setSpeed(double speed) async {
+    if (speed != this.speed) calls.add('speed:${speed.toStringAsFixed(2)}');
+    this.speed = speed;
+  }
 
   @override
-  Future<void> setPitch(double pitch) async =>
-      _effects.add(_effects.value.copyWith(pitch: pitch));
+  Future<void> setPitch(double pitch) async {
+    if (pitch != this.pitch) calls.add('pitch:${pitch.toStringAsFixed(3)}');
+    this.pitch = pitch;
+  }
+
+  @override
+  Future<void> setEffectsGain(double gain) async => effectsGain = gain;
 
   @override
   Future<void> dispose() async {
@@ -274,7 +296,8 @@ class FakeAudioPlayerService implements AudioPlayerService {
     await _queue.close();
     await _position.close();
     await _volume.close();
-    await _effects.close();
+    await _lifecycle.close();
+    await _sessionIds.close();
     await _errors.close();
     await _resolved.close();
   }

@@ -34,6 +34,7 @@ class ListeningTracker {
   DateTime? _sessionStart;
   DateTime? _runningSince;
   Duration _accumulated = Duration.zero;
+  Duration _mediaAccumulated = Duration.zero;
   PositionState _lastPosition = PositionState.zero;
   Duration? _lastKnownDuration;
 
@@ -46,7 +47,7 @@ class ListeningTracker {
         ),
       )
       ..add(_player.statusStream.listen(_onStatus))
-      ..add(_player.positionStream.listen((p) => _lastPosition = p));
+      ..add(_player.positionStream.listen(_onPosition));
   }
 
   void _onTrack(String? trackId, Duration? duration) {
@@ -104,13 +105,27 @@ class ListeningTracker {
     );
   }
 
+  /// Counts song (media) time that actually played: forward steps while
+  /// playing, ignoring seeks (jumps) and track changes.
+  void _onPosition(PositionState p) {
+    final delta = p.position - _lastPosition.position;
+    if (_playing &&
+        delta > Duration.zero &&
+        delta < const Duration(seconds: 3)) {
+      _mediaAccumulated += delta;
+    }
+    _lastPosition = p;
+  }
+
   void _flush() {
     _pauseClock();
     final id = _trackId;
     final start = _sessionStart;
     final listened = _accumulated;
+    final media = _mediaAccumulated;
     _sessionStart = null;
     _accumulated = Duration.zero;
+    _mediaAccumulated = Duration.zero;
     if (id == null || start == null || listened < const Duration(seconds: 1)) {
       return;
     }
@@ -126,6 +141,7 @@ class ListeningTracker {
             startedAt: start,
             listened: listened,
             completed: completed,
+            media: media,
           )
           .catchError((Object e) {
             debugPrint('Could not record listening session: $e');

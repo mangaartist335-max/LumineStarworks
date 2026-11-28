@@ -87,6 +87,7 @@ class TrackRepository {
     await _db.delete('tracks', where: 'id = ?', whereArgs: [id]);
     await _storage.deleteQuietly(track.filePath);
     await _storage.deleteQuietly(track.artworkPath);
+    await _storage.deleteQuietly(_storage.waveformPath(id));
     _database.notify(DataChange.tracks);
     // Playlist membership is removed by the foreign key cascade.
     _database.notify(DataChange.playlists);

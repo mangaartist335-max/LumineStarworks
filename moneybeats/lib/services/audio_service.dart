@@ -37,8 +37,13 @@ abstract class AudioPlayerService {
   double get volume;
   Stream<double> get volumeStream;
 
-  AudioEffects get effects;
-  Stream<AudioEffects> get effectsStream;
+  /// Android: the audio session that native effects attach to (null
+  /// elsewhere, or before audio has loaded).
+  Stream<int?> get audioSessionIdStream;
+
+  /// Playback lifecycle events (start, pause, resume, stop, track change,
+  /// speed change, seek, completion). Groundwork for verified listening.
+  Stream<PlaybackLifecycleEvent> get lifecycleStream;
 
   Stream<PlaybackError> get errorStream;
   Stream<ResolvedDuration> get resolvedDurationStream;
@@ -93,8 +98,16 @@ abstract class AudioPlayerService {
   void updateTracks(List<Track> tracks);
 
   // Effects (ready for the Studio phase).
+  /// Playback rate (0.5-2.0). Pitch is preserved.
   Future<void> setSpeed(double speed);
+
+  /// Pitch factor (`2^(semitones/12)`), independent of speed. Only works where
+  /// the player supports pitch (Android); the desktop Studio uses filters.
   Future<void> setPitch(double pitch);
+
+  /// Attenuation on top of the user's volume, so effect boosts have headroom
+  /// without moving the volume slider. 1.0 is none.
+  Future<void> setEffectsGain(double gain);
 
   Future<void> dispose();
 }
@@ -106,6 +119,10 @@ abstract final class AudioBootstrap {
     if (PlatformCapabilities.usesMediaKitBackend) {
       // libmpv-based backend for Windows and Linux.
       JustAudioMediaKit.title = 'MoneyBeats';
+      // MoneyBeats owns libmpv's audio filter chain (Studio effects), so turn
+      // off media_kit's own pitch trick, which would overwrite it. Speed still
+      // keeps pitch through mpv's built-in tempo correction.
+      JustAudioMediaKit.pitch = false;
       JustAudioMediaKit.ensureInitialized(linux: true, windows: true);
     }
 
@@ -150,6 +167,7 @@ class JustAudioPlayerService implements AudioPlayerService {
     AudioSession? session,
     Random? random,
     bool? nativeShuffle,
+    AudioPipeline? audioPipeline,
   }) : _random = random ?? Random(),
        _nativeShuffle =
            nativeShuffle ?? !PlatformCapabilities.usesMediaKitBackend {
@@ -161,6 +179,8 @@ class JustAudioPlayerService implements AudioPlayerService {
       shuffleOrder: _shuffleOrder,
       // Skip past a damaged file instead of stopping the whole queue.
       maxSkipsOnError: 3,
+      // Android: the equaliser lives in the player's audio pipeline.
+      audioPipeline: audioPipeline,
     );
     _wire(session);
   }
@@ -191,7 +211,15 @@ class JustAudioPlayerService implements AudioPlayerService {
   final _queue = BehaviorSubject<QueueState>.seeded(QueueState.empty);
   final _position = BehaviorSubject<PositionState>.seeded(PositionState.zero);
   final _volume = BehaviorSubject<double>.seeded(1.0);
-  final _effects = BehaviorSubject<AudioEffects>.seeded(AudioEffects.neutral);
+  final _lifecycle = StreamController<PlaybackLifecycleEvent>.broadcast();
+  double _userVolume = 1.0;
+  double _effectsGain = 1.0;
+
+  // Lifecycle tracking.
+  String? _currentTrackId;
+  bool _wasActuallyPlaying = false;
+  bool _startedCurrentTrack = false;
+  bool _userChangedTrack = false;
   final _errors = StreamController<PlaybackError>.broadcast();
   final _resolvedDurations = StreamController<ResolvedDuration>.broadcast();
   final _subscriptions = <StreamSubscription<Object?>>[];
@@ -200,12 +228,12 @@ class JustAudioPlayerService implements AudioPlayerService {
     _subscriptions
       ..add(
         _player.playerStateStream.listen((state) {
-          _status.add(
-            PlaybackStatus(
-              playing: state.playing,
-              phase: _mapPhase(state.processingState),
-            ),
+          final status = PlaybackStatus(
+            playing: state.playing,
+            phase: _mapPhase(state.processingState),
           );
+          _status.add(status);
+          _onStatusForLifecycle(status);
         }),
       )
       ..add(_player.sequenceStateStream.listen(_onSequenceState))
@@ -221,7 +249,6 @@ class JustAudioPlayerService implements AudioPlayerService {
           ),
         ).distinct().listen(_position.add),
       )
-      ..add(_player.volumeStream.listen(_volume.add))
       ..add(_player.durationStream.listen(_onDuration))
       ..add(
         _player.errorStream.listen((error) {
@@ -290,6 +317,69 @@ class JustAudioPlayerService implements AudioPlayerService {
         sourceLabel: _sourceLabel,
       ),
     );
+    _onTrackForLifecycle(_queue.value.currentTrack?.id);
+  }
+
+  void _emit(PlaybackLifecycleType type, {String? trackId}) {
+    if (_lifecycle.isClosed) return;
+    _lifecycle.add(
+      PlaybackLifecycleEvent(
+        type: type,
+        at: DateTime.now(),
+        trackId: trackId ?? _currentTrackId,
+        position: _player.position,
+        speed: _player.speed,
+      ),
+    );
+  }
+
+  void _onStatusForLifecycle(PlaybackStatus status) {
+    final playing = status.isActuallyPlaying;
+    if (status.phase == PlaybackPhase.completed && _wasActuallyPlaying) {
+      _wasActuallyPlaying = false;
+      _emit(PlaybackLifecycleType.trackCompleted);
+      _emit(PlaybackLifecycleType.queueCompleted);
+      _startedCurrentTrack = false;
+      return;
+    }
+    if (playing && !_wasActuallyPlaying) {
+      _emit(
+        _startedCurrentTrack
+            ? PlaybackLifecycleType.resumed
+            : PlaybackLifecycleType.started,
+      );
+      _startedCurrentTrack = true;
+    } else if (!playing &&
+        _wasActuallyPlaying &&
+        !status.playing &&
+        status.phase != PlaybackPhase.completed) {
+      _emit(PlaybackLifecycleType.paused);
+    }
+    if (!status.isBusy) _wasActuallyPlaying = playing;
+  }
+
+  void _onTrackForLifecycle(String? trackId) {
+    if (trackId == _currentTrackId) return;
+    final previous = _currentTrackId;
+    if (previous != null && trackId != null && !_userChangedTrack) {
+      // Nobody skipped: the previous song played to its end.
+      _emit(PlaybackLifecycleType.trackCompleted, trackId: previous);
+    }
+    _userChangedTrack = false;
+    _currentTrackId = trackId;
+    if (trackId == null) {
+      if (previous != null) {
+        _emit(PlaybackLifecycleType.stopped, trackId: previous);
+      }
+      _startedCurrentTrack = false;
+      return;
+    }
+    _emit(PlaybackLifecycleType.trackChanged);
+    _startedCurrentTrack = false;
+    if (_status.value.isActuallyPlaying) {
+      _emit(PlaybackLifecycleType.started);
+      _startedCurrentTrack = true;
+    }
   }
 
   Track? _trackFor(IndexedAudioSource source) {
@@ -395,9 +485,9 @@ class JustAudioPlayerService implements AudioPlayerService {
   Stream<double> get volumeStream => _volume.stream;
 
   @override
-  AudioEffects get effects => _effects.value;
+  Stream<int?> get audioSessionIdStream => _player.androidAudioSessionIdStream;
   @override
-  Stream<AudioEffects> get effectsStream => _effects.stream;
+  Stream<PlaybackLifecycleEvent> get lifecycleStream => _lifecycle.stream;
 
   @override
   Stream<PlaybackError> get errorStream => _errors.stream;
@@ -424,6 +514,7 @@ class JustAudioPlayerService implements AudioPlayerService {
     if (start < 0) start = 0;
     if (shuffle) start = _random.nextInt(playable.length);
     _sourceLabel = sourceLabel;
+    _userChangedTrack = true;
     final sources = [for (final t in playable) _sourceFor(t)];
 
     await _guard(() async {
@@ -571,6 +662,7 @@ class JustAudioPlayerService implements AudioPlayerService {
       target = total;
     }
     await _player.seek(target);
+    _emit(PlaybackLifecycleType.seeked);
   });
 
   int? _relativeIndex(int offset) {
@@ -590,6 +682,7 @@ class JustAudioPlayerService implements AudioPlayerService {
   Future<void> skipToNext() => _guard(() async {
     final next = _relativeIndex(1);
     if (next == null) return;
+    _userChangedTrack = true;
     await _player.seek(Duration.zero, index: next);
     if (!_player.playing) _startPlayback();
   });
@@ -600,6 +693,7 @@ class JustAudioPlayerService implements AudioPlayerService {
     if (previous == null || _player.position > restartThreshold) {
       await _player.seek(Duration.zero);
     } else {
+      _userChangedTrack = true;
       await _player.seek(Duration.zero, index: previous);
     }
     if (!_player.playing) _startPlayback();
@@ -608,6 +702,7 @@ class JustAudioPlayerService implements AudioPlayerService {
   @override
   Future<void> skipToQueueIndex(int index) => _guard(() async {
     if (index < 0 || index >= _queue.value.tracks.length) return;
+    _userChangedTrack = index != _queue.value.currentIndex;
     await _player.seek(Duration.zero, index: index);
     if (!_player.playing) _startPlayback();
   });
@@ -658,8 +753,17 @@ class JustAudioPlayerService implements AudioPlayerService {
   Future<void> cycleRepeatMode() => setRepeatMode(_queue.value.repeatMode.next);
 
   @override
-  Future<void> setVolume(double volume) =>
-      _guard(() => _player.setVolume(volume.clamp(0.0, 1.0)));
+  Future<void> setVolume(double volume) => _guard(() async {
+    _userVolume = volume.clamp(0.0, 1.0);
+    _volume.add(_userVolume);
+    await _player.setVolume(_userVolume * _effectsGain);
+  });
+
+  @override
+  Future<void> setEffectsGain(double gain) => _guard(() async {
+    _effectsGain = gain.clamp(0.0, 1.0);
+    await _player.setVolume(_userVolume * _effectsGain);
+  });
 
   // --------------------------------------------------------- queue editing
 
@@ -746,17 +850,18 @@ class JustAudioPlayerService implements AudioPlayerService {
 
   @override
   Future<void> setSpeed(double speed) => _guard(() async {
-    final value = speed.clamp(0.5, 2.0);
+    final value = speed.clamp(0.5, 2.0).toDouble();
+    if ((value - _player.speed).abs() < 0.0001) return;
     await _player.setSpeed(value);
-    _effects.add(_effects.value.copyWith(speed: value));
+    _emit(PlaybackLifecycleType.speedChanged);
   });
 
   @override
   Future<void> setPitch(double pitch) => _guard(() async {
-    if (!PlatformCapabilities.supportsPitch) return;
-    final value = pitch.clamp(0.5, 2.0);
+    if (!PlatformCapabilities.supportsNativePitch) return;
+    final value = pitch.clamp(0.5, 2.0).toDouble();
+    if ((value - _player.pitch).abs() < 0.0001) return;
     await _player.setPitch(value);
-    _effects.add(_effects.value.copyWith(pitch: value));
   });
 
   @override
@@ -769,7 +874,7 @@ class JustAudioPlayerService implements AudioPlayerService {
     await _queue.close();
     await _position.close();
     await _volume.close();
-    await _effects.close();
+    await _lifecycle.close();
     await _errors.close();
     await _resolvedDurations.close();
   }

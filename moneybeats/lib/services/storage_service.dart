@@ -18,6 +18,10 @@ class StorageService {
       Directory(p.join(root.path, AppConstants.musicFolderName));
   Directory get artworkDir =>
       Directory(p.join(root.path, AppConstants.artworkFolderName));
+
+  /// Cached waveform data (safe to delete; regenerated on demand).
+  Directory get waveformDir =>
+      Directory(p.join(root.path, AppConstants.waveformFolderName));
   String get databasePath => p.join(root.path, AppConstants.databaseFileName);
 
   /// Opens the platform's private application-support folder.
@@ -42,7 +46,11 @@ class StorageService {
   Future<void> ensureCreated() async {
     await musicDir.create(recursive: true);
     await artworkDir.create(recursive: true);
+    await waveformDir.create(recursive: true);
   }
+
+  String waveformPath(String trackId) =>
+      p.join(waveformDir.path, '$trackId.json');
 
   /// Absolute path for a file name stored in the database.
   String musicPath(String fileName) => p.join(musicDir.path, fileName);

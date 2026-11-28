@@ -5,6 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:just_audio/just_audio.dart'
+    show AndroidEqualizer, AudioPipeline;
 import 'package:material_ui/material_ui.dart';
 import 'package:moneybeats/core/constants/app_constants.dart';
 import 'package:moneybeats/core/providers.dart';
@@ -15,9 +17,13 @@ import 'package:moneybeats/features/library/import_controller.dart';
 import 'package:moneybeats/features/library/library_providers.dart';
 import 'package:moneybeats/features/player/playback_coordinator.dart';
 import 'package:moneybeats/repositories/app_database.dart';
+import 'package:moneybeats/services/android_audio_processor.dart';
 import 'package:moneybeats/services/audio_service.dart';
 import 'package:moneybeats/services/import_service.dart';
+import 'package:moneybeats/services/mpv_audio_processor.dart';
+import 'package:moneybeats/services/platform_audio_processor.dart';
 import 'package:moneybeats/services/storage_service.dart';
+import 'package:moneybeats/services/waveform_service.dart';
 import 'package:moneybeats/widgets/app_shell.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -42,13 +48,46 @@ Future<void> main() async {
       : databaseFactory;
   final database = await AppDatabase.open(factory, storage.databasePath);
 
-  final audio = JustAudioPlayerService(session: session);
+  // Android's equaliser must be part of the player's audio pipeline.
+  final equalizer = Platform.isAndroid ? AndroidEqualizer() : null;
+  final audio = JustAudioPlayerService(
+    session: session,
+    audioPipeline: equalizer == null
+        ? null
+        : AudioPipeline(androidAudioEffects: [equalizer]),
+  );
+
+  // Audio Studio processing for this platform.
+  final PlatformAudioProcessor processor;
+  if (equalizer != null) {
+    processor = AndroidAudioProcessor(
+      equalizer: equalizer,
+      audioSessionIds: audio.audioSessionIdStream,
+    );
+  } else if (PlatformCapabilities.usesMediaKitBackend) {
+    processor = MpvAudioProcessor();
+  } else {
+    processor = SpeedOnlyAudioProcessor(engine: 'AVPlayer');
+  }
+
+  // Waveforms: decoded PCM on phones, MP3 frame loudness on desktop.
+  final waveforms = WaveformService(
+    storage: storage,
+    primary: PlatformCapabilities.isMobile
+        ? PcmWaveformExtractor(storage.waveformDir)
+        : const Mp3EnvelopeExtractor(),
+    fallback: PlatformCapabilities.isMobile
+        ? const Mp3EnvelopeExtractor()
+        : null,
+  );
 
   final container = ProviderContainer(
     overrides: [
       appDatabaseProvider.overrideWithValue(database),
       storageServiceProvider.overrideWithValue(storage),
       audioPlayerServiceProvider.overrideWithValue(audio),
+      platformAudioProcessorProvider.overrideWithValue(processor),
+      waveformServiceProvider.overrideWithValue(waveforms),
     ],
     // Surface errors instead of silently retrying.
     retry: (retryCount, error) => null,
@@ -94,6 +133,8 @@ class MoneyBeatsApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Starts session restore, listening tracking and library/queue syncing.
     ref.watch(playbackCoordinatorProvider);
+    // Restores and applies the saved Studio sound from the first song.
+    ref.watch(audioEffectsServiceProvider);
 
     return MaterialApp(
       title: AppConstants.appName,

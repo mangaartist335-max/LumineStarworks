@@ -17,7 +17,9 @@ abstract final class AppColors {
   static const primary = Color(0xFF3478F6);
   static const electric = Color(0xFF2563EB);
   static const ice = Color(0xFF67C8FF);
-  static const primarySoft = Color(0x293478F6); // 16% primary, for tinted surfaces
+  static const primarySoft = Color(
+    0x293478F6,
+  ); // 16% primary, for tinted surfaces
   static const onPrimary = Color(0xFFFFFFFF);
 
   /// The signature MoneyBeats gradient (logo, waveform, highlights).

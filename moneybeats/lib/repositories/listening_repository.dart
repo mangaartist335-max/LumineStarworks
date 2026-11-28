@@ -16,14 +16,27 @@ class ListeningRepository {
     required DateTime startedAt,
     required Duration listened,
     required bool completed,
+    Duration media = Duration.zero,
   }) async {
     if (listened <= Duration.zero) return;
     await _db.insert('listening_sessions', {
       'track_id': trackId,
       'started_at': startedAt.millisecondsSinceEpoch,
+      // Real elapsed listening time (what future rewards would count).
       'listened_ms': listened.inMilliseconds,
       'completed': completed ? 1 : 0,
+      // How far through the song that was; differs when speed isn't 1.0.
+      'media_ms': media.inMilliseconds,
     });
+  }
+
+  /// Total song (media) time covered since [since].
+  Future<Duration> totalMediaSince(DateTime since) async {
+    final rows = await _db.rawQuery(
+      'SELECT COALESCE(SUM(media_ms), 0) AS total FROM listening_sessions WHERE started_at >= ?',
+      [since.millisecondsSinceEpoch],
+    );
+    return Duration(milliseconds: (rows.first['total'] as num?)?.toInt() ?? 0);
   }
 
   /// Total time listened since [since].

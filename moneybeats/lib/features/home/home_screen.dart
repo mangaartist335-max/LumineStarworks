@@ -254,9 +254,7 @@ class _WelcomeCard extends ConsumerWidget {
             end: Alignment.bottomRight,
             colors: [Color(0xFF14336E), AppColors.backgroundSecondary],
           ),
-          border: Border.all(
-            color: AppColors.ice.withValues(alpha: 0.25),
-          ),
+          border: Border.all(color: AppColors.ice.withValues(alpha: 0.25)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

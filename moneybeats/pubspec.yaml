@@ -20,13 +20,16 @@ dependencies:
   just_audio_background: ^0.0.1-beta.17
   audio_session: ^0.2.4
   # Desktop (Windows / Linux) playback backend for just_audio
-  just_audio_media_kit: ^2.1.0
+  # Vendored (public domain) with a hook for the Studio's libmpv audio filters.
+  just_audio_media_kit:
+    path: packages/just_audio_media_kit
   media_kit_libs_windows_audio: ^1.0.9
   media_kit_libs_linux: ^1.2.1
 
   # Files and metadata
   file_picker: ^13.4.1
   audio_metadata_reader: ^1.8.1
+  just_waveform: ^0.0.7
   path_provider: ^2.1.6
   path: ^1.9.1
   crypto: ^3.0.8

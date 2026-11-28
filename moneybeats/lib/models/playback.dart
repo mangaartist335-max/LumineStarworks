@@ -180,53 +180,41 @@ class PositionState {
   int get hashCode => Object.hash(position, bufferedPosition, duration);
 }
 
-/// Audio effect settings. Phase 1 keeps them neutral; the Studio phase will
-/// expose controls for them. The engine already applies speed and pitch.
+/// Kinds of playback lifecycle event.
+enum PlaybackLifecycleType {
+  started,
+  paused,
+  resumed,
+  stopped,
+  trackChanged,
+  speedChanged,
+  seeked,
+  trackCompleted,
+  queueCompleted,
+}
+
+/// Something that happened to playback. [at] is real (wall-clock) time;
+/// [position] is the position in the song, which advances faster or slower
+/// than real time when the speed isn't 1.0.
 @immutable
-class AudioEffects {
-  const AudioEffects({
+class PlaybackLifecycleEvent {
+  const PlaybackLifecycleEvent({
+    required this.type,
+    required this.at,
+    this.trackId,
+    this.position = Duration.zero,
     this.speed = 1.0,
-    this.pitch = 1.0,
-    this.bassBoostDb = 0.0,
-    this.equalizerEnabled = false,
   });
 
-  static const neutral = AudioEffects();
-
-  /// Playback rate, 1.0 is normal.
+  final PlaybackLifecycleType type;
+  final DateTime at;
+  final String? trackId;
+  final Duration position;
   final double speed;
 
-  /// Pitch multiplier, 1.0 is the original key. 2^(semitones/12).
-  final double pitch;
-
-  /// Reserved for the Studio phase.
-  final double bassBoostDb;
-  final bool equalizerEnabled;
-
-  AudioEffects copyWith({
-    double? speed,
-    double? pitch,
-    double? bassBoostDb,
-    bool? equalizerEnabled,
-  }) {
-    return AudioEffects(
-      speed: speed ?? this.speed,
-      pitch: pitch ?? this.pitch,
-      bassBoostDb: bassBoostDb ?? this.bassBoostDb,
-      equalizerEnabled: equalizerEnabled ?? this.equalizerEnabled,
-    );
-  }
-
   @override
-  bool operator ==(Object other) =>
-      other is AudioEffects &&
-      other.speed == speed &&
-      other.pitch == pitch &&
-      other.bassBoostDb == bassBoostDb &&
-      other.equalizerEnabled == equalizerEnabled;
-
-  @override
-  int get hashCode => Object.hash(speed, pitch, bassBoostDb, equalizerEnabled);
+  String toString() =>
+      'PlaybackLifecycleEvent(${type.name}, $trackId, $position)';
 }
 
 /// A playback problem worth telling the user about.

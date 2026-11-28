@@ -27,10 +27,9 @@ abstract final class PlatformCapabilities {
   /// Playback speed is supported by every just_audio backend we ship.
   static bool get supportsSpeed => !kIsWeb;
 
-  /// Pitch shifting is supported on Android, iOS and macOS by just_audio.
-  /// Desktop support through media_kit is planned for the Studio phase.
-  static bool get supportsPitch =>
-      !kIsWeb && (Platform.isAndroid || Platform.isIOS || Platform.isMacOS);
+  /// Pitch shifting through just_audio itself (ExoPlayer). iOS's AVPlayer
+  /// has no pitch control; desktop pitch is done in the libmpv filter chain.
+  static bool get supportsNativePitch => !kIsWeb && Platform.isAndroid;
 
   /// A hardware-backed equaliser is available on Android
   /// (`AndroidEqualizer`). Other platforms will need a custom DSP stage.
