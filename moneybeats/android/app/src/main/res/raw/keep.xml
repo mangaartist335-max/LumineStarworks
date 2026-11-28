@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Resources that are looked up by name at runtime (from Dart, through
+     audio_service / just_audio_background). Release builds shrink unused
+     resources and can't see those lookups, so keep them explicitly. Without
+     this, the playback notification has no icon or buttons. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_stat_moneybeats,@drawable/audio_service_*,@mipmap/ic_launcher" />

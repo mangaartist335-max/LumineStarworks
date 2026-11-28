@@ -1,0 +1,68 @@
+name: moneybeats
+description: "MoneyBeats: a premium offline music player."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  material_ui: ^1.11.1
+  cupertino_ui: ^1.1.7
+
+  # State management
+  flutter_riverpod: ^3.5.0
+
+  # Audio
+  just_audio: ^0.10.6
+  just_audio_background: ^0.0.1-beta.17
+  audio_session: ^0.2.4
+  # Desktop (Windows / Linux) playback backend for just_audio
+  # Vendored (public domain) with a hook for the Studio's libmpv audio filters.
+  just_audio_media_kit:
+    path: packages/just_audio_media_kit
+  media_kit_libs_windows_audio: ^1.0.9
+  media_kit_libs_linux: ^1.2.1
+
+  # Files and metadata
+  file_picker: ^13.4.1
+  audio_metadata_reader: ^1.8.1
+  just_waveform: ^0.0.7
+  path_provider: ^2.1.6
+  path: ^1.9.1
+  crypto: ^3.0.8
+  uuid: ^4.6.0
+
+  # Persistent storage
+  sqflite: ^2.4.6
+  sqflite_common_ffi: ^2.4.7
+
+  collection: ^1.19.1
+  rxdart: ^0.28.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/brand/moneybeats_logo.png
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Manrope-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Manrope-ExtraBold.ttf
+          weight: 800
