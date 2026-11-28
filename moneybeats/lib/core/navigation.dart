@@ -8,6 +8,7 @@ enum AppTab {
   home('Home', Icons.home_outlined, Icons.home_rounded),
   search('Search', Icons.search_rounded, Icons.manage_search_rounded),
   library('Library', Icons.library_music_outlined, Icons.library_music_rounded),
+  studio('Studio', Icons.tune_rounded, Icons.graphic_eq_rounded),
   wallet(
     'Wallet',
     Icons.account_balance_wallet_outlined,
@@ -84,6 +85,17 @@ abstract final class AppNav {
             builder: (_) => CollectionScreen(collection: collection),
           ),
         );
+  }
+
+  /// Opens the Audio Studio tab (closing Now Playing if it is open).
+  static void openStudio(BuildContext context, WidgetRef ref) {
+    Navigator.of(
+      context,
+      rootNavigator: true,
+    ).popUntil((route) => route.isFirst);
+    final shell = ref.read(shellControllerProvider);
+    if (shell.tab != AppTab.studio) shell.selectTab(AppTab.studio);
+    shell.currentNavigator?.popUntil((route) => route.isFirst);
   }
 
   static Future<void> openNowPlaying(BuildContext context) {

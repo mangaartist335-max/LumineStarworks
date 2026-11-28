@@ -129,11 +129,12 @@ class WaveformService {
 
   Future<WaveformData?> load(String trackId, String audioPath) {
     final cached = _memory[trackId];
-    if (cached != null) return SynchronousFuture(cached);
-    return _inFlight[trackId] ??= _load(
-      trackId,
-      audioPath,
-    ).whenComplete(() => _inFlight.remove(trackId));
+    if (cached != null) return Future.value(cached);
+    // The callback must not return the removed future, or whenComplete
+    // would wait on itself and never finish.
+    return _inFlight[trackId] ??= _load(trackId, audioPath).whenComplete(() {
+      _inFlight.remove(trackId);
+    });
   }
 
   Future<WaveformData?> _load(String trackId, String audioPath) async {
@@ -190,12 +191,17 @@ abstract final class WaveformMath {
     return out;
   }
 
-  /// Scales so the loudest bar is 1, with a small floor so quiet parts
-  /// stay visible.
+  /// Scales so loud parts reach 1, with a small floor so quiet parts stay
+  /// visible. Uses the 97th percentile rather than the single loudest value,
+  /// so one transient doesn't flatten the rest of the song.
   static List<double> normalise(List<double> values) {
-    final peak = values.fold<double>(0, math.max);
-    if (peak <= 0) return [for (final _ in values) 0.04];
-    return [for (final v in values) (0.04 + 0.96 * v / peak).clamp(0.0, 1.0)];
+    if (values.isEmpty) return const [];
+    final sorted = List<double>.of(values)..sort();
+    final reference = sorted[((sorted.length - 1) * 0.97).round()];
+    if (reference <= 0) return [for (final _ in values) 0.04];
+    return [
+      for (final v in values) (0.04 + 0.96 * v / reference).clamp(0.0, 1.0),
+    ];
   }
 }
 

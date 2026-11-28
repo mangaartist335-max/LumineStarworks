@@ -180,6 +180,11 @@ class _TopBar extends ConsumerWidget {
             ),
           ),
           IconButton(
+            tooltip: 'Audio Studio',
+            onPressed: () => AppNav.openStudio(context, ref),
+            icon: const Icon(Icons.tune_rounded),
+          ),
+          IconButton(
             tooltip: 'More options',
             onPressed: () => showTrackActions(context, ref, track),
             icon: const Icon(Icons.more_vert_rounded),

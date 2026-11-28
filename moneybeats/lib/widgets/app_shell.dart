@@ -16,6 +16,7 @@ import 'package:moneybeats/features/player/desktop_player_bar.dart';
 import 'package:moneybeats/features/player/mini_player.dart';
 import 'package:moneybeats/features/player/playback_providers.dart';
 import 'package:moneybeats/features/search/search_screen.dart';
+import 'package:moneybeats/features/studio/studio_screen.dart';
 import 'package:moneybeats/features/wallet/wallet_screen.dart';
 import 'package:moneybeats/models/playback.dart';
 import 'package:moneybeats/widgets/app_logo.dart';
@@ -51,6 +52,7 @@ class _AppShellState extends ConsumerState<AppShell>
     AppTab.home => const HomeScreen(),
     AppTab.search => const SearchScreen(),
     AppTab.library => const LibraryScreen(),
+    AppTab.studio => const StudioScreen(),
     AppTab.wallet => const WalletScreen(),
   };
 
