@@ -1,27 +1,25 @@
+// MoneyBeats start-up and the root app widget.
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:moneybeats/core/constants/app_constants.dart';
+import 'package:moneybeats/core/providers.dart';
+import 'package:moneybeats/core/theme/app_colors.dart';
+import 'package:moneybeats/core/theme/app_theme.dart';
+import 'package:moneybeats/core/utilities/platform_capabilities.dart';
+import 'package:moneybeats/features/library/import_controller.dart';
+import 'package:moneybeats/features/library/library_providers.dart';
+import 'package:moneybeats/features/player/playback_coordinator.dart';
+import 'package:moneybeats/repositories/app_database.dart';
+import 'package:moneybeats/services/audio_service.dart';
+import 'package:moneybeats/services/import_service.dart';
+import 'package:moneybeats/services/storage_service.dart';
+import 'package:moneybeats/widgets/app_shell.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-
-import 'app.dart';
-import 'core/platform/platform_capabilities.dart';
-import 'core/theme/app_colors.dart';
-import 'data/database/app_database.dart';
-import 'data/storage/media_storage.dart';
-import 'services/audio/audio_bootstrap.dart';
-import 'services/audio/just_audio_player_service.dart';
-import 'services/import/audio_file_picker.dart';
-import 'state/core_providers.dart';
-import 'state/import_controller.dart';
-import 'state/library_providers.dart';
-
-/// Development helper: `--dart-define=MONEYBEATS_SEED_DIR=/path/to/mp3s`
-/// imports every MP3 in that folder on first launch, through the normal
-/// import pipeline. Handy for emulators and desktop testing.
-const _seedDir = String.fromEnvironment('MONEYBEATS_SEED_DIR');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +35,7 @@ Future<void> main() async {
 
   final session = await AudioBootstrap.initialize();
 
-  final storage = await MediaStorage.open();
+  final storage = await StorageService.open();
   if (PlatformCapabilities.usesSqfliteFfi) sqfliteFfiInit();
   final factory = PlatformCapabilities.usesSqfliteFfi
       ? databaseFactoryFfi
@@ -49,7 +47,7 @@ Future<void> main() async {
   final container = ProviderContainer(
     overrides: [
       appDatabaseProvider.overrideWithValue(database),
-      mediaStorageProvider.overrideWithValue(storage),
+      storageServiceProvider.overrideWithValue(storage),
       audioPlayerServiceProvider.overrideWithValue(audio),
     ],
     // Surface errors instead of silently retrying.
@@ -63,7 +61,9 @@ Future<void> main() async {
     ),
   );
 
-  if (_seedDir.isNotEmpty) unawaited(_seedLibrary(container, _seedDir));
+  if (AppConstants.seedDirectory.isNotEmpty) {
+    unawaited(_seedLibrary(container, AppConstants.seedDirectory));
+  }
 }
 
 Future<void> _seedLibrary(ProviderContainer container, String path) async {
@@ -84,5 +84,24 @@ Future<void> _seedLibrary(ProviderContainer container, String path) async {
     debugPrint('Seeded library: ${result.summary}');
   } catch (e) {
     debugPrint('Seeding failed: $e');
+  }
+}
+
+class MoneyBeatsApp extends ConsumerWidget {
+  const MoneyBeatsApp({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Starts session restore, listening tracking and library/queue syncing.
+    ref.watch(playbackCoordinatorProvider);
+
+    return MaterialApp(
+      title: AppConstants.appName,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.dark(),
+      darkTheme: AppTheme.dark(),
+      themeMode: ThemeMode.dark,
+      home: const AppShell(),
+    );
   }
 }

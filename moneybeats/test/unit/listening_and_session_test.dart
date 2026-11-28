@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moneybeats/data/repositories/settings_repository.dart';
-import 'package:moneybeats/services/audio/listening_tracker.dart';
-import 'package:moneybeats/services/audio/playback_models.dart';
-import 'package:moneybeats/services/audio/playback_session_keeper.dart';
-import 'package:moneybeats/services/import/audio_file_picker.dart';
+import 'package:moneybeats/models/playback.dart';
+import 'package:moneybeats/repositories/settings_repository.dart';
+import 'package:moneybeats/services/import_service.dart';
+import 'package:moneybeats/services/listening_tracker.dart';
+import 'package:moneybeats/services/playback_session_keeper.dart';
 
 import '../helpers/fakes.dart';
 import '../helpers/test_env.dart';

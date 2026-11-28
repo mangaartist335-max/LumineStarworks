@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:moneybeats/app.dart';
-import 'package:moneybeats/data/models/track.dart';
-import 'package:moneybeats/state/core_providers.dart';
-import 'package:moneybeats/state/import_controller.dart';
-import 'package:moneybeats/ui/screens/now_playing/now_playing_screen.dart';
+import 'package:moneybeats/core/providers.dart';
+import 'package:moneybeats/features/library/import_controller.dart';
+import 'package:moneybeats/features/player/now_playing_screen.dart';
+import 'package:moneybeats/main.dart';
+import 'package:moneybeats/models/track.dart';
 
 import '../helpers/fakes.dart';
 import '../helpers/test_env.dart';
@@ -53,7 +53,7 @@ Future<_Harness> _pumpApp(
       retry: (_, _) => null,
       overrides: [
         appDatabaseProvider.overrideWithValue(env.database),
-        mediaStorageProvider.overrideWithValue(env.storage),
+        storageServiceProvider.overrideWithValue(env.storage),
         audioPlayerServiceProvider.overrideWithValue(audio),
         audioFilePickerProvider.overrideWithValue(picker),
       ],

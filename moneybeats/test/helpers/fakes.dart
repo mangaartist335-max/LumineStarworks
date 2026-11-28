@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:moneybeats/data/models/track.dart';
-import 'package:moneybeats/services/audio/audio_player_service.dart';
-import 'package:moneybeats/services/audio/playback_models.dart';
-import 'package:moneybeats/services/import/audio_file_picker.dart';
+import 'package:moneybeats/models/playback.dart';
+import 'package:moneybeats/models/track.dart';
+import 'package:moneybeats/services/audio_service.dart';
+import 'package:moneybeats/services/import_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Builds a [Track] with sensible defaults for tests.

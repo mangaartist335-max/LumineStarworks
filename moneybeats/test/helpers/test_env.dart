@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:moneybeats/data/database/app_database.dart';
-import 'package:moneybeats/data/repositories/listening_repository.dart';
-import 'package:moneybeats/data/repositories/playlist_repository.dart';
-import 'package:moneybeats/data/repositories/settings_repository.dart';
-import 'package:moneybeats/data/repositories/track_repository.dart';
-import 'package:moneybeats/data/storage/media_storage.dart';
-import 'package:moneybeats/services/import/music_import_service.dart';
+import 'package:moneybeats/repositories/app_database.dart';
+import 'package:moneybeats/repositories/listening_repository.dart';
+import 'package:moneybeats/repositories/playlist_repository.dart';
+import 'package:moneybeats/repositories/settings_repository.dart';
+import 'package:moneybeats/repositories/track_repository.dart';
+import 'package:moneybeats/services/import_service.dart';
+import 'package:moneybeats/services/storage_service.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 /// A throwaway database and media folder for one test.
@@ -14,7 +14,7 @@ class TestEnv {
   TestEnv._(this.database, this.storage, this.tempDir);
 
   final AppDatabase database;
-  final MediaStorage storage;
+  final StorageService storage;
   final Directory tempDir;
 
   late final tracks = TrackRepository(database, storage);
@@ -31,7 +31,7 @@ class TestEnv {
   }) async {
     sqfliteFfiInit();
     final tempDir = await Directory.systemTemp.createTemp('moneybeats_test_');
-    final storage = MediaStorage(tempDir);
+    final storage = StorageService(tempDir);
     await storage.ensureCreated();
     final factory = noIsolate
         ? databaseFactoryFfiNoIsolate

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moneybeats/services/import/metadata_extractor.dart';
+import 'package:moneybeats/services/import_service.dart';
 
 import '../helpers/fakes.dart';
 

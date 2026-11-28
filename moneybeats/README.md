@@ -161,44 +161,51 @@ flutter test integration_test -d <android-device-id> \
 ## Architecture
 
 ```
-lib/
-  main.dart                 Start-up: audio stack, storage, database, providers
-  app.dart                  MaterialApp and theme
-  core/
-    theme/                  Colour tokens, spacing, radii, breakpoints, ThemeData
-    platform/               PlatformCapabilities: what each platform supports
-    utils/                  Formatters
-  data/
-    models/                 Track, Playlist, Album, Artist, LibraryQuery (search/sort/group)
-    database/               AppDatabase: SQLite schema, migrations, change notifications
-    repositories/           Tracks, playlists, settings, listening activity
-    storage/                MediaStorage: app-managed music and artwork folders
-  services/
-    audio/                  AudioPlayerService (interface) + JustAudioPlayerService,
-                            playback models, shuffle order, listening tracker,
-                            session keeper, platform audio bootstrap
-    import/                 File picker gateway, metadata extractor, import service
-  state/                    Riverpod providers and controllers
-  ui/
-    shell/                  Responsive app shell (phone and desktop frames)
-    screens/                Home, Search, Library, Collection, Now Playing, Wallet
-    widgets/                Artwork, track rows, player controls, mini player,
-                            desktop player bar, queue, sheets and dialogs
+moneybeats/
+├── android/ ios/ windows/       Platform projects (linux/ is a development target)
+├── assets/                      Fonts and the in-app logo
+├── lib/
+│   ├── main.dart                Start-up (audio, storage, database, providers) and the root app widget
+│   ├── core/
+│   │   ├── theme/               Colour tokens and ThemeData
+│   │   ├── constants/           App constants, spacing, radii and breakpoints
+│   │   ├── utilities/           Formatters, PlatformCapabilities
+│   │   ├── navigation.dart      Tabs, per-tab navigators, navigation helpers
+│   │   └── providers.dart       Root providers: database, storage, audio, repositories
+│   ├── models/                  Track, Playlist, Album, Artist, playback state, LibraryQuery
+│   ├── repositories/            SQLite (AppDatabase) and the track, playlist, settings
+│   │                            and listening repositories
+│   ├── services/
+│   │   ├── audio_service.dart   The single audio engine (interface + just_audio implementation)
+│   │   ├── import_service.dart  File picker, tag/artwork extraction, importing
+│   │   ├── storage_service.dart App-managed music, artwork and database folders
+│   │   ├── listening_tracker.dart       Records real listening time
+│   │   └── playback_session_keeper.dart Saves and restores the queue and settings
+│   ├── features/
+│   │   ├── home/                Home screen
+│   │   ├── search/              Search screen and search state
+│   │   ├── library/             Library, album/artist/playlist pages, playlists, importing
+│   │   ├── player/              Now Playing, mini player, desktop player bar, controls,
+│   │   │                        queue, playback state and coordinator
+│   │   └── wallet/              Wallet screen
+│   └── widgets/                 Shared widgets: app shell, artwork, track rows, logo, cards
+├── test/                        Unit and widget tests (+ MP3 fixtures)
+├── integration_test/            On-device tests with the real audio engine
+├── branding/                    Logo source and icon generator
+├── pubspec.yaml
+└── README.md
 ```
 
 ### Layers
 
 ```
- UI (screens, widgets)
-   │  watches
-   ▼
- State (Riverpod providers, controllers, AppCoordinator)
-   │  calls
+ Features and widgets (screens, feature state)
+   │  watch / call
    ▼
  Services (AudioPlayerService, MusicImportService, ListeningTracker, SessionKeeper)
    │  use
    ▼
- Data (repositories → AppDatabase / SQLite, MediaStorage → files)
+ Repositories (AppDatabase / SQLite)  ·  StorageService (files)  ·  Models
 ```
 
 - **One audio engine.** `audioPlayerServiceProvider` holds a single
@@ -215,7 +222,7 @@ lib/
 - **Database.** `tracks`, `playlists`, `playlist_tracks` (ordered, with cascading
   deletes), `listening_sessions` and `settings`. Repositories broadcast changes and
   the library and playlist providers reload automatically.
-- **Coordinator.** `AppCoordinator` restores the last session once the library
+- **Coordinator.** `PlaybackCoordinator` (features/player) restores the last session once the library
   loads, keeps queued songs in sync with library edits, stores exact durations
   from the decoder, and runs the listening tracker and session keeper.
 - **Navigation.** Each tab has its own navigator, so album, artist and playlist

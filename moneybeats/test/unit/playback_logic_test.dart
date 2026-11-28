@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moneybeats/core/utils/formatters.dart';
-import 'package:moneybeats/services/audio/playback_models.dart';
-import 'package:moneybeats/services/audio/queue_shuffle_order.dart';
+import 'package:moneybeats/core/utilities/formatters.dart';
+import 'package:moneybeats/models/playback.dart';
+import 'package:moneybeats/services/audio_service.dart';
 
 import '../helpers/fakes.dart';
 

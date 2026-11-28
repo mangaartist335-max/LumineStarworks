@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moneybeats/data/database/app_database.dart';
-import 'package:moneybeats/data/repositories/settings_repository.dart';
-import 'package:moneybeats/data/repositories/track_repository.dart';
-import 'package:moneybeats/services/import/audio_file_picker.dart';
+import 'package:moneybeats/repositories/app_database.dart';
+import 'package:moneybeats/repositories/settings_repository.dart';
+import 'package:moneybeats/repositories/track_repository.dart';
+import 'package:moneybeats/services/import_service.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../helpers/fakes.dart';

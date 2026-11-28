@@ -12,19 +12,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:moneybeats/app.dart';
-import 'package:moneybeats/core/platform/platform_capabilities.dart';
-import 'package:moneybeats/data/database/app_database.dart';
-import 'package:moneybeats/data/models/track.dart';
-import 'package:moneybeats/data/repositories/track_repository.dart';
-import 'package:moneybeats/data/storage/media_storage.dart';
-import 'package:moneybeats/services/audio/audio_bootstrap.dart';
-import 'package:moneybeats/services/audio/just_audio_player_service.dart';
-import 'package:moneybeats/services/audio/playback_models.dart';
-import 'package:moneybeats/services/import/audio_file_picker.dart';
-import 'package:moneybeats/services/import/music_import_service.dart';
-import 'package:moneybeats/state/core_providers.dart';
-import 'package:moneybeats/ui/screens/now_playing/now_playing_screen.dart';
+import 'package:moneybeats/core/providers.dart';
+import 'package:moneybeats/core/utilities/platform_capabilities.dart';
+import 'package:moneybeats/features/player/now_playing_screen.dart';
+import 'package:moneybeats/main.dart';
+import 'package:moneybeats/models/playback.dart';
+import 'package:moneybeats/models/track.dart';
+import 'package:moneybeats/repositories/app_database.dart';
+import 'package:moneybeats/repositories/track_repository.dart';
+import 'package:moneybeats/services/audio_service.dart';
+import 'package:moneybeats/services/import_service.dart';
+import 'package:moneybeats/services/storage_service.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 const _fixturesDefine = String.fromEnvironment('MB_FIXTURES');
@@ -53,7 +51,7 @@ void main() {
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   late Directory tempDir;
-  late MediaStorage storage;
+  late StorageService storage;
   late AppDatabase database;
   late JustAudioPlayerService audio;
   late List<Track> tracks;
@@ -61,7 +59,7 @@ void main() {
   setUpAll(() async {
     final session = await AudioBootstrap.initialize();
     tempDir = await Directory.systemTemp.createTemp('moneybeats_it_');
-    storage = MediaStorage(tempDir);
+    storage = StorageService(tempDir);
     await storage.ensureCreated();
     if (PlatformCapabilities.usesSqfliteFfi) sqfliteFfiInit();
     final factory = PlatformCapabilities.usesSqfliteFfi
@@ -277,7 +275,7 @@ void main() {
         retry: (_, _) => null,
         overrides: [
           appDatabaseProvider.overrideWithValue(database),
-          mediaStorageProvider.overrideWithValue(storage),
+          storageServiceProvider.overrideWithValue(storage),
           audioPlayerServiceProvider.overrideWithValue(audio),
         ],
         child: const MoneyBeatsApp(),

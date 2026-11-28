@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moneybeats/data/models/library_query.dart';
+import 'package:moneybeats/models/library_query.dart';
 
 import '../helpers/fakes.dart';
 

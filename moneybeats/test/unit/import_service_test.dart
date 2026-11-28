@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moneybeats/services/import/audio_file_picker.dart';
-import 'package:moneybeats/services/import/music_import_service.dart';
+import 'package:moneybeats/services/import_service.dart';
 
 import '../helpers/fakes.dart';
 import '../helpers/test_env.dart';

@@ -1,7 +1,11 @@
 # MoneyBeats: notes for coding agents
 
 This is a Flutter app (not the repository's Next.js app). Read `README.md` for the
-architecture. A few things differ from older Flutter knowledge:
+architecture. Code is organised by layer (`core/`, `models/`, `repositories/`,
+`services/`) and by feature (`features/home|search|library|player|wallet`), with
+shared widgets in `widgets/`. Put new screens and their state in the feature folder.
+
+A few things differ from older Flutter knowledge:
 
 - **Flutter 3.50 / Dart 3.14.** Material lives in `package:material_ui/material_ui.dart`
   and Cupertino in `package:cupertino_ui/cupertino_ui.dart`;
