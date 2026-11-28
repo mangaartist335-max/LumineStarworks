@@ -253,9 +253,11 @@ class _WelcomeCard extends ConsumerWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF14523F), Color(0xFF15191B)],
+            colors: [Color(0xFF0B2E66), Color(0xFF15191B)],
           ),
-          border: Border.all(color: AppColors.mint.withValues(alpha: 0.25)),
+          border: Border.all(
+            color: const Color(0xFF19C6FF).withValues(alpha: 0.28),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

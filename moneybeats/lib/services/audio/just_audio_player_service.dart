@@ -109,7 +109,7 @@ class JustAudioPlayerService implements AudioPlayerService {
             PlaybackError(
               track == null
                   ? "That song couldn't be played."
-                  : "Couldn't play “${track.title}”. The file may be damaged.",
+                  : "Couldn't play “${track.title}”. Check the file or your audio output.",
               trackId: track?.id,
             ),
           );

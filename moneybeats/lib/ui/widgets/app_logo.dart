@@ -2,36 +2,34 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../core/theme/app_colors.dart';
 
-/// The MoneyBeats mark: a row of waveform bars in mint.
+/// The MoneyBeats mark: the "M" ribbon over waveform bars.
+///
+/// [size] is the height; the mark is about 2.3 times as wide. The image is
+/// generated from `branding/moneybeats_logo_source.webp` by
+/// `branding/generate_icons.py`.
 class AppLogoMark extends StatelessWidget {
-  const AppLogoMark({super.key, this.size = 28, this.color = AppColors.mint});
+  const AppLogoMark({super.key, this.size = 28});
 
   final double size;
-  final Color color;
 
-  static const _heights = [0.35, 0.7, 1.0, 0.55, 0.85, 0.4];
+  static const asset = 'assets/brand/moneybeats_logo.png';
+
+  /// Width divided by height of the trimmed logo.
+  static const aspectRatio = 1314 / 571;
 
   @override
   Widget build(BuildContext context) {
-    final barWidth = size / (_heights.length * 1.8);
-    return SizedBox(
-      width: size,
+    final width = size * aspectRatio;
+    final dpr = MediaQuery.maybeDevicePixelRatioOf(context) ?? 2.0;
+    return Image.asset(
+      asset,
       height: size,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          for (final h in _heights)
-            Container(
-              width: barWidth,
-              height: size * h,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(barWidth),
-              ),
-            ),
-        ],
-      ),
+      width: width,
+      fit: BoxFit.contain,
+      cacheWidth: (width * dpr).round(),
+      filterQuality: FilterQuality.medium,
+      semanticLabel: 'MoneyBeats',
+      excludeFromSemantics: false,
     );
   }
 }

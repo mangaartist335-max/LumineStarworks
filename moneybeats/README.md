@@ -1,5 +1,7 @@
 # MoneyBeats
 
+<p align="center"><img src="assets/brand/moneybeats_logo.png" width="360" alt="MoneyBeats logo"></p>
+
 A premium offline music player for Android, iOS and Windows, built with Flutter.
 MoneyBeats will one day reward you for the music you listen to. **Phase 1** is the
 foundation: a fast, beautiful player for your own MP3s, with no internet,
@@ -57,6 +59,8 @@ imported demo MP3s.*
 - No real or simulated earnings yet
 
 **Design**
+- The MoneyBeats logo (the "M" ribbon over waveform bars) on the launcher icons, splash
+  screens, notification and inside the app
 - Dark theme with a mint accent (`#40E8AE`), Manrope typography (bundled, works offline)
 - Large artwork, rounded surfaces, artwork-tinted backgrounds, smooth animations
   (Hero artwork, animated play/pause, playing indicators, press feedback)
@@ -257,6 +261,9 @@ available in this environment:
 ## Platform notes and remaining requirements
 
 **Android**
+- `res/raw/keep.xml` stops release builds from stripping resources that are looked
+  up by name at runtime (the notification icon and audio_service's notification
+  buttons). Keep it if you add more by-name resources.
 - `minSdk` 24, `targetSdk` 36. Background playback uses a `mediaPlayback`
   foreground service (`AudioService`) and `MainActivity` extends
   `AudioServiceActivity`.
@@ -294,6 +301,28 @@ available in this environment:
   MoneyBeats shuffles by reordering the queue itself (the current song keeps
   playing from the same spot after a brief reload) and restores the original order
   when shuffle is turned off. Android and iOS use the engine's native shuffle.
+
+---
+
+## Branding
+
+The logo source lives in `branding/moneybeats_logo_source.webp`. Every icon and
+splash image is generated from it:
+
+```bash
+python3 branding/generate_icons.py    # needs Pillow: pip install pillow
+```
+
+| Output | Where |
+| --- | --- |
+| In-app logo | `assets/brand/moneybeats_logo.png` (`AppLogoMark` widget) |
+| Android launcher icon | adaptive icon (dark background + logo), legacy PNGs, and a monochrome layer for Android 13+ themed icons |
+| Android notification icon | `drawable-*/ic_stat_moneybeats.png` (white silhouette) |
+| Android splash | logo on `#101112`, plus the Android 12+ system splash colour |
+| iOS app icon and launch screen | `AppIcon.appiconset`, `LaunchImage.imageset`, dark `LaunchScreen.storyboard` |
+| Windows icon | `windows/runner/resources/app_icon.ico` |
+
+Swap in a new source file and re-run the script to rebrand everything at once.
 
 ---
 
