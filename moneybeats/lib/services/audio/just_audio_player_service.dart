@@ -19,9 +19,19 @@ import 'queue_shuffle_order.dart';
 /// On Android and iOS, `just_audio_background` turns that player into a
 /// background service with notification and lock-screen controls. On
 /// Windows and Linux, `just_audio_media_kit` provides the backend.
+///
+/// Shuffle: Android and iOS use the engine's native shuffle order. The
+/// desktop backend can't take a custom order (it reshuffles its own playlist,
+/// which would desynchronise queue indices), so there the service shuffles
+/// by physically reordering the queue and restores the order afterwards.
 class JustAudioPlayerService implements AudioPlayerService {
-  JustAudioPlayerService({AudioSession? session, Random? random})
-    : _random = random ?? Random() {
+  JustAudioPlayerService({
+    AudioSession? session,
+    Random? random,
+    bool? nativeShuffle,
+  }) : _random = random ?? Random(),
+       _nativeShuffle =
+           nativeShuffle ?? !PlatformCapabilities.usesMediaKitBackend {
     _shuffleOrder = QueueShuffleOrder(
       currentIndex: () => _player.currentIndex,
       random: _random,
@@ -37,6 +47,16 @@ class JustAudioPlayerService implements AudioPlayerService {
   late final AudioPlayer _player;
   late final QueueShuffleOrder _shuffleOrder;
   final Random _random;
+
+  /// Whether the backend supports custom shuffle orders.
+  final bool _nativeShuffle;
+
+  /// Queue-reordering shuffle state (backends without native shuffle).
+  bool _softShuffle = false;
+  List<AudioSource> _orderBeforeShuffle = const [];
+
+  bool get _shuffleOn =>
+      _nativeShuffle ? _player.shuffleModeEnabled : _softShuffle;
 
   /// Restart the current track instead of going back if past this point.
   static const restartThreshold = Duration(seconds: 3);
@@ -130,8 +150,11 @@ class JustAudioPlayerService implements AudioPlayerService {
       final track = _trackFor(source);
       if (track != null) tracks.add(track);
     }
-    final playOrder =
-        state.shuffleModeEnabled && state.shuffleIndices.length == tracks.length
+    final nativeShuffled =
+        _nativeShuffle &&
+        state.shuffleModeEnabled &&
+        state.shuffleIndices.length == tracks.length;
+    final playOrder = nativeShuffled
         ? List<int>.of(state.shuffleIndices)
         : List<int>.generate(tracks.length, (i) => i);
     _queue.add(
@@ -139,7 +162,9 @@ class JustAudioPlayerService implements AudioPlayerService {
         tracks: tracks,
         currentIndex: tracks.isEmpty ? null : state.currentIndex,
         playOrder: playOrder,
-        shuffleEnabled: state.shuffleModeEnabled,
+        shuffleEnabled: _nativeShuffle
+            ? state.shuffleModeEnabled
+            : _softShuffle,
         repeatMode: _fromLoopMode(state.loopMode),
         sourceLabel: _sourceLabel,
       ),
@@ -278,14 +303,35 @@ class JustAudioPlayerService implements AudioPlayerService {
     if (start < 0) start = 0;
     if (shuffle) start = _random.nextInt(playable.length);
     _sourceLabel = sourceLabel;
+    final sources = [for (final t in playable) _sourceFor(t)];
 
     await _guard(() async {
+      if (!_nativeShuffle) {
+        if (shuffle) _softShuffle = true;
+        var ordered = sources;
+        var initial = start;
+        if (_softShuffle) {
+          // The chosen song first, the rest shuffled after it.
+          _orderBeforeShuffle = List.of(sources);
+          ordered = _shuffledAround(sources, start);
+          initial = 0;
+        }
+        await _player.setAudioSources(
+          ordered,
+          initialIndex: initial,
+          initialPosition: Duration.zero,
+          preload: false,
+        );
+        _startPlayback();
+        return;
+      }
+
       if (shuffle && !_player.shuffleModeEnabled) {
         await _player.setShuffleModeEnabled(true);
       }
       _shuffleOrder.insertMode = ShuffleInsertMode.atEnd;
       await _player.setAudioSources(
-        [for (final t in playable) _sourceFor(t)],
+        sources,
         initialIndex: start,
         initialPosition: Duration.zero,
         shuffleOrder: _shuffleOrder,
@@ -295,6 +341,36 @@ class JustAudioPlayerService implements AudioPlayerService {
       if (_player.shuffleModeEnabled) await _player.shuffle();
       _startPlayback();
     });
+  }
+
+  /// [sources] with the item at [first] moved to the front and the rest
+  /// shuffled.
+  List<AudioSource> _shuffledAround(List<AudioSource> sources, int first) {
+    final rest = [
+      for (var i = 0; i < sources.length; i++)
+        if (i != first) sources[i],
+    ]..shuffle(_random);
+    return [sources[first], ...rest];
+  }
+
+  /// Puts the live queue in [target] order (desktop shuffle). The desktop
+  /// backend can't move the playing entry reliably, so the queue is rebuilt
+  /// and the current song resumes from the same position.
+  Future<void> _reorderQueue(List<AudioSource> target) async {
+    final index = _player.currentIndex;
+    final sources = _player.audioSources;
+    if (index == null || index >= sources.length) return;
+    final current = sources[index];
+    final wasPlaying = _player.playing;
+    final position = _player.position;
+    final newIndex = target.indexWhere((s) => identical(s, current));
+    await _player.setAudioSources(
+      target,
+      initialIndex: newIndex < 0 ? 0 : newIndex,
+      initialPosition: position,
+      preload: wasPlaying,
+    );
+    if (wasPlaying) _startPlayback();
   }
 
   @override
@@ -314,9 +390,21 @@ class JustAudioPlayerService implements AudioPlayerService {
       position = Duration.zero;
     }
     await _guard(() async {
+      final sources = [for (final t in playable) _sourceFor(t)];
+      if (!_nativeShuffle) {
+        // A restored queue is already in the order it was being played.
+        _orderBeforeShuffle = List.of(sources);
+        await _player.setAudioSources(
+          sources,
+          initialIndex: start,
+          initialPosition: position,
+          preload: false,
+        );
+        return;
+      }
       _shuffleOrder.insertMode = ShuffleInsertMode.atEnd;
       await _player.setAudioSources(
-        [for (final t in playable) _sourceFor(t)],
+        sources,
         initialIndex: start,
         initialPosition: position,
         shuffleOrder: _shuffleOrder,
@@ -407,14 +495,39 @@ class JustAudioPlayerService implements AudioPlayerService {
 
   @override
   Future<void> setShuffleEnabled(bool enabled) => _guard(() async {
-    await _player.setShuffleModeEnabled(enabled);
-    // Keep the current song first and shuffle everything else.
-    if (enabled) await _player.shuffle();
+    if (_nativeShuffle) {
+      await _player.setShuffleModeEnabled(enabled);
+      // Keep the current song first and shuffle everything else.
+      if (enabled) await _player.shuffle();
+      return;
+    }
+    if (enabled == _softShuffle) return;
+    final sources = List<AudioSource>.of(_player.audioSources);
+    final current = _player.currentIndex;
+    if (enabled) {
+      _orderBeforeShuffle = sources;
+      _softShuffle = true;
+      if (sources.length > 1 && current != null) {
+        await _reorderQueue(_shuffledAround(sources, current));
+      }
+    } else {
+      _softShuffle = false;
+      // Restore the original order; songs added while shuffled go last.
+      final original = [
+        for (final s in _orderBeforeShuffle)
+          if (sources.any((x) => identical(x, s))) s,
+      ];
+      final added = [
+        for (final s in sources)
+          if (!original.any((x) => identical(x, s))) s,
+      ];
+      await _reorderQueue([...original, ...added]);
+    }
+    _onSequenceState(_player.sequenceState);
   });
 
   @override
-  Future<void> toggleShuffle() =>
-      setShuffleEnabled(!_player.shuffleModeEnabled);
+  Future<void> toggleShuffle() => setShuffleEnabled(!_shuffleOn);
 
   @override
   Future<void> setRepeatMode(PlayerRepeatMode mode) =>

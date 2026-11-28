@@ -72,6 +72,12 @@ set_target_properties(${BINARY_NAME}
 
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
+# Offline builds: media_kit downloads mimalloc from GitHub at configure time.
+# Set MONEYBEATS_OFFLINE_BUILD=1 to skip it and use the system allocator.
+if(DEFINED ENV{MONEYBEATS_OFFLINE_BUILD})
+  set(MIMALLOC_USE_STATIC_LIBS OFF CACHE BOOL "" FORCE)
+endif()
+
 include(flutter/generated_plugins.cmake)
 
 

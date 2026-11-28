@@ -25,6 +25,7 @@ This repository also contains separate apps that share nothing with BuildBrief:
 - [`apps/mobile/`](apps/mobile/README.md): **BuildBrief for iOS and Android**, the native mobile app. It shares this app's accounts, projects and AI.
 - [`plantpal/`](plantpal/README.md): **PlantPal**, an Expo mobile app that reminds you when to water your houseplants.
 - [`yal/`](yal/README.md): **YourAnimeList**, the anime database and forums shown inside the desktop's browser.
+- [`moneybeats/`](moneybeats/README.md): **MoneyBeats**, a Flutter offline music player for Android, iOS and Windows (Phase 1: local MP3 library and player).
 
 To put those two online as their own Vercel projects (this app's deployment stays as it is), follow [`docs/DEPLOY_VERCEL.md`](docs/DEPLOY_VERCEL.md).
 

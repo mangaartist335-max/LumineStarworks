@@ -49,7 +49,7 @@ class _PlayPauseButtonState extends ConsumerState<PlayPauseButton>
     }
 
     final foreground = widget.filled
-        ? AppColors.onMint
+        ? (hasQueue ? AppColors.onMint : AppColors.textMuted)
         : (widget.color ?? AppColors.textPrimary);
     final icon = AnimatedIcon(
       icon: AnimatedIcons.play_pause,
@@ -81,36 +81,41 @@ class _PlayPauseButtonState extends ConsumerState<PlayPauseButton>
       );
     }
 
-    return SizedBox.square(
-      dimension: widget.size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Material(
-            color: widget.color ?? AppColors.mint,
-            shape: const CircleBorder(),
-            elevation: 8,
-            shadowColor: AppColors.mint.withValues(alpha: 0.35),
-            child: InkWell(
-              customBorder: const CircleBorder(),
-              onTap: onTap,
-              child: SizedBox.square(
-                dimension: widget.size,
-                child: Center(child: icon),
-              ),
-            ),
-          ),
-          if (busy)
-            IgnorePointer(
-              child: SizedBox.square(
-                dimension: widget.size + 6,
-                child: const CircularProgressIndicator(
-                  strokeWidth: 2.5,
-                  color: AppColors.mint,
+    return Tooltip(
+      message: showPause ? 'Pause' : 'Play',
+      child: SizedBox.square(
+        dimension: widget.size,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Material(
+              color: hasQueue
+                  ? (widget.color ?? AppColors.mint)
+                  : AppColors.surfaceHigh,
+              elevation: hasQueue ? 8 : 0,
+              shape: const CircleBorder(),
+              shadowColor: AppColors.mint.withValues(alpha: 0.35),
+              child: InkWell(
+                customBorder: const CircleBorder(),
+                onTap: onTap,
+                child: SizedBox.square(
+                  dimension: widget.size,
+                  child: Center(child: icon),
                 ),
               ),
             ),
-        ],
+            if (busy)
+              IgnorePointer(
+                child: SizedBox.square(
+                  dimension: widget.size + 6,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: AppColors.mint,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

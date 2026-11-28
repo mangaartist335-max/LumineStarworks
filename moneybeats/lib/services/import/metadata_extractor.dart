@@ -84,7 +84,8 @@ abstract final class MetadataExtractor {
       trackNumber: (tags.trackNumber != null && tags.trackNumber! > 0)
           ? tags.trackNumber
           : null,
-      year: tags.year?.year,
+      // Some taggers store a missing year as 0.
+      year: (tags.year?.year ?? 0) > 0 ? tags.year!.year : null,
       duration: tags.duration ?? Duration.zero,
       artworkBytes: picture?.bytes,
       artworkMimeType: picture?.mimetype,

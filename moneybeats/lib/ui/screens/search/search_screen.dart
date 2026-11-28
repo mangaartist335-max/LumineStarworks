@@ -64,6 +64,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               delegate: _SearchFieldHeader(
                 child: Container(
                   color: AppColors.background,
+                  alignment: Alignment.center,
                   padding: const EdgeInsets.fromLTRB(
                     AppSpacing.gutter,
                     AppSpacing.xs,
@@ -226,7 +227,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       ),
       (
         'Recently added',
-        Icons.new_releases_rounded,
+        Icons.auto_awesome_rounded,
         const [Color(0xFFFF5FA2), Color(0xFF7A2A8C)],
         () => open(const CollectionRef.recentlyAdded()),
       ),
@@ -326,7 +327,7 @@ class _SearchFieldHeader extends SliverPersistentHeaderDelegate {
     BuildContext context,
     double shrinkOffset,
     bool overlapsContent,
-  ) => child;
+  ) => SizedBox.expand(child: child);
 
   @override
   bool shouldRebuild(_SearchFieldHeader oldDelegate) =>

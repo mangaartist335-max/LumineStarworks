@@ -72,7 +72,7 @@ class HomeScreen extends ConsumerWidget {
       ),
       QuickTile(
         label: 'Recently added',
-        icon: Icons.new_releases_rounded,
+        icon: Icons.auto_awesome_rounded,
         iconBackground: const Color(0xFF1E6B57),
         onTap: () => open(const CollectionRef.recentlyAdded()),
       ),

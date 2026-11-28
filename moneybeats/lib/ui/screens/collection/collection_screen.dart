@@ -115,7 +115,7 @@ _CollectionData _resolve(WidgetRef ref, CollectionRef collection) {
         title: 'Recently added',
         tracks: ref.watch(recentlyAddedProvider),
         seed: 'recent-added',
-        icon: Icons.new_releases_rounded,
+        icon: Icons.auto_awesome_rounded,
         emptyMessage:
             'Import some music and your newest songs will appear here.',
       );

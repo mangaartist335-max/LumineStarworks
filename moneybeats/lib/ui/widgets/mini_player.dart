@@ -112,6 +112,10 @@ class _MiniPlayerBody extends ConsumerWidget {
                       Expanded(
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 250),
+                          layoutBuilder: (current, previous) => Stack(
+                            alignment: Alignment.centerLeft,
+                            children: [...previous, ?current],
+                          ),
                           child: Column(
                             key: ValueKey(track.id),
                             crossAxisAlignment: CrossAxisAlignment.start,
